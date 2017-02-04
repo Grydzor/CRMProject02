@@ -1,4 +1,4 @@
 Aleksey Mykhalsky
-Anton Peshkov
+Anton Peshkov   +
 Nikita Beregulya
 Vadim Kovalchuk +
