@@ -18,3 +18,5 @@ hs_err_pid*
 
 .idea/libraries/
 .idea/workspace.xml
+
+hibernate.cfg.xml
