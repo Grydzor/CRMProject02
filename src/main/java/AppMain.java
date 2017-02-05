@@ -11,7 +11,7 @@ public class AppMain extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("login_panel.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("view/login_panel.fxml"));
         primaryStage.setTitle("CRM");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root));
