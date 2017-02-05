@@ -24,10 +24,22 @@ public class Employee {
     private Integer age;
 
     @Column(name = "SEX")
+    @Enumerated
     private Sex sex;
 
     @Column(name = "POSITION")
+    @Enumerated
     private Position position;
+
+    public Employee() {}
+
+    public Employee(String name, String surname, Integer age, Sex sex, Position position) {
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.sex = sex;
+        this.position = position;
+    }
 
     public Long getId() {
         return id;

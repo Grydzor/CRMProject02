@@ -1,21 +1,7 @@
 package service;
 
+import entity.User;
+
 public interface UserService {
-
-    static void createUser() {
-
-    }
-
-    static void changeUser() {
-
-    }
-
-    static void deleteUser() {
-
-    }
-
-    static void generateUser() {
-
-    }
-
+    Long add(User user);
 }
