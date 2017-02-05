@@ -1,7 +1,7 @@
 package util;
 
+
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -12,7 +12,7 @@ public class HibernateSessionFactory {
 
     private static SessionFactory build() {
         Configuration config = new Configuration().
-                configure();
+                configure("/hibernate.cfg.xml");
 
         StandardServiceRegistryBuilder builder =
                 new StandardServiceRegistryBuilder();
