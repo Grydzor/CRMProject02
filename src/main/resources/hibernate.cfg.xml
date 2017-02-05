@@ -4,19 +4,24 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-
+        <!-- Блок настроек подключения к DB -->
+        <property name="connection.url">
+            jdbc:mysql://localhost:3306/first_db
+        </property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/first_db</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="connection.username">root</property>
         <property name="connection.password">qwerty</property>
-        <property name="show_sql">true</property>
 
+        <!-- Рекомендуется использовать create: при подключении к BD создается схема
+        Потом нужно переключиться на update - обновление содержимого базы данных
+        (чтобы не затереть данные, которые использует ещё кто-то)
+        Есть еще вариант create-drop: удалить и создать -->
         <property name="hbm2ddl.auto">create</property>
         <property name="connection.pool_size">1</property>
 
+        <property name="show_sql">true</property>
+
         <mapping class="entity.Employee"/>
         <mapping class="entity.User"/>
-
     </session-factory>
 </hibernate-configuration>

@@ -2,78 +2,62 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>CRMProject02</groupId>
-    <artifactId>CRMProject02</artifactId>
+    <groupId>practice</groupId>
+    <artifactId>practice</artifactId>
+
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <hibernate-version>5.0.1.Final</hibernate-version>
+        <junit.version>4.12</junit.version>
+        <org.mysql.version>5.1.40</org.mysql.version>
+        <org.hibernate.version>4.3.8.Final</org.hibernate.version>
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Подключение MySQL Connector -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.40</version>
+            <version>${org.mysql.version}</version>
         </dependency>
-
+        <dependency>
+            <!-- Подключение Google json -->
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+        <!-- Подключение ORM Hibernate -->
+        <dependency>
+            <groupId>org.hibernate.common</groupId>
+            <artifactId>hibernate-commons-annotations</artifactId>
+            <version>4.0.5.Final</version>
+        </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>${hibernate-version}</version>
+            <version>${org.hibernate.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate-version}</version>
+            <version>${org.hibernate.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-osgi</artifactId>
-            <version>${hibernate-version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-envers</artifactId>
-            <version>${hibernate-version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-c3p0</artifactId>
-            <version>${hibernate-version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-proxool</artifactId>
-            <version>${hibernate-version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-infinispan</artifactId>
-            <version>${hibernate-version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-ehcache</artifactId>
-            <version>${hibernate-version}</version>
-        </dependency>
-
     </dependencies>
 
     <build>
+        <!-- Плагин который собирает проект на уровне языка Java 1.8 -->
+        <!-- Добавлено в связи с тем что у нас разнобой в настройках -->
         <plugins>
-            <!-- Плагин который собирает проект на уровне языка Java 1.8 -->
-            <!-- Добавлено в связи с тем что у нас разнобой в настройках -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -85,6 +69,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>
