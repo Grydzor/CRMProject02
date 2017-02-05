@@ -2,20 +2,21 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
+      <Label text="Welcome! Enter the system." underline="true" />
       <TextField fx:id="fldLogin" promptText="username..." />
-      <PasswordField fx:id="fldPassword" promptText="password..." />
+      <PasswordField fx:id="fldPassword" onAction="#enterButtonAction" promptText="password..." />
       <HBox alignment="CENTER" spacing="20.0">
          <children>
             <Button fx:id="btnEnter" mnemonicParsing="false" onAction="#enterButtonAction" text="Log In" />
-            <Button fx:id="btnExit" mnemonicParsing="false" onAction="#exitButtonAction" text="Exit" />
+            <Button fx:id="btnExit" mnemonicParsing="false" onAction="#exitButtonAction" prefWidth="58.0" text="Exit" />
          </children>
       </HBox>
    </children>

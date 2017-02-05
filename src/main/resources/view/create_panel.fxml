@@ -3,53 +3,18 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-
-<?import javafx.scene.control.TextField?>
-<VBox xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="10.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateController">
    <children>
-      <HBox spacing="10.0">
+      <HBox alignment="CENTER" spacing="10.0">
          <children>
-            <Label text="Name" />
-            <TextField />
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </HBox>
-      <HBox spacing="10.0">
-         <children>
-            <Label text="Surname" />
-            <TextField />
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </HBox>
-      <HBox spacing="10.0">
-         <children>
-            <Label text="Age" />
-            <TextField />
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </HBox>
-      <HBox layoutX="10.0" layoutY="210.0" spacing="10.0">
-         <children>
-            <Label text="Sex" />
-            <TextField />
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </HBox>
-      <HBox layoutX="10.0" layoutY="310.0" spacing="10.0">
-         <children>
-            <Label text="Position" />
-            <TextField />
+            <Label text="Name:" />
+            <Region HBox.hgrow="ALWAYS" />
+            <TextField fx:id="fldName" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -57,8 +22,48 @@
       </HBox>
       <HBox alignment="CENTER" spacing="10.0">
          <children>
-            <Button mnemonicParsing="false" text="Create" />
-            <Button mnemonicParsing="false" text="Exit" />
+            <Label text="Surname:" />
+            <Region HBox.hgrow="ALWAYS" />
+            <TextField fx:id="fldSurname" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER" spacing="10.0">
+         <children>
+            <Label text="Age:" />
+            <Region HBox.hgrow="ALWAYS" />
+            <TextField fx:id="fldAge" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="210.0" spacing="10.0">
+         <children>
+            <Label text="Sex:" />
+            <Region HBox.hgrow="ALWAYS" />
+            <TextField fx:id="fldSex" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="310.0" spacing="10.0">
+         <children>
+            <Label text="Position:" />
+            <Region HBox.hgrow="ALWAYS" />
+            <TextField fx:id="fldPosition" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER" spacing="10.0">
+         <children>
+            <Button fx:id="btnCreate" mnemonicParsing="false" onAction="#actionCreateButton" text="Create" />
+            <Button fx:id="btnClose" mnemonicParsing="false" onAction="#actionCloseButton" prefWidth="62.0" text="Close" />
          </children>
       </HBox>
    </children>
