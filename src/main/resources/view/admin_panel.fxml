@@ -38,7 +38,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="btnCreate" mnemonicParsing="false" prefWidth="79.0" text="Create" />
+                  <Button fx:id="btnCreate" mnemonicParsing="false" onAction="#createButtonAction" prefWidth="79.0" text="Create" />
                   <Button fx:id="btnDelete" mnemonicParsing="false" prefWidth="79.0" text="Delete" GridPane.rowIndex="1" />
                   <Button fx:id="btnChange" mnemonicParsing="false" prefHeight="26.0" prefWidth="79.0" text="Change" GridPane.columnIndex="1" />
                   <Button fx:id="btnGenerate" mnemonicParsing="false" text="Generate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
