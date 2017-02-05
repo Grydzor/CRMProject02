@@ -8,9 +8,6 @@ import service.UserService;
 import service.UserServiceImpl;
 import util.HibernateSessionFactory;
 
-/**
- * Created by eriol4ik on 05/02/2017.
- */
 public class Test {
     public static void main(String[] args) {
         UserService userService = new UserServiceImpl();

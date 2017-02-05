@@ -5,9 +5,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- * Created by Aleksey on 04.02.2017.
- */
 public class AppMain extends Application{
 
     @Override
@@ -24,5 +21,4 @@ public class AppMain extends Application{
     public static void main(String[] args) {
         launch(args);
     }
-
 }

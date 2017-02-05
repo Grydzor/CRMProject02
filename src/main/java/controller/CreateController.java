@@ -68,7 +68,8 @@ public class CreateController {
         employeeService.add(employee);
         userService.add(user);
 
-        HibernateSessionFactory.getSessionFactory().close();
+        /* Нужно закрывать в конце работы программы, так как нам ещё нужна работа с БД */
+//        HibernateSessionFactory.getSessionFactory().close();
 
         Stage stage = (Stage) btnCreate.getScene().getWindow();
         stage.close();

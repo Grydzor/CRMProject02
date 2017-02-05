@@ -9,10 +9,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * Created by eriol4ik on 05/02/2017.
- */
-public class GraphicLoader {
+//todo
+public class GraphicsLoader {
     private void loadAndShow(String resource, String title) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
         Parent root = loader.load();
