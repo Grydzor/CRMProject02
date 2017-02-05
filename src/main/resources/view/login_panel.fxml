@@ -7,13 +7,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-      minWidth="-Infinity" prefHeight="341.0" prefWidth="517.0" xmlns="http://javafx.com/javafx/8.0.60"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="341.0" prefWidth="517.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
-      <Button fx:id="btnEnter" layoutX="38.0" layoutY="251.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="184.0" text="ENTER" />
-      <Button fx:id="btnExit" layoutX="313.0" layoutY="251.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="184.0" text="EXIT" />
+      <Button fx:id="btnEnter" layoutX="38.0" layoutY="251.0" mnemonicParsing="false" onAction="#enterButtonAction" prefHeight="50.0" prefWidth="184.0" text="ENTER" />
+      <Button fx:id="btnExit" layoutX="313.0" layoutY="251.0" mnemonicParsing="false" onAction="#exitButtonAction" prefHeight="50.0" prefWidth="184.0" text="EXIT" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="54.0" prefHeight="50.0" prefWidth="184.0" text="Login:">
          <font>
             <Font size="24.0" />
