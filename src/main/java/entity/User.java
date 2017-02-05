@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @Column(name = "EMPLOYEE_ID")
+    @Column(name = "USER_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -17,7 +17,8 @@ public class User {
     @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "EMPLOYEE")
+    @OneToOne
+    @JoinColumn(name = "EMPLOYEE_ID")
     private Employee employee;
 
     public Long getId() {
