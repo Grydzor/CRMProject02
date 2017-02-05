@@ -4,28 +4,26 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 
 public class HibernateSessionFactory {
+    private static final SessionFactory factory = build();
+    private static StandardServiceRegistry registry;
 
-    private static SessionFactory sessionFactory = buildSessionFactory();
+    private static SessionFactory build() {
+        Configuration config = new Configuration().
+                configure();
 
-    protected static SessionFactory buildSessionFactory() {
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-        try {
-            sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-        } catch (Exception e) {
-            StandardServiceRegistryBuilder.destroy(registry);
-            throw new ExceptionInInitializerError("Initial SessionFactory failed" + e);
-        }
-        return sessionFactory;
+        StandardServiceRegistryBuilder builder =
+                new StandardServiceRegistryBuilder();
+        builder.applySettings(config.getProperties());
+
+        registry = builder.build();
+
+        return config.buildSessionFactory(registry);
     }
 
     public static SessionFactory getSessionFactory() {
-        return sessionFactory;
+        return factory;
     }
-
-    public static void shutDown() {
-        getSessionFactory().close();
-    }
-
 }
