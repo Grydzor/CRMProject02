@@ -8,7 +8,6 @@ import util.HibernateSessionFactory;
 
 import java.util.List;
 
-@Deprecated
 public class EmployeeDAOImpl implements EmployeeDAO {
     private SessionFactory factory;
 
@@ -34,21 +33,49 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public Employee read(Long id) {
-        return null;
+        Session session = factory.openSession();
+        try {
+            return (Employee) session.get(Employee.class, id);
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public Boolean update(Employee employee) {
-        return null;
+        Session session = factory.openSession();
+        try {
+            session.beginTransaction();
+            session.update(employee);
+            session.getTransaction().commit();
+            return true;
+        } catch (HibernateException he) {
+            session.getTransaction().rollback();
+            return false;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public Boolean delete(Employee employee) {
-        return null;
+        Session session = factory.openSession();
+        try {
+            session.beginTransaction();
+            session.delete(employee);
+            session.getTransaction().commit();
+            return true;
+        } catch (HibernateException he) {
+            session.getTransaction().rollback();
+            return false;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Employee> findAll() {
-        return null;
+        return factory.openSession().createCriteria(Employee.class).list();
     }
 }

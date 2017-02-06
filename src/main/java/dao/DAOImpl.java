@@ -37,7 +37,6 @@ public class DAOImpl implements DAO {
     @Override
     @SuppressWarnings("unchecked")
     public <T> T read(Class<T> type, Long id) {
-
         Session session = factory.openSession();
         try {
             return (T) session.get(type, id);
