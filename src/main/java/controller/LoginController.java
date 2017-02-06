@@ -14,6 +14,7 @@ import service.EmployeeService;
 import service.Service;
 import service.ServiceImpl;
 import service.UserService;
+import util.GraphicsLoader;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,54 +30,32 @@ public class LoginController {
     @FXML
     private Button btnEnter, btnExit;
 
-    private UserService userService;
-    private EmployeeService employeeService;
-
     public void enterButtonAction() throws IOException {
-        Boolean isAdmin = false;
-        Boolean isManager = false;
-
         Service service = new ServiceImpl();
         List<User> users = service.findAll(User.class);
-
+        int count = 0;
         for (User user : users) {
-            if (user.getLogin().equals(fldLogin.getText())
-                    && user.getPassword().equals(fldPassword.getText())) {
-                if (user.getEmployee().getPosition() == Position.ADMIN) {
-                    isAdmin = true;
-                } else if (user.getEmployee().getPosition() == Position.MANAGER) {
-                    isManager = true;
+            if (user.getLogin().equals(fldLogin.getText()) && user.getPassword().equals(fldPassword.getText())) {
+                switch (user.getEmployee().getPosition()) {
+                    case ADMIN:
+                        GraphicsLoader.newWindow("/view/admin_panel.fxml", "Administration");
+                        GraphicsLoader.closeWindow(btnEnter);
+                        break;
+                    case MANAGER:
+                        GraphicsLoader.newWindow("/view/manager_panel.fxml", "Management");
+                        GraphicsLoader.closeWindow(btnEnter);
+                        break;
                 }
+            } else if (count == users.size() - 1) {
+                GraphicsLoader.newModalWindow("/view/password_alert.fxml", "Oops!");
+            } else {
+                count++;
             }
-        }
-        if (isAdmin) {
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/view/admin_panel.fxml"));
-            stage.setTitle("Administration");
-            stage.setResizable(false);
-            stage.setScene(new Scene(root));
-            stage.show();
-            Stage old = (Stage) btnEnter.getScene().getWindow();
-            old.close();
-        } else if (isManager) {
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/view/manager_panel.fxml"));
-            stage.setTitle("Management");
-            stage.setResizable(false);
-            stage.setScene(new Scene(root));
-            stage.show();
-            Stage old = (Stage) btnEnter.getScene().getWindow();
-            old.close();
-        } else {
-            fldLogin.setText("");
-            fldPassword.setText("");
-            fldPassword.setPromptText("PASSWORD IS WRONG!");
         }
     }
 
     public void exitButtonAction() {
-        Stage stage = (Stage) btnExit.getScene().getWindow();
-        stage.close();
+        GraphicsLoader.closeWindow(btnExit);
     }
 
 }
