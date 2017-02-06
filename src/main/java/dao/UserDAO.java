@@ -4,6 +4,7 @@ import entity.User;
 
 import java.util.List;
 
+@Deprecated
 public interface UserDAO {
     Long create(User user);
 

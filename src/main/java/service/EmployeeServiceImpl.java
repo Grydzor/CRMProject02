@@ -4,8 +4,11 @@ import dao.EmployeeDAO;
 import dao.EmployeeDAOImpl;
 import entity.Employee;
 
+import java.util.Date;
+
+@Deprecated
 public class EmployeeServiceImpl implements EmployeeService {
-    EmployeeDAO employeeDAO;
+    private EmployeeDAO employeeDAO;
 
     public EmployeeServiceImpl() {
         employeeDAO = new EmployeeDAOImpl();

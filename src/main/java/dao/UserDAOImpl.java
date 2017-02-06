@@ -8,8 +8,9 @@ import util.HibernateSessionFactory;
 
 import java.util.List;
 
+@Deprecated
 public class UserDAOImpl implements UserDAO {
-    SessionFactory factory = HibernateSessionFactory.getSessionFactory();
+    private SessionFactory factory = HibernateSessionFactory.getSessionFactory();
 
     @Override
     public Long create(User user) {

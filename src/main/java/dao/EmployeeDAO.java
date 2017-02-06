@@ -4,6 +4,7 @@ import entity.Employee;
 
 import java.util.List;
 
+@Deprecated
 public interface EmployeeDAO {
     Long create(Employee employee);
 

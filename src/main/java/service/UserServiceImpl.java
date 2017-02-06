@@ -5,6 +5,7 @@ import dao.UserDAOImpl;
 import entity.User;
 import util.HibernateSessionFactory;
 
+@Deprecated
 public class UserServiceImpl implements UserService {
     private UserDAO userDAO;
 

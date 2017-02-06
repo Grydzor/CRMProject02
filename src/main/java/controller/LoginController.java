@@ -13,7 +13,7 @@ import service.UserService;
 
 import java.io.IOException;
 
-public class LoginController implements Controller {
+public class LoginController {
 
     @FXML
     private TextField fldLogin;
@@ -26,15 +26,6 @@ public class LoginController implements Controller {
 
     private UserService userService;
     private EmployeeService employeeService;
-
-    @Override
-    public void setService(EmployeeService service) {
-        this.employeeService = service;
-    }
-
-    public void setService(UserService service) {
-        this.userService = service;
-    }
 
     public void enterButtonAction() throws IOException {
         if (fldLogin.getText().equals("admin") && fldPassword.getText().equals("admin")){

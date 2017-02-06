@@ -8,6 +8,7 @@ import util.HibernateSessionFactory;
 
 import java.util.List;
 
+@Deprecated
 public class EmployeeDAOImpl implements EmployeeDAO {
     private SessionFactory factory;
 
