@@ -10,6 +10,8 @@ import util.GraphicsLoader;
 
 import java.io.IOException;
 
+
+// TODO Добавить закрытие SessionFactory по закрытии окна:
 public class AdminController {
 
     @FXML private TextArea fldListEmployee;
@@ -22,13 +24,14 @@ public class AdminController {
 
     private Service service = new ServiceImpl();
 
+    @FXML
     public void createButtonAction() throws IOException {
-        CreateController createController = GraphicsLoader.newWindowGeneric("/view/create_panel.fxml", "Create...", true);
+        CreateController createController = GraphicsLoader.newWindowGeneric(
+                "/view/create_panel.fxml", "Create...", true);
 
         Employee newEmployee;
         if ((newEmployee = createController.getEmployee()) != null) {
             service.add(newEmployee);
         }
     }
-
 }

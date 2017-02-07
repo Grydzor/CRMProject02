@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import service.Service;
 import service.ServiceImpl;
 import util.GraphicsLoader;
+import util.HibernateSessionFactory;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,6 +24,7 @@ public class LoginController {
     @FXML
     private Button btnEnter, btnExit;
 
+    // TODO Поправить, используя метод User find(String login) класса UserServiceImpl
     public void enterButtonAction() throws IOException {
         Service service = new ServiceImpl();
         List<User> users = service.findAll(User.class);
@@ -49,6 +51,7 @@ public class LoginController {
 
     public void exitButtonAction() {
         GraphicsLoader.closeWindow(btnExit);
+        HibernateSessionFactory.getSessionFactory().close();
     }
 
 }
