@@ -1,5 +1,6 @@
 package util;
 
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
@@ -9,7 +10,7 @@ import java.time.LocalDate;
 /* Класс принимает поля ввода (текста и чисел - TextField,
    даты - DatePicker) и:
 *       - если поле пустое (или содержит только пробелы),
-*       - если числа не парсятся (Long, Double),
+*       - если числа не парсятся (Long, Double, Integer),
 *  то возвращается null и граница поля становится красной.
 *
 *  В других случаях, если информация введена правильно,
@@ -76,5 +77,34 @@ public class InputDataChecker {
 
         textField.setStyle("-fx-border-color: inherit");
         return num;
+    }
+
+    public static Integer checkInteger(TextField textField) {
+        String text = textField.getText().trim();
+        if (text.isEmpty()) {
+            textField.setStyle("-fx-border-color: red");
+            return null;
+        }
+
+        Integer num;
+        try {
+            num = Integer.parseInt(text);
+        } catch (NumberFormatException nfe) {
+            textField.setStyle("-fx-border-color: red");
+            return null;
+        }
+
+        textField.setStyle("-fx-border-color: inherit");
+        return num;
+    }
+
+    public static <T> T checkEnum(ComboBox<T> box) {
+        if (box.getValue() == null) {
+            box.setStyle("-fx-border-color: red");
+            return null;
+        }
+
+        box.setStyle("-fx-border-color: inherit");
+        return box.getValue();
     }
 }

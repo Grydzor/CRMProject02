@@ -1,19 +1,12 @@
 package controller;
 
 import entity.User;
-import enum_types.Position;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import service.EmployeeService;
 import service.Service;
 import service.ServiceImpl;
-import service.UserService;
 import util.GraphicsLoader;
 
 import java.io.IOException;

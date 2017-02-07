@@ -1,78 +1,58 @@
 package controller;
 
 import entity.Employee;
-import entity.User;
 import enum_types.Position;
 import enum_types.Sex;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import service.EmployeeService;
-import service.EmployeeServiceImpl;
-import service.UserService;
-import service.UserServiceImpl;
-import util.HibernateSessionFactory;
+import util.GraphicsLoader;
+import util.InputDataChecker;
 
 public class CreateController {
+    @FXML private TextField fldName;
+    @FXML private TextField fldSurname;
+    @FXML private TextField fldAge;
+    @FXML private ComboBox<Sex> boxSex;
+    @FXML private ComboBox<Position> boxPosition;
+
+    @FXML private Button btnCreate;
+    @FXML private Button btnClose;
+
+    private Employee employee;
+
+    public Employee getEmployee() {
+        return employee;
+    }
 
     @FXML
-    public TextField fldName;
-
-    @FXML
-    public TextField fldSurname;
-
-    @FXML
-    public TextField fldAge;
-
-    @FXML
-    public TextField fldSex;
-
-    @FXML
-    public TextField fldPosition;
-
-    @FXML
-    public Button btnCreate;
-
-    @FXML
-    public Button btnClose;
+    public void initialize() {
+        boxSex.setItems(FXCollections.observableArrayList(Sex.values()));
+        boxPosition.setItems(FXCollections.observableArrayList(Position.values()));
+    }
 
     @FXML
     public void actionCloseButton() {
-        Stage stage = (Stage) btnClose.getScene().getWindow();
-        stage.close();
+        GraphicsLoader.closeWindow(fldName);
     }
 
     @FXML
     public void actionCreateButton() {
+        String name         =   InputDataChecker.checkString(fldName);
+        String surname      =   InputDataChecker.checkString(fldSurname);
+        Integer age         =   InputDataChecker.checkInteger(fldAge);
+        Sex sex             =   InputDataChecker.checkEnum(boxSex);
+        Position position   =   InputDataChecker.checkEnum(boxPosition);
 
-        UserService userService = new UserServiceImpl();
-        EmployeeService employeeService = new EmployeeServiceImpl();
+        if (name != null && surname != null && age != null
+                && sex != null && position != null) {
 
-        Employee employee = new Employee();
-        employee.setName(fldName.getText());
-        employee.setSurname(fldSurname.getText());
-        employee.setAge(Integer.parseInt(fldAge.getText()));
-        if (fldSex.getText().equals("male")) {
-            employee.setSex(Sex.MALE);
-        } else if (fldSex.getText().equals("female")) {
-            employee.setSex(Sex.FEMALE);
+            employee = new Employee(name, surname, age, sex, position);
+
+            GraphicsLoader.closeWindow(fldName);
         }
-        employee.setPosition(Position.ADMIN);
-
-        User user = new User();
-        user.setLogin(fldName.getText() + "." + fldSurname.getText());
-        user.setPassword("qwerty");
-        user.setEmployee(employee);
-
-        employeeService.add(employee);
-        userService.add(user);
-
-        /* Нужно закрывать в конце работы программы, так как нам ещё нужна работа с БД */
-//        HibernateSessionFactory.getSessionFactory().close();
-
-        Stage stage = (Stage) btnCreate.getScene().getWindow();
-        stage.close();
     }
 
 }

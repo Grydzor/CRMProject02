@@ -20,3 +20,5 @@ hs_err_pid*
 .idea/workspace.xml
 
 hibernate.cfg.xml
+.idea/dataSources.local.xml
+.idea/dataSources/

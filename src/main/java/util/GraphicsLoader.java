@@ -12,12 +12,12 @@ import java.io.IOException;
 public class GraphicsLoader {
 
     public static void newWindow(String resource, String title) {
-        Parent root = null;
+        Parent root;
         try {
             root = FXMLLoader.load(GraphicsLoader.class.getResource(resource));
         } catch (IOException e) {
             System.out.println("Проблема в пути к FXML");
-            e.printStackTrace();
+            return;
         }
         Stage stage = new Stage();
         stage.setTitle(title);
@@ -26,13 +26,14 @@ public class GraphicsLoader {
         stage.show();
     }
 
+
     public static void newModalWindow(String resource, String title) {
-        Parent root = null;
+        Parent root;
         try {
             root = FXMLLoader.load(GraphicsLoader.class.getResource(resource));
         } catch (IOException e) {
             System.out.println("Проблема в пути к FXML");
-            e.printStackTrace();
+            return;
         }
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -48,4 +49,26 @@ public class GraphicsLoader {
         stage.close();
     }
 
+    public static <T> T newWindowGeneric(String resource, String title, Boolean isModal) {
+        FXMLLoader loader = new FXMLLoader(GraphicsLoader.class.getResource(resource));
+        Parent root;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            System.out.println("Проблема в пути к FXML");
+            return null;
+        }
+        Stage stage = new Stage();
+        if (isModal) stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle(title);
+        stage.setResizable(false);
+        stage.setScene(new Scene(root));
+
+        T controller = loader.getController();
+
+        if (isModal) stage.showAndWait();
+        else stage.show();
+
+        return controller;
+    }
 }

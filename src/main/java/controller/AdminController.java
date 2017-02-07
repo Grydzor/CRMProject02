@@ -1,32 +1,34 @@
 package controller;
 
+import entity.Employee;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+import service.Service;
+import service.ServiceImpl;
+import util.GraphicsLoader;
 
 import java.io.IOException;
 
 public class AdminController {
 
-    @FXML
-    private TextArea fldListEmployee, fldDataEmployee;
+    @FXML private TextArea fldListEmployee;
+    @FXML private TextArea fldDataEmployee;
 
-    @FXML
-    private Button btnCreate, btnDelete, btnChange, btnGenerate;
+    @FXML private Button btnCreate;
+    @FXML private Button btnDelete;
+    @FXML private Button btnChange;
+    @FXML private Button btnGenerate;
+
+    private Service service = new ServiceImpl();
 
     public void createButtonAction() throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/view/create_panel.fxml"));
-        stage.setTitle("Create...");
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setResizable(false);
-        stage.setScene(new Scene(root));
-        stage.showAndWait();
+        CreateController createController = GraphicsLoader.newWindowGeneric("/view/create_panel.fxml", "Create...", true);
+
+        Employee newEmployee;
+        if ((newEmployee = createController.getEmployee()) != null) {
+            service.add(newEmployee);
+        }
     }
 
 }

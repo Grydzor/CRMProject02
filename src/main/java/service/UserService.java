@@ -13,5 +13,7 @@ public interface UserService {
 
     Boolean delete(User user);
 
+    User find(String login);
+
     List<User> findAll();
 }
