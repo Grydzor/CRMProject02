@@ -2,7 +2,10 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -10,9 +13,6 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
-   <left>
-      <TextArea fx:id="fldListEmployee" editable="false" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </left>
    <padding>
       <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
    </padding>
@@ -20,10 +20,14 @@
       <Insets />
    </opaqueInsets>
    <right>
-      <VBox fillWidth="false" BorderPane.alignment="CENTER">
+      <VBox fillWidth="false" prefWidth="300.0" BorderPane.alignment="CENTER">
          <children>
-            <TextArea fx:id="fldDataEmployee" editable="false" prefHeight="200.0" prefWidth="200.0" />
-            <GridPane alignment="CENTER" vgap="10.0">
+            <TableView fx:id="tblEmployeeData" prefHeight="200.0" prefWidth="300.0">
+              <columns>
+                <TableColumn prefWidth="300.0" resizable="false" text="Data" />
+              </columns>
+            </TableView>
+            <GridPane alignment="CENTER" prefWidth="300.0" vgap="10.0">
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -47,8 +51,18 @@
             </GridPane>
          </children>
          <BorderPane.margin>
-            <Insets left="20.0" />
+            <Insets />
          </BorderPane.margin>
       </VBox>
    </right>
+   <left>
+      <ListView fx:id="fldListEmployee" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </left>
+   <center>
+      <Separator orientation="VERTICAL" prefHeight="200.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets left="25.0" right="20.0" />
+         </padding>
+      </Separator>
+   </center>
 </BorderPane>
