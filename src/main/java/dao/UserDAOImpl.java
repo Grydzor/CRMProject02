@@ -82,10 +82,12 @@ public class UserDAOImpl implements UserDAO {
     public User find(String login) {
         Session session = factory.openSession();
         try {
-            Criteria criteria = session.createCriteria(User.class);
-            criteria.add(Restrictions.eq("login", login));
-            List<User> users = criteria.list();
-            return users.get(0);
+            List<User> users = session
+                    .createCriteria(User.class)
+                    .add(Restrictions.eq("login", login))
+                    .list();
+
+            return !users.isEmpty() ? users.get(0) : null;
         } finally {
             session.close();
         }

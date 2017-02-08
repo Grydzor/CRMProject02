@@ -2,11 +2,11 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import util.GraphicsLoader;
 
-public class AppMain extends Application{
+public class AppMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        GraphicsLoader.newWindowGeneric("/view/login_panel2.fxml", "CRM", false);
+        GraphicsLoader.newWindowGeneric("/view/login_panel3.fxml", "CRM", false);
     }
 
     public static void main(String[] args) {

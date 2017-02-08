@@ -62,7 +62,9 @@ public class GraphicsLoader {
         if (isModal) stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle(title);
         stage.setResizable(false);
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/view/styles/default-skin.css");
+        stage.setScene(scene);
 
         T controller = loader.getController();
 

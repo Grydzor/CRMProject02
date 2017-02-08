@@ -1,51 +1,64 @@
 package controller;
 
 import entity.User;
+import enum_types.Status;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import service.Service;
-import service.ServiceImpl;
+import service.UserService;
+import service.UserServiceImpl;
 import util.GraphicsLoader;
 import util.HibernateSessionFactory;
+import util.InputDataChecker;
 
 import java.io.IOException;
-import java.util.List;
 
 public class LoginController {
 
-    @FXML
-    private TextField fldLogin;
+    @FXML private TextField fldLogin;
+    @FXML private PasswordField fldPassword;
 
-    @FXML
-    private PasswordField fldPassword;
+    @FXML private Button btnEnter;
+    @FXML private Button btnExit;
 
-    @FXML
-    private Button btnEnter, btnExit;
+    @FXML private Label lblStatus;
 
-    // TODO Поправить, используя метод User find(String login) класса UserServiceImpl
+    private UserService service;
+
+    public void initialize() {
+        service = new UserServiceImpl();
+    }
+
     public void enterButtonAction() throws IOException {
-        Service service = new ServiceImpl();
-        List<User> users = service.findAll(User.class);
-        int count = 0;
-        for (User user : users) {
-            if (user.getLogin().equals(fldLogin.getText()) && user.getPassword().equals(fldPassword.getText())) {
+        String login = InputDataChecker.checkString(fldLogin);
+        String password = InputDataChecker.checkString(fldPassword);
+
+        if (login != null && password != null) {
+
+            User user = service.find(login);
+
+            if (user == null) {
+                setStatusMsg(Status.UNKNOWN_USER);
+                return;
+            }
+
+            if (user.getPassword().equals(password)) {
+                setStatusMsg(Status.SUCCESS);
                 switch (user.getEmployee().getPosition()) {
                     case ADMIN:
-                        GraphicsLoader.newWindow("/view/admin_panel.fxml", "Administration");
-                        GraphicsLoader.closeWindow(btnEnter);
+                        GraphicsLoader.newWindowGeneric("/view/admin_panel.fxml", "Administration", false);
                         break;
                     case MANAGER:
-                        GraphicsLoader.newWindow("/view/manager_panel.fxml", "Management");
-                        GraphicsLoader.closeWindow(btnEnter);
+                        GraphicsLoader.newWindowGeneric("/view/manager_panel.fxml", "Management", false);
                         break;
                 }
-            } else if (count == users.size() - 1) {
-                GraphicsLoader.newModalWindow("/view/password_alert.fxml", "Oops!");
-            } else {
-                count++;
+                GraphicsLoader.closeWindow(btnEnter);
+                return;
             }
+
+            setStatusMsg(Status.WRONG_PASSWORD);
         }
     }
 
@@ -54,4 +67,7 @@ public class LoginController {
         HibernateSessionFactory.getSessionFactory().close();
     }
 
+    private void setStatusMsg(Status status) {
+        lblStatus.setText(status.toString());
+    }
 }

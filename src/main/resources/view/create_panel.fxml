@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane prefHeight="194.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateController">
+<GridPane prefHeight="194.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateController">
    <children>
       <Label text="Name:" GridPane.columnIndex="1" />
       <Label text="Surname:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -24,7 +24,7 @@
       <ComboBox fx:id="boxPosition" prefWidth="150.0" promptText="Please choose" GridPane.columnIndex="2" GridPane.rowIndex="4" />
       <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
          <children>
-            <Button fx:id="btnCreate" mnemonicParsing="false" onAction="#actionCreateButton" prefWidth="60.0" text="Create">
+            <Button fx:id="btnCreate" mnemonicParsing="false" onAction="#actionCreateButton" text="Create">
                <FlowPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </FlowPane.margin>

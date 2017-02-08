@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane prefHeight="150.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+   <children>
+      <TextField fx:id="fldLogin" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <PasswordField fx:id="fldPassword" onAction="#enterButtonAction" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="3">
+         <children>
+            <Label fx:id="lblStatus" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" textAlignment="CENTER" textFill="#ed0000" wrapText="true">
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <FlowPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </FlowPane.margin>
+            </Label>
+            <Button fx:id="btnEnter" mnemonicParsing="false" onAction="#enterButtonAction" text="Log In">
+               <FlowPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </FlowPane.margin></Button>
+            <Button fx:id="btnExit" mnemonicParsing="false" onAction="#exitButtonAction" prefWidth="58.0" text="Exit">
+               <FlowPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </FlowPane.margin></Button>
+         </children>
+      </FlowPane>
+      <Label text="Welcome! Please enter the system:" GridPane.columnSpan="4" GridPane.halignment="CENTER" />
+      <Label text="Username:" GridPane.rowIndex="1">
+         <font>
+            <Font size="12.0" />
+         </font></Label>
+      <Label text="Password:" GridPane.rowIndex="2">
+         <font>
+            <Font size="12.0" />
+         </font></Label>
+   </children>
+   <columnConstraints>
+      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="95.0" minWidth="95.0" prefWidth="95.0" />
+      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="7.0" minWidth="7.0" prefWidth="7.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="170.0" prefWidth="170.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="7.0" minWidth="7.0" prefWidth="7.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+</GridPane>
