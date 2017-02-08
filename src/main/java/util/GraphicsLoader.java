@@ -60,6 +60,8 @@ public class GraphicsLoader {
         }
         Stage stage = new Stage();
         if (isModal) stage.initModality(Modality.APPLICATION_MODAL);
+        if (!isModal) stage.setOnCloseRequest((event) ->
+                HibernateSessionFactory.getSessionFactory().close());
         stage.setTitle(title);
         stage.setResizable(false);
         Scene scene = new Scene(root);

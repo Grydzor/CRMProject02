@@ -1,15 +1,5 @@
-.text-field {
-    fx-background-color: inherit;
-    -fx-background-insets: inherit;
-}
-
 .text-field:disabled {
     -fx-background-color: transparent;
     -fx-background-insets: 0px;
     -fx-opacity: 1;
-}
-
-.text-field-editable {
-    -fx-background-color: inherit;
-    -fx-background-insets: inherit;
 }

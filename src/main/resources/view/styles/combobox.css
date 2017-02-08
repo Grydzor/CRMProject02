@@ -1,9 +1,4 @@
-.combo-box, .combo-box .arrow {
-    -fx-background-color: inherit;
-    -fx-background-insets: inherit;
-}
-
-.combo-box:disabled, .combo-box:disabled > * {
+.combo-box:disabled, .combo-box:disabled > *, .combo-box .arrow:disabled {
     -fx-background-color: transparent;
     -fx-background-insets: 0px;
     -fx-opacity: 1.0;
