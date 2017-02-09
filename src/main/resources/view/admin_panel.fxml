@@ -20,7 +20,7 @@
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin></Button>
-            <Button fx:id="btnDelete" mnemonicParsing="false" prefWidth="79.0" text="Delete" GridPane.rowIndex="1" />
+            <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteButtonAction" prefWidth="79.0" text="Delete" GridPane.rowIndex="1" />
             <Button fx:id="btnGenerate" mnemonicParsing="false" prefWidth="79.0" text="Generate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <FlowPane alignment="CENTER" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
@@ -29,7 +29,7 @@
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </FlowPane.margin>
                   </Button>
-                  <Button fx:id="btnRevert" mnemonicParsing="false" onAction="#revertButtonAction" prefWidth="79.0" text="Revert" visible="false">
+                  <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#cancelButtonAction" prefWidth="79.0" text="Cancel" visible="false">
                      <FlowPane.margin>
                         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                      </FlowPane.margin>

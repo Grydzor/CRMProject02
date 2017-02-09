@@ -26,6 +26,11 @@ public class ServiceImpl implements Service {
     }
 
     @Override
+    public <T> Boolean update(T entity) {
+        return dao.update(entity);
+    }
+
+    @Override
     public <T> Boolean delete(T entity) {
         return dao.delete(entity);
     }

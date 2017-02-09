@@ -19,32 +19,36 @@ import java.time.LocalDate;
 *
 * */
 public class InputDataChecker {
+    private static final String STYLE_OK = "-fx-border-color: transparent;";
+    private static final String STYLE_BAD = "-fx-border-color: red;" +
+                                            "-fx-border-radius: inherit";
+
     public static Date checkDate(DatePicker datePicker) {
         LocalDate localDate = datePicker.getValue();
         if (localDate == null) {
-            datePicker.setStyle("-fx-border-color: red");
+            datePicker.setStyle(STYLE_BAD);
             return null;
         }
 
-        datePicker.setStyle("-fx-border-color: inherit");
+        datePicker.setStyle(STYLE_OK);
         return Date.valueOf(localDate);
     }
 
     public static String checkString(TextField textField) {
         String text = textField.getText().trim();
         if (text.isEmpty()) {
-            textField.setStyle("-fx-border-color: red");
+            textField.setStyle(STYLE_BAD);
             return null;
         }
 
-        textField.setStyle("-fx-border-color: inherit");
+        textField.setStyle(STYLE_OK);
         return text;
     }
 
     public static Double checkDouble(TextField textField) {
         String text = textField.getText().trim();
         if (text.isEmpty()) {
-            textField.setStyle("-fx-border-color: red");
+            textField.setStyle(STYLE_BAD);
             return null;
         }
 
@@ -52,18 +56,18 @@ public class InputDataChecker {
         try {
             num = Double.parseDouble(text);
         } catch (NumberFormatException nfe) {
-            textField.setStyle("-fx-border-color: red");
+            textField.setStyle(STYLE_BAD);
             return null;
         }
 
-        textField.setStyle("-fx-border-color: inherit");
+        textField.setStyle(STYLE_OK);
         return num;
     }
 
     public static Long checkLong(TextField textField) {
         String text = textField.getText().trim();
         if (text.isEmpty()) {
-            textField.setStyle("-fx-border-color: red");
+            textField.setStyle(STYLE_BAD);
             return null;
         }
 
@@ -71,18 +75,18 @@ public class InputDataChecker {
         try {
             num = Long.parseLong(text);
         } catch (NumberFormatException nfe) {
-            textField.setStyle("-fx-border-color: red");
+            textField.setStyle(STYLE_BAD);
             return null;
         }
 
-        textField.setStyle("-fx-border-color: inherit");
+        textField.setStyle(STYLE_OK);
         return num;
     }
 
     public static Integer checkInteger(TextField textField) {
         String text = textField.getText().trim();
         if (text.isEmpty()) {
-            textField.setStyle("-fx-border-color: red");
+            textField.setStyle(STYLE_BAD);
             return null;
         }
 
@@ -90,21 +94,21 @@ public class InputDataChecker {
         try {
             num = Integer.parseInt(text);
         } catch (NumberFormatException nfe) {
-            textField.setStyle("-fx-border-color: red");
+            textField.setStyle(STYLE_BAD);
             return null;
         }
 
-        textField.setStyle("-fx-border-color: inherit");
+        textField.setStyle(STYLE_OK);
         return num;
     }
 
     public static <T> T checkEnum(ComboBox<T> box) {
         if (box.getValue() == null) {
-            box.setStyle("-fx-border-color: red");
+            box.setStyle(STYLE_BAD);
             return null;
         }
 
-        box.setStyle("-fx-border-color: inherit");
+        box.setStyle(STYLE_OK);
         return box.getValue();
     }
 }

@@ -10,6 +10,8 @@ public interface Service {
 
     <T> T read(Class<T> type, Long id);
 
+    <T> Boolean update(T entity);
+
     <T> Boolean delete(T entity);
 
     <T> List<T> findAll(Class<T> type);
