@@ -1,6 +1,7 @@
 package controller;
 
 import entity.Employee;
+import entity.User;
 import enum_types.Position;
 import enum_types.Sex;
 import javafx.collections.FXCollections;
@@ -101,6 +102,28 @@ public class AdminController {
         fillFieldsWith(fldListEmployee.getSelectionModel().getSelectedItem());
 
         changeInfo(false);
+    }
+
+    @FXML
+    public void generateButtonAction() {
+        Employee selectedEmployee = fldListEmployee.getSelectionModel().getSelectedItem();
+        if (selectedEmployee.getUser() == null) {
+            User user = new User(
+                    selectedEmployee.getName() + " " + selectedEmployee.getSurname(),
+                    "qwerty",
+                    selectedEmployee
+            );
+            service.add(user);
+            selectedEmployee.setUser(user);
+            service.update(selectedEmployee);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.NONE);
+            alert.setTitle("Warning");
+            alert.setContentText("Employee has got an account!");
+            ButtonType ok = new ButtonType("Ok");
+            alert.getButtonTypes().addAll(ok);
+            alert.showAndWait();
+        }
     }
 
     @FXML
