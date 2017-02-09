@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<GridPane hgap="10.0" prefHeight="420.0" prefWidth="640.0" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
+<GridPane hgap="10.0" prefHeight="420.0" prefWidth="640.0" styleClass="background" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
    <children>
       <TableView fx:id="tableEmployees" GridPane.rowSpan="2">
          <columns>
@@ -45,10 +45,10 @@
             </Button>
          </children>
       </FlowPane>
-      <GridPane hgap="5.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="335.0" style="-fx-border-color: blue; -fx-border-width: 2px; -fx-border-radius: 5px;" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+      <GridPane hgap="5.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="335.0" style="-fx-border-width: 2px; -fx-border-radius: 5px;" vgap="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="146.0" minWidth="10.0" prefWidth="115.0" />
-          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="280.0" minWidth="10.0" prefWidth="225.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="146.0" minWidth="10.0" prefWidth="116.0" />
+          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="280.0" minWidth="10.0" prefWidth="204.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -61,12 +61,12 @@
         </rowConstraints>
          <children>
             <Label text="ID:" />
-            <Label prefHeight="15.0" prefWidth="46.0" text="Name:" GridPane.rowIndex="1" />
+            <Label prefHeight="19.0" prefWidth="61.0" text="Name:" GridPane.rowIndex="1" />
             <Label text="Surname:" GridPane.rowIndex="2" />
             <Label text="Age:" GridPane.rowIndex="3" />
             <Label text="Sex:" GridPane.rowIndex="4" />
             <Label text="Position:" GridPane.rowIndex="5" />
-            <TextField fx:id="fldId" disable="true" stylesheets="/view/styles/textfield.css" GridPane.columnIndex="1" />
+            <TextField fx:id="fldId" disable="true" styleClass="text-field" stylesheets="/view/styles/textfield.css" GridPane.columnIndex="1" />
             <TextField fx:id="fldName" disable="true" stylesheets="/view/styles/textfield.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="fldSurname" disable="true" stylesheets="/view/styles/textfield.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="fldAge" disable="true" stylesheets="/view/styles/textfield.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -90,12 +90,12 @@
       </GridPane>
    </children>
    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="280.0" prefWidth="280.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="394.0" minWidth="360.0" prefWidth="360.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="149.0" prefWidth="281.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="491.0" minWidth="335.0" prefWidth="339.0" />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints maxHeight="234.0" minHeight="10.0" prefHeight="240.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="227.0" minHeight="10.0" prefHeight="187.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="366.0" minHeight="10.0" prefHeight="302.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="227.0" minHeight="10.0" prefHeight="98.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <opaqueInsets>
       <Insets />

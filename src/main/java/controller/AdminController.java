@@ -122,7 +122,7 @@ public class AdminController {
         Employee selectedEmployee = tableEmployees.getSelectionModel().getSelectedItem();
         if (selectedEmployee.getUser() == null) {
             User user = new User(
-                    selectedEmployee.getName() + " " + selectedEmployee.getSurname(),
+                    selectedEmployee.getName() + "." + selectedEmployee.getSurname(),
                     "qwerty",
                     selectedEmployee
             );
