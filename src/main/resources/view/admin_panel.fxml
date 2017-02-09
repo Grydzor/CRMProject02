@@ -21,7 +21,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin></Button>
             <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteButtonAction" prefWidth="79.0" text="Delete" GridPane.rowIndex="1" />
-            <Button fx:id="generateButtonAction" mnemonicParsing="false" prefWidth="79.0" text="Generate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="btnGenerate" onAction="#generateButtonAction" mnemonicParsing="false" prefWidth="79.0" text="Generate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <FlowPane alignment="CENTER" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
                   <Button fx:id="btnChange" mnemonicParsing="false" onAction="#changeButtonAction" prefWidth="79.0" text="Change">

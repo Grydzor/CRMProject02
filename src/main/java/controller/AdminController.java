@@ -4,6 +4,7 @@ import entity.Employee;
 import entity.User;
 import enum_types.Position;
 import enum_types.Sex;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -15,8 +16,6 @@ import util.InputDataChecker;
 import java.io.IOException;
 import java.util.Optional;
 
-
-// TODO Добавить закрытие SessionFactory по закрытии окна:
 public class AdminController {
 
     @FXML private ListView<Employee> fldListEmployee;
@@ -49,6 +48,8 @@ public class AdminController {
         fldListEmployee.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue)
                         -> fillFieldsWith(newValue));
+
+        addListeners();
     }
 
     @FXML
@@ -73,7 +74,6 @@ public class AdminController {
             return;
         }
 
-        // todo Поставить Listener на изменение TextFields и ComboBoxes
         if (btnChange.getText().equals("Apply")) {
             String name = InputDataChecker.checkString(fldName);
             String surname = InputDataChecker.checkString(fldSurname);
@@ -167,6 +167,7 @@ public class AdminController {
         btnCreate.setDisable(enableFields);
         btnDelete.setDisable(enableFields);
         btnGenerate.setDisable(enableFields);
+        btnChange.setDisable(enableFields);
 
         if (enableFields) {
             btnChange.setText("Apply");
@@ -174,8 +175,23 @@ public class AdminController {
         } else {
             btnChange.setText("Change");
             btnChange.setStyle("-fx-base: #ececec;");
+
+            fldName.setStyle("-fx-border-color: transparent;");
+            fldSurname.setStyle("-fx-border-color: transparent;");
+            fldAge.setStyle("-fx-border-color: transparent;");
+            boxSex.setStyle("-fx-border-color: transparent;");
+            boxPosition.setStyle("-fx-border-color: transparent;");
         }
 
         btnCancel.setVisible(enableFields);
+    }
+
+    private void addListeners() {
+        ChangeListener<? super Object> listener = (observable, oldValue, newValue) -> btnChange.setDisable(false);
+        fldName.textProperty().addListener(listener);
+        fldSurname.textProperty().addListener(listener);
+        fldAge.textProperty().addListener(listener);
+        boxSex.valueProperty().addListener(listener);
+        boxPosition.valueProperty().addListener(listener);
     }
 }
