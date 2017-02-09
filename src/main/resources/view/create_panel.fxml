@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane prefHeight="194.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateController">
+<GridPane prefHeight="300.0" prefWidth="325.0" styleClass="background" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateController">
    <children>
       <Label text="Name:" GridPane.columnIndex="1" />
       <Label text="Surname:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -20,8 +20,8 @@
       <TextField fx:id="fldName" GridPane.columnIndex="2" />
       <TextField fx:id="fldSurname" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <TextField fx:id="fldAge" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      <ComboBox fx:id="boxSex" prefWidth="150.0" promptText="Please choose" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <ComboBox fx:id="boxPosition" prefWidth="150.0" promptText="Please choose" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <ComboBox fx:id="boxSex" prefWidth="226.0" promptText="Please choose" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <ComboBox fx:id="boxPosition" prefWidth="226.0" promptText="Please choose" GridPane.columnIndex="2" GridPane.rowIndex="4" />
       <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
          <children>
             <Button fx:id="btnCreate" mnemonicParsing="false" onAction="#actionCreateButton" text="Create">
@@ -29,7 +29,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </FlowPane.margin>
             </Button>
-            <Button fx:id="btnClose" mnemonicParsing="false" onAction="#actionCloseButton" prefWidth="60.0" text="Close">
+            <Button fx:id="btnClose" mnemonicParsing="false" onAction="#actionCloseButton" prefWidth="74.0" text="Close">
                <FlowPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </FlowPane.margin>
@@ -51,4 +51,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
 </GridPane>

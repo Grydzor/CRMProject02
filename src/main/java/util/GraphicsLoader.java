@@ -65,7 +65,7 @@ public class GraphicsLoader {
         stage.setTitle(title);
         stage.setResizable(false);
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/view/styles/login_panel.css");
+        scene.getStylesheets().add("/view/styles/w8_design.css");
         stage.setScene(scene);
 
         T controller = loader.getController();

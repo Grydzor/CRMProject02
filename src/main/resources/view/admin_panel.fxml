@@ -80,7 +80,7 @@
                         <Insets left="10.0" />
                      </StackPane.margin></ImageView>
                   <!-- In one cell: Button & ImageView !!! -->
-                  <Button fx:id="btnGenerate" mnemonicParsing="false" onAction="#generateButtonAction" prefWidth="79.0" text="Generate" visible="false" />
+                  <Button fx:id="btnGenerate" mnemonicParsing="false" onAction="#generateButtonAction" prefHeight="33.0" prefWidth="207.0" text="Generate" visible="false" />
                </children>
             </StackPane>
          </children>
@@ -90,8 +90,8 @@
       </GridPane>
    </children>
    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="149.0" prefWidth="281.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="491.0" minWidth="335.0" prefWidth="339.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="149.0" prefWidth="298.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="491.0" minWidth="322.0" prefWidth="322.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="366.0" minHeight="10.0" prefHeight="302.0" vgrow="SOMETIMES" />
