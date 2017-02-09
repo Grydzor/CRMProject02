@@ -6,8 +6,11 @@ import enum_types.Position;
 import enum_types.Sex;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import service.Service;
 import service.ServiceImpl;
 import util.GraphicsLoader;
@@ -18,7 +21,11 @@ import java.util.Optional;
 
 public class AdminController {
 
-    @FXML private ListView<Employee> fldListEmployee;
+    @FXML private TableView<Employee> tableEmployees;
+          private ObservableList<Employee> employees;
+    @FXML private TableColumn<Employee, Long> idColumn;
+    @FXML private TableColumn<Employee, String> nameColumn;
+    @FXML private TableColumn<Employee, String> surnameColumn;
 
     @FXML private Button btnCreate;
     @FXML private Button btnDelete;
@@ -32,20 +39,26 @@ public class AdminController {
     @FXML private TextField fldAge;
     @FXML private ComboBox<Sex>      boxSex;
     @FXML private ComboBox<Position> boxPosition;
+    @FXML private ImageView          imageTick;
 
     private Service service;
 
     public void initialize() {
         service = new ServiceImpl();
 
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        surnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
+
         // fill ListView with Employees from DB
-        fldListEmployee.setItems(FXCollections.observableArrayList(service.findAll(Employee.class)));
+        employees = FXCollections.observableArrayList(service.findAll(Employee.class));
+        tableEmployees.setItems(employees);
         // set items for ComboBoxes
         boxSex.setItems(FXCollections.observableArrayList(Sex.values()));
         boxPosition.setItems(FXCollections.observableArrayList(Position.values()));
 
         // change info about Employee when selected item in the ListView is changed
-        fldListEmployee.getSelectionModel().selectedItemProperty()
+        tableEmployees.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue)
                         -> fillFieldsWith(newValue));
 
@@ -60,13 +73,13 @@ public class AdminController {
         Employee newEmployee;
         if ((newEmployee = createController.getEmployee()) != null) {
             service.add(newEmployee);
-            fldListEmployee.getItems().add(newEmployee);
+            tableEmployees.getItems().add(newEmployee);
         }
     }
 
     @FXML
     public void changeButtonAction() throws IOException {
-        Employee selEmpl = fldListEmployee.getSelectionModel().getSelectedItem();
+        Employee selEmpl = tableEmployees.getSelectionModel().getSelectedItem();
         if (btnChange.getText().equals("Change")) {
             if (selEmpl == null) return;
 
@@ -99,14 +112,14 @@ public class AdminController {
 
     @FXML
     public void cancelButtonAction() {
-        fillFieldsWith(fldListEmployee.getSelectionModel().getSelectedItem());
+        fillFieldsWith(tableEmployees.getSelectionModel().getSelectedItem());
 
         changeInfo(false);
     }
 
     @FXML
     public void generateButtonAction() {
-        Employee selectedEmployee = fldListEmployee.getSelectionModel().getSelectedItem();
+        Employee selectedEmployee = tableEmployees.getSelectionModel().getSelectedItem();
         if (selectedEmployee.getUser() == null) {
             User user = new User(
                     selectedEmployee.getName() + " " + selectedEmployee.getSurname(),
@@ -116,19 +129,20 @@ public class AdminController {
             service.add(user);
             selectedEmployee.setUser(user);
             service.update(selectedEmployee);
-        } else {
+            btnGenerate.setVisible(false);
+        }/* else {
             Alert alert = new Alert(Alert.AlertType.NONE);
             alert.setTitle("Warning");
             alert.setContentText("Employee has got an account!");
             ButtonType ok = new ButtonType("Ok");
             alert.getButtonTypes().addAll(ok);
             alert.showAndWait();
-        }
+        }*/
     }
 
     @FXML
     public void deleteButtonAction() {
-        Employee employee = fldListEmployee.getSelectionModel().getSelectedItem();
+        Employee employee = tableEmployees.getSelectionModel().getSelectedItem();
         if (employee != null) {
             Alert alert = new Alert(Alert.AlertType.NONE);
             alert.setTitle("Delete employee with ID " + employee.getId());
@@ -141,33 +155,47 @@ public class AdminController {
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.get() == yes) {
+                User user = employee.getUser();
+                employee.setUser(null);
+                service.update(employee);
+                service.delete(user);
                 service.delete(employee);
-                fldListEmployee.getItems().remove(employee);
+                tableEmployees.getItems().remove(employee);
             }
         }
     }
 
     private void fillFieldsWith(Employee newValue) {
+        if (newValue == null) return;
+
         fldId       .setText(newValue.getId().toString());
         fldName     .setText(newValue.getName());
         fldSurname  .setText(newValue.getSurname());
         fldAge      .setText(newValue.getAge().toString());
         boxSex      .setValue(newValue.getSex());
         boxPosition .setValue(newValue.getPosition());
+
+        if (newValue.getUser() == null) {
+            btnGenerate.setVisible(true);
+            imageTick  .setVisible(false);
+        } else {
+            btnGenerate.setVisible(false);
+            imageTick  .setVisible(true);
+        }
     }
 
     private void changeInfo(Boolean enableFields) {
-        fldListEmployee.setDisable(enableFields);
-        fldName.setDisable(!enableFields);
-        fldSurname.setDisable(!enableFields);
-        fldAge.setDisable(!enableFields);
-        boxSex.setDisable(!enableFields);
-        boxPosition.setDisable(!enableFields);
+        tableEmployees.setDisable(enableFields);
+        fldName       .setDisable(!enableFields);
+        fldSurname    .setDisable(!enableFields);
+        fldAge        .setDisable(!enableFields);
+        boxSex        .setDisable(!enableFields);
+        boxPosition   .setDisable(!enableFields);
 
-        btnCreate.setDisable(enableFields);
-        btnDelete.setDisable(enableFields);
-        btnGenerate.setDisable(enableFields);
-        btnChange.setDisable(enableFields);
+        btnCreate     .setDisable(enableFields);
+        btnDelete     .setDisable(enableFields);
+        btnGenerate   .setDisable(enableFields);
+        btnChange     .setDisable(enableFields);
 
         if (enableFields) {
             btnChange.setText("Apply");
@@ -176,11 +204,11 @@ public class AdminController {
             btnChange.setText("Change");
             btnChange.setStyle("-fx-base: #ececec;");
 
-            fldName.setStyle("-fx-border-color: transparent;");
-            fldSurname.setStyle("-fx-border-color: transparent;");
-            fldAge.setStyle("-fx-border-color: transparent;");
-            boxSex.setStyle("-fx-border-color: transparent;");
-            boxPosition.setStyle("-fx-border-color: transparent;");
+            fldName     .setStyle("-fx-border-color: transparent;");
+            fldSurname  .setStyle("-fx-border-color: transparent;");
+            fldAge      .setStyle("-fx-border-color: transparent;");
+            boxSex      .setStyle("-fx-border-color: transparent;");
+            boxPosition .setStyle("-fx-border-color: transparent;");
         }
 
         btnCancel.setVisible(enableFields);
@@ -188,10 +216,10 @@ public class AdminController {
 
     private void addListeners() {
         ChangeListener<? super Object> listener = (observable, oldValue, newValue) -> btnChange.setDisable(false);
-        fldName.textProperty().addListener(listener);
-        fldSurname.textProperty().addListener(listener);
-        fldAge.textProperty().addListener(listener);
-        boxSex.valueProperty().addListener(listener);
-        boxPosition.valueProperty().addListener(listener);
+        fldName     .textProperty().addListener(listener);
+        fldSurname  .textProperty().addListener(listener);
+        fldAge      .textProperty().addListener(listener);
+        boxSex      .valueProperty().addListener(listener);
+        boxPosition .valueProperty().addListener(listener);
     }
 }
