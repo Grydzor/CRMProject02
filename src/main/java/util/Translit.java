@@ -9,7 +9,7 @@ public class Translit {
             case 'Г': return "G";
             case 'Д': return "D";
             case 'Е': return "E";
-            case 'Ё': return "JE";
+            case 'Ё': return "JO";
             case 'Ж': return "ZH";
             case 'З': return "Z";
             case 'И': return "I";
@@ -26,14 +26,14 @@ public class Translit {
             case 'У': return "U";
             case 'Ф': return "F";
             case 'Х': return "KH";
-            case 'Ц': return "C";
+            case 'Ц': return "TS";
             case 'Ч': return "CH";
             case 'Ш': return "SH";
-            case 'Щ': return "JSH";
+            case 'Щ': return "SHCH";
             case 'Ъ': return ""/*"HH"*/;
-            case 'Ы': return "IH";
-            case 'Ь': return ""/*"JH"*/;
-            case 'Э': return "EH";
+            case 'Ы': return "Y";
+            case 'Ь': return "'"/*"JH"*/;
+            case 'Э': return "E";
             case 'Ю': return "JU";
             case 'Я': return "JA";
 
@@ -43,7 +43,7 @@ public class Translit {
             case 'г': return "g";
             case 'д': return "d";
             case 'е': return "e";
-            case 'ё': return "je";
+            case 'ё': return "jo";
             case 'ж': return "zh";
             case 'з': return "z";
             case 'и': return "i";
@@ -60,14 +60,14 @@ public class Translit {
             case 'у': return "u";
             case 'ф': return "f";
             case 'х': return "kh";
-            case 'ц': return "c";
+            case 'ц': return "ts";
             case 'ч': return "ch";
             case 'ш': return "sh";
-            case 'щ': return "jsh";
+            case 'щ': return "shch";
             case 'ъ': return ""/*"hh"*/;
-            case 'ы': return "ih";
-            case 'ь': return ""/*"jh"*/;
-            case 'э': return "eh";
+            case 'ы': return "y";
+            case 'ь': return "'"/*"jh"*/;
+            case 'э': return "e";
             case 'ю': return "ju";
             case 'я': return "ja";
             default: return String.valueOf(ch);
