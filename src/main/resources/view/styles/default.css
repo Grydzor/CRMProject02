@@ -1,7 +1,32 @@
+.text-field {
+    -fx-border-color: transparent;
+    -fx-font-size: 14;
+}
+
+.text-field:disabled {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0px;
+    -fx-border-color: transparent;
+    -fx-opacity: 1;
+}
+
 .combo-box:disabled, .combo-box:disabled > *, .combo-box .arrow:disabled {
     -fx-background-color: transparent;
     -fx-background-insets: 0px;
     -fx-opacity: 1.0;
+    -fx-font-size: 14;
+}
+
+.combo-box {
+    -fx-font-size: 14;
+}
+
+.table-view, .table-view:disabled {
+    -fx-font-size: 14;
+}
+
+.button {
+    -fx-font-size: 14;
 }
 
 /*

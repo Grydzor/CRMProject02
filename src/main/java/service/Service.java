@@ -1,5 +1,7 @@
 package service;
 
+import entity.User;
+
 import java.util.List;
 
 /**
@@ -15,4 +17,6 @@ public interface Service {
     <T> Boolean delete(T entity);
 
     <T> List<T> findAll(Class<T> type);
+
+    User find(String login);
 }

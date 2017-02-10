@@ -2,6 +2,7 @@ package service;
 
 import dao.DAO;
 import dao.DAOImpl;
+import entity.User;
 
 import java.util.List;
 
@@ -38,5 +39,10 @@ public class ServiceImpl implements Service {
     @Override
     public <T> List<T> findAll(Class<T> type) {
         return dao.findAll(type);
+    }
+
+    @Override
+    public User find(String login) {
+        return dao.find(login);
     }
 }
