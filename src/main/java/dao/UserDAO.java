@@ -14,4 +14,6 @@ public interface UserDAO {
     Boolean delete(User user);
 
     List<User> findAll();
+
+    User find(String login);
 }

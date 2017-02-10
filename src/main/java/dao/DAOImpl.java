@@ -1,6 +1,5 @@
 package dao;
 
-import entity.Employee;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,19 +7,22 @@ import util.HibernateSessionFactory;
 
 import java.util.List;
 
-public class EmployeeDAOImpl implements EmployeeDAO {
+/**
+ * Created by eriol4ik on 06/02/2017.
+ */
+public class DAOImpl implements DAO {
     private SessionFactory factory;
 
-    public EmployeeDAOImpl() {
+    public DAOImpl() {
         factory = HibernateSessionFactory.getSessionFactory();
     }
 
     @Override
-    public Long create(Employee employee) {
+    public <T> Long create(T entity) {
         Session session = factory.openSession();
         try {
             session.beginTransaction();
-            Long id = (Long) session.save(employee);
+            Long id = (Long) session.save(entity);
             session.getTransaction().commit();
             return id;
         } catch (HibernateException he) {
@@ -32,21 +34,22 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public Employee read(Long id) {
+    @SuppressWarnings("unchecked")
+    public <T> T read(Class<T> type, Long id) {
         Session session = factory.openSession();
         try {
-            return (Employee) session.get(Employee.class, id);
+            return (T) session.get(type, id);
         } finally {
             session.close();
         }
     }
 
     @Override
-    public Boolean update(Employee employee) {
+    public <T> Boolean update(T entity) {
         Session session = factory.openSession();
         try {
             session.beginTransaction();
-            session.update(employee);
+            session.update(entity);
             session.getTransaction().commit();
             return true;
         } catch (HibernateException he) {
@@ -58,11 +61,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public Boolean delete(Employee employee) {
+    public <T> Boolean delete(T entity) {
         Session session = factory.openSession();
         try {
             session.beginTransaction();
-            session.delete(employee);
+            session.delete(entity);
             session.getTransaction().commit();
             return true;
         } catch (HibernateException he) {
@@ -75,7 +78,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Employee> findAll() {
-        return factory.openSession().createCriteria(Employee.class).list();
+    public <T> List<T> findAll(Class<T> type) {
+        return (List<T>) factory.openSession().createCriteria(type).list();
     }
 }

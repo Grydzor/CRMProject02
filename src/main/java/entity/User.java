@@ -3,7 +3,7 @@ package entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "EMPLOYEES")
+@Table(name = "USERS")
 public class User {
 
     @Id
@@ -61,4 +61,11 @@ public class User {
         this.employee = employee;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

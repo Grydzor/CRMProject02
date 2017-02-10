@@ -1,0 +1,108 @@
+.background {
+    -fx-background-color: dimgray;
+}
+
+.label {
+    -fx-font-size: 11pt;
+    -fx-font-family: cursive;
+    -fx-text-fill: white;
+}
+
+.text-field {
+    -fx-font-size: 11pt;
+    -fx-font-family: cursive;
+    -fx-text-fill: white;
+    -fx-border-radius: 0;
+    -fx-border-color: white;
+    -fx-border-width: 2 ;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+    -fx-background-color: dimgray;
+}
+
+.text-field:disabled {
+    -fx-font-size: 11pt;
+    -fx-font-family: cursive;
+    -fx-text-fill: white;
+    -fx-border-radius: 0;
+    -fx-border-color: white;
+    -fx-border-width: 2 ;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+    -fx-background-color: dimgray;
+}
+
+.combo-box {
+    -fx-font-size: 11pt;
+    -fx-font-family: cursive;
+    -fx-text-fill: white, white, white, white;
+    -fx-prompt-text-fill: white;
+    -fx-border-radius: 0;
+    -fx-border-color: white;
+    -fx-border-width: 2 ;
+    -fx-background-radius: 0;
+    -fx-background-color: dimgray, dimgray, dimgray, dimgray;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.button {
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    //-fx-border-radius: 20;
+    //-fx-background-radius: 20;
+    -fx-background-color: dimgray;
+    -fx-font-size: 11pt;
+    -fx-font-family: cursive;
+    -fx-text-fill: white;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.button:pressed {
+    -fx-background-color: dodgerblue;
+    -fx-text-fill: white;
+}
+
+/*.button:focused {
+    -fx-background-color: lightgrey;
+}*/
+
+/*.button:hover {
+    -fx-background-color: dodgerblue;
+    -fx-text-fill: white;
+}*/
+
+.table-view {
+    -fx-base: white;
+    -fx-control-inner-background: dimgray;
+    -fx-background-color: dimgray;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 11pt;
+    -fx-border-width: 0 0 0 0;
+    -fx-background-color: transparent;
+    -fx-border-color:
+            transparent
+            transparent
+            white;
+
+    -fx-border-insets: 0 10 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 11pt;
+    -fx-font-family: cursive;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-opacity: 1;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: -fx-focus-color;
+}

@@ -31,6 +31,10 @@ public class Employee {
     @Enumerated
     private Position position;
 
+    @OneToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
+
     public Employee() {}
 
     public Employee(String name, String surname, Integer age, Sex sex, Position position) {
@@ -87,6 +91,19 @@ public class Employee {
 
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return name + " " + surname;
     }
 
 }

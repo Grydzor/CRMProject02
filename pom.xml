@@ -5,8 +5,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>practice</groupId>
-    <artifactId>practice</artifactId>
+    <groupId>CRMProject02</groupId>
+    <artifactId>CRMProject02</artifactId>
 
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>

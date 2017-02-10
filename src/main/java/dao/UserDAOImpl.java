@@ -1,15 +1,17 @@
 package dao;
 
 import entity.User;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import util.HibernateSessionFactory;
 
 import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
-    SessionFactory factory = HibernateSessionFactory.getSessionFactory();
+    private SessionFactory factory = HibernateSessionFactory.getSessionFactory();
 
     @Override
     public Long create(User user) {
@@ -29,21 +31,65 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User read(Long id) {
-        return null;
+        Session session = factory.openSession();
+        try {
+            return (User) session.get(User.class, id);
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public Boolean update(User user) {
-        return null;
+        Session session = factory.openSession();
+        try {
+            session.beginTransaction();
+            session.update(user);
+            session.getTransaction().commit();
+            return true;
+        } catch (HibernateException he) {
+            session.getTransaction().rollback();
+            return false;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public Boolean delete(User user) {
-        return null;
+        Session session = factory.openSession();
+        try {
+            session.beginTransaction();
+            session.delete(user);
+            session.getTransaction().commit();
+            return true;
+        } catch (HibernateException he) {
+            session.getTransaction().rollback();
+            return false;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<User> findAll() {
-        return null;
+        return factory.openSession().createCriteria(User.class).list();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public User find(String login) {
+        Session session = factory.openSession();
+        try {
+            List<User> users = session
+                    .createCriteria(User.class)
+                    .add(Restrictions.eq("login", login))
+                    .list();
+
+            return !users.isEmpty() ? users.get(0) : null;
+        } finally {
+            session.close();
+        }
     }
 }

@@ -1,0 +1,10 @@
+.text-field {
+    -fx-border-color: transparent;
+}
+
+.text-field:disabled {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0px;
+    -fx-border-color: transparent;
+    -fx-opacity: 1;
+}

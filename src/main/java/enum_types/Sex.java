@@ -1,8 +1,16 @@
 package enum_types;
 
-/**
- * Created by eriol4ik on 05/02/2017.
- */
 public enum Sex {
-    MALE, FEMALE;
+    MALE("Male"), FEMALE("Female");
+
+    private String label;
+
+    Sex(String label) {
+        this.label = label;
+    }
+
+    @Override
+    public String toString() {
+        return label;
+    }
 }
