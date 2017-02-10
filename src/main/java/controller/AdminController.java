@@ -204,14 +204,16 @@ public class AdminController {
 
     @FXML
     public void applyDeleting() {
-        User user = currentEmployee.getUser();
-        // Delete dependency on User
-        currentEmployee.setUser(null);
-        service.update(currentEmployee);
-        // Safely remove user
-        // we can do this, because employee
-        // does not depend on it
-        service.delete(user);
+        User user;
+        if ((user = currentEmployee.getUser()) != null) {
+            // Delete dependency on User
+            currentEmployee.setUser(null);
+            service.update(currentEmployee);
+            // Safely remove user
+            // we can do this, because employee
+            // does not depend on it
+            service.delete(user);
+        }
         // then delete employee
         service.delete(currentEmployee);
         // refresh TableView
