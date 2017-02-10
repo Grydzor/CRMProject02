@@ -43,7 +43,7 @@ public class GraphicsLoader {
         stage.showAndWait();
     }
 
-    // Передать в метод любой элемент который находиться в окне, которое нужно зыкрыть.
+    // Передать в метод любой элемент который находится в окне, которое нужно зыкрыть.
     public static void closeWindow(Node node) {
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
@@ -65,7 +65,7 @@ public class GraphicsLoader {
         stage.setTitle(title);
         stage.setResizable(false);
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/view/styles/w8_design.css");
+//        scene.getStylesheets().add("/view/styles/w8_design.css");
         stage.setScene(scene);
 
         T controller = loader.getController();

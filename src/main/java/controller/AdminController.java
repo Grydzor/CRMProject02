@@ -13,33 +13,44 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import service.Service;
 import service.ServiceImpl;
-import util.GraphicsLoader;
 import util.InputDataChecker;
 
 import java.io.IOException;
-import java.util.Optional;
 
 /* Controller for Admin panel */
 public class AdminController {
-    @FXML private TableView<Employee> tableEmployees;
+    @FXML private TableView<Employee> employeesTable;
           private ObservableList<Employee> employees;
     @FXML private TableColumn<Employee, Long> idColumn;
     @FXML private TableColumn<Employee, String> nameColumn;
     @FXML private TableColumn<Employee, String> surnameColumn;
 
-    @FXML private Button btnCreate;
-    @FXML private Button btnDelete;
-    @FXML private Button btnChange;
-    @FXML private Button btnCancel;
-    @FXML private Button btnGenerate;
+    @FXML private Button createButton;
+    @FXML private Button addButton;
+    @FXML private Button cancelCreatingButton;
+    @FXML private Button deleteButton;
+    @FXML private Button applyDeletingButton;
+    @FXML private Button cancelDeletingButton;
+    @FXML private Button changeButton;
+    @FXML private Button applyButton;
+    @FXML private Button cancelChangingButton;
+    @FXML private Button generateButton;
 
-    @FXML private TextField fldId;
-    @FXML private TextField fldName;
-    @FXML private TextField fldSurname;
-    @FXML private TextField fldAge;
-    @FXML private ComboBox<Sex>      boxSex;
-    @FXML private ComboBox<Position> boxPosition;
-    @FXML private ImageView          imageTick;
+    @FXML private TextField idField;
+    @FXML private TextField nameField;
+    @FXML private TextField surnameField;
+    @FXML private TextField ageField;
+    @FXML private ComboBox<Sex> sexBox;
+    @FXML private ComboBox<Position> positionBox;
+    @FXML private ImageView tickImage;
+
+    private String name;
+    private String surname;
+    private Integer age;
+    private Sex sex;
+    private Position position;
+
+    private Employee currentEmployee;
 
     private Service service;
 
@@ -54,227 +65,281 @@ public class AdminController {
 
         // fill TableView with Employees from DB
         employees = FXCollections.observableArrayList(service.findAll(Employee.class));
-        tableEmployees.setItems(employees);
+        employeesTable.setItems(employees);
 
         // set default items for ComboBoxes
-        boxSex.setItems(FXCollections.observableArrayList(Sex.values()));
-        boxPosition.setItems(FXCollections.observableArrayList(Position.values()));
+        sexBox.setItems(FXCollections.observableArrayList(Sex.values()));
+        positionBox.setItems(FXCollections.observableArrayList(Position.values()));
 
-        // change info about Employee when selected item in the ListView is changed
-        tableEmployees.getSelectionModel().selectedItemProperty()
-                .addListener((observable, oldValue, newValue)
-
-                        -> fillFieldsWith(newValue));
-        // add listeners for changing TextFields & ComboBoxes
-        // it activates Apply button
-        addListeners();
+        // Save current Employee
+        // change info about Employee when selected item in the TableView is changed
+        addSelectListener();
+        // add Button listeners for changing TextFields & ComboBoxes
+        // it activates Apply / Add button
+        addChangeListenerFor(applyButton);
+        addChangeListenerFor(addButton);
     }
 
     /* Action for Create button click */
     @FXML
-    public void createButtonAction() throws IOException {
-        // Shows Create window for new Employee
-        CreateController createController = GraphicsLoader.newWindowGeneric(
-                "/view/create_panel.fxml", "Create...", true);
+    public void create() throws IOException {
+        fillFieldsWith(null);
+        idField.setText("will be generated");
+        sexBox.setPromptText("Choose one");
+        positionBox.setPromptText("Choose one");
 
-        // Gets employee from Create Controller
-        // and adds to DB and TableView if it is not null
-        Employee newEmployee;
-        if ((newEmployee = createController.getEmployee()) != null) {
-            service.add(newEmployee);
-            tableEmployees.getItems().add(newEmployee);
+        generateButton.setVisible(true);
+        generateButton.setDisable(true);
+
+        disableAnother(true, createButton, addButton, cancelCreatingButton);
+        openFields(true);
+    }
+
+    // Adds new Employee to DB
+    @FXML
+    public void add() throws IOException {
+        validateTextFields();
+
+        if (name != null && surname != null && age != null && sex != null && position != null) {
+            Employee employee = new Employee(name, surname, age, sex, position);
+
+            service.add(employee);
+            employees.add(employee);
+            employeesTable.getSelectionModel().select(employee);
+
+            fillFieldsWith(currentEmployee);
+
+            disableAnother(false, createButton, addButton, cancelCreatingButton);
+            openFields(false);
         }
     }
 
-    /* Action for Change button click
-    *  Change button has two forms: 'Change' and 'Apply'
-    *  Default form - 'Change'. It provides the ability to change
-    *  info about Employee. When clicked: 'Change' -> 'Apply'
-    *  'Apply' form provides saving changes.
-    *  Also Cancel button becomes available to revert changes.
-    * */
     @FXML
-    public void changeButtonAction() throws IOException {
-        // selected Employee
-        Employee selEmpl = tableEmployees.getSelectionModel().getSelectedItem();
+    public void cancelCreating() {
+        fillFieldsWith(currentEmployee);
 
-        // actions for 'Change' form
-        if (btnChange.getText().equals("Change")) {
-            if (selEmpl == null) return;
+        disableAnother(false, createButton, addButton, cancelCreatingButton);
+        openFields(false);
+    }
 
-            // makes all TextFields and ComboBoxes editable
-            changeInfo(true);
-            return;
-        }
+    /* Action for Change button click
+    *  It provides the ability to change info about Employee */
+    @FXML
+    public void change() throws IOException {
 
-        // actions for 'Apply' form
-        if (btnChange.getText().equals("Apply")) {
-            // validate TextFields
-            String name = InputDataChecker.checkString(fldName);
-            String surname = InputDataChecker.checkString(fldSurname);
-            Integer age = InputDataChecker.checkInteger(fldAge);
-            Sex sex = boxSex.getValue();
-            Position position = boxPosition.getValue();
+        if (currentEmployee == null) return;
 
-            // If Fields are correct, apply changes
-            if (name != null && surname != null && age != null) {
-                boolean changed = false;
-                if (!name.equals(selEmpl.getName())) {selEmpl.setName(name); changed = true; }
-                if (!surname.equals(selEmpl.getSurname())) {selEmpl.setSurname(surname); changed = true;}
-                if (!age.equals(selEmpl.getAge())) {selEmpl.setAge(age); changed = true;}
-                if (!sex.equals(selEmpl.getSex())) {selEmpl.setSex(sex); changed = true;}
-                if (!position.equals(selEmpl.getPosition())) {selEmpl.setPosition(position); changed = true;}
+        // makes all TextFields and ComboBoxes editable
+        disableAnother(true, changeButton, applyButton, cancelChangingButton);
+        openFields(true);
+    }
 
-                changeInfo(false);
-                if (changed) {
-                    service.update(selEmpl);
-                }
-            }
+    /* Action for Apply button click
+     * Provides saving changes
+     * Also Cancel button becomes available to revert changes */
+    @FXML
+    public void apply() {
+
+        // validate TextFields
+        validateTextFields();
+
+        // If Fields are correct, apply changes
+        if (name != null && surname != null && age != null) {
+            if (!name.equals(currentEmployee.getName()))            currentEmployee.setName(name);
+            if (!surname.equals(currentEmployee.getSurname()))      currentEmployee.setSurname(surname);
+            if (!age.equals(currentEmployee.getAge()))              currentEmployee.setAge(age);
+            if (!sex.equals(currentEmployee.getSex()))              currentEmployee.setSex(sex);
+            if (!position.equals(currentEmployee.getPosition()))    currentEmployee.setPosition(position);
+
+            disableAnother(false, changeButton, applyButton, cancelChangingButton);
+            openFields(false);
+
+            service.update(currentEmployee);
         }
     }
 
     // Action for Cancel button click
     @FXML
-    public void cancelButtonAction() {
-        fillFieldsWith(tableEmployees.getSelectionModel().getSelectedItem());
+    public void cancelChanging() {
+        fillFieldsWith(currentEmployee);
 
-        changeInfo(false);
+        disableAnother(false, changeButton, applyButton, cancelChangingButton);
+        openFields(false);
+
     }
 
     /* Action for Generate button click
     *  Generates User account for selected Employee
     * */
     @FXML
-    public void generateButtonAction() {
-        Employee selectedEmployee = tableEmployees.getSelectionModel().getSelectedItem();
-
+    public void generate() {
         // Check if account doesn't exist
-        // if so then create acc and add it to DB
-        if (selectedEmployee.getUser() == null) {
+        // if so then create acc and addButton it to DB
+        if (currentEmployee.getUser() == null) {
             User user = new User(
-                    selectedEmployee.getName() + "." + selectedEmployee.getSurname(),
+                    currentEmployee.getName() + "." + currentEmployee.getSurname(),
                     "qwerty",
-                    selectedEmployee
+                    currentEmployee
             );
             service.add(user);
-            selectedEmployee.setUser(user);
-            service.update(selectedEmployee);
+            currentEmployee.setUser(user);
+            service.update(currentEmployee);
 
             // User account has been generated,
             // so make the button invisible
-            btnGenerate.setVisible(false);
+            generateButton.setVisible(false);
+            tickImage.setVisible(true);
         }
     }
 
     /* Action for Delete button click */
     @FXML
-    public void deleteButtonAction() {
-        Employee employee = tableEmployees.getSelectionModel().getSelectedItem();
-        if (employee != null) {
-            // Ask again
-            Alert alert = new Alert(Alert.AlertType.NONE);
-            alert.setTitle("Delete employee with ID " + employee.getId());
-            alert.setContentText("Are you sure?");
-
-            ButtonType yes = new ButtonType("Yes");
-            ButtonType no = new ButtonType("No");
-            alert.getButtonTypes().addAll(yes, no);
-
-            Optional<ButtonType> result = alert.showAndWait();
-
-            // If 'yes'
-            if (result.get() == yes) {
-                User user = employee.getUser();
-                // Delete dependency on User
-                employee.setUser(null);
-                service.update(employee);
-                // Safely remove user
-                // we can do this, because employee
-                // does not depend on it
-                service.delete(user);
-                // then delete employee
-                service.delete(employee);
-                // refresh TableView
-                tableEmployees.getItems().remove(employee);
-            }
+    public void delete() {
+        if (currentEmployee != null) {
+            disableAnother(true, deleteButton, applyDeletingButton, cancelDeletingButton);
+            applyDeletingButton.setDisable(false);
+            cancelDeletingButton.requestFocus();
         }
+    }
+
+    @FXML
+    public void applyDeleting() {
+        User user = currentEmployee.getUser();
+        // Delete dependency on User
+        currentEmployee.setUser(null);
+        service.update(currentEmployee);
+        // Safely remove user
+        // we can do this, because employee
+        // does not depend on it
+        service.delete(user);
+        // then delete employee
+        service.delete(currentEmployee);
+        // refresh TableView
+        employeesTable.getItems().remove(currentEmployee);
+
+        disableAnother(false, deleteButton, applyDeletingButton, cancelDeletingButton);
+    }
+
+    @FXML
+    public void cancelDeleting() {
+        disableAnother(false, deleteButton, applyDeletingButton, cancelDeletingButton);
     }
 
     /* Supplementary method
     * When Employee is selected in TableView,
     * his info is displayed on the right
     * */
-    private void fillFieldsWith(Employee newValue) {
-        if (newValue == null) return;
+    private void fillFieldsWith(Employee employee) {
+        // Clears all Employee details
+        if (employee == null) {
+            // Fields
+            idField.setText("");
+            nameField.setText("");
+            surnameField.setText("");
+            ageField.setText("");
+            // Boxes
+            sexBox.setPromptText("");
+            sexBox.setValue(null);
+            positionBox.setPromptText("");
+            positionBox.setValue(null);
+            // 'Has account?'
+            generateButton.setVisible(false);
+            tickImage.setVisible(false);
 
-        // Fill TextField & ComboBoxes
-        fldId       .setText(newValue.getId().toString());
-        fldName     .setText(newValue.getName());
-        fldSurname  .setText(newValue.getSurname());
-        fldAge      .setText(newValue.getAge().toString());
-        boxSex      .setValue(newValue.getSex());
-        boxPosition .setValue(newValue.getPosition());
+            return;
+        }
+
+        // Fill TextField & ComboBoxes with employee details
+        idField.setText(employee.getId().toString());
+        nameField.setText(employee.getName());
+        surnameField.setText(employee.getSurname());
+        ageField.setText(employee.getAge().toString());
+        sexBox.setValue(employee.getSex());
+        positionBox.setValue(employee.getPosition());
 
         // Special case for field 'Has account?'
-        if (newValue.getUser() == null) {
-            // Show Generate button if user isn't exists
-            btnGenerate.setVisible(true);
-            imageTick  .setVisible(false);
-        } else {
-            // Show Tick image if user exists
-            btnGenerate.setVisible(false);
-            imageTick  .setVisible(true);
-        }
+        Boolean userExists = (employee.getUser() != null);
+        generateButton.setVisible(!userExists);
+        generateButton.setDisable(false);
+        tickImage.setVisible(userExists);
     }
 
     /* Supplementary method
-     * Enabling fields for changing when true
+     * Disables another elements in scene
      */
-    private void changeInfo(Boolean enableFields) {
-        // Disable TableView & Buttons
-        tableEmployees.setDisable(enableFields);
-        btnCreate     .setDisable(enableFields);
-        btnDelete     .setDisable(enableFields);
-        btnGenerate   .setDisable(enableFields);
-        btnChange     .setDisable(enableFields);
+    private void disableAnother(boolean bool, Button actionButton,
+                            Button applyButton, Button cancelButton) {
+        employeesTable.setDisable(bool);
+        disableButtons(bool);
 
-        // Enable fields
-        fldName       .setDisable(!enableFields);
-        fldSurname    .setDisable(!enableFields);
-        fldAge        .setDisable(!enableFields);
-        boxSex        .setDisable(!enableFields);
-        boxPosition   .setDisable(!enableFields);
+        actionButton.setVisible(!bool);
+        applyButton.setVisible(bool);
+        cancelButton.setVisible(bool);
 
-        // Enable Cancel Button
-        btnCancel.setVisible(enableFields);
+        applyButton.setDisable(bool);
+    }
 
-        if (enableFields) {
-            // to 'Apply' form
-            btnChange.setText("Apply");
-            btnChange.setStyle("-fx-base: #b6e7c9;");
-        } else {
-            // to 'Change' form
-            btnChange.setText("Change");
-            btnChange.setStyle("-fx-base: #ececec;");
+    private void openFields(boolean bool) {
+        disableFields(!bool);
+        setDefaultBordersForFields(!bool);
+    }
 
-            // Set default borders
-            fldName     .setStyle("-fx-border-color: transparent;");
-            fldSurname  .setStyle("-fx-border-color: transparent;");
-            fldAge      .setStyle("-fx-border-color: transparent;");
-            boxSex      .setStyle("-fx-border-color: transparent;");
-            boxPosition .setStyle("-fx-border-color: transparent;");
+    private void setDefaultBordersForFields(Boolean bool) {
+        if (bool) {
+            nameField.setStyle("-fx-border-color: transparent;");
+            surnameField.setStyle("-fx-border-color: transparent;");
+            ageField.setStyle("-fx-border-color: transparent;");
+            sexBox.setStyle("-fx-border-color: transparent;");
+            positionBox.setStyle("-fx-border-color: transparent;");
         }
+    }
+
+    private void disableFields(Boolean bool) {
+        // Disable fields
+        nameField.setDisable(bool);
+        surnameField.setDisable(bool);
+        ageField.setDisable(bool);
+        sexBox.setDisable(bool);
+        positionBox.setDisable(bool);
+    }
+
+    private void disableButtons(Boolean bool) {
+        // Disable Buttons
+        createButton.setDisable(bool);
+        deleteButton.setDisable(bool);
+        generateButton.setDisable(bool);
+        changeButton.setDisable(bool);
     }
 
     // Create listener for Fields & ComboBoxes
     // when text or value is changing
     // then Change button becomes active
-    private void addListeners() {
-        ChangeListener<? super Object> listener = (observable, oldValue, newValue) -> btnChange.setDisable(false);
-        fldName     .textProperty().addListener(listener);
-        fldSurname  .textProperty().addListener(listener);
-        fldAge      .textProperty().addListener(listener);
-        boxSex      .valueProperty().addListener(listener);
-        boxPosition .valueProperty().addListener(listener);
+    private void addChangeListenerFor(Button button) {
+        ChangeListener<? super Object> listener = (observable, oldValue, newValue) -> button.setDisable(false);
+        nameField.textProperty().addListener(listener);
+        surnameField.textProperty().addListener(listener);
+        ageField.textProperty().addListener(listener);
+        sexBox.valueProperty().addListener(listener);
+        positionBox.valueProperty().addListener(listener);
+    }
+
+    private void addSelectListener() {
+        employeesTable.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+            currentEmployee = newValue;
+            fillFieldsWith(currentEmployee);
+
+            boolean isNull = (currentEmployee == null);
+            changeButton.setDisable(isNull);
+            deleteButton.setDisable(isNull);
+        });
+    }
+
+    private void validateTextFields() {
+        name = InputDataChecker.checkString(nameField);
+        surname = InputDataChecker.checkString(surnameField);
+        age = InputDataChecker.checkInteger(ageField);
+        sex = sexBox.getValue();
+        position = positionBox.getValue();
     }
 }
