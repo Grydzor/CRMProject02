@@ -1,18 +1,22 @@
 package util;
 
 public class Translit {
-    public static String cyr2lat(char ch){
-        switch (ch){
+    public static String cyr2lat(char ch) {
+        switch (ch) {
             case 'А': return "A";
             case 'Б': return "B";
             case 'В': return "V";
             case 'Г': return "G";
+            case 'Ґ': return "G";
             case 'Д': return "D";
             case 'Е': return "E";
+            case 'Є': return "JE";
             case 'Ё': return "JO";
             case 'Ж': return "ZH";
             case 'З': return "Z";
             case 'И': return "I";
+            case 'І': return "I";
+            case 'Ї': return "JI";
             case 'Й': return "Y";
             case 'К': return "K";
             case 'Л': return "L";
@@ -41,13 +45,17 @@ public class Translit {
             case 'б': return "b";
             case 'в': return "v";
             case 'г': return "g";
+            case 'ґ': return "G";
             case 'д': return "d";
             case 'е': return "e";
+            case 'є': return "je";
             case 'ё': return "jo";
             case 'ж': return "zh";
             case 'з': return "z";
             case 'и': return "i";
-            case 'й': return "y";
+            case 'і': return "i";
+            case 'ї': return "ji";
+            case 'й': return "j";
             case 'к': return "k";
             case 'л': return "l";
             case 'м': return "m";
@@ -74,9 +82,9 @@ public class Translit {
         }
     }
 
-    public static String cyr2lat(String s){
+    public static String cyr2lat(String s) {
         StringBuilder sb = new StringBuilder(s.length()*2);
-        for(char ch : s.toCharArray()){
+        for(char ch : s.toCharArray()) {
             sb.append(cyr2lat(ch));
         }
         return sb.toString();
