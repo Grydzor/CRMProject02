@@ -1,5 +1,6 @@
 package entity;
 
+import com.sun.istack.internal.NotNull;
 import enum_types.Position;
 import enum_types.Sex;
 
@@ -14,9 +15,11 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Column(name = "NAME")
     private String name;
 
+    @NotNull
     @Column(name = "SURNAME")
     private String surname;
 
@@ -103,7 +106,28 @@ public class Employee {
 
     @Override
     public String toString() {
-        return name + " " + surname;
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", age=" + age +
+                ", sex=" + sex +
+                ", position=" + position +
+                '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Employee employee = (Employee) o;
+
+        if (!name.equals(employee.name)) return false;
+        if (!surname.equals(employee.surname)) return false;
+        if (age != null ? !age.equals(employee.age) : employee.age != null) return false;
+
+        return sex == employee.sex
+                && position == employee.position;
+    }
 }

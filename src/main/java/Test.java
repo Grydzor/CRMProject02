@@ -9,8 +9,8 @@ public class Test {
     public static void main(String[] args) {
         Service service = new ServiceImpl();
 
-        Employee employee = new Employee("Steve", "Jobs", 20, Sex.MALE, Position.MANAGER);
-        User user = new User("steve.jobs", "qwerty", employee);
+        Employee employee = new Employee("Steve", "Jobs", 20, Sex.MALE, Position.ADMIN);
+        User user = new User("root", "root", employee);
 
         service.add(employee);
         service.add(user);
