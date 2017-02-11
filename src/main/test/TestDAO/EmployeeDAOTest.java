@@ -35,7 +35,7 @@ public class EmployeeDAOTest {
         Long id = employeeDAO.create(employee);
         Employee employeeReturned = employeeDAO.read(id);
 
-        assertEquals("Проверка корректности записаного сотрудника", employeeReturned.toString(), employee.toString());
+        assertEquals("Проверка корректности записаного сотрудника", employeeReturned, employee);
 
         Employee employee1 = new Employee("Ivan1", "Ivanov1", 112, Sex.MALE, Position.ADMIN);
         employee1.setId(id);
@@ -43,7 +43,7 @@ public class EmployeeDAOTest {
         employeeDAO.update(employee1);
         Employee employeeReturned1 = employeeDAO.read(id);
 
-        assertEquals("Проверка корректности обновления информации о сотруднике", employeeReturned1.toString(), employee1.toString());
+        assertEquals("Проверка корректности обновления информации о сотруднике", employeeReturned1, employee1);
 
         employeeDAO.delete(employeeReturned1);
         Employee employeeReturned2 = employeeDAO.read(id);

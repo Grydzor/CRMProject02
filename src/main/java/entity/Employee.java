@@ -103,7 +103,24 @@ public class Employee {
 
     @Override
     public String toString() {
-        return name + " " + surname;
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", age=" + age +
+                ", sex=" + sex +
+                ", position=" + position +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Employee employee = (Employee) o;
+
+        return name.equals(employee.name) && surname.equals(employee.surname);
     }
 
 }

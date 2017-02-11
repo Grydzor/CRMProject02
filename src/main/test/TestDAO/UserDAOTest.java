@@ -39,7 +39,7 @@ public class UserDAOTest {
         Long id = userDAO.create(user);
         User userReturned = userDAO.read(id);
 
-        assertEquals("Проверка корректности записаного пользователя", userReturned.toString(), user.toString());
+        assertEquals("Проверка корректности записаного пользователя", userReturned, user);
 
         User user1 = new User("login", "password", employee);
         user1.setId(id);
@@ -47,7 +47,7 @@ public class UserDAOTest {
         userDAO.update(user1);
         User userReturned1 = userDAO.read(id);
 
-        assertEquals("Проверка корректности обновления информации о пользователе", userReturned1.toString(), user1.toString());
+        assertEquals("Проверка корректности обновления информации о пользователе", userReturned1, user1);
 
         userDAO.delete(userReturned1);
         User userReturned2 = userDAO.read(id);
