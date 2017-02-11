@@ -1,8 +1,11 @@
 package dao;
 
+import entity.User;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import util.HibernateSessionFactory;
 
 import java.util.List;
@@ -80,5 +83,21 @@ public class DAOImpl implements DAO {
     @SuppressWarnings("unchecked")
     public <T> List<T> findAll(Class<T> type) {
         return (List<T>) factory.openSession().createCriteria(type).list();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public User find(String login) {
+        Session session = factory.openSession();
+        try {
+            List<User> users = session
+                    .createCriteria(User.class)
+                    .add(Restrictions.eq("login", login))
+                    .list();
+
+            return !users.isEmpty() ? users.get(0) : null;
+        } finally {
+            session.close();
+        }
     }
 }

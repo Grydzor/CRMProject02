@@ -4,6 +4,7 @@ import entity.Employee;
 import entity.User;
 import enum_types.Position;
 import enum_types.Sex;
+import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +15,7 @@ import javafx.scene.image.ImageView;
 import service.Service;
 import service.ServiceImpl;
 import util.InputDataChecker;
+import util.LoginHelper;
 
 import java.io.IOException;
 
@@ -76,8 +78,8 @@ public class AdminController {
         addSelectListener();
         // add Button listeners for changing TextFields & ComboBoxes
         // it activates Apply / Add button
-        addChangeListenerFor(applyButton);
-        addChangeListenerFor(addButton);
+        addInvalidationListenerFor(applyButton);
+        addInvalidationListenerFor(addButton);
     }
 
     /* Action for Create button click */
@@ -98,7 +100,7 @@ public class AdminController {
     // Adds new Employee to DB
     @FXML
     public void add() throws IOException {
-        validateTextFields();
+        validateFields();
 
         if (name != null && surname != null && age != null && sex != null && position != null) {
             Employee employee = new Employee(name, surname, age, sex, position);
@@ -141,7 +143,7 @@ public class AdminController {
     public void apply() {
 
         // validate TextFields
-        validateTextFields();
+        validateFields();
 
         // If Fields are correct, apply changes
         if (name != null && surname != null && age != null) {
@@ -176,11 +178,10 @@ public class AdminController {
         // Check if account doesn't exist
         // if so then create acc and addButton it to DB
         if (currentEmployee.getUser() == null) {
-            User user = new User(
-                    currentEmployee.getName() + "." + currentEmployee.getSurname(),
-                    "qwerty",
-                    currentEmployee
-            );
+            String name = currentEmployee.getName();
+            String surname = currentEmployee.getSurname();
+            String login = LoginHelper.generate(name, surname);
+            User user = new User(login, "qwerty", currentEmployee);
             service.add(user);
             currentEmployee.setUser(user);
             service.update(currentEmployee);
@@ -316,8 +317,18 @@ public class AdminController {
     // Create listener for Fields & ComboBoxes
     // when text or value is changing
     // then Change button becomes active
-    private void addChangeListenerFor(Button button) {
-        ChangeListener<? super Object> listener = (observable, oldValue, newValue) -> button.setDisable(false);
+    private void addInvalidationListenerFor(Button button) {
+        InvalidationListener listener = (observable) -> {
+            if (!nameField.getText().isEmpty() &&
+                    !surnameField.getText().isEmpty() &&
+                    !ageField.getText().isEmpty() &&
+                    sexBox.getValue() != null &&
+                    positionBox.getValue() != null) {
+                button.setDisable(false);
+            } else {
+                button.setDisable(true);
+            }
+        };
         nameField.textProperty().addListener(listener);
         surnameField.textProperty().addListener(listener);
         ageField.textProperty().addListener(listener);
@@ -337,11 +348,11 @@ public class AdminController {
         });
     }
 
-    private void validateTextFields() {
+    private void validateFields() {
         name = InputDataChecker.checkString(nameField);
         surname = InputDataChecker.checkString(surnameField);
         age = InputDataChecker.checkInteger(ageField);
-        sex = sexBox.getValue();
-        position = positionBox.getValue();
+        sex = InputDataChecker.checkEnum(sexBox);
+        position = InputDataChecker.checkEnum(positionBox);
     }
 }
