@@ -1,5 +1,6 @@
 package entity;
 
+import com.sun.istack.internal.NotNull;
 import enum_types.Position;
 import enum_types.Sex;
 
@@ -14,9 +15,11 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Column(name = "NAME")
     private String name;
 
+    @NotNull
     @Column(name = "SURNAME")
     private String surname;
 
