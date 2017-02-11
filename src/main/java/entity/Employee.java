@@ -120,7 +120,11 @@ public class Employee {
 
         Employee employee = (Employee) o;
 
-        return name.equals(employee.name) && surname.equals(employee.surname);
-    }
+        if (!name.equals(employee.name)) return false;
+        if (!surname.equals(employee.surname)) return false;
+        if (age != null ? !age.equals(employee.age) : employee.age != null) return false;
 
+        return sex == employee.sex
+                && position == employee.position;
+    }
 }
