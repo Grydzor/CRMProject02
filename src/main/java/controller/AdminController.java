@@ -45,6 +45,7 @@ public class AdminController {
     @FXML private ComboBox<Sex> sexBox;
     @FXML private ComboBox<Position> positionBox;
     @FXML private ImageView tickImage;
+    @FXML private Label userLogin;
 
     private String name;
     private String surname;
@@ -189,7 +190,8 @@ public class AdminController {
             // User account has been generated,
             // so make the button invisible
             generateButton.setVisible(false);
-            tickImage.setVisible(true);
+            userLogin.setVisible(true);
+            userLogin.setText(login);
         }
     }
 
@@ -247,7 +249,7 @@ public class AdminController {
             positionBox.setValue(null);
             // 'Has account?'
             generateButton.setVisible(false);
-            tickImage.setVisible(false);
+            userLogin.setVisible(false);
 
             return;
         }
@@ -261,10 +263,12 @@ public class AdminController {
         positionBox.setValue(employee.getPosition());
 
         // Special case for field 'Has account?'
-        Boolean userExists = (employee.getUser() != null);
+        User user;
+        Boolean userExists = ((user = employee.getUser()) != null);
         generateButton.setVisible(!userExists);
         generateButton.setDisable(false);
-        tickImage.setVisible(userExists);
+        userLogin.setVisible(userExists);
+        if (userExists) userLogin.setText(user.getLogin());
     }
 
     /* Supplementary method
