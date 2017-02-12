@@ -191,7 +191,7 @@
                      <children>
                         <Label fx:id="userLogin" visible="false">
                            <graphic>
-                              <ImageView fx:id="tickImage" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url('/view/imgs/tick.png')" />
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url('/view/imgs/tick.png')" />
                            </graphic>
                            <StackPane.margin>
                               <Insets left="10.0" />

@@ -21,7 +21,7 @@
     -fx-font-size: 14;
 }
 
-.table-view, .table-view:disabled {
+.table-view {
     -fx-font-size: 14;
 }
 
