@@ -22,8 +22,8 @@ public class GraphicsLoader {
         Stage stage = new Stage();
         stage.setTitle(title);
         stage.setResizable(true);
-        stage.setMinHeight(540);
-        stage.setMinWidth(960);
+        stage.setMinHeight(580);
+        stage.setMinWidth(980);
         stage.setScene(new Scene(root));
         stage.show();
     }
@@ -67,8 +67,8 @@ public class GraphicsLoader {
         stage.setTitle(title);
 
         stage.setResizable(true);
-        stage.setMinHeight(540);
-        stage.setMinWidth(960);
+        stage.setMinHeight(580);
+        stage.setMinWidth(980);
 
         Scene scene = new Scene(root);
 //        scene.getStylesheets().add("/view/styles/w8_design.css");
