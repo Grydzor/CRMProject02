@@ -21,7 +21,9 @@ public class GraphicsLoader {
         }
         Stage stage = new Stage();
         stage.setTitle(title);
-        stage.setResizable(false);
+        stage.setResizable(true);
+        stage.setMinHeight(540);
+        stage.setMinWidth(960);
         stage.setScene(new Scene(root));
         stage.show();
     }
@@ -63,7 +65,11 @@ public class GraphicsLoader {
         if (!isModal) stage.setOnCloseRequest((event) ->
                 HibernateSessionFactory.getSessionFactory().close());
         stage.setTitle(title);
-        stage.setResizable(false);
+
+        stage.setResizable(true);
+        stage.setMinHeight(540);
+        stage.setMinWidth(960);
+
         Scene scene = new Scene(root);
 //        scene.getStylesheets().add("/view/styles/w8_design.css");
         stage.setScene(scene);
