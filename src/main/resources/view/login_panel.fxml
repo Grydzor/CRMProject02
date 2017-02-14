@@ -1,67 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<GridPane hgap="7.0" prefHeight="180.0" prefWidth="290.0" styleClass="background" vgap="7.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
-   <children>
-      <TextField fx:id="fldLogin" GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <font>
-            <Font size="14.0" />
-         </font></TextField>
-      <PasswordField fx:id="fldPassword" onAction="#enterButtonAction" GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <font>
-            <Font size="14.0" />
-         </font></PasswordField>
-      <FlowPane alignment="CENTER_RIGHT" GridPane.columnSpan="3" GridPane.rowIndex="3">
-         <children>
-            <Label fx:id="lblStatus" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" textAlignment="CENTER" textFill="#ed0000" wrapText="true">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <FlowPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="7.0" top="5.0" />
-               </FlowPane.margin>
+
+<BorderPane minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0"
+            xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.LoginController">
+    <top>
+        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
+    </top>
+    <left>
+        <Pane prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER"/>
+    </left>
+    <right>
+        <Pane prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER"/>
+    </right>
+    <bottom>
+        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
+    </bottom>
+    <center>
+        <VBox maxHeight="180.0" maxWidth="360.0" minHeight="180.0" minWidth="360.0" prefHeight="180.0" prefWidth="360.0"
+              BorderPane.alignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="TEXT_ONLY" prefHeight="18.0" prefWidth="360.0"
+                   text="Welcome! Please enter the system:" textAlignment="CENTER">
+                <font>
+                    <Font size="14.0"/>
+                </font>
+                <VBox.margin>
+                    <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
+                </VBox.margin>
             </Label>
-            <Button fx:id="btnEnter" mnemonicParsing="false" onAction="#enterButtonAction" prefWidth="70.0" text="Log In">
-               <FlowPane.margin>
-                  <Insets />
-               </FlowPane.margin>
-               <font>
-                  <Font size="14.0" />
-               </font></Button>
-            <Button fx:id="btnExit" mnemonicParsing="false" onAction="#exitButtonAction" prefWidth="70.0" text="Exit">
-               <FlowPane.margin>
-                  <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-               </FlowPane.margin>
-               <font>
-                  <Font size="14.0" />
-               </font></Button>
-         </children>
-      </FlowPane>
-      <Label text="Welcome! Please enter the system:" GridPane.columnSpan="2" GridPane.halignment="CENTER">
-         <font>
-            <Font size="14.0" />
-         </font></Label>
-      <Label text="Username:" GridPane.rowIndex="1">
-         <font>
-            <Font size="14.0" />
-         </font></Label>
-      <Label text="Password:" GridPane.rowIndex="2">
-         <font>
-            <Font size="14.0" />
-         </font></Label>
-   </children>
-   <columnConstraints>
-      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-   </rowConstraints>
-</GridPane>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+                <Label maxWidth="80.0" minWidth="80.0" prefWidth="80.0" text="Username:" textAlignment="CENTER">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                    <HBox.margin>
+                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0"/>
+                    </HBox.margin>
+                </Label>
+                <TextField fx:id="fldLogin" maxWidth="240.0" minWidth="240.0" prefWidth="240.0">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </TextField>
+                <VBox.margin>
+                    <Insets bottom="8.0" left="16.0" right="8.0" top="8.0"/>
+                </VBox.margin>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+                <Label maxWidth="80.0" minWidth="80.0" prefWidth="80.0" text="Password:" textAlignment="CENTER">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                    <HBox.margin>
+                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0"/>
+                    </HBox.margin>
+                </Label>
+                <PasswordField fx:id="fldPassword" maxWidth="240.0" minWidth="240.0" onAction="#enterButtonAction"
+                               prefWidth="240.0">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </PasswordField>
+                <VBox.margin>
+                    <Insets bottom="8.0" left="16.0" right="8.0" top="8.0"/>
+                </VBox.margin>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+                <Label fx:id="lblStatus" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" textAlignment="CENTER"
+                       textFill="#ed0000" wrapText="true">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                    <HBox.margin>
+                        <Insets bottom="18.0" left="18.0" right="18.0" top="18.0"/>
+                    </HBox.margin>
+                </Label>
+                <Button fx:id="btnEnter" mnemonicParsing="false" onAction="#enterButtonAction" prefWidth="70.0"
+                        text="Log In">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                    <HBox.margin>
+                        <Insets bottom="12.0" left="12.0" right="12.0" top="12.0"/>
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="btnExit" mnemonicParsing="false" onAction="#exitButtonAction" prefWidth="70.0"
+                        text="Exit">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                    <HBox.margin>
+                        <Insets bottom="12.0" left="12.0" right="12.0" top="12.0"/>
+                    </HBox.margin>
+                </Button>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>
