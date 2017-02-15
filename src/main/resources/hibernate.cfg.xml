@@ -21,5 +21,8 @@
 
         <mapping class="entity.Employee"/>
         <mapping class="entity.User"/>
+        <mapping class="entity.Position"/>
+        <mapping class="entity.Product"/>
+        <mapping class="entity.Order"/>
     </session-factory>
 </hibernate-configuration>

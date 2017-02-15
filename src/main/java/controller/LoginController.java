@@ -1,7 +1,7 @@
 package controller;
 
 import entity.User;
-import enum_types.Status;
+import enum_types.UserStatus;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -40,12 +40,12 @@ public class LoginController {
             User user = service.find(login);
 
             if (user == null) {
-                setStatusMsg(Status.UNKNOWN_USER);
+                setStatusMsg(UserStatus.UNKNOWN_USER);
                 return;
             }
 
             if (user.getPassword().equals(password)) {
-                setStatusMsg(Status.SUCCESS);
+                setStatusMsg(UserStatus.SUCCESS);
                 switch (user.getEmployee().getPosition()) {
                     case ADMIN:
                         GraphicsLoader.newWindowGeneric("/view/admin_panel.fxml", "Administration", false);
@@ -58,7 +58,7 @@ public class LoginController {
                 return;
             }
 
-            setStatusMsg(Status.WRONG_PASSWORD);
+            setStatusMsg(UserStatus.WRONG_PASSWORD);
         }
     }
 
@@ -67,7 +67,7 @@ public class LoginController {
         HibernateSessionFactory.getSessionFactory().close();
     }
 
-    private void setStatusMsg(Status status) {
-        lblStatus.setText(status.toString());
+    private void setStatusMsg(UserStatus userStatus) {
+        lblStatus.setText(userStatus.toString());
     }
 }
