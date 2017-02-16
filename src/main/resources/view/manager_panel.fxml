@@ -17,11 +17,25 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
-   <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="648.0" AnchorPane.topAnchor="8.0">
+<AnchorPane minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
+   <HBox prefHeight="32.0" prefWidth="240.0" AnchorPane.leftAnchor="48.0" AnchorPane.topAnchor="4.0">
+      <children>
+         <ComboBox fx:id="buyerBox" prefWidth="160.0">
+            <HBox.margin>
+               <Insets right="8.0" />
+            </HBox.margin>
+         </ComboBox>
+         <Button fx:id="newBuyerButton" mnemonicParsing="false" onAction="#newBuyer" prefWidth="44.0" text="new">
+            <HBox.margin>
+               <Insets />
+            </HBox.margin>
+         </Button>
+      </children>
+   </HBox>
+   <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="648.0" AnchorPane.topAnchor="40.0">
       <center>
-          <VBox alignment="CENTER" maxHeight="524.0" maxWidth="304.0" minHeight="524.0" minWidth="304.0" prefHeight="524.0" prefWidth="304.0" BorderPane.alignment="CENTER">
-              <TableView fx:id="orderTable" prefHeight="765.0" prefWidth="304.0">
+          <VBox alignment="CENTER" maxHeight="512.0" maxWidth="304.0" minHeight="512.0" minWidth="304.0" prefHeight="512.0" prefWidth="304.0" BorderPane.alignment="CENTER">
+              <TableView fx:id="orderTable" prefHeight="517.0" prefWidth="304.0">
                   <columns>
                       <TableColumn fx:id="orderIdColumn" prefWidth="75.0" text="ID" />
                       <TableColumn fx:id="orderDateColumn" prefWidth="75.0" text="DATE" />
@@ -56,6 +70,9 @@
                           <Font name="Arial" size="18.0" />
                       </font>
                   </Button>
+               <VBox.margin>
+                  <Insets bottom="14.0" />
+               </VBox.margin>
               </HBox>
           </VBox>
       </center>
@@ -72,18 +89,36 @@
          <Pane prefHeight="0.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
       </right>
    </BorderPane>
-   <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="328.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+   <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="328.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0">
       <center>
           <VBox alignment="TOP_CENTER" maxHeight="524.0" maxWidth="632.0" minHeight="524.0" minWidth="632.0" prefHeight="524.0" prefWidth="632.0" BorderPane.alignment="CENTER">
               <Label text="ORDER INFORMATION">
                   <font>
-                      <Font name="Calibri Bold" size="30.0" />
+                      <Font size="24.0" />
                   </font>
                   <VBox.margin>
-                      <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                      <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                   </VBox.margin>
               </Label>
               <VBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                      <Label prefWidth="100.0" text="Manager:">
+                          <HBox.margin>
+                              <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                          </HBox.margin>
+                          <font>
+                              <Font size="14.0" />
+                          </font>
+                      </Label>
+                      <TextField fx:id="managerTextField" prefWidth="160.0">
+                          <HBox.margin>
+                              <Insets right="40.0" />
+                          </HBox.margin>
+                      </TextField>
+                      <VBox.margin>
+                          <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                      </VBox.margin>
+                  </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                       <Label prefWidth="100.0" text="Order number:">
                           <HBox.margin>
@@ -107,38 +142,6 @@
                           </font>
                       </Label>
                   <ComboBox fx:id="statusBox" prefWidth="160.0" />
-                      <VBox.margin>
-                          <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                      </VBox.margin>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                      <Label prefWidth="100.0" text="Manager:">
-                          <HBox.margin>
-                              <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                          </HBox.margin>
-                          <font>
-                              <Font size="14.0" />
-                          </font>
-                      </Label>
-                      <TextField fx:id="managerTextField" prefWidth="160.0">
-                          <HBox.margin>
-                              <Insets right="40.0" />
-                          </HBox.margin>
-                      </TextField>
-                      <Label prefWidth="100.0" text="Bayer:">
-                          <HBox.margin>
-                              <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                          </HBox.margin>
-                          <font>
-                              <Font size="14.0" />
-                          </font>
-                      </Label>
-                  <ComboBox fx:id="buyerBox" prefWidth="112.0">
-                     <HBox.margin>
-                        <Insets right="4.0" />
-                     </HBox.margin>
-                  </ComboBox>
-                  <Button fx:id="newBuyerButton" mnemonicParsing="false" onAction="#newBuyer" prefWidth="44.0" text="new" />
                       <VBox.margin>
                           <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                       </VBox.margin>
@@ -179,7 +182,7 @@
                   <Insets top="8.0" />
                </VBox.margin>
             </HBox>
-              <TableView fx:id="itemTable" maxWidth="624.0" minWidth="624.0" prefHeight="550.0" prefWidth="624.0">
+              <TableView fx:id="itemTable" maxWidth="624.0" minWidth="624.0" prefWidth="624.0">
                   <columns>
                       <TableColumn fx:id="itemIdColumn" maxWidth="80.0" minWidth="32.0" prefWidth="32.0" style="-fx-font-size: 12;" text="№" />
                       <TableColumn fx:id="itemNameColumn" prefWidth="140.0" style="-fx-font-size: 12;" text="Name" />
@@ -263,7 +266,7 @@
                           <Insets bottom="8.0" left="8.0" right="8.0" top="5.0" />
                       </HBox.margin>
                   </Button>
-                  <Button fx:id="cancelOrderButton" alignment="CENTER" maxHeight="40.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="40.0" prefWidth="100.0" text="LOG OUT" textAlignment="CENTER">
+                  <Button fx:id="cancelOrderButton" alignment="CENTER" maxHeight="40.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="40.0" prefWidth="100.0" text="CANCEL" textAlignment="CENTER">
                       <font>
                           <Font size="16.0" />
                       </font>
@@ -271,6 +274,9 @@
                           <Insets bottom="8.0" left="8.0" right="10.0" top="5.0" />
                       </HBox.margin>
                   </Button>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
               </HBox>
           </VBox>
       </center>
