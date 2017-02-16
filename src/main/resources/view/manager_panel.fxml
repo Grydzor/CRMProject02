@@ -13,9 +13,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
+<AnchorPane minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
    <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="648.0" AnchorPane.topAnchor="8.0">
       <center>
           <VBox alignment="CENTER" maxHeight="524.0" maxWidth="304.0" minHeight="524.0" minWidth="304.0" prefHeight="524.0" prefWidth="304.0" BorderPane.alignment="CENTER">
@@ -30,15 +32,23 @@
                   </columnResizePolicy>
               </TableView>
               <HBox alignment="CENTER" maxHeight="48.0" minHeight="48.0" prefHeight="48.0" prefWidth="200.0">
-                  <Button fx:id="addOrderButton" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#addOrder" prefHeight="40.0" prefWidth="40.0" text="+">
+                  <Button fx:id="addOrderButton" maxHeight="40.0" maxWidth="120.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#addOrder" prefHeight="40.0" prefWidth="120.0" text="+">
                       <font>
                           <Font size="18.0" />
                       </font>
                       <HBox.margin>
                           <Insets bottom="4.0" left="4.0" right="64.0" top="4.0" />
                       </HBox.margin>
+                  <textFill>
+                     <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                        <stops>
+                           <Stop color="BLACK" />
+                           <Stop color="WHITE" offset="1.0" />
+                        </stops>
+                     </RadialGradient>
+                  </textFill>
                   </Button>
-                  <Button fx:id="deleteOrderButton" contentDisplay="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#deleteOrder" prefHeight="40.0" prefWidth="40.0" text="-" textAlignment="CENTER">
+                  <Button fx:id="deleteOrderButton" contentDisplay="CENTER" maxHeight="40.0" maxWidth="120.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#deleteOrder" prefHeight="40.0" prefWidth="120.0" text="-" textAlignment="CENTER">
                       <HBox.margin>
                           <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                       </HBox.margin>
@@ -165,30 +175,6 @@
                   </VBox.margin>
               </VBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
-                  <Button fx:id="addItemButton" mnemonicParsing="false" onAction="#addItem" prefWidth="60.0" text="add">
-                     <HBox.margin>
-                        <Insets left="16.0" right="8.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="changeItemButton" mnemonicParsing="false" onAction="#changeItem" prefWidth="60.0" text="change">
-                     <HBox.margin>
-                        <Insets left="8.0" right="8.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="deleteItemButton" mnemonicParsing="false" onAction="#deleteItem" prefWidth="60.0" text="delete">
-                     <HBox.margin>
-                        <Insets left="8.0" right="8.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Button>
                <VBox.margin>
                   <Insets top="8.0" />
                </VBox.margin>
@@ -245,20 +231,44 @@
                   </opaqueInsets>
               </HBox>
               <HBox alignment="TOP_RIGHT" maxHeight="211.0" minHeight="48.0" prefHeight="211.0" prefWidth="632.0">
-                  <Button fx:id="saveOrderButton" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#saveOrder" prefHeight="40.0" prefWidth="100.0" text="SAVE">
+                  <Button fx:id="addItemButton" alignment="CENTER" contentDisplay="TOP" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" onAction="#addItem" prefHeight="40.0" prefWidth="100.0" text="ADD" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="8.0" right="8.0" top="5.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="changeItemButton" alignment="CENTER" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" onAction="#changeItem" prefHeight="40.0" prefWidth="100.0" text="CHANGE" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="8.0" right="8.0" top="5.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="deleteItemButton" alignment="CENTER" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="40.0" prefWidth="100.0" text="DELETE" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="8.0" right="60.0" top="5.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="saveOrderButton" alignment="CENTER" maxHeight="40.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" onAction="#saveOrder" prefHeight="40.0" prefWidth="100.0" text="SAVE" textAlignment="CENTER">
                       <font>
                           <Font size="16.0" />
                       </font>
                       <HBox.margin>
-                          <Insets bottom="8.0" left="8.0" right="24.0" top="8.0" />
+                          <Insets bottom="8.0" left="8.0" right="8.0" top="5.0" />
                       </HBox.margin>
                   </Button>
-                  <Button fx:id="cancelOrderButton" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="40.0" prefWidth="100.0" text="CANCEL">
+                  <Button fx:id="cancelOrderButton" alignment="CENTER" maxHeight="40.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="40.0" prefWidth="100.0" text="CANCEL" textAlignment="CENTER">
                       <font>
                           <Font size="16.0" />
                       </font>
                       <HBox.margin>
-                          <Insets bottom="8.0" left="8.0" right="24.0" top="8.0" />
+                          <Insets bottom="8.0" left="8.0" right="10.0" top="5.0" />
                       </HBox.margin>
                   </Button>
               </HBox>
