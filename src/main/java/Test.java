@@ -14,8 +14,9 @@ public class Test {
         ProductService productService = new ProductServiceImpl();
         OrderService orderService = new OrderServiceImpl();
         ItemService itemService = new ItemServiceImpl();
+        CustomerService customerService = new CustomerServiceImpl();
 
-        UserService userService = new UserServiceImpl();
+        /*UserService userService = new UserServiceImpl();
         EmployeeService employeeService = new EmployeeServiceImpl();
 
         Employee employee = new Employee("Stef", "Jbs", 20, Sex.MALE, Position.MANAGER);
@@ -30,13 +31,15 @@ public class Test {
 
         System.out.println(employeeFrom.getName() + ", " + employeeFrom.getSurname() + ", " + employeeFrom.getAge());
         System.out.println(userFrom.getLogin() + ", " + userFrom.getPassword() + ", " + userFrom.getEmployee().getName());
+*/
 
-
+        Customer customer = new Customer("Customer", "CUstomerevich");
         Product notebook = new Product("Apple", new BigDecimal(1499));
-        Order order = new Order("Ivan", "Taras", new Date(new GregorianCalendar(2016,5,23).getTimeInMillis()), OrderStatus.OPEN, new BigDecimal(1499));
+        Order order = new Order("Ivan", customer, new Date(new GregorianCalendar(2016,5,23).getTimeInMillis()), OrderStatus.OPEN, new BigDecimal(1499));
         Item item = new Item(notebook, new BigDecimal(2999), 2, order);
 
         productService.add(notebook);
+        customerService.add(customer);
         orderService.add(order);
         itemService.add(item);
 

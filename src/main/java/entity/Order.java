@@ -24,8 +24,9 @@ public class Order {
     @Column(name = "MANAGER")
     private String manager;
 
-    @Column(name = "BUYER")
-    private String buyer;
+    @ManyToOne
+    @JoinColumn(name = "CUSTOMER_ID")
+    private Customer customer;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "DATE")
@@ -43,9 +44,9 @@ public class Order {
     public Order() {
     }
 
-    public Order(String manager, String buyer, Date date, OrderStatus status, BigDecimal summary) {
+    public Order(String manager, Customer customer, Date date, OrderStatus status, BigDecimal summary) {
         this.manager = manager;
-        this.buyer = buyer;
+        this.customer = customer;
         this.date = date;
         this.status = status;
         this.summary = summary;
@@ -67,12 +68,12 @@ public class Order {
         this.manager = manager;
     }
 
-    public String getBuyer() {
-        return buyer;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setBuyer(String buyer) {
-        this.buyer = buyer;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public Date getDate() {
