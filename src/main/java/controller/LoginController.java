@@ -32,6 +32,22 @@ public class LoginController {
         userService = new UserServiceImpl();
     }
 
+
+    /*
+    метод enterButtonAction при нажатии клавиши Enter:
+    - принимает данные - login & password (в формате String)
+    - обработка и результат:
+        1. проверка чтобы поля login & password были заполнены,
+        иначе (InputDataChecker.checkString) - поля подсвечиваем красным цветом
+        2. подключаем интерфейс userService для поиска логина:
+            - если логин не существует - UNKNOWN_USER (UserStatus)
+            - иначе (логин существует) - сравниваем password с тем, который в базе:
+                а. не совпадает - WRONG_PASSWORD (UserStatus)
+                б. совпадает - SUCCESS(UserStatus)- закрываем окно (StageFactory.closeWindow),
+                вытягиваем по цепочке через - user.getEmployee().getPosition() - и выбираем -
+                ADMIN или MANAGER - необходимую панель (Administration & Management)
+
+     */
     public void enterButtonAction() throws IOException {
         String login = InputDataChecker.checkString(fldLogin);
         String password = InputDataChecker.checkString(fldPassword);
