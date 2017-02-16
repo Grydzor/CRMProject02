@@ -22,8 +22,7 @@ public class Product {
     @Column(name = "PRICE")
     private BigDecimal price;
 
-    public Product() {
-    }
+    public Product() {}
 
     public Product(String name, BigDecimal price) {
         this.name = name;
