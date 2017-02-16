@@ -13,6 +13,7 @@ import service.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class ManagerController {
 
@@ -22,8 +23,9 @@ public class ManagerController {
     @FXML private TableColumn<Order, Date> orderDateColumn;
     @FXML private TableColumn<Order, BigDecimal> orderPriceColumn;
 
-    @FXML private TableView<Item> itemTable;
-    private ObservableList<Item> item;
+    @FXML private TableView itemTable;
+    private ObservableList item;
+    private ObservableList product;
     @FXML private TableColumn<Item, Long> itemIdColumn;
     @FXML private TableColumn<Product, String> itemNameColumn;
     @FXML private TableColumn<Item, Integer> itemQuantityColumn;
@@ -70,15 +72,32 @@ public class ManagerController {
 
         orders = FXCollections.observableArrayList(orderService.findAll());
         orderTable.setItems(orders);
-//
-//        itemIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-//        itemNameColumn.setCellValueFactory(new PropertyValueFactory<>(""));
-//        itemQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-//        itemPriceNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-//        itemIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-//        itemIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        itemIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        itemQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+
+        itemNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        itemPriceNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        item = FXCollections.observableArrayList(itemService.findAll());
+        product = FXCollections.observableArrayList(productService.findAll());
+        itemTable.setItems(item);
+        itemTable.setItems(product);
+
+
 
     }
+
+//    class NodeItem{
+//
+//        public List<T> findAll(){
+//
+//            List<Item> itList = itemService.findAll();
+//            itList.get()
+//            return null;
+//        }
+//
+//    }
 
 
     @FXML
