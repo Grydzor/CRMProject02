@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 /**
  * Created by Никита on 15.02.2017.
@@ -20,7 +21,7 @@ public class Item {
     private Product product;
 
     @Column(name = "PRICE")
-    private Integer price;
+    private BigDecimal price;
 
     @Column(name = "AMOUNT")
     private Integer amount;
@@ -32,7 +33,7 @@ public class Item {
     public Item() {
     }
 
-    public Item(Product product, Integer price, Integer amount, Order order) {
+    public Item(Product product, BigDecimal price, Integer amount, Order order) {
         this.product = product;
         this.price = price;
         this.amount = amount;
@@ -55,12 +56,10 @@ public class Item {
         this.product = product;
     }
 
-    public Integer getPrice() {
-        return price;
-    }
+    public String getPrice() {return price.toString();}
 
-    public void setPrice(Integer price) {
-        this.price = price;
+    public void setPrice(String price) {
+        this.price = new BigDecimal(price);
     }
 
     public Integer getAmount() {

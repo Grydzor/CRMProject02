@@ -99,12 +99,12 @@ public class Order {
         this.items = items;
     }
 
-    public BigDecimal getSummary() {
-        return summary;
+    public String getSummary() {
+        return summary.toString();
     }
 
-    public void setSummary(BigDecimal summary) {
-        this.summary = summary;
+    public void setSummary(String summary) {
+        this.summary = new BigDecimal(summary);
     }
 
 }
