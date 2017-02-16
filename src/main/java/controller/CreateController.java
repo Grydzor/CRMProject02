@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import util.GraphicsLoader;
+import util.StageFactory;
 import util.InputDataChecker;
 
 public class CreateController {
@@ -35,7 +35,7 @@ public class CreateController {
 
     @FXML
     public void actionCloseButton() {
-        GraphicsLoader.closeWindow(fldName);
+        StageFactory.closeModal();
     }
 
     @FXML
@@ -51,7 +51,7 @@ public class CreateController {
 
             employee = new Employee(name, surname, age, sex, position);
 
-            GraphicsLoader.closeWindow(fldName);
+            StageFactory.closeModal();
         }
     }
 

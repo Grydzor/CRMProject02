@@ -1,16 +1,16 @@
 package util;
 
-import service.Service;
-import service.ServiceImpl;
+import service.UserService;
+import service.UserServiceImpl;
 
 /**
  * Created by eriol4ik on 11.02.2017.
  */
 public class LoginHelper {
-    private static Service service;
+    private static UserService service;
 
     static {
-        service = new ServiceImpl();
+        service = new UserServiceImpl();
     }
 
     public static String generate(String name, String surname) {

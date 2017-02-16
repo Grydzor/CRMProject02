@@ -13,15 +13,17 @@ import java.util.List;
 /**
  * Created by eriol4ik on 06/02/2017.
  */
-public class DAOImpl implements DAO {
+public class DAOImpl<T> implements DAO<T> {
     private SessionFactory factory;
+    private Class<T> entityClass;
 
-    public DAOImpl() {
+    public DAOImpl(Class<T> entityClass) {
         factory = HibernateSessionFactory.getSessionFactory();
+        this.entityClass = entityClass;
     }
 
     @Override
-    public <T> Long create(T entity) {
+    public Long create(T entity) {
         Session session = factory.openSession();
         try {
             session.beginTransaction();
@@ -38,17 +40,17 @@ public class DAOImpl implements DAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T read(Class<T> type, Long id) {
+    public T read(Long id) {
         Session session = factory.openSession();
         try {
-            return (T) session.get(type, id);
+            return (T) session.get(entityClass, id);
         } finally {
             session.close();
         }
     }
 
     @Override
-    public <T> Boolean update(T entity) {
+    public Boolean update(T entity) {
         Session session = factory.openSession();
         try {
             session.beginTransaction();
@@ -64,7 +66,7 @@ public class DAOImpl implements DAO {
     }
 
     @Override
-    public <T> Boolean delete(T entity) {
+    public Boolean delete(T entity) {
         Session session = factory.openSession();
         try {
             session.beginTransaction();
@@ -81,23 +83,7 @@ public class DAOImpl implements DAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> List<T> findAll(Class<T> type) {
-        return (List<T>) factory.openSession().createCriteria(type).list();
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public User find(String login) {
-        Session session = factory.openSession();
-        try {
-            List<User> users = session
-                    .createCriteria(User.class)
-                    .add(Restrictions.eq("login", login))
-                    .list();
-
-            return !users.isEmpty() ? users.get(0) : null;
-        } finally {
-            session.close();
-        }
+    public List<T> findAll() {
+        return (List<T>) factory.openSession().createCriteria(entityClass).list();
     }
 }

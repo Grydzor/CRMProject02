@@ -8,7 +8,7 @@
         <property name="connection.url">jdbc:mysql://localhost:3306/crm</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.username">root</property>
-        <property name="connection.password">root</property>
+        <property name="connection.password">mysqlroot</property>
 
         <!-- Рекомендуется использовать create: при подключении к BD создается схема
         Потом нужно переключиться на update - обновление содержимого базы данных
@@ -21,5 +21,8 @@
 
         <mapping class="entity.Employee"/>
         <mapping class="entity.User"/>
+        <mapping class="entity.Item"/>
+        <mapping class="entity.Product"/>
+        <mapping class="entity.Order"/>
     </session-factory>
 </hibernate-configuration>
