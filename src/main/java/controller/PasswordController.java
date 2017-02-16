@@ -2,7 +2,7 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import util.GraphicsLoader;
+import util.StageFactory;
 
 public class PasswordController {
 
@@ -11,7 +11,7 @@ public class PasswordController {
 
     @FXML
     public void okButtonAction() {
-        GraphicsLoader.closeWindow(okButton);
+        StageFactory.closeWindow(okButton);
     }
 
 }

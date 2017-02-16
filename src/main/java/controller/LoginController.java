@@ -9,7 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import service.UserService;
 import service.UserServiceImpl;
-import util.GraphicsLoader;
+import util.StageFactory;
 import util.HibernateSessionFactory;
 import util.InputDataChecker;
 
@@ -48,13 +48,13 @@ public class LoginController {
                 setStatusMsg(UserStatus.SUCCESS);
                 switch (user.getEmployee().getPosition()) {
                     case ADMIN:
-                        GraphicsLoader.newWindowGeneric("/view/admin_panel.fxml", "Administration", false);
+                        StageFactory.genericWindow("/view/admin_panel.fxml", "Administration");
                         break;
                     case MANAGER:
-                        GraphicsLoader.newWindowGeneric("/view/manager_panel.fxml", "Management", false);
+                        StageFactory.genericWindow("/view/manager_panel.fxml", "Management");
                         break;
                 }
-                GraphicsLoader.closeWindow(btnEnter);
+                StageFactory.closeWindow(btnEnter);
                 return;
             }
 
@@ -63,7 +63,7 @@ public class LoginController {
     }
 
     public void exitButtonAction() {
-        GraphicsLoader.closeWindow(btnExit);
+        StageFactory.closeWindow(btnExit);
         HibernateSessionFactory.getSessionFactory().close();
     }
 
