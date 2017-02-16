@@ -2,6 +2,7 @@ import entity.*;
 import enum_types.OrderStatus;
 import enum_types.Position;
 import enum_types.Sex;
+import javafx.scene.control.TableColumn;
 import service.*;
 import util.HibernateSessionFactory;
 
@@ -36,7 +37,7 @@ public class Test {
         Customer customer = new Customer("Customer", "CUstomerevich");
         Product notebook = new Product("Apple", new BigDecimal(1499));
         Order order = new Order("Ivan", customer, new Date(new GregorianCalendar(2016,5,23).getTimeInMillis()), OrderStatus.OPEN, new BigDecimal(1499));
-        Item item = new Item(notebook, new BigDecimal(2999), 2, order);
+        Item item = new Item(notebook, 2, order);
 
         productService.add(notebook);
         customerService.add(customer);

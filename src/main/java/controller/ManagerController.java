@@ -15,7 +15,6 @@ import util.StageFactory;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 public class ManagerController {
 
@@ -25,13 +24,12 @@ public class ManagerController {
     @FXML private TableColumn<Order, Date> orderDateColumn;
     @FXML private TableColumn<Order, BigDecimal> orderPriceColumn;
 
-    @FXML private TableView itemTable;
-    private ObservableList item;
-    private ObservableList product;
+    @FXML private TableView<Item> itemTable;
+    private ObservableList<Item> items;
     @FXML private TableColumn<Item, Long> itemIdColumn;
-    @FXML private TableColumn<Product, String> itemNameColumn;
+    @FXML private TableColumn<Item, String> itemNameColumn; // подтягиваем с Product
     @FXML private TableColumn<Item, Integer> itemQuantityColumn;
-    @FXML private TableColumn<Product, BigDecimal> itemPriceNoVATColumn;
+    @FXML private TableColumn<Item, BigDecimal> itemPriceNoVATColumn; // подтягиваем с Product
     @FXML private TableColumn<Item, BigDecimal> itemSumNoVATColumn;
     @FXML private TableColumn<Item, BigDecimal> itemPriceVATColumn;
     @FXML private TableColumn<Item, BigDecimal> itemSumVATColumn;
@@ -42,7 +40,7 @@ public class ManagerController {
     @FXML private Button addOrderButton;
     @FXML private Button deleteOrderButton;
     @FXML private Button saveOrderButton;
-    @FXML private Button cancelOrederButton;
+    @FXML private Button cancelOrderButton;
 
     @FXML private Button addItemButton;
     @FXML private Button changeItemButton;
@@ -62,7 +60,6 @@ public class ManagerController {
 
 
     public void initialize(){
-
         orderService = new OrderServiceImpl();
         itemService = new ItemServiceImpl();
         productService = new ProductServiceImpl();
@@ -77,17 +74,14 @@ public class ManagerController {
 
         itemIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         itemQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
-
-        itemNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        itemNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
         itemPriceNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        itemPriceVATColumn.setCellValueFactory(new PropertyValueFactory<>("priceVAT"));
+        itemSumNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumNoVAT"));
+        itemSumVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumVAT"));
 
-        item = FXCollections.observableArrayList(itemService.findAll());
-        product = FXCollections.observableArrayList(productService.findAll());
-        itemTable.setItems(item);
-        itemTable.setItems(product);
-
-
-
+        items = FXCollections.observableArrayList(itemService.findAll());
+        itemTable.setItems(items);
     }
 
 //    class NodeItem{

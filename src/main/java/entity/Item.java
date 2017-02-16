@@ -32,9 +32,9 @@ public class Item {
 
     public Item() {}
 
-    public Item(Product product, BigDecimal price, Integer amount, Order order) {
+    public Item(Product product, Integer amount, Order order) {
         this.product = product;
-        this.price = price;
+        this.price = product.getPrice();
         this.amount = amount;
         this.order = order;
     }
@@ -75,6 +75,22 @@ public class Item {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public String getProductName() {
+        return product.getName();
+    }
+
+    public BigDecimal getPriceVAT() {
+        return price.multiply(BigDecimal.valueOf(1.2));
+    }
+
+    public BigDecimal getSumNoVAT() {
+        return price.multiply(BigDecimal.valueOf(amount));
+    }
+
+    public BigDecimal getSumVAT() {
+        return getPriceVAT().multiply(BigDecimal.valueOf(amount));
     }
 
     @Override
