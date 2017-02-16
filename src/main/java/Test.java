@@ -32,9 +32,9 @@ public class Test {
         System.out.println(userFrom.getLogin() + ", " + userFrom.getPassword() + ", " + userFrom.getEmployee().getName());
 
 
-        Product notebook = new Product("Apple", 1499);
+        Product notebook = new Product("Apple", new BigDecimal(1499));
         Order order = new Order("Ivan", "Taras", new Date(new GregorianCalendar(2016,5,23).getTimeInMillis()), OrderStatus.OPEN, new BigDecimal(1499));
-        Item item = new Item(notebook, 2999, 2, order);
+        Item item = new Item(notebook, new BigDecimal(2999), 2, order);
 
         productService.add(notebook);
         orderService.add(order);

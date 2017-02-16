@@ -66,7 +66,7 @@ public class ManagerController {
         // set columns in TableView
         orderIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         orderDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-        orderPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        orderPriceColumn.setCellValueFactory(new PropertyValueFactory<>("summary"));
 
         orders = FXCollections.observableArrayList(orderService.findAll());
         orderTable.setItems(orders);
