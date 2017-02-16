@@ -1,23 +1,18 @@
-import entity.Employee;
-import entity.Order;
-import entity.Product;
-import entity.User;
+import entity.*;
 import enum_types.OrderStatus;
-import enum_types.Position;
-import enum_types.Sex;
 import service.*;
 import util.HibernateSessionFactory;
 
-import java.sql.ResultSet;
 import java.util.Date;
-import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-        Service service = new ServiceImpl();
+        ProductService productService = new ProductServiceImpl();
+        OrderService orderService = new OrderServiceImpl();
+        ItemService itemService = new ItemServiceImpl();
 
         /*
-        Employee employee = new Employee("Stef", "Jbs", 20, Sex.MALE, Position.ADMIN);
+        Employee employee = new Employee("Stef", "Jbs", 20, Sex.MALE, Item.ADMIN);
         User user = new User("man", "man", employee);
 
         service.add(employee);
@@ -32,18 +27,18 @@ public class Test {
 
         Product notebook = new Product("Apple", 1499);
         Order order = new Order("Ivan", "Taras", new Date(2016, 6, 12), OrderStatus.OPEN, 1499);
-        entity.Position position = new entity.Position(notebook, 2999, 2, order);
+        Item item = new Item(notebook, 2999, 2, order);
 
-        service.add(notebook);
-        service.add(order);
-        service.add(position);
+        productService.add(notebook);
+        orderService.add(order);
+        itemService.add(item);
 
         /*List<Order> orders = service.findAll(Order.class);
         for (Order order : orders) {
-            List<entity.Position> positions = (List<entity.Position>) order.getPositions();
+            List<entity.Item> positions = (List<entity.Item>) order.getItems();
             if (!positions.isEmpty()) {
-                for (entity.Position position : positions) {
-                    System.out.println(position);
+                for (entity.Item item : positions) {
+                    System.out.println(item);
                 }
             }
         }*/

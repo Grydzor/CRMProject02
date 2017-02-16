@@ -4,16 +4,6 @@ import entity.User;
 
 import java.util.List;
 
-public interface UserService {
-    Long add(User user);
-
-    User find(Long id);
-
-    Boolean update(User user);
-
-    Boolean delete(User user);
-
+public interface UserService extends Service<User> {
     User find(String login);
-
-    List<User> findAll();
 }

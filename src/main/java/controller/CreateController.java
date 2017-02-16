@@ -35,7 +35,7 @@ public class CreateController {
 
     @FXML
     public void actionCloseButton() {
-        StageFactory.closeWindow(fldName);
+        StageFactory.closeModal();
     }
 
     @FXML
@@ -51,7 +51,7 @@ public class CreateController {
 
             employee = new Employee(name, surname, age, sex, position);
 
-            StageFactory.closeWindow(fldName);
+            StageFactory.closeModal();
         }
     }
 

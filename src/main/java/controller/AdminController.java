@@ -5,15 +5,12 @@ import entity.User;
 import enum_types.Position;
 import enum_types.Sex;
 import javafx.beans.InvalidationListener;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
-import service.Service;
-import service.ServiceImpl;
+import service.*;
 import util.InputDataChecker;
 import util.LoginHelper;
 
@@ -54,13 +51,15 @@ public class AdminController {
 
     private Employee currentEmployee;
 
-    private Service service;
+    private EmployeeService employeeService;
+    private UserService userService;
 
     private Helper helper;
 
     /* Loading of Employees list */
     public void initialize() {
-        service = new ServiceImpl();
+        employeeService = new EmployeeServiceImpl();
+        userService = new UserServiceImpl();
 
         // has supplementary methods
         helper = new Helper();
@@ -71,7 +70,7 @@ public class AdminController {
         surnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
 
         // fill TableView with Employees from DB
-        employees = FXCollections.observableArrayList(service.findAll(Employee.class));
+        employees = FXCollections.observableArrayList(employeeService.findAll());
         employeesTable.setItems(employees);
 
         // set default items for ComboBoxes
@@ -110,7 +109,7 @@ public class AdminController {
         if (name != null && surname != null && age != null && sex != null && position != null) {
             Employee employee = new Employee(name, surname, age, sex, position);
 
-            service.add(employee);
+            employeeService.add(employee);
             employees.add(employee);
             employeesTable.getSelectionModel().select(employee);
 
@@ -161,7 +160,7 @@ public class AdminController {
             helper.disableAnother(false, changeButton, applyButton, cancelChangingButton);
             helper.openFields(false);
 
-            service.update(currentEmployee);
+            employeeService.update(currentEmployee);
         }
     }
 
@@ -187,9 +186,9 @@ public class AdminController {
             String surname = currentEmployee.getSurname();
             String login = LoginHelper.generate(name, surname);
             User user = new User(login, "qwerty", currentEmployee);
-            service.add(user);
+            userService.add(user);
             currentEmployee.setUser(user);
-            service.update(currentEmployee);
+            employeeService.update(currentEmployee);
 
             // User account has been generated,
             // so make the button invisible
@@ -215,14 +214,14 @@ public class AdminController {
         if ((user = currentEmployee.getUser()) != null) {
             // Delete dependency on User
             currentEmployee.setUser(null);
-            service.update(currentEmployee);
+            employeeService.update(currentEmployee);
             // Safely remove user
             // we can do this, because employee
             // does not depend on it
-            service.delete(user);
+            userService.delete(user);
         }
         // then delete employee
-        service.delete(currentEmployee);
+        employeeService.delete(currentEmployee);
         // refresh TableView
         employeesTable.getItems().remove(currentEmployee);
 

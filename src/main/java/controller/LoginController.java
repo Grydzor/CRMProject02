@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import service.Service;
 import service.UserService;
 import service.UserServiceImpl;
 import util.StageFactory;
@@ -25,10 +26,10 @@ public class LoginController {
 
     @FXML private Label lblStatus;
 
-    private UserService service;
+    private UserService userService;
 
     public void initialize() {
-        service = new UserServiceImpl();
+        userService = new UserServiceImpl();
     }
 
     public void enterButtonAction() throws IOException {
@@ -37,7 +38,7 @@ public class LoginController {
 
         if (login != null && password != null) {
 
-            User user = service.find(login);
+            User user = userService.find(login);
 
             if (user == null) {
                 setStatusMsg(UserStatus.UNKNOWN_USER);
@@ -46,6 +47,7 @@ public class LoginController {
 
             if (user.getPassword().equals(password)) {
                 setStatusMsg(UserStatus.SUCCESS);
+                StageFactory.closeWindow();
                 switch (user.getEmployee().getPosition()) {
                     case ADMIN:
                         StageFactory.genericWindow("/view/admin_panel.fxml", "Administration");
@@ -54,7 +56,6 @@ public class LoginController {
                         StageFactory.genericWindow("/view/manager_panel.fxml", "Management");
                         break;
                 }
-                StageFactory.closeWindow(btnEnter);
                 return;
             }
 
@@ -63,7 +64,7 @@ public class LoginController {
     }
 
     public void exitButtonAction() {
-        StageFactory.closeWindow(btnExit);
+        StageFactory.closeWindow();
         HibernateSessionFactory.getSessionFactory().close();
     }
 

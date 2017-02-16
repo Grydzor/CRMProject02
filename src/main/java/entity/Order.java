@@ -34,7 +34,7 @@ public class Order {
     private OrderStatus status;
 
     @OneToMany(mappedBy = "order")
-    private Collection<Position> positions = new ArrayList<>();
+    private Collection<Item> items = new ArrayList<>();
 
     @Column(name = "SUMMARY")
     private Integer summary;
@@ -90,12 +90,12 @@ public class Order {
         this.status = status;
     }
 
-    public Collection<Position> getPositions() {
-        return positions;
+    public Collection<Item> getItems() {
+        return items;
     }
 
-    public void setPositions(Collection<Position> positions) {
-        this.positions = positions;
+    public void setItems(Collection<Item> items) {
+        this.items = items;
     }
 
     public Integer getSummary() {

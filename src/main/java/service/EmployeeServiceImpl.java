@@ -6,35 +6,11 @@ import entity.Employee;
 
 import java.util.List;
 
-public class EmployeeServiceImpl implements EmployeeService {
+public class EmployeeServiceImpl extends ServiceImpl<Employee> implements EmployeeService {
     private EmployeeDAO employeeDAO;
 
     public EmployeeServiceImpl() {
+        super(Employee.class);
         employeeDAO = new EmployeeDAOImpl();
-    }
-
-    @Override
-    public Long add(Employee employee) {
-        return employeeDAO.create(employee);
-    }
-
-    @Override
-    public Employee find(Long id) {
-        return employeeDAO.read(id);
-    }
-
-    @Override
-    public Boolean update(Employee employee) {
-        return employeeDAO.update(employee);
-    }
-
-    @Override
-    public Boolean delete(Employee employee) {
-        return employeeDAO.delete(employee);
-    }
-
-    @Override
-    public List<Employee> findAll() {
-        return employeeDAO.findAll();
     }
 }

@@ -63,9 +63,12 @@ public class StageFactory {
     }
 
     // Передать в метод любой элемент который находится в окне, которое нужно зыкрыть.
-    public static void closeWindow(Node node) {
-        Stage stage = (Stage) node.getScene().getWindow();
-        stage.close();
+    public static void closeWindow() {
+        stageWindow.close();
+    }
+
+    public static void closeModal() {
+        stageModal.close();
     }
 
 }

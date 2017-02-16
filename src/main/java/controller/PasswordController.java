@@ -11,7 +11,7 @@ public class PasswordController {
 
     @FXML
     public void okButtonAction() {
-        StageFactory.closeWindow(okButton);
+        StageFactory.closeWindow();
     }
 
 }

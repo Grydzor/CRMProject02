@@ -7,11 +7,11 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "POSITIONS")
-public class Position {
+@Table(name = "ITEMS")
+public class Item {
 
     @Id
-    @Column(name = "POSITION_ID")
+    @Column(name = "ITEM_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -29,10 +29,10 @@ public class Position {
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
-    public Position() {
+    public Item() {
     }
 
-    public Position(Product product, Integer price, Integer amount, Order order) {
+    public Item(Product product, Integer price, Integer amount, Order order) {
         this.product = product;
         this.price = price;
         this.amount = amount;
@@ -81,7 +81,7 @@ public class Position {
 
     @Override
     public String toString() {
-        return "Position{" +
+        return "Item{" +
                 "id=" + id +
                 ", product=" + product +
                 ", price=" + price +
