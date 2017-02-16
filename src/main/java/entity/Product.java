@@ -21,8 +21,7 @@ public class Product {
     @Column(name = "PRICE")
     private Integer price;
 
-    public Product() {
-    }
+    public Product() {}
 
     public Product(String name, Integer price) {
         this.name = name;

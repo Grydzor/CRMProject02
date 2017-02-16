@@ -29,8 +29,7 @@ public class Item {
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
-    public Item() {
-    }
+    public Item() {}
 
     public Item(Product product, Integer price, Integer amount, Order order) {
         this.product = product;

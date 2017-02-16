@@ -1,54 +1,50 @@
 import entity.*;
 import enum_types.OrderStatus;
-import enum_types.Position;
-import enum_types.Sex;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
 import service.*;
 import util.HibernateSessionFactory;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class Test {
     public static void main(String[] args) {
         ProductService productService = new ProductServiceImpl();
         OrderService orderService = new OrderServiceImpl();
         ItemService itemService = new ItemServiceImpl();
-
-        UserService userService = new UserServiceImpl();
-        EmployeeService employeeService = new EmployeeServiceImpl();
-
-        Employee employee = new Employee("Stef", "Jbs", 20, Sex.MALE, Position.MANAGER);
-        User user = new User("man", "man", employee);
-
-        employeeService.add(employee);
-        userService.add(user);
+        CustomerService customerService = new CustomerServiceImpl();
 
 
-        Employee employeeFrom = employeeService.read(1L);
-        User userFrom = userService.read(1L);
-
-        System.out.println(employeeFrom.getName() + ", " + employeeFrom.getSurname() + ", " + employeeFrom.getAge());
-        System.out.println(userFrom.getLogin() + ", " + userFrom.getPassword() + ", " + userFrom.getEmployee().getName());
-
-
-        Product notebook = new Product("Apple", 1499);
-        Order order = new Order("Ivan", "Taras", new Date(new GregorianCalendar(2016,5,23).getTimeInMillis()), OrderStatus.OPEN, new BigDecimal(1499));
+        /*Product notebook = new Product("Apple", 1499);
+        Customer customer = new Customer("Customer", "Customerevich");
+        Order order = new Order("Ivan", customer, Date.from(LocalDate.of(2016, 6, 12).atStartOfDay(ZoneId.systemDefault()).toInstant()), OrderStatus.OPEN, 1499);
         Item item = new Item(notebook, 2999, 2, order);
 
         productService.add(notebook);
+        customerService.add(customer);
         orderService.add(order);
-        itemService.add(item);
+        itemService.add(item);*/
 
-        /*List<Order> orders = service.findAll(Order.class);
-        for (Order order : orders) {
-            List<entity.Item> positions = (List<entity.Item>) order.getItems();
-            if (!positions.isEmpty()) {
-                for (entity.Item item : positions) {
-                    System.out.println(item);
-                }
-            }
+
+        Order order = orderService.read(1L);
+        System.out.println(order.getCustomer());
+        /*Customer customer = customerService.read(1L);
+
+        for (Order order1 : customer.getOrders()) {
+            System.out.println(order1);
         }*/
+
+        Collection<Item> items;
+        Hibernate.initialize(items = order.getItems());
+
+        for (Item item : items) {
+            System.out.println(item);
+        }
+
         HibernateSessionFactory.getSessionFactory().close();
     }
 }
