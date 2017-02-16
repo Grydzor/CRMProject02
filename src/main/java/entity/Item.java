@@ -52,14 +52,14 @@ public class Item {
         return product;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProduct(Product product) {this.product = product;}
+
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public String getPrice() {return price.toString();}
-
-    public void setPrice(String price) {
-        this.price = new BigDecimal(price);
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public Integer getAmount() {

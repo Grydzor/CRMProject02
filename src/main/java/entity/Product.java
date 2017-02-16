@@ -46,12 +46,7 @@ public class Product {
         this.name = name;
     }
 
-    public String getPrice() {
-        return price.toString();
-    }
+    public BigDecimal getPrice() {return price;}
 
-    public void setPrice(String price) {
-        this.price = new BigDecimal(price);
-    }
-
+    public void setPrice(BigDecimal price) {this.price = price;}
 }
