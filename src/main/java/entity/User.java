@@ -82,4 +82,5 @@ public class User {
         return login.equals(user.login);
     }
 
+
 }
