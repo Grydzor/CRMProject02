@@ -62,8 +62,13 @@ public class StageFactory {
         return controller;
     }
 
-    // Передать в метод любой элемент который находится в окне, которое нужно зыкрыть.
+    // Передать в метод любой элемент который находится в окне, которое нужно закрыть.
     public static void closeWindow() {
+        stageWindow.close();
+        StageFactory.genericWindow("/view/login_panel.fxml", "Login panel");
+    }
+
+    public static void closeLoginWindow(){
         stageWindow.close();
     }
 

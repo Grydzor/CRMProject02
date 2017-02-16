@@ -17,7 +17,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
+<AnchorPane minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
    <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="648.0" AnchorPane.topAnchor="8.0">
       <center>
           <VBox alignment="CENTER" maxHeight="524.0" maxWidth="304.0" minHeight="524.0" minWidth="304.0" prefHeight="524.0" prefWidth="304.0" BorderPane.alignment="CENTER">
@@ -263,7 +263,7 @@
                           <Insets bottom="8.0" left="8.0" right="8.0" top="5.0" />
                       </HBox.margin>
                   </Button>
-                  <Button fx:id="cancelOrderButton" alignment="CENTER" maxHeight="40.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="40.0" prefWidth="100.0" text="CANCEL" textAlignment="CENTER">
+                  <Button fx:id="cancelOrderButton" alignment="CENTER" maxHeight="40.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="40.0" prefWidth="100.0" text="LOG OUT" textAlignment="CENTER">
                       <font>
                           <Font size="16.0" />
                       </font>

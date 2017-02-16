@@ -80,7 +80,7 @@ public class LoginController {
     }
 
     public void exitButtonAction() {
-        StageFactory.closeWindow();
+        StageFactory.closeLoginWindow();
         HibernateSessionFactory.getSessionFactory().close();
     }
 

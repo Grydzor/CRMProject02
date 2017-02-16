@@ -5,10 +5,10 @@
 <hibernate-configuration>
     <session-factory>
         <!-- Блок настроек подключения к DB -->
-        <property name="connection.url">jdbc:mysql://localhost:3306/crm</property>
+        <property name="connection.url">jdbc:mysql://192.168.1.114:3306/crm</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">root</property>
+        <property name="connection.username">AlekseyMykhalsky</property>
+        <property name="connection.password">AlekseyMykhalsky</property>
 
         <!-- Рекомендуется использовать create: при подключении к BD создается схема
         Потом нужно переключиться на update - обновление содержимого базы данных

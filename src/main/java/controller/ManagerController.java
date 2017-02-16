@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import service.*;
+import util.HibernateSessionFactory;
+import util.StageFactory;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -117,7 +119,8 @@ public class ManagerController {
 
     @FXML
     public void cancelOrder(){
-
+        StageFactory.closeWindow();
+        StageFactory.genericWindow("/view/login_panel.fxml", "Login panel");
     }
 
     @FXML
