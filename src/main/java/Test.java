@@ -16,8 +16,9 @@ public class Test {
     public static void main(String[] args) {
         Service service = new ServiceImpl();
 
-        /*Employee employee = new Employee("Steve", "Jobs", 20, Sex.MALE, Position.ADMIN);
-        User user = new User("root", "root", employee);
+        /*
+        Employee employee = new Employee("Stef", "Jbs", 20, Sex.MALE, Position.ADMIN);
+        User user = new User("man", "man", employee);
 
         service.add(employee);
         service.add(user);
@@ -26,7 +27,8 @@ public class Test {
         User userFrom = service.read(User.class, 1L);
 
         System.out.println(employeeFrom.getName() + ", " + employeeFrom.getSurname() + ", " + employeeFrom.getAge());
-        System.out.println(userFrom.getLogin() + ", " + userFrom.getPassword() + ", " + userFrom.getEmployee().getName());*/
+        System.out.println(userFrom.getLogin() + ", " + userFrom.getPassword() + ", " + userFrom.getEmployee().getName());
+        */
 
         Product notebook = new Product("Apple", 1499);
         Order order = new Order("Ivan", "Taras", new Date(2016, 6, 12), OrderStatus.OPEN, 1499);
