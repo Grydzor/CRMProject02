@@ -3,6 +3,7 @@ package entity;
 import enum_types.OrderStatus;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -37,12 +38,12 @@ public class Order {
     private Collection<Item> items = new ArrayList<>();
 
     @Column(name = "SUMMARY")
-    private Integer summary;
+    private BigDecimal summary;
 
     public Order() {
     }
 
-    public Order(String manager, String buyer, Date date, OrderStatus status, Integer summary) {
+    public Order(String manager, String buyer, Date date, OrderStatus status, BigDecimal summary) {
         this.manager = manager;
         this.buyer = buyer;
         this.date = date;
@@ -98,11 +99,11 @@ public class Order {
         this.items = items;
     }
 
-    public Integer getSummary() {
+    public BigDecimal getSummary() {
         return summary;
     }
 
-    public void setSummary(Integer summary) {
+    public void setSummary(BigDecimal summary) {
         this.summary = summary;
     }
 

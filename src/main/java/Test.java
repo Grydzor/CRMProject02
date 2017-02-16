@@ -1,9 +1,13 @@
 import entity.*;
 import enum_types.OrderStatus;
+import enum_types.Position;
+import enum_types.Sex;
 import service.*;
 import util.HibernateSessionFactory;
 
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Test {
     public static void main(String[] args) {
@@ -11,22 +15,25 @@ public class Test {
         OrderService orderService = new OrderServiceImpl();
         ItemService itemService = new ItemServiceImpl();
 
-        /*
-        Employee employee = new Employee("Stef", "Jbs", 20, Sex.MALE, Item.ADMIN);
+        UserService userService = new UserServiceImpl();
+        EmployeeService employeeService = new EmployeeServiceImpl();
+
+        Employee employee = new Employee("Stef", "Jbs", 20, Sex.MALE, Position.MANAGER);
         User user = new User("man", "man", employee);
 
-        service.add(employee);
-        service.add(user);
+        employeeService.add(employee);
+        userService.add(user);
 
-        Employee employeeFrom = service.read(Employee.class, 1L);
-        User userFrom = service.read(User.class, 1L);
+
+        Employee employeeFrom = employeeService.read(1L);
+        User userFrom = userService.read(1L);
 
         System.out.println(employeeFrom.getName() + ", " + employeeFrom.getSurname() + ", " + employeeFrom.getAge());
         System.out.println(userFrom.getLogin() + ", " + userFrom.getPassword() + ", " + userFrom.getEmployee().getName());
-        */
+
 
         Product notebook = new Product("Apple", 1499);
-        Order order = new Order("Ivan", "Taras", new Date(2016, 6, 12), OrderStatus.OPEN, 1499);
+        Order order = new Order("Ivan", "Taras", new Date(new GregorianCalendar(2016,5,23).getTimeInMillis()), OrderStatus.OPEN, new BigDecimal(1499));
         Item item = new Item(notebook, 2999, 2, order);
 
         productService.add(notebook);
