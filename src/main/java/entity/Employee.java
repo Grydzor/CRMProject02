@@ -116,7 +116,7 @@ public class Employee {
                 '}';
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -129,5 +129,5 @@ public class Employee {
 
         return sex == employee.sex
                 && position == employee.position;
-    }
+    }*/
 }

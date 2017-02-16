@@ -1,7 +1,11 @@
 package util;
 
 
+import entity.Employee;
+import entity.User;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -11,16 +15,15 @@ public class HibernateSessionFactory {
     private static StandardServiceRegistry registry;
 
     private static SessionFactory build() {
-        Configuration config = new Configuration().
-                configure("/hibernate.cfg.xml");
+        registry = new StandardServiceRegistryBuilder()
+                .configure("/hibernate.cfg.xml").build();
+        Metadata metadata = new MetadataSources(registry)
+                .addAnnotatedClass(Employee.class)
+                .addAnnotatedClass(User.class)
+                .getMetadataBuilder()
+                .build();
 
-        StandardServiceRegistryBuilder builder =
-                new StandardServiceRegistryBuilder();
-        builder.applySettings(config.getProperties());
-
-        registry = builder.build();
-
-        return config.buildSessionFactory(registry);
+        return metadata.getSessionFactoryBuilder().build();
     }
 
     public static SessionFactory getSessionFactory() {
