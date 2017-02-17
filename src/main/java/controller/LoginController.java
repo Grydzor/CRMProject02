@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import service.Service;
 import service.UserService;
 import service.UserServiceImpl;
 import util.StageFactory;
@@ -29,7 +28,7 @@ public class LoginController {
     private UserService userService;
 
     public void initialize() {
-        userService = new UserServiceImpl();
+        userService = UserServiceImpl.getInstance();
     }
 
 
@@ -43,7 +42,7 @@ public class LoginController {
             - если логин не существует - UNKNOWN_USER (UserStatus)
             - иначе (логин существует) - сравниваем password с тем, который в базе:
                 а. не совпадает - WRONG_PASSWORD (UserStatus)
-                б. совпадает - SUCCESS(UserStatus)- закрываем окно (StageFactory.closeWindow),
+                б. совпадает - SUCCESS(UserStatus)- закрываем окно (StageFactory.backToLogInWindow),
                 вытягиваем по цепочке через - user.getEmployee().getPosition() - и выбираем -
                 ADMIN или MANAGER - необходимую панель (Administration & Management)
 
@@ -63,7 +62,7 @@ public class LoginController {
 
             if (user.getPassword().equals(password)) {
                 setStatusMsg(UserStatus.SUCCESS);
-                StageFactory.closeWindow();
+                StageFactory.backToLogInWindow();
                 switch (user.getEmployee().getPosition()) {
                     case ADMIN:
                         StageFactory.genericWindow("/view/admin_panel.fxml", "Administration");
@@ -80,7 +79,7 @@ public class LoginController {
     }
 
     public void exitButtonAction() {
-        StageFactory.closeLoginWindow();
+        StageFactory.closeLogInWindow();
         HibernateSessionFactory.getSessionFactory().close();
     }
 

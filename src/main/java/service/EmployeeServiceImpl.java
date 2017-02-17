@@ -8,9 +8,15 @@ import java.util.List;
 
 public class EmployeeServiceImpl extends ServiceImpl<Employee> implements EmployeeService {
     private EmployeeDAO employeeDAO;
+    private static EmployeeServiceImpl singleton;
 
-    public EmployeeServiceImpl() {
+    private EmployeeServiceImpl() {
         super(Employee.class);
-        employeeDAO = new EmployeeDAOImpl();
+        employeeDAO = EmployeeDAOImpl.getInstance();
+    }
+
+    public static EmployeeServiceImpl getInstance() {
+        if (singleton == null) singleton = new EmployeeServiceImpl();
+        return singleton;
     }
 }

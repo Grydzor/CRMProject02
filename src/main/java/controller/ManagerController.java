@@ -2,7 +2,6 @@ package controller;
 
 import entity.Item;
 import entity.Order;
-import entity.Product;
 import enum_types.OrderStatus;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import service.*;
-import util.HibernateSessionFactory;
 import util.StageFactory;
 
 import java.math.BigDecimal;
@@ -19,17 +17,17 @@ import java.util.Date;
 public class ManagerController {
 
     @FXML private TableView<Order> orderTable;
-    private ObservableList<Order> orders;
+          private ObservableList<Order> orders;
     @FXML private TableColumn<Order, Long> orderIdColumn;
     @FXML private TableColumn<Order, Date> orderDateColumn;
     @FXML private TableColumn<Order, BigDecimal> orderPriceColumn;
 
     @FXML private TableView<Item> itemTable;
-    private ObservableList<Item> items;
+          private ObservableList<Item> items;
     @FXML private TableColumn<Item, Long> itemIdColumn;
-    @FXML private TableColumn<Item, String> itemNameColumn; // подтягиваем с Product
+    @FXML private TableColumn<Item, String> itemNameColumn;
     @FXML private TableColumn<Item, Integer> itemQuantityColumn;
-    @FXML private TableColumn<Item, BigDecimal> itemPriceNoVATColumn; // подтягиваем с Product
+    @FXML private TableColumn<Item, BigDecimal> itemPriceNoVATColumn;
     @FXML private TableColumn<Item, BigDecimal> itemSumNoVATColumn;
     @FXML private TableColumn<Item, BigDecimal> itemPriceVATColumn;
     @FXML private TableColumn<Item, BigDecimal> itemSumVATColumn;
@@ -48,8 +46,7 @@ public class ManagerController {
 
     @FXML private TextField orderNumberTextField;
     @FXML private TextField managerTextField;
-    //@FXML private ComboBox<Client> buyerBox;
-    @FXML private Button newBuyerButton;
+    @FXML private Button newCustomerButton;
     @FXML private ComboBox<OrderStatus> statusBox;
     @FXML private DatePicker orderDate;
     @FXML private DatePicker plannedDate;
@@ -60,9 +57,9 @@ public class ManagerController {
 
 
     public void initialize(){
-        orderService = new OrderServiceImpl();
-        itemService = new ItemServiceImpl();
-        productService = new ProductServiceImpl();
+        orderService = OrderServiceImpl.getInstance();
+        itemService = ItemServiceImpl.getInstance();
+        productService = ProductServiceImpl.getInstance();
 
         // set columns in TableView
         orderIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -84,56 +81,43 @@ public class ManagerController {
         itemTable.setItems(items);
     }
 
-//    class NodeItem{
-//
-//        public List<T> findAll(){
-//
-//            List<Item> itList = itemService.findAll();
-//            itList.get()
-//            return null;
-//        }
-//
-//    }
-
-
     @FXML
-    public void addOrder(){
+    public void addOrder() {
 
     }
 
     @FXML
-    public void deleteOrder(){
+    public void deleteOrder() {
 
     }
 
     @FXML
-    public void saveOrder(){
+    public void saveOrder() {
 
     }
 
     @FXML
-    public void cancelOrder(){
-        StageFactory.closeWindow();
-        StageFactory.genericWindow("/view/login_panel.fxml", "Login panel");
+    public void cancelOrder() {
+        StageFactory.backToLogInWindow();
     }
 
     @FXML
-    public void addItem(){
-
-    }
-
-    @FXML
-    public void changeItem(){
+    public void addItem() {
 
     }
 
     @FXML
-    public void deleteItem(){
+    public void changeItem() {
 
     }
 
     @FXML
-    public void newBuyer(){
+    public void deleteItem() {
+
+    }
+
+    @FXML
+    public void newCustomer() {
 
     }
 

@@ -8,10 +8,16 @@ import java.util.List;
 
 public class UserServiceImpl extends ServiceImpl<User> implements UserService {
     private UserDAO userDAO;
+    private static UserServiceImpl singleton;
 
-    public UserServiceImpl() {
+    private UserServiceImpl() {
         super(User.class);
-        userDAO = new UserDAOImpl();
+        userDAO = UserDAOImpl.getInstance();
+    }
+
+    public static UserServiceImpl getInstance() {
+        if (singleton == null) singleton = new UserServiceImpl();
+        return singleton;
     }
 
     @Override

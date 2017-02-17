@@ -8,10 +8,16 @@ import entity.Item;
  * Created by eriol4ik on 16.02.2017.
  */
 public class ItemServiceImpl extends ServiceImpl<Item> implements ItemService {
-    ItemDAO itemDAO;
+    private ItemDAO itemDAO;
+    private static ItemServiceImpl singleton;
 
-    public ItemServiceImpl() {
+    private ItemServiceImpl() {
         super(Item.class);
-        itemDAO = new ItemDAOImpl();
+        itemDAO = ItemDAOImpl.getInstance();
+    }
+
+    public static ItemServiceImpl getInstance() {
+        if (singleton == null) singleton = new ItemServiceImpl();
+        return singleton;
     }
 }

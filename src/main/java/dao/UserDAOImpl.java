@@ -12,10 +12,16 @@ import java.util.List;
 
 public class UserDAOImpl extends DAOImpl<User> implements UserDAO {
     private SessionFactory factory;
+    private static UserDAOImpl singleton;
 
-    public UserDAOImpl() {
+    private UserDAOImpl() {
         super(User.class);
         factory = HibernateSessionFactory.getSessionFactory();
+    }
+
+    public static UserDAOImpl getInstance() {
+        if (singleton == null) singleton = new UserDAOImpl();
+        return singleton;
     }
 
     @Override

@@ -8,10 +8,16 @@ import util.HibernateSessionFactory;
  * Created by eriol4ik on 16.02.2017.
  */
 public class ItemDAOImpl extends DAOImpl<Item> implements ItemDAO {
-    SessionFactory factory;
+    private SessionFactory factory;
+    private static ItemDAOImpl singleton;
 
-    public ItemDAOImpl() {
+    private ItemDAOImpl() {
         super(Item.class);
         factory = HibernateSessionFactory.getSessionFactory();
+    }
+
+    public static ItemDAOImpl getInstance() {
+        if (singleton == null) singleton = new ItemDAOImpl();
+        return singleton;
     }
 }

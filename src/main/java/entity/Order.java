@@ -103,4 +103,15 @@ public class Order {
     public BigDecimal getSummary() {return summary;}
 
     public void setSummary(BigDecimal summary) {this.summary = summary;}
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "manager='" + manager + "'" +
+                ", customer='" + customer + "'" +
+                ", date='" + date + "'" +
+                ", status='" + status + "'" +
+                ", summary='" + summary + "'" +
+                '}';
+    }
 }

@@ -25,7 +25,7 @@
                <Insets right="8.0" />
             </HBox.margin>
          </ComboBox>
-         <Button fx:id="newBuyerButton" mnemonicParsing="false" onAction="#newBuyer" prefWidth="44.0" text="new">
+         <Button fx:id="newCustomerButton" mnemonicParsing="false" onAction="#newCustomer" prefWidth="44.0" text="new">
             <HBox.margin>
                <Insets />
             </HBox.margin>

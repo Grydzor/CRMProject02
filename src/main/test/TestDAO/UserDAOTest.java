@@ -15,7 +15,7 @@ import static org.junit.Assert.assertNull;
 public class UserDAOTest {
     @Test
     public void testRead(){
-        UserDAO userDAO = new UserDAOImpl();
+        UserDAO userDAO = UserDAOImpl.getInstance();
         User user = userDAO.read(new Long("1"));
 
         assertNotNull("Проверка чтения первого пользователя", user);
@@ -23,7 +23,7 @@ public class UserDAOTest {
 
     @Test
     public void testFailRead(){
-        UserDAO userDAO = new UserDAOImpl();
+        UserDAO userDAO = UserDAOImpl.getInstance();
         User user = userDAO.read(new Long("1000"));
 
         assertNull("Проверка чтения 1000 пользователя", user);
@@ -31,8 +31,8 @@ public class UserDAOTest {
 
     @Test
     public void CheckUserDAO(){
-        UserDAO userDAO = new UserDAOImpl();
-        EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+        UserDAO userDAO = UserDAOImpl.getInstance();
+        EmployeeDAO employeeDAO = EmployeeDAOImpl.getInstance();
         Employee employee = employeeDAO.read(new Long("1"));
 
         User user = new User("login", "password", employee);

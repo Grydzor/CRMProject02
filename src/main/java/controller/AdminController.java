@@ -58,8 +58,8 @@ public class AdminController {
 
     /* Loading of Employees list */
     public void initialize() {
-        employeeService = new EmployeeServiceImpl();
-        userService = new UserServiceImpl();
+        employeeService = EmployeeServiceImpl.getInstance();
+        userService = UserServiceImpl.getInstance();
 
         // has supplementary methods
         helper = new Helper();

@@ -8,10 +8,17 @@ import entity.Product;
  * Created by eriol4ik on 16.02.2017.
  */
 public class ProductServiceImpl extends ServiceImpl<Product> implements ProductService {
-    ProductDAO productDAO;
+    private ProductDAO productDAO;
+    private static ProductServiceImpl singleton;
 
-    public ProductServiceImpl() {
+
+    private ProductServiceImpl() {
         super(Product.class);
-        productDAO = new ProductDAOImpl();
+        productDAO = ProductDAOImpl.getInstance();
+    }
+
+    public static ProductServiceImpl getInstance() {
+        if (singleton == null) singleton = new ProductServiceImpl();
+        return singleton;
     }
 }

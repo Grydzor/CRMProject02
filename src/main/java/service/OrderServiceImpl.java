@@ -8,10 +8,16 @@ import entity.Order;
  * Created by eriol4ik on 16.02.2017.
  */
 public class OrderServiceImpl extends ServiceImpl<Order> implements OrderService {
-    OrderDAO orderDAO;
+    private OrderDAO orderDAO;
+    private static OrderServiceImpl singleton;
 
-    public OrderServiceImpl() {
+    private OrderServiceImpl() {
         super(Order.class);
-        orderDAO = new OrderDAOImpl();
+        orderDAO = OrderDAOImpl.getInstance();
+    }
+
+    public static OrderServiceImpl getInstance() {
+        if (singleton == null) singleton = new OrderServiceImpl();
+        return singleton;
     }
 }

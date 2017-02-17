@@ -10,7 +10,7 @@ public class LoginHelper {
     private static UserService service;
 
     static {
-        service = new UserServiceImpl();
+        service = UserServiceImpl.getInstance();
     }
 
     public static String generate(String name, String surname) {

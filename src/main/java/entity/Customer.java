@@ -27,8 +27,8 @@ public class Customer {
     @Column(name = "SURNAME")
     private String surname;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    Collection<Order> orders;
+    @OneToMany(mappedBy = "customer")
+    private Collection<Order> orders;
 
     public Customer() {}
 

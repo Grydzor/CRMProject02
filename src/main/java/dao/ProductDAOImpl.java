@@ -9,9 +9,15 @@ import util.HibernateSessionFactory;
  */
 public class ProductDAOImpl extends DAOImpl<Product> implements ProductDAO {
     private SessionFactory factory;
+    private static ProductDAOImpl singleton;
 
-    public ProductDAOImpl() {
+    private ProductDAOImpl() {
         super(Product.class);
         factory = HibernateSessionFactory.getSessionFactory();
+    }
+
+    public static ProductDAOImpl getInstance() {
+        if (singleton == null) singleton = new ProductDAOImpl();
+        return singleton;
     }
 }

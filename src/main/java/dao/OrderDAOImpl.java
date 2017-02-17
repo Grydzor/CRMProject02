@@ -9,9 +9,15 @@ import util.HibernateSessionFactory;
  */
 public class OrderDAOImpl extends DAOImpl<Order> implements OrderDAO {
     private SessionFactory factory;
+    private static OrderDAOImpl singleton;
 
-    public OrderDAOImpl() {
+    private OrderDAOImpl() {
         super(Order.class);
         factory = HibernateSessionFactory.getSessionFactory();
+    }
+
+    public static OrderDAOImpl getInstance() {
+        if (singleton == null) singleton = new OrderDAOImpl();
+        return singleton;
     }
 }

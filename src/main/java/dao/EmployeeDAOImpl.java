@@ -10,9 +10,15 @@ import java.util.List;
 
 public class EmployeeDAOImpl extends DAOImpl<Employee> implements EmployeeDAO {
     private SessionFactory factory;
+    private static EmployeeDAOImpl singleton;
 
-    public EmployeeDAOImpl() {
+    private EmployeeDAOImpl() {
         super(Employee.class);
         factory = HibernateSessionFactory.getSessionFactory();
+    }
+
+    public static EmployeeDAOImpl getInstance() {
+        if (singleton == null) singleton = new EmployeeDAOImpl();
+        return singleton;
     }
 }
