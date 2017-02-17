@@ -1,10 +1,13 @@
 package entity;
 
 import com.sun.istack.internal.NotNull;
+import service.CustomerServiceImpl;
+import service.OrderServiceImpl;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by eriol4ik on 16.02.2017.
@@ -27,8 +30,10 @@ public class Customer {
     @Column(name = "SURNAME")
     private String surname;
 
-    @OneToMany(mappedBy = "customer")
-    private Collection<Order> orders;
+    /*@OneToMany(mappedBy = "customer")
+    private List<Order> orders = new ArrayList<>();*/
+
+    transient private List<Order> orders = new ArrayList<>();
 
     public Customer() {}
 
@@ -61,11 +66,12 @@ public class Customer {
         this.surname = surname;
     }
 
-    public Collection<Order> getOrders() {
-        return orders;
+    public List<Order> getOrders() {
+//        return orders;
+        return orders.isEmpty() ? (orders = CustomerServiceImpl.getInstance().findOrders(this)) : orders;
     }
 
-    public void setOrders(Collection<Order> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
 }

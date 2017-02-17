@@ -1,12 +1,13 @@
 package entity;
 
 import enum_types.OrderStatus;
+import service.OrderServiceImpl;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Никита on 15.02.2017.
@@ -32,14 +33,17 @@ public class Order {
     @Column(name = "DATE")
     private Date date;
 
+    /*@OneToMany(mappedBy = "order")
+    private List<Item> items = new ArrayList<>();*/
+
+    transient private List<Item> items = new ArrayList<>();
+
     @Column(name = "STATUS")
     private OrderStatus status;
 
-    @OneToMany(mappedBy = "order")
-    private Collection<Item> items = new ArrayList<>();
-
     @Column(name = "SUMMARY")
     private BigDecimal summary;
+
 
     public Order() {
     }
@@ -92,11 +96,12 @@ public class Order {
         this.status = status;
     }
 
-    public Collection<Item> getItems() {
-        return items;
+    public List<Item> getItems() {
+//        return items;
+        return items.isEmpty() ? (items = OrderServiceImpl.getInstance().findItems(this)) : items;
     }
 
-    public void setItems(Collection<Item> items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
 

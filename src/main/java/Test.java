@@ -3,6 +3,7 @@ import enum_types.OrderStatus;
 import enum_types.Position;
 import enum_types.Sex;
 import javafx.scene.control.TableColumn;
+import org.hibernate.Hibernate;
 import service.*;
 import util.HibernateSessionFactory;
 
@@ -18,12 +19,12 @@ public class Test {
         ItemService itemService = ItemServiceImpl.getInstance();
         CustomerService customerService = CustomerServiceImpl.getInstance();
 
-        Customer customer = customerService.read(1L);
-        List<Order> orders = customerService.findOrders(customer);
+//        Customer customer = customerService.read(1L);
+//        List<Order> orders = customer.getOrdersLazy();
 
-        for (Order order : orders) {
+        /*for (Order order : customer.getOrders()) {
             System.out.println(order);
-        }
+        }*/
 
         /*UserService userService = new UserServiceImpl();
         EmployeeService employeeService = new EmployeeServiceImpl();
@@ -42,19 +43,28 @@ public class Test {
         System.out.println(userFrom.getLogin() + ", " + userFrom.getPassword() + ", " + userFrom.getEmployee().getName());
 */
 
-        /*Customer customer = new Customer("Customer", "CUstomerevich");
-        Product notebook = new Product("Apple", new BigDecimal(1499));
+        Customer customer = new Customer("Customer", "CUstomerevich");
+        Product apple = productService.read(1L);
         Order order = new Order("Ivan", customer, new Date(new GregorianCalendar(2016,5,23).getTimeInMillis()), OrderStatus.OPEN, new BigDecimal(1499));
-        Item item = new Item(notebook, 2, order);
+        Order order2 = new Order("Ivan", customer, new Date(new GregorianCalendar(2016,5,23).getTimeInMillis()), OrderStatus.OPEN, new BigDecimal(1499));
+        Item item = new Item(apple, 2, order);
+        Item item2 = new Item(productService.read(2L), 6, order);
+        Item item3 = new Item(productService.read(3L), 5, order);
+        Item item4 = new Item(productService.read(4L), 12, order2);
+        Item item5 = new Item(productService.read(2L), 6, order2);
 
-        productService.add(notebook);
         customerService.add(customer);
         orderService.add(order);
-        itemService.add(item);*/
+        orderService.add(order2);
+        itemService.add(item);
+        itemService.add(item2);
+        itemService.add(item3);
+        itemService.add(item4);
+        itemService.add(item5);
 
         /*List<Order> orders = service.findAll(Order.class);
         for (Order order : orders) {
-            List<entity.Item> positions = (List<entity.Item>) order.getItems();
+            List<entity.Item> positions = (List<entity.Item>) order.findItems();
             if (!positions.isEmpty()) {
                 for (entity.Item item : positions) {
                     System.out.println(item);

@@ -43,7 +43,7 @@ public class DAOImpl<T> implements DAO<T> {
     public T read(Long id) {
         Session session = factory.openSession();
         try {
-            return (T) session.get(entityClass, id);
+            return session.get(entityClass, id);
         } finally {
             session.close();
         }
@@ -84,6 +84,8 @@ public class DAOImpl<T> implements DAO<T> {
     @Override
     @SuppressWarnings("unchecked")
     public List<T> findAll() {
-        return (List<T>) factory.openSession().createCriteria(entityClass).list();
+        try(Session session = factory.openSession()) {
+            return session.createQuery("FROM " + entityClass.getSimpleName() + " t").list();
+        }
     }
 }

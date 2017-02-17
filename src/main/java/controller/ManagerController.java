@@ -80,8 +80,16 @@ public class ManagerController {
         itemSumNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumNoVAT"));
         itemSumVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumVAT"));
 
-        items = FXCollections.observableArrayList(itemService.findAll());
-        itemTable.setItems(items);
+        items = FXCollections.observableArrayList();
+        addSelectListener();
+    }
+
+    private void addSelectListener() {
+        orderTable.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+            items.setAll(newValue.getItems());
+            itemTable.setItems(items);
+                });
     }
 
     @FXML
