@@ -19,8 +19,7 @@
 
 <AnchorPane minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
    <HBox prefHeight="32.0" prefWidth="240.0" AnchorPane.leftAnchor="48.0" AnchorPane.topAnchor="4.0">
-      <children>
-         <ComboBox fx:id="buyerBox" prefWidth="160.0">
+         <ComboBox fx:id="customerBox" prefWidth="160.0">
             <HBox.margin>
                <Insets right="8.0" />
             </HBox.margin>
@@ -30,7 +29,6 @@
                <Insets />
             </HBox.margin>
          </Button>
-      </children>
    </HBox>
    <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="648.0" AnchorPane.topAnchor="40.0">
       <center>
@@ -274,9 +272,6 @@
                           <Insets bottom="8.0" left="8.0" right="10.0" top="5.0" />
                       </HBox.margin>
                   </Button>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
               </HBox>
           </VBox>
       </center>

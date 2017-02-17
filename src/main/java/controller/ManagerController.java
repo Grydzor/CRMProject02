@@ -1,5 +1,6 @@
 package controller;
 
+import entity.Customer;
 import entity.Item;
 import entity.Order;
 import enum_types.OrderStatus;
@@ -50,6 +51,8 @@ public class ManagerController {
     @FXML private ComboBox<OrderStatus> statusBox;
     @FXML private DatePicker orderDate;
     @FXML private DatePicker plannedDate;
+
+    @FXML private ComboBox<Customer> customerBox;
 
     private OrderService orderService;
     private ItemService itemService;
