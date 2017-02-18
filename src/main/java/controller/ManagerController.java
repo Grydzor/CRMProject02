@@ -33,7 +33,7 @@ public class ManagerController {
     @FXML private TableColumn<Item, BigDecimal> itemPriceVATColumn;
     @FXML private TableColumn<Item, BigDecimal> itemSumVATColumn;
 
-    @FXML private Label quantityLabel;
+    @FXML private Label amountLabel;
     @FXML private Label sumLabel;
 
     @FXML private Button addOrderButton;
@@ -49,6 +49,7 @@ public class ManagerController {
     @FXML private TextField managerTextField;
     @FXML private Button newCustomerButton;
     @FXML private ComboBox<OrderStatus> statusBox;
+          private ObservableList<OrderStatus> statuses;
     @FXML private DatePicker orderDate;
     @FXML private DatePicker plannedDate;
 
@@ -79,6 +80,9 @@ public class ManagerController {
         itemPriceVATColumn.setCellValueFactory(new PropertyValueFactory<>("priceVAT"));
         itemSumNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumNoVAT"));
         itemSumVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumVAT"));
+
+        statuses = FXCollections.observableArrayList(OrderStatus.values());
+        statusBox.setItems(statuses);
 
         items = FXCollections.observableArrayList();
         addSelectListener();

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -16,276 +22,217 @@
 <?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
-<AnchorPane minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
-   <HBox prefHeight="32.0" prefWidth="240.0" AnchorPane.leftAnchor="48.0" AnchorPane.topAnchor="4.0">
-         <ComboBox fx:id="customerBox" prefWidth="160.0">
-            <HBox.margin>
-               <Insets right="8.0" />
-            </HBox.margin>
-         </ComboBox>
-         <Button fx:id="newCustomerButton" mnemonicParsing="false" onAction="#newCustomer" prefWidth="44.0" text="new">
-            <HBox.margin>
-               <Insets />
-            </HBox.margin>
-         </Button>
-   </HBox>
-   <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="648.0" AnchorPane.topAnchor="40.0">
-      <center>
-          <VBox alignment="CENTER" maxHeight="512.0" maxWidth="304.0" minHeight="512.0" minWidth="304.0" prefHeight="512.0" prefWidth="304.0" BorderPane.alignment="CENTER">
-              <TableView fx:id="orderTable" prefHeight="517.0" prefWidth="304.0">
-                  <columns>
-                      <TableColumn fx:id="orderIdColumn" prefWidth="75.0" text="ID" />
-                      <TableColumn fx:id="orderDateColumn" prefWidth="75.0" text="DATE" />
-                      <TableColumn fx:id="orderPriceColumn" prefWidth="75.0" text="PRICE" />
-                  </columns>
-                  <columnResizePolicy>
-                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                  </columnResizePolicy>
-              </TableView>
-              <HBox alignment="CENTER" maxHeight="48.0" minHeight="48.0" prefHeight="48.0" prefWidth="200.0">
-                  <Button fx:id="addOrderButton" maxHeight="40.0" maxWidth="120.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#addOrder" prefHeight="40.0" prefWidth="120.0" text="+">
-                      <font>
-                          <Font size="18.0" />
-                      </font>
-                      <HBox.margin>
-                          <Insets bottom="4.0" left="4.0" right="64.0" top="4.0" />
-                      </HBox.margin>
-                  <textFill>
-                     <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-                        <stops>
-                           <Stop color="BLACK" />
-                           <Stop color="WHITE" offset="1.0" />
-                        </stops>
-                     </RadialGradient>
-                  </textFill>
-                  </Button>
-                  <Button fx:id="deleteOrderButton" contentDisplay="CENTER" maxHeight="40.0" maxWidth="120.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#deleteOrder" prefHeight="40.0" prefWidth="120.0" text="-" textAlignment="CENTER">
-                      <HBox.margin>
-                          <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                      </HBox.margin>
-                      <font>
-                          <Font name="Arial" size="18.0" />
-                      </font>
-                  </Button>
+<AnchorPane minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
+   <children>
+       <VBox alignment="TOP_CENTER" maxHeight="540.0">
+          <children>
+            <GridPane hgap="20.0" vgap="15.0">
+              <columnConstraints>
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="300.0" minWidth="300.0" prefWidth="300.0" />
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="180.0" prefWidth="180.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="180.0" prefWidth="180.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                      <Label text="Manager:" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                          <font>
+                              <Font size="14.0" />
+                          </font>
+                      </Label>
+                      <TextField fx:id="managerTextField" alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                      <Label text="Status:" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                          <font>
+                              <Font size="14.0" />
+                          </font>
+                      </Label>
+                  <ComboBox fx:id="statusBox" editable="true" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                      <Label text="Order number:" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                          <font>
+                              <Font size="14.0" />
+                          </font>
+                      </Label>
+                      <TextField fx:id="orderNumberTextField" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                      <Label text="Planned date:" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                          <font>
+                              <Font size="14.0" />
+                          </font>
+                      </Label>
+                      <DatePicker fx:id="plannedDate" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                      <Label text="Order date:" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                          <font>
+                              <Font size="14.0" />
+                          </font>
+                      </Label>
+                  <TextField GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                    <Label alignment="TOP_CENTER" text="ORDER INFORMATION" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <font>
+                            <Font size="24.0" />
+                        </font>
+                    </Label>
+                     <Button fx:id="cancelOrderButton" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#cancelOrder" text="Log out" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                         <font>
+                             <Font size="15.0" />
+                         </font>
+                         <graphic>
+                             <ImageView fitHeight="22.0" fitWidth="22.0" style="-fx-image: url('/view/imgs/logout.png')" />
+                         </graphic>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     </Button>
+                    <TableView fx:id="itemTable" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="5">
+                        <columns>
+                            <TableColumn fx:id="itemIdColumn" maxWidth="80.0" minWidth="32.0" prefWidth="32.0" style="-fx-font-size: 12;" text="№" />
+                            <TableColumn fx:id="itemNameColumn" prefWidth="140.0" style="-fx-font-size: 12;" text="Name" />
+                            <TableColumn fx:id="itemQuantityColumn" maxWidth="64.0" minWidth="64.0" prefWidth="64.0" style="-fx-font-size: 12;" text="Quantity" />
+                            <TableColumn fx:id="itemPriceNoVATColumn" maxWidth="92.0" minWidth="92.0" prefWidth="92.0" style="-fx-font-size: 12;" text="Price (no VAT)" />
+                            <TableColumn fx:id="itemSumNoVATColumn" maxWidth="92.0" minWidth="92.0" prefWidth="92.0" style="-fx-font-size: 12;" text="Sum (no VAT)" />
+                            <TableColumn fx:id="itemPriceVATColumn" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" style="-fx-font-size: 12;" text="Price (20% VAT inc.)" />
+                            <TableColumn fx:id="itemSumVATColumn" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" style="-fx-font-size: 12;" text="Sum (20% VAT inc.)" />
+                        </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                    </TableView>
+                  <HBox alignment="CENTER" prefHeight="32.0" prefWidth="240.0" GridPane.rowIndex="1">
+                     <children>
+                        <Label text="Customer:">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Label>
+                           <ComboBox fx:id="customerBox" prefWidth="160.0">
+                              <HBox.margin>
+                                 <Insets right="8.0" />
+                              </HBox.margin>
+                           </ComboBox>
+                           <Button fx:id="newCustomerButton" mnemonicParsing="false" onAction="#newCustomer" prefWidth="44.0" text="new">
+                              <HBox.margin>
+                                 <Insets />
+                              </HBox.margin>
+                           </Button>
+                     </children>
+                  </HBox>
+                    <TableView fx:id="orderTable" prefHeight="490.0" prefWidth="304.0" GridPane.rowIndex="2" GridPane.rowSpan="4">
+                        <columns>
+                            <TableColumn fx:id="orderIdColumn" prefWidth="75.0" text="ID" />
+                            <TableColumn fx:id="orderDateColumn" prefWidth="75.0" text="DATE" />
+                            <TableColumn fx:id="orderPriceColumn" prefWidth="75.0" text="PRICE" />
+                        </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                    </TableView>
+                    <HBox maxHeight="48.0" minHeight="30.0" prefHeight="30.0" prefWidth="182.0" GridPane.rowIndex="6" />
+                  <GridPane hgap="20.0" vgap="10.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="6" GridPane.rowSpan="2">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="347.0" minWidth="24.0" prefWidth="182.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints vgrow="SOMETIMES" />
+                      <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <FlowPane alignment="CENTER" hgap="10.0" GridPane.columnSpan="3" GridPane.rowIndex="1">
+                           <children>
+                                 <Button fx:id="addItemButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#addItem" prefWidth="99.0" text="Add item" textAlignment="CENTER">
+                                    <font>
+                                       <Font size="14.0" />
+                                    </font>
+                                 <FlowPane.margin>
+                                    <Insets />
+                                 </FlowPane.margin>
+                                 </Button>
+                                 <Button fx:id="changeItemButton" alignment="CENTER" mnemonicParsing="false" onAction="#changeItem" prefWidth="99.0" text="Change item" textAlignment="CENTER">
+                                    <font>
+                                       <Font size="14.0" />
+                                    </font>
+                                 <FlowPane.margin>
+                                    <Insets />
+                                 </FlowPane.margin>
+                                 </Button>
+                                 <Button fx:id="deleteItemButton" alignment="CENTER" mnemonicParsing="false" onAction="#deleteItem" prefWidth="99.0" text="Delete item" textAlignment="CENTER">
+                                    <font>
+                                       <Font size="14.0" />
+                                    </font>
+                                 <FlowPane.margin>
+                                    <Insets />
+                                 </FlowPane.margin>
+                                 </Button>
+                           </children>
+                        </FlowPane>
+                           <Label text="Total quantity:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                               <font>
+                                   <Font size="14.0" />
+                               </font>
+                           </Label>
+                           <Label fx:id="amountLabel" minWidth="60.0" prefWidth="60.0" text="quantity" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                               <font>
+                                   <Font name="System Bold" size="14.0" />
+                               </font>
+                           </Label>
+                           <Label text="Total sum:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                               <font>
+                                   <Font size="14.0" />
+                               </font>
+                           </Label>
+                           <Label fx:id="sumLabel" minWidth="120.0" prefWidth="120.0" text="all sum" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                               <font>
+                                   <Font name="System Bold" size="14.0" />
+                               </font>
+                           </Label>
+                           <Button fx:id="saveOrderButton" alignment="CENTER" mnemonicParsing="false" onAction="#saveOrder" prefHeight="35.0" text="Save order" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                               <font>
+                                   <Font size="15.0" />
+                               </font>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                           </Button>
+                     </children>
+                  </GridPane>
+                  <FlowPane alignment="TOP_CENTER" hgap="10.0" GridPane.rowIndex="6">
+                     <children>
+                           <Button fx:id="deleteOrderButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteOrder" prefWidth="80.0" text="Delete" textAlignment="CENTER">
+                               <font>
+                                   <Font size="14.0" />
+                               </font>
+                           </Button>
+                           <Button fx:id="addOrderButton" mnemonicParsing="false" onAction="#addOrder" prefWidth="80.0" text="New">
+                               <font>
+                                   <Font size="14.0" />
+                               </font>
+                           </Button>
+                     </children>
+                     <GridPane.margin>
+                        <Insets top="5.0" />
+                     </GridPane.margin>
+                  </FlowPane>
+               </children>
                <VBox.margin>
-                  <Insets bottom="14.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
-              </HBox>
-          </VBox>
-      </center>
-      <left>
-         <Pane prefHeight="0.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
-      </left>
-      <bottom>
-         <Pane prefHeight="0.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
-      </bottom>
-      <top>
-         <Pane prefHeight="0.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
-      </top>
-      <right>
-         <Pane prefHeight="0.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
-      </right>
-   </BorderPane>
-   <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="328.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0">
-      <center>
-          <VBox alignment="TOP_CENTER" maxHeight="524.0" maxWidth="632.0" minHeight="524.0" minWidth="632.0" prefHeight="524.0" prefWidth="632.0" BorderPane.alignment="CENTER">
-              <Label text="ORDER INFORMATION">
-                  <font>
-                      <Font size="24.0" />
-                  </font>
-                  <VBox.margin>
-                      <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                  </VBox.margin>
-              </Label>
-              <VBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                      <Label prefWidth="100.0" text="Manager:">
-                          <HBox.margin>
-                              <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                          </HBox.margin>
-                          <font>
-                              <Font size="14.0" />
-                          </font>
-                      </Label>
-                      <TextField fx:id="managerTextField" prefWidth="160.0">
-                          <HBox.margin>
-                              <Insets right="40.0" />
-                          </HBox.margin>
-                      </TextField>
-                      <VBox.margin>
-                          <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                      </VBox.margin>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                      <Label prefWidth="100.0" text="Order number:">
-                          <HBox.margin>
-                              <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                          </HBox.margin>
-                          <font>
-                              <Font size="14.0" />
-                          </font>
-                      </Label>
-                      <TextField fx:id="orderNumberTextField" prefWidth="160.0">
-                          <HBox.margin>
-                              <Insets right="40.0" />
-                          </HBox.margin>
-                      </TextField>
-                      <Label prefWidth="100.0" text="Status:">
-                          <HBox.margin>
-                              <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                          </HBox.margin>
-                          <font>
-                              <Font size="14.0" />
-                          </font>
-                      </Label>
-                  <ComboBox fx:id="statusBox" prefWidth="160.0" />
-                      <VBox.margin>
-                          <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                      </VBox.margin>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                      <Label prefWidth="100.0" text="Order date:">
-                          <HBox.margin>
-                              <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                          </HBox.margin>
-                          <font>
-                              <Font size="14.0" />
-                          </font>
-                      </Label>
-                      <DatePicker fx:id="orderDate" prefWidth="160.0">
-                          <HBox.margin>
-                              <Insets right="40.0" />
-                          </HBox.margin>
-                      </DatePicker>
-                      <Label prefWidth="100.0" text="Planned date:">
-                          <HBox.margin>
-                              <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                          </HBox.margin>
-                          <font>
-                              <Font size="14.0" />
-                          </font>
-                      </Label>
-                      <DatePicker fx:id="plannedDate" prefWidth="160.0" />
-                      <VBox.margin>
-                          <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                      </VBox.margin>
-                  </HBox>
-                  <VBox.margin>
-                      <Insets />
-                  </VBox.margin>
-              </VBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <VBox.margin>
-                  <Insets top="8.0" />
-               </VBox.margin>
-            </HBox>
-              <TableView fx:id="itemTable" maxWidth="624.0" minWidth="624.0" prefWidth="624.0">
-                  <columns>
-                      <TableColumn fx:id="itemIdColumn" maxWidth="80.0" minWidth="32.0" prefWidth="32.0" style="-fx-font-size: 12;" text="№" />
-                      <TableColumn fx:id="itemNameColumn" prefWidth="140.0" style="-fx-font-size: 12;" text="Name" />
-                      <TableColumn fx:id="itemQuantityColumn" maxWidth="64.0" minWidth="64.0" prefWidth="64.0" style="-fx-font-size: 12;" text="Quantity" />
-                      <TableColumn fx:id="itemPriceNoVATColumn" maxWidth="92.0" minWidth="92.0" prefWidth="92.0" style="-fx-font-size: 12;" text="Price (no VAT)" />
-                      <TableColumn fx:id="itemSumNoVATColumn" maxWidth="92.0" minWidth="92.0" prefWidth="92.0" style="-fx-font-size: 12;" text="Sum (no VAT)" />
-                      <TableColumn fx:id="itemPriceVATColumn" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" style="-fx-font-size: 12;" text="Price (20% VAT inc.)" />
-                      <TableColumn fx:id="itemSumVATColumn" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" style="-fx-font-size: 12;" text="Sum (20% VAT inc.)" />
-                  </columns>
-                  <columnResizePolicy>
-                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                  </columnResizePolicy>
-                  <VBox.margin>
-                      <Insets right="12.0" />
-                  </VBox.margin>
-              </TableView>
-              <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
-                  <Label text="Total quantity:">
-                      <font>
-                          <Font size="14.0" />
-                      </font>
-                  </Label>
-                  <Label fx:id="quantityLabel" alignment="CENTER" maxWidth="64.0" minWidth="64.0" prefWidth="64.0" text="quantity" textAlignment="CENTER">
-                      <font>
-                          <Font name="System Bold" size="14.0" />
-                      </font>
-                  </Label>
-                  <Label text="Total sum:">
-                      <font>
-                          <Font size="14.0" />
-                      </font>
-                      <HBox.margin>
-                          <Insets left="232.0" right="4.0" />
-                      </HBox.margin>
-                  </Label>
-                  <Label fx:id="sumLabel" alignment="CENTER" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" text="all sum">
-                      <font>
-                          <Font name="System Bold" size="14.0" />
-                      </font>
-                  <HBox.margin>
-                     <Insets right="12.0" />
-                  </HBox.margin>
-                  </Label>
-                  <VBox.margin>
-                      <Insets bottom="8.0" top="8.0" />
-                  </VBox.margin>
-                  <opaqueInsets>
-                      <Insets />
-                  </opaqueInsets>
-              </HBox>
-              <HBox alignment="TOP_RIGHT" maxHeight="211.0" minHeight="48.0" prefHeight="211.0" prefWidth="632.0">
-                  <Button fx:id="addItemButton" alignment="CENTER" contentDisplay="TOP" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" onAction="#addItem" prefHeight="40.0" prefWidth="100.0" text="ADD" textAlignment="CENTER">
-                     <HBox.margin>
-                        <Insets left="8.0" right="8.0" top="5.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="changeItemButton" alignment="CENTER" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" onAction="#changeItem" prefHeight="40.0" prefWidth="100.0" text="CHANGE" textAlignment="CENTER">
-                     <HBox.margin>
-                        <Insets left="8.0" right="8.0" top="5.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="deleteItemButton" alignment="CENTER" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="40.0" prefWidth="100.0" text="DELETE" textAlignment="CENTER">
-                     <HBox.margin>
-                        <Insets left="8.0" right="60.0" top="5.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="saveOrderButton" alignment="CENTER" maxHeight="40.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" onAction="#saveOrder" prefHeight="40.0" prefWidth="100.0" text="SAVE" textAlignment="CENTER">
-                      <font>
-                          <Font size="16.0" />
-                      </font>
-                      <HBox.margin>
-                          <Insets bottom="8.0" left="8.0" right="8.0" top="5.0" />
-                      </HBox.margin>
-                  </Button>
-                  <Button fx:id="cancelOrderButton" alignment="CENTER" maxHeight="40.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="40.0" prefWidth="100.0" text="CANCEL" textAlignment="CENTER">
-                      <font>
-                          <Font size="16.0" />
-                      </font>
-                      <HBox.margin>
-                          <Insets bottom="8.0" left="8.0" right="10.0" top="5.0" />
-                      </HBox.margin>
-                  </Button>
-              </HBox>
-          </VBox>
-      </center>
-      <top>
-         <Pane prefHeight="0.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
-      </top>
-      <left>
-         <Pane prefHeight="0.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
-      </left>
-      <right>
-         <Pane prefHeight="0.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
-      </right>
-      <bottom>
-         <Pane prefHeight="0.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
-      </bottom>
-   </BorderPane>
+            </GridPane>
+          </children>
+       </VBox>
+   </children>
 </AnchorPane>
