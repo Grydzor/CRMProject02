@@ -70,6 +70,9 @@ public class LoginController {
                     case MANAGER:
                         StageFactory.genericWindow("/view/manager_panel.fxml", "Management");
                         break;
+                    case CASHIER:
+                        StageFactory.genericWindow("/view/cashier_panel.fxml", "Cashier");
+                        break;
                 }
                 return;
             }
