@@ -20,6 +20,7 @@ public class StageFactory {
         try {
             root = loader.load();
         } catch (IOException e) {
+            e.printStackTrace();
             System.out.println("Проблема в пути к FXML");
             return null;
         }
@@ -32,6 +33,7 @@ public class StageFactory {
         stageWindow.setMinWidth(980);
 
         Scene scene = new Scene(root);
+        scene.getStylesheets().add("/view/styles/default.css");
         stageWindow.setScene(scene);
 
         T controller = loader.getController();
@@ -46,6 +48,7 @@ public class StageFactory {
         try {
             root = loader.load();
         } catch (IOException e) {
+            e.printStackTrace();
             System.out.println("Проблема в пути к FXML");
             return null;
         }

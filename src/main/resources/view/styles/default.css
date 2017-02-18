@@ -10,12 +10,14 @@
     -fx-opacity: 1;
 }
 
-.combo-box:disabled, .combo-box:disabled > *, .combo-box .arrow:disabled {
+.combo-box:disabled, .combo-box:disabled > *, .combo-box .arrow:disabled, .date-picker:disabled, .date-picker .arrow-button:disabled, .date-picker .arrow:disabled {
     -fx-background-color: transparent;
     -fx-background-insets: 0px;
     -fx-opacity: 1.0;
     -fx-font-size: 14;
 }
+
+
 
 .combo-box {
     -fx-font-size: 14;

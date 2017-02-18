@@ -6,7 +6,7 @@ import service.OrderServiceImpl;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -22,16 +22,21 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "MANAGER")
-    private String manager;
+    @OneToOne
+    @JoinColumn(name = "MANAGER_ID", nullable = false)
+    private Employee manager;
 
     @ManyToOne
-    @JoinColumn(name = "CUSTOMER_ID")
+    @JoinColumn(name = "CUSTOMER_ID", nullable = false)
     private Customer customer;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "DATE")
+//    @Temporal(TemporalType.DATE)
+    @Column(name = "DATE", nullable = false)
     private Date date;
+
+//    @Temporal(TemporalType.DATE)
+    @Column(name = "DEADLINE", nullable = false)
+    private Date deadline;
 
     /*@OneToMany(mappedBy = "order")
     private List<Item> items = new ArrayList<>();*/
@@ -48,7 +53,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(String manager, Customer customer, Date date, OrderStatus status, BigDecimal summary) {
+    public Order(Employee manager, Customer customer, Date date, OrderStatus status, BigDecimal summary) {
         this.manager = manager;
         this.customer = customer;
         this.date = date;
@@ -64,11 +69,11 @@ public class Order {
         this.id = id;
     }
 
-    public String getManager() {
+    public Employee getManager() {
         return manager;
     }
 
-    public void setManager(String manager) {
+    public void setManager(Employee manager) {
         this.manager = manager;
     }
 
@@ -86,6 +91,14 @@ public class Order {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Date getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
     }
 
     public OrderStatus getStatus() {
@@ -112,7 +125,7 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-                "manager='" + manager + "'" +
+                "manager='" + manager.shortInfo() + "'" +
                 ", customer='" + customer + "'" +
                 ", date='" + date + "'" +
                 ", status='" + status + "'" +

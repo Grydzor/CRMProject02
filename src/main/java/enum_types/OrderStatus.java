@@ -6,7 +6,7 @@ package enum_types;
 
 public enum OrderStatus {
 
-    OPEN("Open"), FORMED("Formed"), PAID("Paid"), CLOSED("Closed");
+    OPENED("Opened"), FORMED("Formed"), PAID("Paid"), CLOSED("Closed");
 
     private String label;
 

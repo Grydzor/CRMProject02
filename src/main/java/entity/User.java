@@ -14,10 +14,10 @@ public class User {
     private Long id;
 
     @NotNull
-    @Column(name = "LOGIN")
+    @Column(name = "LOGIN", nullable = false)
     private String login;
 
-    @Column(name = "PASSWORD")
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
 
     @OneToOne

@@ -15,12 +15,10 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Column(name = "NAME")
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @NotNull
-    @Column(name = "SURNAME")
+    @Column(name = "SURNAME", nullable = false)
     private String surname;
 
     @Column(name = "AGE")
@@ -114,6 +112,10 @@ public class Employee {
                 ", sex=" + sex +
                 ", position=" + position +
                 '}';
+    }
+
+    public String shortInfo() {
+        return name + " " + surname;
     }
 
     /*@Override

@@ -9,10 +9,15 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.StringConverter;
 import service.*;
 import util.StageFactory;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class ManagerController {
@@ -39,25 +44,27 @@ public class ManagerController {
     @FXML private Button addOrderButton;
     @FXML private Button deleteOrderButton;
     @FXML private Button saveOrderButton;
-    @FXML private Button cancelOrderButton;
+    @FXML private Button logOutButton; // work
 
     @FXML private Button addItemButton;
     @FXML private Button changeItemButton;
     @FXML private Button deleteItemButton;
 
-    @FXML private TextField orderNumberTextField;
-    @FXML private TextField managerTextField;
-    @FXML private Button newCustomerButton;
+    @FXML private TextField managerField;
+    @FXML private TextField orderNumberField;
+    @FXML private TextField orderDateField;
     @FXML private ComboBox<OrderStatus> statusBox;
           private ObservableList<OrderStatus> statuses;
-    @FXML private DatePicker orderDate;
-    @FXML private DatePicker plannedDate;
-
+    @FXML private DatePicker deadlinePicker;
     @FXML private ComboBox<Customer> customerBox;
+
+    @FXML private Button newCustomerButton;
 
     private OrderService orderService;
     private ItemService itemService;
     private ProductService productService;
+
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 
     public void initialize(){
@@ -85,14 +92,55 @@ public class ManagerController {
         statusBox.setItems(statuses);
 
         items = FXCollections.observableArrayList();
+
+        deadlinePicker.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate localDate) {
+                if(localDate == null) return "";
+                else return localDate.format(formatter);
+            }
+
+            @Override
+            public LocalDate fromString(String dateString) {
+                if(dateString == null || dateString.trim().isEmpty()) return null;
+                else return LocalDate.parse(dateString, formatter);
+            }
+        });
         addSelectListener();
     }
 
     private void addSelectListener() {
         orderTable.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
-            items.setAll(newValue.getItems());
-            itemTable.setItems(items);
+            if (newValue != null) {
+                items.setAll(newValue.getItems());
+                itemTable.setItems(items);
+
+                managerField.setText(newValue.getManager().shortInfo());
+                orderNumberField.setText(newValue.getId().toString());
+                orderDateField.setText(newValue.getDate().toString());
+                deadlinePicker.setValue(newValue.getDeadline().toLocalDate());
+                statusBox.setValue(newValue.getStatus());
+                customerBox.setValue(newValue.getCustomer());
+
+                Integer amount = 0;
+                BigDecimal sum = BigDecimal.ZERO;
+                for (Item item : items) {
+                    amount += item.getAmount();
+                    sum = sum.add(item.getSumVAT());
+                }
+                amountLabel.setText("" + amount);
+                sumLabel.setText("" + sum);
+            } else {
+                items.clear();
+
+                managerField.setText("");
+                orderNumberField.setText("");
+                orderDateField.setText("");
+                deadlinePicker.setValue(null);
+                statusBox.setValue(null);
+                customerBox.setValue(null);
+            }
                 });
     }
 
