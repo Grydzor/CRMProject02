@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import service.*;
 import util.InputDataChecker;
 import util.LoginHelper;
+import util.StageFactory;
 
 import java.io.IOException;
 
@@ -34,6 +35,8 @@ public class AdminController {
     @FXML private Button applyButton;
     @FXML private Button cancelChangingButton;
     @FXML private Button generateButton;
+    @FXML private Button logOutButton;
+
 
     @FXML private TextField idField;
     @FXML private TextField nameField;
@@ -364,5 +367,10 @@ public class AdminController {
             sex = InputDataChecker.checkEnum(sexBox);
             position = InputDataChecker.checkEnum(positionBox);
         }
+    }
+
+    @FXML
+    public void logOut() {
+        StageFactory.backToLogInWindow();
     }
 }
