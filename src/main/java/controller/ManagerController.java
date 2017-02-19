@@ -1,24 +1,25 @@
 package controller;
 
-import entity.Customer;
-import entity.Item;
-import entity.Order;
+import controller.modal.NewCustomerController;
+import entity.*;
 import enum_types.OrderStatus;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
 import service.*;
+import util.InputDataChecker;
 import util.StageFactory;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.sql.Date;
 
 public class ManagerController {
 
@@ -30,7 +31,7 @@ public class ManagerController {
 
     @FXML private TableView<Item> itemTable;
           private ObservableList<Item> items;
-    @FXML private TableColumn<Item, Long> itemIdColumn;
+    @FXML private TableColumn<Item, Integer> itemIdColumn;
     @FXML private TableColumn<Item, String> itemNameColumn;
     @FXML private TableColumn<Item, Integer> itemQuantityColumn;
     @FXML private TableColumn<Item, BigDecimal> itemPriceNoVATColumn;
@@ -41,14 +42,21 @@ public class ManagerController {
     @FXML private Label amountLabel;
     @FXML private Label sumLabel;
 
-    @FXML private Button addOrderButton;
-    @FXML private Button deleteOrderButton;
+    @FXML private Button newOrderButton;
     @FXML private Button saveOrderButton;
+    @FXML private Button changeOrderButton;
+    @FXML private Button cancelOrderButton;
+    @FXML private Button deleteOrderButton;
+    @FXML private Button applyDeletingOrderButton;
+
     @FXML private Button logOutButton; // work
 
     @FXML private Button addItemButton;
     @FXML private Button changeItemButton;
     @FXML private Button deleteItemButton;
+
+    @FXML private Button newCustomerButton;
+    @FXML private Button nextStatusButton;
 
     @FXML private TextField managerField;
     @FXML private TextField orderNumberField;
@@ -58,19 +66,39 @@ public class ManagerController {
     @FXML private DatePicker deadlinePicker;
     @FXML private ComboBox<Customer> customerBox;
 
-    @FXML private Button newCustomerButton;
+    private Employee currentManager;
+    private Long orderNumber;
+    private Date orderDate;
+    private Date deadline;
+    private Customer customer;
+
 
     private OrderService orderService;
     private ItemService itemService;
     private ProductService productService;
+    private CustomerService customerService;
+    private UserService userService;
 
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+    private DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+
+    private Helper helper;
+
+    private Order currentOrder;
 
 
-    public void initialize(){
+    public void initialize() {
+        helper = new Helper();
+
+
         orderService = OrderServiceImpl.getInstance();
         itemService = ItemServiceImpl.getInstance();
         productService = ProductServiceImpl.getInstance();
+        customerService = CustomerServiceImpl.getInstance();
+        userService = UserServiceImpl.getInstance();
+
+        UserSession session = UserSession.readFromResource();
+        if (session != null) currentManager = userService.read(session.getUserId()).getEmployee();
 
         // set columns in TableView
         orderIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -80,23 +108,28 @@ public class ManagerController {
         orders = FXCollections.observableArrayList(orderService.findAll());
         orderTable.setItems(orders);
 
-        itemIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+//        itemIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        itemIdColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper(itemTable.getItems().indexOf(p.getValue()) + 1 + ""));
+
         itemQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         itemNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
         itemPriceNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         itemPriceVATColumn.setCellValueFactory(new PropertyValueFactory<>("priceVAT"));
         itemSumNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumNoVAT"));
         itemSumVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumVAT"));
+        helper.setCellFactoryForBigDecimal();
 
         statuses = FXCollections.observableArrayList(OrderStatus.values());
         statusBox.setItems(statuses);
+
+        customerBox.setItems(FXCollections.observableArrayList(customerService.findAll()));
 
         items = FXCollections.observableArrayList();
 
         deadlinePicker.setConverter(new StringConverter<LocalDate>() {
             @Override
             public String toString(LocalDate localDate) {
-                if(localDate == null) return "";
+                if(localDate == null || localDate.isBefore(LocalDate.now())) return "";
                 else return localDate.format(formatter);
             }
 
@@ -106,46 +139,39 @@ public class ManagerController {
                 else return LocalDate.parse(dateString, formatter);
             }
         });
-        addSelectListener();
-    }
-
-    private void addSelectListener() {
-        orderTable.getSelectionModel().selectedItemProperty()
-                .addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                items.setAll(newValue.getItems());
-                itemTable.setItems(items);
-
-                managerField.setText(newValue.getManager().shortInfo());
-                orderNumberField.setText(newValue.getId().toString());
-                orderDateField.setText(newValue.getDate().toString());
-                deadlinePicker.setValue(newValue.getDeadline().toLocalDate());
-                statusBox.setValue(newValue.getStatus());
-                customerBox.setValue(newValue.getCustomer());
-
-                Integer amount = 0;
-                BigDecimal sum = BigDecimal.ZERO;
-                for (Item item : items) {
-                    amount += item.getAmount();
-                    sum = sum.add(item.getSumVAT());
-                }
-                amountLabel.setText("" + amount);
-                sumLabel.setText("" + sum);
-            } else {
-                items.clear();
-
-                managerField.setText("");
-                orderNumberField.setText("");
-                orderDateField.setText("");
-                deadlinePicker.setValue(null);
-                statusBox.setValue(null);
-                customerBox.setValue(null);
-            }
-                });
+        helper.addSelectListener();
     }
 
     @FXML
-    public void addOrder() {
+    public void newOrder() {
+        helper.disableOrderInfo(false);
+
+        managerField.setText(currentManager.shortInfo());
+        statusBox.getSelectionModel().select(0);
+        orderNumberField.setText("will be generated");
+        orderDateField.setText(LocalDate.now().format(formatter));
+    }
+
+    @FXML
+    public void cancelOrder() {
+        helper.disableOrderInfo(true);
+    }
+
+    @FXML
+    public void saveOrder() {
+        helper.checkFields();
+
+        if (customer != null && deadline != null) {
+            Order order = new Order(currentManager, customer, deadline, OrderStatus.OPENED);
+            orderService.add(order);
+            orderTable.getItems().add(order);
+            orderTable.getSelectionModel().select(order);
+            helper.disableOrderInfo(true);
+        }
+    }
+
+    @FXML
+    public void changeOrder() {
 
     }
 
@@ -155,12 +181,13 @@ public class ManagerController {
     }
 
     @FXML
-    public void saveOrder() {
+    public void applyDeletingOrder() {
 
     }
 
+
     @FXML
-    public void cancelOrder() {
+    public void logOut() {
         StageFactory.backToLogInWindow();
     }
 
@@ -181,7 +208,122 @@ public class ManagerController {
 
     @FXML
     public void newCustomer() {
+        NewCustomerController controller = StageFactory.genericModal("/view/modal/new_customer.fxml", "New customer");
+        Customer customer = controller.getCustomer();
+        if (customer != null) {
+            customerBox.getItems().add(customer);
+            if (customerBox.getSelectionModel().getSelectedItem() == null) {
+                customerBox.getSelectionModel().select(customer);
+            }
+        }
+    }
+
+    @FXML
+    public void nextStatus() {
 
     }
 
+    private class Helper {
+        private void addSelectListener() {
+            orderTable.getSelectionModel().selectedItemProperty()
+                    .addListener((observable, oldValue, newValue) -> {
+                        currentOrder = newValue;
+                        fillInfoWith(currentOrder);
+                    });
+        }
+
+        private void setCellFactoryForBigDecimal() {
+            Callback callback = param -> new TableCell<Item, BigDecimal>() {
+                @Override
+                protected void updateItem(BigDecimal item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if(empty || item == null) {
+                        setText("");
+                    } else {
+                        setText(decimalFormat.format(item));
+                    }
+                }
+            };
+            itemPriceNoVATColumn.setCellFactory(callback);
+            itemPriceVATColumn.setCellFactory(callback);
+            itemSumNoVATColumn.setCellFactory(callback);
+            itemSumVATColumn.setCellFactory(callback);
+        }
+
+        private void fillInfoWith(Order currentOrder) {
+            if (currentOrder != null) {
+                items.setAll(currentOrder.getItems());
+                itemTable.setItems(items);
+
+                managerField.setText(currentOrder.getManager().shortInfo());
+                orderNumberField.setText(currentOrder.getId().toString());
+                orderDateField.setText(currentOrder.getDate().toLocalDate().format(formatter));
+                deadlinePicker.setValue(currentOrder.getDeadline().toLocalDate());
+                statusBox.setValue(currentOrder.getStatus());
+                customerBox.setValue(currentOrder.getCustomer());
+
+                nextStatusButton.setVisible(true);
+                newCustomerButton.setVisible(true);
+
+                addItemButton.setVisible(true);
+
+                Integer amount = 0;
+                BigDecimal sum = BigDecimal.ZERO;
+                for (Item item : items) {
+                    amount += item.getAmount();
+                    sum = sum.add(item.getSumVAT());
+                }
+                amountLabel.setText("" + amount);
+                sumLabel.setText(decimalFormat.format(sum));
+            } else {
+                items.clear();
+                clearOrderInfo();
+
+                nextStatusButton.setVisible(false);
+                newCustomerButton.setVisible(false);
+            }
+        }
+
+        private void clearOrderInfo() {
+            managerField.setText("");
+            orderNumberField.setText("");
+            orderDateField.setText("");
+            deadlinePicker.setValue(null);
+            statusBox.setValue(null);
+            customerBox.setValue(null);
+
+            amountLabel.setText("");
+            sumLabel.setText("");
+        }
+
+        private void disableOrderInfo(Boolean bool) {
+            customerBox.setDisable(bool);
+            deadlinePicker.setDisable(bool);
+//            managerField.setDisable(bool);
+//            statusBox.setDisable(bool);
+//            orderNumberField.setDisable(bool);
+//            orderDateField.setDisable(bool);
+
+            saveOrderButton.setDisable(bool);
+
+            deleteOrderButton.setDisable(!bool);
+            changeOrderButton.setDisable(!bool);
+            newOrderButton.setVisible(bool);
+            saveOrderButton.setVisible(!bool);
+            cancelOrderButton.setVisible(!bool);
+
+            orderTable.setDisable(!bool);
+
+            if (bool) fillInfoWith(currentOrder);
+            else fillInfoWith(null);
+
+            newCustomerButton.setVisible(true);
+            nextStatusButton.setVisible(true);
+        }
+
+        private void checkFields() {
+            customer = InputDataChecker.checkEnum(customerBox);
+            deadline = InputDataChecker.checkDate(deadlinePicker);
+        }
+    }
 }

@@ -6,7 +6,7 @@ public class AppMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        StageFactory.genericWindow("/view/login_panel.fxml", "CRM");
+        StageFactory.genericWindow("/view/login_panel.fxml", "CRM", -1L);
     }
 
     public static void main(String[] args) {

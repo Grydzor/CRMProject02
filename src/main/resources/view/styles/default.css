@@ -1,6 +1,6 @@
 .text-field {
     -fx-border-color: transparent;
-    -fx-font-size: 14;
+    -fx-font-size: 14px;
 }
 
 .text-field:disabled {
@@ -14,25 +14,23 @@
     -fx-background-color: transparent;
     -fx-background-insets: 0px;
     -fx-opacity: 1.0;
-    -fx-font-size: 14;
+    -fx-font-size: 14px;
 }
-
-
 
 .combo-box {
-    -fx-font-size: 14;
+    -fx-font-size: 14px;
 }
 
-.table-view {
-    -fx-font-size: 14;
+.table-view, .table-view .column-header .label {
+    -fx-font-size: 12px;
 }
 
 .button {
-    -fx-font-size: 14;
+    -fx-font-size: 14px;
 }
 
 .label {
-    -fx-font-size: 14;
+    -fx-font-size: 14px;
 }
 
 /*

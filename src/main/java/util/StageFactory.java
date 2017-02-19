@@ -1,20 +1,29 @@
 package util;
 
+import entity.UserSession;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import service.UserSessionServiceImpl;
 
 import java.io.IOException;
 
 public class StageFactory {
-    private static Stage stageWindow = new Stage();
-    private static Stage stageModal = new Stage();
+    private static Stage stageWindow;
+    private static Stage stageModal;
+
+    static {
+        stageWindow = new Stage();
+        stageModal = new Stage();
+        stageModal.initModality(Modality.APPLICATION_MODAL);
+    }
 
 
-    public static <T> T genericWindow(String resource, String title){
+    public static <T> T genericWindow(String resource, String title, Long userId) {
+        UserSession userSession = UserSession.writeToResource(userId);
+
         FXMLLoader loader = new FXMLLoader(StageFactory.class.getResource(resource));
         Parent root;
         try {
@@ -42,7 +51,7 @@ public class StageFactory {
         return controller;
     }
 
-    public static <T> T genericModal(String resource, String title){
+    public static <T> T genericModal(String resource, String title) {
         FXMLLoader loader = new FXMLLoader(StageFactory.class.getResource(resource));
         Parent root;
         try {
@@ -52,7 +61,6 @@ public class StageFactory {
             System.out.println("Проблема в пути к FXML");
             return null;
         }
-        stageModal.initModality(Modality.APPLICATION_MODAL);
 
         stageModal.setResizable(false);
 
@@ -60,6 +68,7 @@ public class StageFactory {
         stageModal.setScene(scene);
 
         T controller = loader.getController();
+
         stageModal.showAndWait();
 
         return controller;
@@ -68,7 +77,7 @@ public class StageFactory {
     // Передать в метод любой элемент который находится в окне, которое нужно закрыть.
     public static void backToLogInWindow() {
         stageWindow.close();
-        StageFactory.genericWindow("/view/login_panel.fxml", "Login panel");
+        StageFactory.genericWindow("/view/login_panel.fxml", "Login panel", null);
     }
 
     public static void closeLogInWindow(){

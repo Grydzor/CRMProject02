@@ -28,6 +28,12 @@ public class Customer {
     @Column(name = "SURNAME")
     private String surname;
 
+    @Column(name = "MOBILE")
+    private String mobile;
+
+    @Column(name = "EMAIL")
+    private String email;
+
     /*@OneToMany(mappedBy = "customer")
     private List<Order> orders = new ArrayList<>();*/
 
@@ -35,9 +41,11 @@ public class Customer {
 
     public Customer() {}
 
-    public Customer(String name, String surname) {
+    public Customer(String name, String surname, String mobile, String email) {
         this.name = name;
         this.surname = surname;
+        this.mobile = mobile;
+        this.email = email;
     }
 
     public Long getId() {
@@ -62,6 +70,22 @@ public class Customer {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public List<Order> getOrders() {

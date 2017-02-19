@@ -122,7 +122,7 @@ public class CashierController {
 
     @FXML
     public void cancelOrder() {
-        StageFactory.genericWindow("/view/login_panel.fxml", "CRM");
+        StageFactory.genericWindow("/view/login_panel.fxml", "CRM", null);
     }
 
 }

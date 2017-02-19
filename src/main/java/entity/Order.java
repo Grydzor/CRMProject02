@@ -5,6 +5,7 @@ import service.OrderServiceImpl;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
@@ -46,19 +47,22 @@ public class Order {
     @Column(name = "STATUS")
     private OrderStatus status;
 
+/*
     @Column(name = "SUMMARY")
     private BigDecimal summary;
+*/
 
 
     public Order() {
     }
 
-    public Order(Employee manager, Customer customer, Date date, OrderStatus status, BigDecimal summary) {
+    public Order(Employee manager, Customer customer, Date deadline, OrderStatus status/*, BigDecimal summary*/) {
         this.manager = manager;
         this.customer = customer;
-        this.date = date;
+        this.deadline = deadline;
         this.status = status;
-        this.summary = summary;
+        this.date = Date.valueOf(LocalDate.now());
+        /*this.summary = summary;*/
     }
 
     public Long getId() {
@@ -118,9 +122,9 @@ public class Order {
         this.items = items;
     }
 
-    public BigDecimal getSummary() {return summary;}
+/*    public BigDecimal getSummary() {return summary;}
 
-    public void setSummary(BigDecimal summary) {this.summary = summary;}
+    public void setSummary(BigDecimal summary) {this.summary = summary;}*/
 
     @Override
     public String toString() {
@@ -129,7 +133,7 @@ public class Order {
                 ", customer='" + customer + "'" +
                 ", date='" + date + "'" +
                 ", status='" + status + "'" +
-                ", summary='" + summary + "'" +
+                /*", summary='" + summary + "'" +*/
                 '}';
     }
 }

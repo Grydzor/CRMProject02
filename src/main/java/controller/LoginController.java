@@ -1,7 +1,9 @@
 package controller;
 
 import entity.User;
+import entity.UserSession;
 import enum_types.UserStatus;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import service.UserService;
 import service.UserServiceImpl;
+import service.UserSessionServiceImpl;
 import util.StageFactory;
 import util.HibernateSessionFactory;
 import util.InputDataChecker;
@@ -29,6 +32,17 @@ public class LoginController {
 
     public void initialize() {
         userService = UserServiceImpl.getInstance();
+
+        Platform.runLater(() -> {
+            UserSession fromResource = UserSession.readFromResource();
+            if (fromResource == null) return;
+
+            UserSession fromDB = UserSessionServiceImpl.getInstance().read(fromResource.getUserId());
+            if (fromDB == null) return;
+
+            if (fromResource.getSessionId().equals(fromDB.getSessionId())) logIn(userService.read(fromDB.getUserId()), true);
+            else UserSession.writeToResource(null);
+        });
     }
 
 
@@ -61,23 +75,31 @@ public class LoginController {
             }
 
             if (user.getPassword().equals(password)) {
-                setStatusMsg(UserStatus.SUCCESS);
-                StageFactory.backToLogInWindow();
-                switch (user.getEmployee().getPosition()) {
-                    case ADMIN:
-                        StageFactory.genericWindow("/view/admin_panel.fxml", "Administration");
-                        break;
-                    case MANAGER:
-                        StageFactory.genericWindow("/view/manager_panel.fxml", "Management");
-                        break;
-                    case CASHIER:
-                        StageFactory.genericWindow("/view/cashier_panel.fxml", "Cashier");
-                        break;
-                }
+                logIn(user, false);
                 return;
             }
 
             setStatusMsg(UserStatus.WRONG_PASSWORD);
+        }
+    }
+
+    private void logIn(User user, Boolean fromSession) {
+        Long userId;
+        if (fromSession) userId = -1L;
+        else userId = user.getId();
+        System.out.println(user.getEmployee().getPosition());
+        setStatusMsg(UserStatus.SUCCESS);
+//                StageFactory.backToLogInWindow();
+        switch (user.getEmployee().getPosition()) {
+            case ADMIN:
+                StageFactory.genericWindow("/view/admin_panel.fxml", "Administration", userId);
+                break;
+            case MANAGER:
+                StageFactory.genericWindow("/view/manager_panel.fxml", "Management", userId);
+                break;
+            case CASHIER:
+                StageFactory.genericWindow("/view/cashier_panel.fxml", "Cashier", userId);
+                break;
         }
     }
 
