@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 /* Класс принимает поля ввода (текста и чисел - TextField,
@@ -23,6 +24,8 @@ public class InputDataChecker {
     private static final String STYLE_OK = "-fx-border-color: transparent;";
     private static final String STYLE_BAD = "-fx-border-color: red;" +
                                             "-fx-border-radius: inherit";
+
+    private static DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
     public static Date checkDate(DatePicker datePicker) {
         LocalDate localDate = datePicker.getValue();
@@ -75,6 +78,8 @@ public class InputDataChecker {
         BigDecimal num;
         try {
             num = new BigDecimal(text);
+            /*String text2 = decimalFormat.format(num);
+            num = new BigDecimal(text2);*/
         } catch (NumberFormatException nfe) {
             textField.setStyle(STYLE_BAD);
             return null;

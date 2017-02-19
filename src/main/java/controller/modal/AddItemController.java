@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import service.ItemService;
 import service.ItemServiceImpl;
@@ -24,13 +25,17 @@ import java.math.BigDecimal;
 public class AddItemController implements ParameterSettable<Order, Item> {
     @FXML private ComboBox<Product> productBox;
           private ObservableList<Product> products;
-    @FXML private TextField productField;
+    @FXML private TextField productNameField;
     @FXML private Button newProductButton;
     @FXML private Button addProductButton;
+    @FXML private Button cancelAddingProductButton;
     @FXML private TextField priceField;
     @FXML private TextField amountField;
     @FXML private Button saveButton;
     @FXML private Button cancelButton;
+
+    @FXML private Label amountLabel;
+    @FXML private Label priceLabel;
 
     private Order currentOrder;
 
@@ -59,7 +64,9 @@ public class AddItemController implements ParameterSettable<Order, Item> {
                 productService.update(product);
             }
             item = new Item(product, amount, currentOrder);
-            itemService.add(item);
+            if (currentOrder != null) {
+                itemService.add(item);
+            }
 
             StageFactory.closeModal();
         }
@@ -72,13 +79,46 @@ public class AddItemController implements ParameterSettable<Order, Item> {
 
     @FXML
     public void newProduct() {
+        disableFields(true);
+    }
 
+    @FXML
+    public void cancelAddingProduct() {
+        disableFields(false);
     }
 
     @FXML
     public void addProduct() {
+        String name = InputDataChecker.checkString(productNameField);
+        BigDecimal price = InputDataChecker.checkBigDecimal(priceField);
 
+        if (name != null && price != null) {
+            Product product = new Product(name, price);
+            productService.add(product);
+            products.add(product);
+            productBox.getSelectionModel().select(product);
+
+            disableFields(false);
+            priceField.setText("" + product.getPrice());
+        }
     }
+
+    private void disableFields(Boolean bool) {
+        productBox.setVisible(!bool);
+        productNameField.setVisible(bool);
+        productNameField.setStyle("-fx-border-color: transparent");
+        newProductButton.setVisible(!bool);
+        addProductButton.setVisible(bool);
+        amountField.setDisable(bool);
+        priceField.setStyle("-fx-border-color: transparent");
+        saveButton.setDisable(bool);
+        cancelButton.setDisable(bool);
+        cancelAddingProductButton.setVisible(bool);
+
+        priceField.setText("");
+        if (!bool) productNameField.setText("");
+    }
+
 
     public void setCurrentOrder(Order currentOrder) {
         this.currentOrder = currentOrder;

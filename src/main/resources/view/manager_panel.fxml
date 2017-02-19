@@ -194,7 +194,7 @@
                         </Button>
                      </children>
                   </FlowPane>
-                  <FlowPane hgap="10.0" vgap="10.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                  <FlowPane alignment="TOP_RIGHT" hgap="10.0" prefHeight="70.0" prefWidth="304.0" vgap="10.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6">
                      <children>
                         <Button fx:id="addItemButton" alignment="CENTER" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#addItem" prefWidth="99.0" text="Add item" textAlignment="CENTER">
                            <font>
@@ -212,14 +212,17 @@
                               <Insets />
                            </FlowPane.margin>
                         </Button>
-                        <Button fx:id="deleteItemButton" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#deleteItem" prefWidth="99.0" text="Delete item" textAlignment="CENTER">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <FlowPane.margin>
-                              <Insets />
-                           </FlowPane.margin>
-                        </Button>
+                        <StackPane>
+                           <children>
+                              <Button fx:id="deleteItemButton" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#deleteItem" prefWidth="99.0" text="Delete item" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="cancelDeletingItemButton" mnemonicParsing="false" onAction="#cancelDeletingItem" prefWidth="99.0" style="-fx-font-size: 14;" text="Cancel" visible="false" />
+                           </children>
+                        </StackPane>
+                        <Button fx:id="applyDeletingItemButton" mnemonicParsing="false" onAction="#applyDeletingItem" prefWidth="99.0" style="-fx-font-size: 14; -fx-base: #ff9999;" text="Delete" visible="false" />
                      </children>
                   </FlowPane>
                   <FlowPane vgap="10.0" GridPane.columnIndex="3" GridPane.rowIndex="6">

@@ -1,5 +1,6 @@
 package controller;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import controller.modal.AddItemController;
 import controller.modal.NewCustomerController;
 import entity.*;
@@ -55,6 +56,8 @@ public class ManagerController {
     @FXML private Button addItemButton;
     @FXML private Button changeItemButton;
     @FXML private Button deleteItemButton;
+    @FXML private Button applyDeletingItemButton;
+    @FXML private Button cancelDeletingItemButton;
 
     @FXML private Button newCustomerButton;
     @FXML private Button nextStatusButton;
@@ -85,6 +88,7 @@ public class ManagerController {
     private Helper helper;
 
     private Order currentOrder;
+    private Item currentItem;
 
 
     public void initialize() {
@@ -145,6 +149,7 @@ public class ManagerController {
     @FXML
     public void newOrder() {
         helper.disableOrderInfo(false);
+        addItemButton.setDisable(false);
 
         managerField.setText(currentManager.shortInfo());
         statusBox.getSelectionModel().select(0);
@@ -207,7 +212,25 @@ public class ManagerController {
 
     @FXML
     public void deleteItem() {
+        applyDeletingItemButton.setVisible(true);
+        cancelDeletingItemButton.setVisible(true);
+        helper.disableAll(true);
+    }
 
+    @FXML
+    public void cancelDeletingItem() {
+        applyDeletingItemButton.setVisible(false);
+        cancelDeletingItemButton.setVisible(false);
+        helper.disableAll(false);
+    }
+
+    @FXML
+    public void applyDeletingItem() {
+        itemService.delete(currentItem);
+        items.remove(currentItem);
+        applyDeletingItemButton.setVisible(false);
+        cancelDeletingItemButton.setVisible(false);
+        helper.disableAll(false);
     }
 
     @FXML
@@ -232,6 +255,12 @@ public class ManagerController {
                     .addListener((observable, oldValue, newValue) -> {
                         currentOrder = newValue;
                         fillInfoWith(currentOrder);
+                    });
+            itemTable.getSelectionModel().selectedItemProperty()
+                    .addListener((observable, oldValue, newValue) -> {
+                        currentItem = newValue;
+                        changeItemButton.setDisable(currentItem == null);
+                        deleteItemButton.setDisable(currentItem == null);
                     });
         }
 
@@ -303,7 +332,9 @@ public class ManagerController {
 
         private void disableOrderInfo(Boolean bool) {
             customerBox.setDisable(bool);
+            customerBox.setStyle("-fx-border-color: transparent");
             deadlinePicker.setDisable(bool);
+            deadlinePicker.setStyle("-fx-border-color: transparent");
 //            managerField.setDisable(bool);
 //            statusBox.setDisable(bool);
 //            orderNumberField.setDisable(bool);
@@ -324,6 +355,20 @@ public class ManagerController {
 
             newCustomerButton.setVisible(true);
             nextStatusButton.setVisible(true);
+        }
+
+        private void disableAll(Boolean bool) {
+            orderTable.setDisable(bool);
+            itemTable.setDisable(bool);
+
+            newOrderButton.setDisable(bool);
+            deleteOrderButton.setDisable(bool);
+            changeOrderButton.setDisable(bool);
+
+            newCustomerButton.setDisable(bool);
+            nextStatusButton.setDisable(bool);
+            addItemButton.setDisable(bool);
+            changeItemButton.setDisable(bool);
         }
 
         private void checkFields() {
