@@ -118,8 +118,8 @@
                     <TableView fx:id="orderTable" prefHeight="490.0" prefWidth="304.0" GridPane.rowIndex="2" GridPane.rowSpan="4">
                         <columns>
                             <TableColumn fx:id="orderIdColumn" prefWidth="75.0" text="ID" />
-                            <TableColumn fx:id="orderDateColumn" prefWidth="75.0" text="Date" />
-                            <TableColumn fx:id="orderPriceColumn" prefWidth="75.0" text="Sum" />
+                            <TableColumn fx:id="orderDateColumn" prefWidth="96.0" text="Date" />
+                            <TableColumn fx:id="orderPriceColumn" prefWidth="103.0" text="Sum" visible="false" />
                         </columns>
                         <columnResizePolicy>
                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -88,6 +88,7 @@ public class ManagerController {
     private Helper helper;
 
     private Order currentOrder;
+    private Order newOrder = new Order();
     private Item currentItem;
 
 
@@ -168,6 +169,10 @@ public class ManagerController {
 
         if (customer != null && deadline != null) {
             Order order = new Order(currentManager, customer, deadline, OrderStatus.OPENED);
+            for (Item item : items) {
+                item.setOrder(order);
+                itemService.update(item);
+            }
             orderService.add(order);
             orderTable.getItems().add(order);
             orderTable.getSelectionModel().select(order);
@@ -201,6 +206,9 @@ public class ManagerController {
         Item item = StageFactory.genericModal("/view/modal/add_item.fxml", "Add item", currentOrder);
         if (item != null) {
             items.add(item);
+        }
+        if (currentOrder == null) {
+//            items.add
         }
 
     }

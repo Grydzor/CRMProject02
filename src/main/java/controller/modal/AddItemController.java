@@ -50,6 +50,13 @@ public class AddItemController implements ParameterSettable<Order, Item> {
 
         products = FXCollections.observableArrayList(productService.findAll());
         productBox.setItems(products);
+
+        productBox.getSelectionModel().selectedItemProperty()
+                .addListener(((observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        priceField.setText("" + newValue.getPrice());
+                    }
+                }));
     }
 
     @FXML
@@ -96,10 +103,9 @@ public class AddItemController implements ParameterSettable<Order, Item> {
             Product product = new Product(name, price);
             productService.add(product);
             products.add(product);
+            disableFields(false);
             productBox.getSelectionModel().select(product);
 
-            disableFields(false);
-            priceField.setText("" + product.getPrice());
         }
     }
 

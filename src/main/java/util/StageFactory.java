@@ -47,6 +47,7 @@ public class StageFactory {
         stageWindow.setScene(scene);
 
         T controller = loader.getController();
+
         stageWindow.show();
 
         return controller;
