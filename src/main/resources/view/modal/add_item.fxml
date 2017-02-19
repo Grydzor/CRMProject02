@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.modal.AddItemController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" />
+    <ColumnConstraints hgrow="SOMETIMES" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label style="-fx-font-size: 16;" text="Fill in the fields, please:" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
+      <Label style="-fx-font-size: 14;" text="Product:" GridPane.rowIndex="1" />
+      <FlowPane alignment="CENTER" hgap="7.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <StackPane>
+               <children>
+                  <ComboBox fx:id="productBox" prefWidth="200.0" style="-fx-font-size: 14;" />
+                  <TextField fx:id="productField" style="-fx-font-size: 14;" visible="false" />
+               </children>
+            </StackPane>
+            <StackPane>
+               <children>
+                  <Button fx:id="newProductButton" mnemonicParsing="false" onAction="#newProduct" prefWidth="50.0" style="-fx-font-size: 14;" text="New" />
+                  <Button fx:id="addProductButton" mnemonicParsing="false" onAction="#addProduct" prefWidth="50.0" style="-fx-font-size: 14; -fx-base: #b6e7c9;" text="Add" visible="false" />
+               </children>
+            </StackPane>
+         </children>
+      </FlowPane>
+      <TextField fx:id="amountField" style="-fx-font-size: 14;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <FlowPane alignment="CENTER" hgap="7.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
+         <children>
+            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#save" prefWidth="70.0" style="-fx-font-size: 14;" text="Save" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" prefWidth="70.0" style="-fx-font-size: 14;" text="Cancel" />
+         </children>
+      </FlowPane>
+      <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="3">
+         <children>
+            <Label style="-fx-font-size: 14;" text="Amount:" />
+            <Label style="-fx-font-size: 14;" text="Price:" visible="false" />
+         </children>
+      </StackPane>
+      <TextField fx:id="priceField" style="-fx-font-size: 14;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label style="-fx-font-size: 14;" text="Price:" GridPane.rowIndex="2" />
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</GridPane>

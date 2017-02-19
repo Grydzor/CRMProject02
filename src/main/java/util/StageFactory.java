@@ -1,5 +1,6 @@
 package util;
 
+import controller.modal.ParameterSettable;
 import entity.UserSession;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -51,7 +52,7 @@ public class StageFactory {
         return controller;
     }
 
-    public static <T> T genericModal(String resource, String title) {
+    public static <T extends ParameterSettable<T2, T3>, T2, T3> T3 genericModal(String resource, String title, T2 parameter) {
         FXMLLoader loader = new FXMLLoader(StageFactory.class.getResource(resource));
         Parent root;
         try {
@@ -66,12 +67,17 @@ public class StageFactory {
 
         Scene scene = new Scene(root);
         stageModal.setScene(scene);
+        stageModal.setTitle(title);
 
         T controller = loader.getController();
 
+        if (parameter != null) {
+            controller.setParameter(parameter);
+        }
+
         stageModal.showAndWait();
 
-        return controller;
+        return controller.getResult();
     }
 
     // Передать в метод любой элемент который находится в окне, которое нужно закрыть.

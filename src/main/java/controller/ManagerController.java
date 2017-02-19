@@ -1,5 +1,6 @@
 package controller;
 
+import controller.modal.AddItemController;
 import controller.modal.NewCustomerController;
 import entity.*;
 import enum_types.OrderStatus;
@@ -71,7 +72,6 @@ public class ManagerController {
     private Date orderDate;
     private Date deadline;
     private Customer customer;
-
 
     private OrderService orderService;
     private ItemService itemService;
@@ -193,6 +193,10 @@ public class ManagerController {
 
     @FXML
     public void addItem() {
+        Item item = StageFactory.genericModal("/view/modal/add_item.fxml", "Add item", currentOrder);
+        if (item != null) {
+            items.add(item);
+        }
 
     }
 
@@ -208,11 +212,10 @@ public class ManagerController {
 
     @FXML
     public void newCustomer() {
-        NewCustomerController controller = StageFactory.genericModal("/view/modal/new_customer.fxml", "New customer");
-        Customer customer = controller.getCustomer();
+        Customer customer = StageFactory.genericModal("/view/modal/new_customer.fxml", "New customer", null);
         if (customer != null) {
             customerBox.getItems().add(customer);
-            if (customerBox.getSelectionModel().getSelectedItem() == null) {
+            if (!customerBox.isDisable()) {
                 customerBox.getSelectionModel().select(customer);
             }
         }
@@ -265,7 +268,7 @@ public class ManagerController {
                 nextStatusButton.setVisible(true);
                 newCustomerButton.setVisible(true);
 
-                addItemButton.setVisible(true);
+                addItemButton.setDisable(false);
 
                 Integer amount = 0;
                 BigDecimal sum = BigDecimal.ZERO;
@@ -281,6 +284,8 @@ public class ManagerController {
 
                 nextStatusButton.setVisible(false);
                 newCustomerButton.setVisible(false);
+
+                addItemButton.setDisable(true);
             }
         }
 

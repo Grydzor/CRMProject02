@@ -4,6 +4,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -55,6 +56,25 @@ public class InputDataChecker {
         Double num;
         try {
             num = Double.parseDouble(text);
+        } catch (NumberFormatException nfe) {
+            textField.setStyle(STYLE_BAD);
+            return null;
+        }
+
+        textField.setStyle(STYLE_OK);
+        return num;
+    }
+
+    public static BigDecimal checkBigDecimal(TextField textField) {
+        String text = textField.getText().trim();
+        if (text.isEmpty()) {
+            textField.setStyle(STYLE_BAD);
+            return null;
+        }
+
+        BigDecimal num;
+        try {
+            num = new BigDecimal(text);
         } catch (NumberFormatException nfe) {
             textField.setStyle(STYLE_BAD);
             return null;

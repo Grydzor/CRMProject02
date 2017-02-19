@@ -10,7 +10,7 @@ import util.StageFactory;
 /**
  * Created by eriol4ik on 19.02.2017.
  */
-public class NewCustomerController {
+public class NewCustomerController implements ParameterSettable<Object, Customer> {
     @FXML private TextField nameField;
     @FXML private TextField surnameField;
     @FXML private TextField mobileField;
@@ -32,6 +32,8 @@ public class NewCustomerController {
         if (name != null && surname != null && mobile != null && email != null) {
             customer = new Customer(name, surname, mobile, email);
             CustomerServiceImpl.getInstance().add(customer);
+
+            StageFactory.closeModal();
         }
     }
 
@@ -40,7 +42,13 @@ public class NewCustomerController {
         StageFactory.closeModal();
     }
 
-    public Customer getCustomer() {
+
+    @Override
+    public void setParameter(Object parameter) {
+    }
+
+    @Override
+    public Customer getResult() {
         return customer;
     }
 }
