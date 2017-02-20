@@ -257,7 +257,7 @@ public class ManagerController {
 
     }
 
-    private class Helper {
+    protected class Helper {
         private void addSelectListener() {
             orderTable.getSelectionModel().selectedItemProperty()
                     .addListener((observable, oldValue, newValue) -> {

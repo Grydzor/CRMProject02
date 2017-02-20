@@ -1,128 +1,187 @@
 package controller;
 
-
 import entity.Item;
 import entity.Order;
 import enum_types.OrderStatus;
-import enum_types.Position;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.StringConverter;
-import service.*;
+import javafx.util.Callback;
+import service.ItemService;
+import service.ItemServiceImpl;
+import service.OrderService;
+import service.OrderServiceImpl;
 import util.StageFactory;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.sql.Date;
+import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class CashierController {
-    @FXML private TableView<Order> orderTable;
-    @FXML private TableColumn<Order, Long> orderIdColumn;
-    @FXML private TableColumn<Order, Date> orderDateColumn;
-    @FXML private TableColumn<Order, BigDecimal> orderPriceColumn;
 
-    @FXML private TextField orderNumberTextField;
-    @FXML private TextField orderManager;
+    @FXML private TableView<Order> ordersTable;
+    @FXML private TableColumn<Order, Long> ordersIdColumn;
+    @FXML private TableColumn<Order, Date> ordersDateColumn;
+    @FXML private TableColumn<Order, BigDecimal> ordersPriceColumn;
+
+    @FXML private TableView<Item> itemsTable;
+    @FXML private TableColumn<Item, Integer> itemsIdColumn;
+    @FXML private TableColumn<Item, String> itemsNameColumn;
+    @FXML private TableColumn<Item, Integer> itemsQuantityColumn;
+    @FXML private TableColumn<Item, BigDecimal> itemsPriceNoVATColumn;
+    @FXML private TableColumn<Item, BigDecimal> itemsSumNoVATColumn;
+    @FXML private TableColumn<Item, BigDecimal> itemsPriceVATColumn;
+    @FXML private TableColumn<Item, BigDecimal> itemsSumVATColumn;
+
+    @FXML private TextField managerField;
+    @FXML private TextField deadlineField;
+    @FXML private TextField customerField;
+
     @FXML private ComboBox<OrderStatus> statusBox;
-    @FXML private DatePicker orderDate;
-    @FXML private DatePicker plannedDate;
 
-    private Long orderId;
-    private Position position;
-    private OrderStatus orderStatus;
-    private Date order;
-    private Date planned;
+    @FXML private Label amountLabel;
+    @FXML private Label summaryLabel;
 
-    @FXML private Button saveOrderButton;
-    @FXML private Button cancelOrderButton;
+    @FXML private Button saveButton;
+    @FXML private Button logOutButton;
+
+    private ObservableList<Order> orders;
+    private ObservableList<Item> items;
+    private ObservableList<OrderStatus> statuses;
+
+    private Order currentOrder;
+    private Item currentItem;
 
     private OrderService orderService;
     private ItemService itemService;
-    private ProductService productService;
 
-    private ObservableList<Item> items;
-    private ObservableList<Order> orders;
-    private ObservableList<OrderStatus> orderStatuses;
+    private Helper helper;
 
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+    private DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
-    public void initialize(){
+    public void initialize() {
+
+        helper = new Helper();
+
+        saveButton.setDisable(true);
 
         orderService = OrderServiceImpl.getInstance();
         itemService = ItemServiceImpl.getInstance();
-        productService = ProductServiceImpl.getInstance();
 
-        orderIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        orderDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-        orderPriceColumn.setCellValueFactory(new PropertyValueFactory<>("summary"));
-
+        ordersIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        ordersDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        ordersPriceColumn.setCellValueFactory(new PropertyValueFactory<>("summary"));
         orders = FXCollections.observableArrayList(orderService.findAll());
-        orderTable.setItems(orders);
+        ordersTable.setItems(orders);
 
-        orderStatuses = FXCollections.observableArrayList(OrderStatus.values());
-        statusBox.setItems(orderStatuses);
-
-        orderDate.setConverter(new StringConverter<LocalDate>() {
-            @Override
-            public String toString(LocalDate localDate) {
-                if(localDate == null) return "";
-                else return localDate.format(formatter);
-            }
-
-            @Override
-            public LocalDate fromString(String dateString) {
-                if(dateString == null || dateString.trim().isEmpty()) return null;
-                else return LocalDate.parse(dateString, formatter);
-            }
-        });
-
-        plannedDate.setConverter(new StringConverter<LocalDate>() {
-            @Override
-            public String toString(LocalDate localDate) {
-                if(localDate == null) return "";
-                else return localDate.format(formatter);
-            }
-
-            @Override
-            public LocalDate fromString(String dateString) {
-                if(dateString == null || dateString.trim().isEmpty()) return null;
-                else return LocalDate.parse(dateString, formatter);
-            }
-        });
-
+        itemsIdColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper(itemsTable.getItems().indexOf(p.getValue()) + 1 + ""));
+        itemsQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        itemsNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        itemsPriceNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        itemsPriceVATColumn.setCellValueFactory(new PropertyValueFactory<>("priceVAT"));
+        itemsSumNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumNoVAT"));
+        itemsSumVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumVAT"));
+        helper.setCellFactoryForBigDecimal();
         items = FXCollections.observableArrayList();
-        addSelectListener();
 
-    }
+        statuses = FXCollections.observableArrayList(OrderStatus.values());
+        statusBox.setItems(statuses);
 
-    private void addSelectListener() {
+        statusBox.getSelectionModel().selectedItemProperty().addListener(
+                (v, oldValue, newValue) -> {
+                    if (!currentOrder.getStatus().equals(newValue)) {
+                        saveButton.setDisable(false);
+                    }
+                }
+        );
 
-        orderTable.getSelectionModel().selectedItemProperty().addListener(
-
-                (observable, oldValue, newValue) -> {
-
-                    items.setAll(newValue.getItems());
-                    orderNumberTextField.setText(newValue.getId().toString());
-                    orderManager.setText(newValue.getManager().getName() + " " + newValue.getManager().getSurname());
-                    statusBox.setValue(newValue.getStatus());
-                    orderDate.setValue(newValue.getDate().toLocalDate());
-                    plannedDate.setValue(newValue.getDeadline().toLocalDate());
-
-                });
-    }
-
-    @FXML
-    public void saveOrder() {
+        helper.addSelectListener();
 
     }
 
     @FXML
-    public void cancelOrder() {
-        StageFactory.genericWindow("/view/login_panel.fxml", "CRM", null);
+    public void saveButtonOnAction() {
+        currentOrder.setStatus(statusBox.getValue());
+        orderService.update(currentOrder);
+        saveButton.setDisable(true);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText("Successfully saved!");
+        alert.setContentText("Order status has been changed to - " + statusBox.getValue().toString().toLowerCase() + ".");
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                getClass().getResource("/view/styles/light_theme.css").toExternalForm());
+        dialogPane.getStyleClass().add("Alert");
+        alert.showAndWait();
+    }
+
+    @FXML
+    public void logOutButtonOnAction() {
+        StageFactory.backToLogInWindow();
+    }
+
+    protected class Helper {
+
+        private void addSelectListener() {
+            ordersTable.getSelectionModel().selectedItemProperty()
+                    .addListener((observable, oldValue, newValue) -> {
+                        currentOrder = newValue;
+                        fillInfoWith(currentOrder);
+                    });
+        }
+
+        private void setCellFactoryForBigDecimal() {
+
+            Callback callback = param -> new TableCell<Item, BigDecimal>() {
+                @Override
+                protected void updateItem(BigDecimal item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if(empty || item == null) {
+                        setText("");
+                    } else {
+                        setText(decimalFormat.format(item));
+                    }
+                }
+            };
+
+            itemsPriceNoVATColumn.setCellFactory(callback);
+            itemsPriceVATColumn.setCellFactory(callback);
+            itemsSumNoVATColumn.setCellFactory(callback);
+            itemsSumVATColumn.setCellFactory(callback);
+
+        }
+
+        private void fillInfoWith(Order currentOrder) {
+            if (currentOrder != null) {
+
+                items.setAll(currentOrder.getItems());
+                itemsTable.setItems(items);
+
+                managerField.setText(currentOrder.getManager().shortInfo());
+                deadlineField.setText(currentOrder.getDeadline().toLocalDate().format(formatter));
+                customerField.setText(currentOrder.getCustomer().toString());
+                statusBox.setValue(currentOrder.getStatus());
+
+                Integer amount = 0;
+                BigDecimal sum = BigDecimal.ZERO;
+                for (Item item : items) {
+                    amount += item.getAmount();
+                    sum = sum.add(item.getSumVAT());
+                }
+
+                amountLabel.setText("" + amount);
+                summaryLabel.setText(decimalFormat.format(sum));
+
+            } else {
+                items.clear();
+            }
+        }
+
     }
 
 }

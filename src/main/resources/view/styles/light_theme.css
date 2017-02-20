@@ -1,0 +1,22 @@
+.background {
+    -fx-background-color: white;
+}
+
+.button {
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+.text-field {
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+.combo-box {
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+.Alert .header-panel {
+    -fx-background-color: white;
+}
