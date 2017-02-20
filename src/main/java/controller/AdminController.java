@@ -188,7 +188,7 @@ public class AdminController {
             String name = currentEmployee.getName();
             String surname = currentEmployee.getSurname();
             String login = LoginHelper.generate(name, surname);
-            User user = new User(login, "qwerty", currentEmployee);
+            User user = new User(login, LoginHelper.generatePassword(), currentEmployee);
             userService.add(user);
             currentEmployee.setUser(user);
             employeeService.update(currentEmployee);

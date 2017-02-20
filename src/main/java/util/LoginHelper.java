@@ -3,9 +3,6 @@ package util;
 import service.UserService;
 import service.UserServiceImpl;
 
-/**
- * Created by eriol4ik on 11.02.2017.
- */
 public class LoginHelper {
     private static UserService service;
 
@@ -24,5 +21,17 @@ public class LoginHelper {
             i++;
         }
         return login;
+    }
+
+    public static String generatePassword(){
+        int charLength = (int) ((Math.random()*12) +6);
+        char[] temp = new char[charLength];
+        String possibleChar =
+                "QWERTYUIOPLKJHGFDSAZXCVBNM,.mnbvcxzlkjhgfdsapoiuytrewq1234567890-=!@#$%^&*_+";
+        for(int i = 0; i < temp.length; i++){
+            int randomChar = (int) (Math.random()*possibleChar.length());
+            temp[i] = possibleChar.charAt(randomChar);
+        }
+        return String.valueOf(temp);
     }
 }
