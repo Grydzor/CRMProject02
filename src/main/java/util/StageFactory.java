@@ -1,13 +1,11 @@
 package util;
 
 import controller.modal.ParameterSettable;
-import entity.UserSession;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import service.UserSessionServiceImpl;
 
 import java.io.IOException;
 
@@ -39,8 +37,8 @@ public class StageFactory {
         stageWindow.setTitle(title);
 
         stageWindow.setResizable(true);
-        stageWindow.setMinHeight(580);
-        stageWindow.setMinWidth(980);
+        stageWindow.setMinHeight(540);
+        stageWindow.setMinWidth(960);
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/view/styles/default.css");
@@ -70,8 +68,8 @@ public class StageFactory {
         stageWindow.setTitle(title);
 
         stageWindow.setResizable(true);
-        stageWindow.setMinHeight(580);
-        stageWindow.setMinWidth(980);
+        stageWindow.setMinHeight(540);
+        stageWindow.setMinWidth(960);
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(style);
@@ -84,7 +82,9 @@ public class StageFactory {
         return controller;
     }
 
-    public static <T extends ParameterSettable<T2, T3>, T2, T3> T3 genericModal(String resource, String title, T2 parameter) {
+    public static <ControllerT extends ParameterSettable
+            <ParameterT, ResultT>, ParameterT, ResultT>
+            ResultT genericModal(String resource, String title, ParameterT parameter) {
         FXMLLoader loader = new FXMLLoader(StageFactory.class.getResource(resource));
         Parent root;
         try {
@@ -99,9 +99,10 @@ public class StageFactory {
 
         Scene scene = new Scene(root);
         stageModal.setScene(scene);
+        scene.getStylesheets().add("/view/styles/default.css");
         stageModal.setTitle(title);
 
-        T controller = loader.getController();
+        ControllerT controller = loader.getController();
 
         if (parameter != null) {
             controller.setParameter(parameter);

@@ -25,6 +25,61 @@
     -fx-font-size: 12px;
 }
 
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 1em;
+}
+
+.scroll-bar:horizontal {
+    -fx-pref-width: 0em;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color:transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:vertical .track-background {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: rgb(200,200,200);
+    -fx-background-insets: 0 4 0 4;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgb(150,150,150);
+}
+
+.scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: rgb(100,100,100);
+}
+.scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0em;
+    -fx-padding: 5;
+}
+
+.scroll-bar:vertical .increment-arrow {
+    -fx-background-color: rgb(200,200,200);
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-padding: 0.25em;
+    -fx-rotate: 0;
+}
+.scroll-bar:vertical .decrement-arrow {
+    -fx-background-color: rgb(200,200,200);
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-padding: 0.25em;
+    -fx-rotate: -180;
+}
+.scroll-bar:vertical:focused {
+    -fx-background-color: transparent,rgb(100,100,100),rgb(100,100,100);
+}
+
 .button {
     -fx-font-size: 14px;
 }

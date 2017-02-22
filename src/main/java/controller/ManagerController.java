@@ -1,8 +1,5 @@
 package controller;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import controller.modal.AddItemController;
-import controller.modal.NewCustomerController;
 import entity.*;
 import enum_types.OrderStatus;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -23,7 +20,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.sql.Date;
 
-public class ManagerController {
+public final class ManagerController {
 
     @FXML private TableView<Order> orderTable;
           private ObservableList<Order> orders;
@@ -60,7 +57,6 @@ public class ManagerController {
     @FXML private Button cancelDeletingItemButton;
 
     @FXML private Button newCustomerButton;
-    @FXML private Button nextStatusButton;
 
     @FXML private TextField managerField;
     @FXML private TextField orderNumberField;
@@ -88,13 +84,14 @@ public class ManagerController {
     private Helper helper;
 
     private Order currentOrder;
-    private Order newOrder = new Order();
     private Item currentItem;
-
 
     public void initialize() {
         helper = new Helper();
 
+//        setPercentWidth();
+
+//        helper.createItemColumns();
 
         orderService = OrderServiceImpl.getInstance();
         itemService = ItemServiceImpl.getInstance();
@@ -302,7 +299,6 @@ public class ManagerController {
                 statusBox.setValue(currentOrder.getStatus());
                 customerBox.setValue(currentOrder.getCustomer());
 
-                nextStatusButton.setVisible(true);
                 newCustomerButton.setVisible(true);
 
                 addItemButton.setDisable(false);
@@ -319,7 +315,6 @@ public class ManagerController {
                 items.clear();
                 clearOrderInfo();
 
-                nextStatusButton.setVisible(false);
                 newCustomerButton.setVisible(false);
 
                 addItemButton.setDisable(true);
@@ -339,17 +334,14 @@ public class ManagerController {
         }
 
         private void disableOrderInfo(Boolean bool) {
+            // editable fields
             customerBox.setDisable(bool);
             customerBox.setStyle("-fx-border-color: transparent");
             deadlinePicker.setDisable(bool);
             deadlinePicker.setStyle("-fx-border-color: transparent");
-//            managerField.setDisable(bool);
-//            statusBox.setDisable(bool);
-//            orderNumberField.setDisable(bool);
-//            orderDateField.setDisable(bool);
 
-            saveOrderButton.setDisable(bool);
-
+            // buttons for order
+//            saveOrderButton.setDisable(bool);
             deleteOrderButton.setDisable(!bool);
             changeOrderButton.setDisable(!bool);
             newOrderButton.setVisible(bool);
@@ -361,8 +353,7 @@ public class ManagerController {
             if (bool) fillInfoWith(currentOrder);
             else fillInfoWith(null);
 
-            newCustomerButton.setVisible(true);
-            nextStatusButton.setVisible(true);
+            newCustomerButton.setVisible(!bool || currentOrder != null);
         }
 
         private void disableAll(Boolean bool) {
@@ -374,7 +365,6 @@ public class ManagerController {
             changeOrderButton.setDisable(bool);
 
             newCustomerButton.setDisable(bool);
-            nextStatusButton.setDisable(bool);
             addItemButton.setDisable(bool);
             changeItemButton.setDisable(bool);
         }
