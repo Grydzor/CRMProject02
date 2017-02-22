@@ -11,13 +11,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 
-<HBox alignment="CENTER" prefHeight="540.0" prefWidth="960.0" stylesheets="@styles/light_theme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+<HBox alignment="CENTER" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: white; -fx-background-image: url(https://www.transparenttextures.com/patterns/escheresque-dark.png);" stylesheets="@styles/light_theme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
-      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="330.0" spacing="10.0">
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="370.0" prefWidth="330.0" spacing="10.0">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" scaleX="0.75" scaleY="0.75">
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" scaleX="0.9" scaleY="0.9">
                <image>
                   <Image url="@imgs/logo_icon.png" />
                </image>
@@ -25,18 +26,36 @@
                   <Rectangle2D />
                </viewport>
             </ImageView>
-            <Label text="Enter your username and password:" underline="true" />
+            <Label text="Enter your username and password:" underline="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
             <TextField fx:id="fldLogin" alignment="CENTER" prefWidth="200.0" promptText="username">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
             </TextField>
-            <PasswordField fx:id="fldPassword" alignment="CENTER" onAction="#enterButtonAction" promptText="password" />
-            <Label fx:id="lblStatus" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="276.0" textAlignment="CENTER" textFill="RED" wrapText="true" />
+            <PasswordField fx:id="fldPassword" alignment="CENTER" onAction="#enterButtonAction" promptText="password">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </PasswordField>
+            <Label fx:id="lblStatus" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="276.0" textAlignment="CENTER" textFill="RED" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
             <Button fx:id="btnEnter" defaultButton="true" mnemonicParsing="false" onAction="#enterButtonAction" prefWidth="308.0" text="Log In">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
             </Button>
          </children>
          <padding>

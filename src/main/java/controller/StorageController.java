@@ -47,6 +47,9 @@ public class StorageController {
 
     @FXML private ComboBox<OrderStatus> statusBox;
 
+    @FXML private Label amountLabel;
+    @FXML private Label summaryLabel;
+
     @FXML private Button saveButton;
     @FXML private Button logOutButton;
 
@@ -106,7 +109,18 @@ public class StorageController {
 
     @FXML
     public void saveButtonOnAction() {
-
+        currentOrder.setStatus(statusBox.getValue());
+        orderService.update(currentOrder);
+        saveButton.setDisable(true);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText("Successfully saved!");
+        alert.setContentText("Order status has been changed to - " + statusBox.getValue().toString().toLowerCase() + ".");
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                getClass().getResource("/view/styles/light_theme.css").toExternalForm());
+        dialogPane.getStyleClass().add("Alert");
+        alert.showAndWait();
     }
 
     @FXML
@@ -156,6 +170,16 @@ public class StorageController {
                 deadlineField.setText(currentOrder.getDeadline().toLocalDate().format(formatter));
                 customerField.setText(currentOrder.getCustomer().toString());
                 statusBox.setValue(currentOrder.getStatus());
+
+                Integer amount = 0;
+                BigDecimal sum = BigDecimal.ZERO;
+                for (Item item : items) {
+                    amount += item.getAmount();
+                    sum = sum.add(item.getSumVAT());
+                }
+
+                amountLabel.setText("" + amount);
+                summaryLabel.setText(decimalFormat.format(sum));
 
             } else {
                 items.clear();
