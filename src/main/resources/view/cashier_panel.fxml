@@ -16,8 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" styleClass="background" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CashierController">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" styleClass="background" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CashierController">
    <children>
       <VBox alignment="CENTER" prefHeight="540.0" prefWidth="280.0" spacing="8.0" HBox.hgrow="ALWAYS">
          <children>
@@ -65,9 +64,9 @@
                   <Label text="Customer:" GridPane.rowIndex="1" />
                   <Label text="Deadline:" GridPane.columnIndex="2" />
                   <Label text="Status:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <TextField fx:id="managerField" alignment="CENTER" editable="false" GridPane.columnIndex="1" />
-                  <TextField fx:id="customerField" alignment="CENTER" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="deadlineField" alignment="CENTER" editable="false" GridPane.columnIndex="3" />
+                  <TextField fx:id="managerField" alignment="CENTER" disable="true" editable="false" GridPane.columnIndex="1" />
+                  <TextField fx:id="customerField" alignment="CENTER" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="deadlineField" alignment="CENTER" disable="true" editable="false" GridPane.columnIndex="3" />
                   <ComboBox fx:id="statusBox" prefWidth="500.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                </children>
                <VBox.margin>
@@ -90,8 +89,8 @@
             </TableView>
             <HBox alignment="CENTER" spacing="15.0">
                <children>
-                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonOnAction" prefWidth="70.0" text="Save" />
-                  <Label prefWidth="85.0" text="Total Amount:" HBox.hgrow="ALWAYS">
+                  <Button fx:id="saveButton" defaultButton="true" mnemonicParsing="false" onAction="#saveButtonOnAction" prefWidth="70.0" text="Save" />
+                  <Label prefWidth="85.0" text="Total Quantity:" HBox.hgrow="ALWAYS">
                      <padding>
                         <Insets top="1.0" />
                      </padding>
@@ -112,7 +111,7 @@
                      </padding>
                   </Label>
                   <Region HBox.hgrow="ALWAYS" />
-                  <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOutButtonOnAction" prefWidth="70.0" text="Log Out" />
+                  <Button fx:id="logOutButton" cancelButton="true" mnemonicParsing="false" onAction="#logOutButtonOnAction" prefWidth="70.0" text="Log Out" />
                </children>
             </HBox>
          </children>

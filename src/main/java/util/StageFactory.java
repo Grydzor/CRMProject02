@@ -4,6 +4,7 @@ import controller.modal.ParameterSettable;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -63,6 +64,8 @@ public class StageFactory {
             System.out.println("Проблема в пути к FXML");
             return null;
         }
+        stageWindow.getIcons().add(new Image("/view/imgs/little_icon.png"));
+
         stageWindow.setOnCloseRequest((event) ->
                 HibernateSessionFactory.getSessionFactory().close());
         stageWindow.setTitle(title);
@@ -116,7 +119,7 @@ public class StageFactory {
     // Передать в метод любой элемент который находится в окне, которое нужно закрыть.
     public static void backToLogInWindow() {
         stageWindow.close();
-        StageFactory.genericWindow("/view/login_panel.fxml", "Login panel", null);
+        StageFactory.genericWindow("/view/login_panel_two.fxml", "Login panel", null, "/view/styles/light_theme.css");
     }
 
     public static void closeLogInWindow(){

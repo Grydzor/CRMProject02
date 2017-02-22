@@ -21,7 +21,12 @@ import java.sql.Date;
 import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 
-public class CashierController {
+/**
+ * Created by Никита on 21.02.2017.
+ */
+
+public class StorageController {
+
 
     @FXML private TableView<Order> ordersTable;
     @FXML private TableColumn<Order, Long> ordersIdColumn;
@@ -35,16 +40,12 @@ public class CashierController {
     @FXML private TableColumn<Item, BigDecimal> itemsPriceNoVATColumn;
     @FXML private TableColumn<Item, BigDecimal> itemsSumNoVATColumn;
     @FXML private TableColumn<Item, BigDecimal> itemsPriceVATColumn;
-    @FXML private TableColumn<Item, BigDecimal> itemsSumVATColumn;
 
     @FXML private TextField managerField;
     @FXML private TextField deadlineField;
     @FXML private TextField customerField;
 
     @FXML private ComboBox<OrderStatus> statusBox;
-
-    @FXML private Label amountLabel;
-    @FXML private Label summaryLabel;
 
     @FXML private Button saveButton;
     @FXML private Button logOutButton;
@@ -54,7 +55,6 @@ public class CashierController {
     private ObservableList<OrderStatus> statuses;
 
     private Order currentOrder;
-    private Item currentItem;
 
     private OrderService orderService;
     private ItemService itemService;
@@ -84,10 +84,9 @@ public class CashierController {
         itemsQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         itemsNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
         itemsPriceNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        itemsPriceVATColumn.setCellValueFactory(new PropertyValueFactory<>("priceVAT"));
-        itemsSumNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumNoVAT"));
-        itemsSumVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumVAT"));
-        helper.setCellFactoryForBigDecimal();
+        //itemsPriceVATColumn.setCellValueFactory(new PropertyValueFactory<>("priceVAT"));
+        //itemsSumNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumNoVAT"));
+        //helper.setCellFactoryForBigDecimal();
         items = FXCollections.observableArrayList();
 
         statuses = FXCollections.observableArrayList(OrderStatus.values());
@@ -107,18 +106,7 @@ public class CashierController {
 
     @FXML
     public void saveButtonOnAction() {
-        currentOrder.setStatus(statusBox.getValue());
-        orderService.update(currentOrder);
-        saveButton.setDisable(true);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information");
-        alert.setHeaderText("Successfully saved!");
-        alert.setContentText("Order status has been changed to - " + statusBox.getValue().toString().toLowerCase() + ".");
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(
-                getClass().getResource("/view/styles/light_theme.css").toExternalForm());
-        dialogPane.getStyleClass().add("Alert");
-        alert.showAndWait();
+
     }
 
     @FXML
@@ -146,15 +134,15 @@ public class CashierController {
                     if(empty || item == null) {
                         setText("");
                     } else {
-                        setText(decimalFormat.format(item));
+                        //setText(decimalFormat.format(item));
                     }
                 }
             };
 
-            itemsPriceNoVATColumn.setCellFactory(callback);
-            itemsPriceVATColumn.setCellFactory(callback);
-            itemsSumNoVATColumn.setCellFactory(callback);
-            itemsSumVATColumn.setCellFactory(callback);
+            //itemsPriceNoVATColumn.setCellFactory(callback);
+            //itemsPriceVATColumn.setCellFactory(callback);
+            //itemsSumNoVATColumn.setCellFactory(callback);
+            //itemsSumVATColumn.setCellFactory(callback);
 
         }
 
@@ -168,16 +156,6 @@ public class CashierController {
                 deadlineField.setText(currentOrder.getDeadline().toLocalDate().format(formatter));
                 customerField.setText(currentOrder.getCustomer().toString());
                 statusBox.setValue(currentOrder.getStatus());
-
-                Integer amount = 0;
-                BigDecimal sum = BigDecimal.ZERO;
-                for (Item item : items) {
-                    amount += item.getAmount();
-                    sum = sum.add(item.getSumVAT());
-                }
-
-                amountLabel.setText("" + amount);
-                summaryLabel.setText(decimalFormat.format(sum));
 
             } else {
                 items.clear();

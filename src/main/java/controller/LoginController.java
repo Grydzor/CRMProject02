@@ -100,6 +100,9 @@ public class LoginController {
             case CASHIER:
                 StageFactory.genericWindow("/view/cashier_panel.fxml", "Cashier", userId, "/view/styles/light_theme.css");
                 break;
+            case STOREKEEPER:
+                StageFactory.genericWindow("/view/storage_panel_two.fxml", "Storage", userId, "/view/styles/light_theme.css");
+                break;
         }
     }
 
