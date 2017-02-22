@@ -87,6 +87,7 @@ public class StorageController {
         //itemsPriceVATColumn.setCellValueFactory(new PropertyValueFactory<>("priceVAT"));
         //itemsSumNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumNoVAT"));
         //helper.setCellFactoryForBigDecimal();
+
         items = FXCollections.observableArrayList();
 
         statuses = FXCollections.observableArrayList(OrderStatus.values());
