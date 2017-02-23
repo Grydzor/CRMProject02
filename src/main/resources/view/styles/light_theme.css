@@ -12,9 +12,20 @@
     -fx-border-radius: 0;
 }
 
+.text-field:disabled {
+    -fx-opacity: 0.7;
+}
+
+
 .combo-box {
     -fx-background-radius: 0;
     -fx-border-radius: 0;
+    -fx-font-size: 14px;
+}
+
+.combo-box:disabled {
+    -fx-opacity: 0.7;
+    -fx-font-size: 14px;
 }
 
 .Alert .header-panel {

@@ -89,7 +89,7 @@ public class LoginController {
 //                StageFactory.backToLogInWindow();
         switch (user.getEmployee().getPosition()) {
             case ADMIN:
-                StageFactory.genericWindow("/view/admin_panel.fxml", "Administration", userId);
+                StageFactory.genericWindow("/view/admin_panel_two.fxml", "Administration", userId, "/view/styles/light_theme.css");
                 break;
             case MANAGER:
                 StageFactory.genericWindow("/view/manager_panel.fxml", "Management", userId);

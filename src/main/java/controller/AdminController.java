@@ -10,6 +10,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import service.*;
 import util.InputDataChecker;
 import util.LoginHelper;
@@ -44,7 +46,16 @@ public class AdminController {
     @FXML private TextField ageField;
     @FXML private ComboBox<Sex> sexBox;
     @FXML private ComboBox<Position> positionBox;
-    @FXML private Label userLogin;
+    //@FXML private Label userLogin;
+
+    @FXML private TextField loginField;
+    @FXML private TextField passwordField;
+
+    @FXML private HBox noAccount;
+    @FXML private GridPane withAccount;
+    @FXML private Label accountInformation;
+    @FXML private Separator separatorUnder;
+    @FXML private Separator separatorAbove;
 
     private String name;
     private String surname;
@@ -97,8 +108,14 @@ public class AdminController {
         sexBox.setPromptText("Choose one");
         positionBox.setPromptText("Choose one");
 
-        generateButton.setVisible(true);
-        generateButton.setDisable(true);
+        //generateButton.setVisible(true);
+        //generateButton.setDisable(true);
+
+        noAccount.setVisible(false);
+        withAccount.setVisible(false);
+        accountInformation.setVisible(false);
+        separatorAbove.setVisible(false);
+        separatorUnder.setVisible(false);
 
         helper.disableAnother(true, createButton, addButton, cancelCreatingButton);
         helper.openFields(true);
@@ -116,6 +133,12 @@ public class AdminController {
             employees.add(employee);
             employeesTable.getSelectionModel().select(employee);
 
+            noAccount.setVisible(true);
+            withAccount.setVisible(true);
+            accountInformation.setVisible(true);
+            separatorAbove.setVisible(true);
+            separatorUnder.setVisible(true);
+
             helper.fillFieldsWith(currentEmployee);
 
             helper.disableAnother(false, createButton, addButton, cancelCreatingButton);
@@ -126,6 +149,11 @@ public class AdminController {
     @FXML
     public void cancelCreating() {
         helper.fillFieldsWith(currentEmployee);
+        //noAccount.setVisible(true);
+        //withAccount.setVisible(true);
+        accountInformation.setVisible(true);
+        separatorAbove.setVisible(true);
+        separatorUnder.setVisible(true);
 
         helper.disableAnother(false, createButton, addButton, cancelCreatingButton);
         helper.openFields(false);
@@ -195,9 +223,12 @@ public class AdminController {
 
             // User account has been generated,
             // so make the button invisible
-            generateButton.setVisible(false);
-            userLogin.setVisible(true);
-            userLogin.setText(login);
+            //generateButton.setVisible(false);
+            noAccount.setVisible(false);
+            withAccount.setVisible(true);
+            helper.fillFieldsWith(currentEmployee);
+            //userLogin.setVisible(true);
+            //userLogin.setText(login);
         }
     }
 
@@ -250,6 +281,8 @@ public class AdminController {
                 nameField.setText("");
                 surnameField.setText("");
                 ageField.setText("");
+                loginField.setText("");
+                passwordField.setText("");
                 // Boxes
                 sexBox.setPromptText("");
                 sexBox.setValue(null);
@@ -257,7 +290,7 @@ public class AdminController {
                 positionBox.setValue(null);
                 // 'Has account?'
                 generateButton.setVisible(false);
-                userLogin.setVisible(false);
+                //userLogin.setVisible(false);
 
                 return;
             }
@@ -270,13 +303,23 @@ public class AdminController {
             sexBox.setValue(employee.getSex());
             positionBox.setValue(employee.getPosition());
 
+            if(employee.getUser() != null) {
+                noAccount.setVisible(false);
+                withAccount.setVisible(true);
+                loginField.setText(employee.getUser().getLogin());
+                passwordField.setText(employee.getUser().getPassword());
+            } else {
+                noAccount.setVisible(true);
+                withAccount.setVisible(false);
+            }
+
             // Special case for field 'Has account?'
             User user;
             Boolean userExists = ((user = employee.getUser()) != null);
             generateButton.setVisible(!userExists);
             generateButton.setDisable(false);
-            userLogin.setVisible(userExists);
-            if (userExists) userLogin.setText(user.getLogin());
+            //userLogin.setVisible(userExists);
+            //if (userExists) userLogin.setText(user.getLogin());
         }
 
         /* Supplementary method
