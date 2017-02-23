@@ -10,7 +10,7 @@ import util.StageFactory;
 /**
  * Created by eriol4ik on 19.02.2017.
  */
-public class NewCustomerController implements ParameterSettable<Object, Customer> {
+public class NewCustomerController implements ValueSettable<Object, Customer> {
     @FXML private TextField nameField;
     @FXML private TextField surnameField;
     @FXML private TextField mobileField;

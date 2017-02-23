@@ -22,7 +22,7 @@ import java.math.BigDecimal;
 /**
  * Created by eriol4ik on 19.02.2017.
  */
-public class AddItemController implements ParameterSettable<Order, Item> {
+public class AddItemController implements ValueSettable<Order, Item> {
     @FXML private ComboBox<Product> productBox;
           private ObservableList<Product> products;
     @FXML private TextField productNameField;

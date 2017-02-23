@@ -1,10 +1,21 @@
 .root {
-    -fx-accent: #99ccff;
+    -fx-base: #333333;
+    -fx-background-color: -fx-base;
+    -fx-accent:  #004d99;
     -fx-focus-color: #99ccff;
+    -fx-color: derive(-fx-base, 20%);
+
+    -fx-dark-text-color: #1a1a1a;
+    -fx-mid-text-color: #333;
+    /*-fx-light-text-color: #e6e6e6;*/
+    -fx-light-text-color: #bfbfbf;
+
+    -fx-control-inner-background: derive(-fx-base, 40%);
+
 }
 
 .text-field {
-    -fx-border-color: transparent;
+    /*-fx-border-color: transparent;*/
     -fx-font-size: 14px;
 }
 
@@ -35,7 +46,7 @@
 }
 
 .scroll-bar:vertical {
-    -fx-background-color: transparent, transparent, transparent;
+    -fx-background-color: transparent;
     -fx-pref-width: 1em;
     -fx-base: rgb(150,150,0);
 }
@@ -44,7 +55,7 @@
     /*-fx-pref-width: 0em;*/
     /*-fx-max-width: 0em;*/
     -fx-padding: 0em;
-    -fx-background-color:transparent, transparent, transparent;
+    -fx-background-color:transparent;
     -fx-border-color:transparent;
     -fx-background-radius: 0em;
     -fx-border-radius:0em;
@@ -62,7 +73,7 @@
     -fx-padding:0;
 }
 .scroll-bar:horizontal .thumb {
-    -fx-background-color:transparent, transparent, transparent;
+    -fx-background-color:transparent;
     -fx-background-insets: 0, 0, 0;
     -fx-background-radius: 2em;
     -fx-padding:0px;
@@ -70,22 +81,23 @@
 }
 
 .scroll-bar:vertical .track {
-    -fx-background-color: transparent, transparent, transparent;
+    -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-background-radius: 0em;
 }
 
 .scroll-bar:vertical .thumb {
-    -fx-background-color: rgb(200,200,200);
+
+    -fx-background-color: rgb(70,70,70);
     -fx-background-insets: 0 4 0 4/*0 4 0 4*/;
 }
 
 .scroll-bar:vertical .thumb:hover {
-    -fx-background-color: rgb(150,150,150);
+    -fx-background-color: rgb(90,90,90);
 }
 
 .scroll-bar:vertical .thumb:pressed {
-    -fx-background-color: rgb(100,100,100);
+    -fx-background-color: rgb(150,150,150);
 }
 /* "disable" increment, decrement buttons & arrows */
 .scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
@@ -106,9 +118,6 @@
     -fx-font-size: 14px;
 }
 
-.table-row-cell:selected, .table-row-cell .table-cell:selected {
-    /*-fx-background-color: blueviolet;*/
-}
 /*
 The disabled property cascades from a scene graph node to its child nodes,
 so all the child nodes of the combo box effectively pick up their :disabled CSS styles.

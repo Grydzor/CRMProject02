@@ -19,16 +19,17 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.sql.Date;
+import java.util.ArrayList;
 
 public final class ManagerController {
 
-    @FXML private TableView<Order> orderTable;
+    @FXML private TableView<Order> ordersTable;
           private ObservableList<Order> orders;
     @FXML private TableColumn<Order, Long> orderIdColumn;
     @FXML private TableColumn<Order, Date> orderDateColumn;
     @FXML private TableColumn<Order, BigDecimal> orderPriceColumn;
 
-    @FXML private TableView<Item> itemTable;
+    @FXML private TableView<Item> itemsTable;
           private ObservableList<Item> items;
     @FXML private TableColumn<Item, Integer> itemIdColumn;
     @FXML private TableColumn<Item, String> itemNameColumn;
@@ -48,8 +49,7 @@ public final class ManagerController {
     @FXML private Button deleteOrderButton;
     @FXML private Button applyDeletingOrderButton;
 
-    @FXML private Button logOutButton; // work
-
+    @FXML private Button logOutButton;
     @FXML private Button addItemButton;
     @FXML private Button changeItemButton;
     @FXML private Button deleteItemButton;
@@ -108,10 +108,10 @@ public final class ManagerController {
         orderPriceColumn.setCellValueFactory(new PropertyValueFactory<>("summary"));
 
         orders = FXCollections.observableArrayList(orderService.findAll());
-        orderTable.setItems(orders);
+        ordersTable.setItems(orders);
 
 //        itemIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        itemIdColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper(itemTable.getItems().indexOf(p.getValue()) + 1 + ""));
+        itemIdColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper(itemsTable.getItems().indexOf(p.getValue()) + 1 + ""));
 
         itemQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         itemNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
@@ -171,8 +171,8 @@ public final class ManagerController {
                 itemService.update(item);
             }
             orderService.add(order);
-            orderTable.getItems().add(order);
-            orderTable.getSelectionModel().select(order);
+            ordersTable.getItems().add(order);
+            ordersTable.getSelectionModel().select(order);
             helper.disableOrderInfo(true);
         }
     }
@@ -256,12 +256,12 @@ public final class ManagerController {
 
     protected class Helper {
         private void addSelectListener() {
-            orderTable.getSelectionModel().selectedItemProperty()
+            ordersTable.getSelectionModel().selectedItemProperty()
                     .addListener((observable, oldValue, newValue) -> {
                         currentOrder = newValue;
                         fillInfoWith(currentOrder);
                     });
-            itemTable.getSelectionModel().selectedItemProperty()
+            itemsTable.getSelectionModel().selectedItemProperty()
                     .addListener((observable, oldValue, newValue) -> {
                         currentItem = newValue;
                         changeItemButton.setDisable(currentItem == null);
@@ -290,7 +290,7 @@ public final class ManagerController {
         private void fillInfoWith(Order currentOrder) {
             if (currentOrder != null) {
                 items.setAll(currentOrder.getItems());
-                itemTable.setItems(items);
+                itemsTable.setItems(items);
 
                 managerField.setText(currentOrder.getManager().shortInfo());
                 orderNumberField.setText(currentOrder.getId().toString());
@@ -348,7 +348,7 @@ public final class ManagerController {
             saveOrderButton.setVisible(!bool);
             cancelOrderButton.setVisible(!bool);
 
-            orderTable.setDisable(!bool);
+            ordersTable.setDisable(!bool);
 
             if (bool) fillInfoWith(currentOrder);
             else fillInfoWith(null);
@@ -357,8 +357,8 @@ public final class ManagerController {
         }
 
         private void disableAll(Boolean bool) {
-            orderTable.setDisable(bool);
-            itemTable.setDisable(bool);
+            ordersTable.setDisable(bool);
+            itemsTable.setDisable(bool);
 
             newOrderButton.setDisable(bool);
             deleteOrderButton.setDisable(bool);
@@ -372,6 +372,14 @@ public final class ManagerController {
         private void checkFields() {
             customer = InputDataChecker.checkEnum(customerBox);
             deadline = InputDataChecker.checkDate(deadlinePicker);
+        }
+
+        private void disableAllBut(boolean bool, Button actionButton,
+                                    Button applyButton, Button cancelButton) {
+
+            actionButton.setVisible(bool);
+            applyButton.setVisible(!bool);
+            cancelButton.setVisible(!bool);
         }
     }
 }

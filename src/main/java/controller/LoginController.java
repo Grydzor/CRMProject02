@@ -23,9 +23,6 @@ public class LoginController {
     @FXML private TextField fldLogin;
     @FXML private PasswordField fldPassword;
 
-    @FXML private Button btnEnter;
-    @FXML private Button btnExit;
-
     @FXML private Label lblStatus;
 
     private UserService userService;

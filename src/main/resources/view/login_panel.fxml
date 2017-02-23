@@ -86,7 +86,7 @@
                         <Insets bottom="18.0" left="18.0" right="18.0" top="18.0"/>
                     </HBox.margin>
                 </Label>
-                <Button fx:id="btnEnter" mnemonicParsing="false" onAction="#enterButtonAction" prefWidth="70.0"
+                <Button fx:id="enterButton" mnemonicParsing="false" onAction="#enterButtonAction" prefWidth="70.0"
                         text="Log In">
                     <font>
                         <Font size="14.0"/>
@@ -95,7 +95,7 @@
                         <Insets bottom="12.0" left="12.0" right="12.0" top="12.0"/>
                     </HBox.margin>
                 </Button>
-                <Button fx:id="btnExit" mnemonicParsing="false" onAction="#exitButtonAction" prefWidth="70.0"
+                <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitButtonAction" prefWidth="70.0"
                         text="Exit">
                     <font>
                         <Font size="14.0"/>

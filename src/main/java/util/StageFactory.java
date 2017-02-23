@@ -1,6 +1,6 @@
 package util;
 
-import controller.modal.ParameterSettable;
+import controller.modal.ValueSettable;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -42,7 +42,8 @@ public class StageFactory {
         stageWindow.setMinWidth(960);
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/view/styles/default.css");
+//        scene.getStylesheets().add("/view/styles/default.css");
+        scene.getStylesheets().add("/view/styles/dark_theme.css");
         stageWindow.setScene(scene);
 
         T controller = loader.getController();
@@ -85,7 +86,7 @@ public class StageFactory {
         return controller;
     }
 
-    public static <ControllerT extends ParameterSettable
+    public static <ControllerT extends ValueSettable
             <ParameterT, ResultT>, ParameterT, ResultT>
             ResultT genericModal(String resource, String title, ParameterT parameter) {
         FXMLLoader loader = new FXMLLoader(StageFactory.class.getResource(resource));
@@ -102,7 +103,8 @@ public class StageFactory {
 
         Scene scene = new Scene(root);
         stageModal.setScene(scene);
-        scene.getStylesheets().add("/view/styles/default.css");
+//        scene.getStylesheets().add("/view/styles/default.css");
+        scene.getStylesheets().add("/view/styles/dark_theme.css");
         stageModal.setTitle(title);
 
         ControllerT controller = loader.getController();
