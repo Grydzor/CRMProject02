@@ -2,32 +2,20 @@ package dao;
 
 import entity.Item;
 import entity.Order;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.proxy.HibernateProxy;
-import org.hibernate.proxy.HibernateProxyHelper;
 import org.hibernate.query.Query;
-import util.HibernateSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-/**
- * Created by eriol4ik on 16.02.2017.
- */
+@Repository("orderDAO")
 public class OrderDAOImpl extends DAOImpl<Order> implements OrderDAO {
-    private SessionFactory factory;
-    private static OrderDAOImpl singleton;
 
-    private OrderDAOImpl() {
+    @Autowired
+    protected OrderDAOImpl() {
         super(Order.class);
-        factory = HibernateSessionFactory.getSessionFactory();
     }
 
-    public static OrderDAOImpl getInstance() {
-        if (singleton == null) singleton = new OrderDAOImpl();
-        return singleton;
-    }
 
     @Override
     public List<Item> findItems(Order order) {

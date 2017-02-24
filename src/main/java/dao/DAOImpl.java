@@ -3,19 +3,18 @@ package dao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import util.HibernateSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-/**
- * Created by eriol4ik on 06/02/2017.
- */
 public class DAOImpl<T> implements DAO<T> {
-    private SessionFactory factory;
+
+    @Autowired
+    protected SessionFactory factory;
     private Class<T> entityClass;
 
     public DAOImpl(Class<T> entityClass) {
-        factory = HibernateSessionFactory.getSessionFactory();
+        //factory = HibernateSessionFactory.getSessionFactory();
         this.entityClass = entityClass;
     }
 

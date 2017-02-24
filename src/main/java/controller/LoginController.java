@@ -8,12 +8,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.springframework.context.ApplicationContext;
 import service.UserService;
-import service.UserServiceImpl;
-import service.UserSessionServiceImpl;
-import util.StageFactory;
+import service.UserSessionService;
+import util.ApplicationContextFactory;
 import util.HibernateSessionFactory;
 import util.InputDataChecker;
+import util.StageFactory;
 
 import java.io.IOException;
 
@@ -25,16 +26,21 @@ public class LoginController {
     @FXML private Label lblStatus;
 
     private UserService userService;
+    private ApplicationContext context;
 
     public void initialize() {
-        userService = UserServiceImpl.getInstance();
+
 
         Platform.runLater(() -> {
+            context = ApplicationContextFactory.getApplicationContext();
+            userService = (UserService) context.getBean("userService");
             UserSession fromResource = UserSession.readFromResource();
             if (fromResource == null) return;
+            UserSessionService userSessionService = (UserSessionService) context.getBean("userSessionService");
 
-            UserSession fromDB = UserSessionServiceImpl.getInstance().read(fromResource.getUserId());
+            UserSession fromDB = userSessionService.read(fromResource.getUserId());
             if (fromDB == null) return;
+
 
             if (fromResource.getSessionId().equals(fromDB.getSessionId())) logIn(userService.read(fromDB.getUserId()), true);
             else UserSession.writeToResource(null);

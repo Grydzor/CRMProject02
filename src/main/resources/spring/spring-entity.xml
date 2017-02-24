@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="customer" class="entity.Customer" scope="prototype"/>
+    <bean id="employee" class="entity.Employee" scope="prototype"/>
+    <bean id="item" class="entity.Item" scope="prototype"/>
+    <bean id="order" class="entity.Order" scope="prototype"/>
+    <bean id="product" class="entity.Product" scope="prototype"/>
+    <bean id="user" class="entity.User" scope="prototype"/>
+    <bean id="userSession" class="entity.UserSession" scope="prototype"/>
+    <bean id="storage" class="entity.Storage" scope="prototype"/>
+
+</beans>

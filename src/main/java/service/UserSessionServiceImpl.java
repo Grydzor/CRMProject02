@@ -3,23 +3,20 @@ package service;
 import dao.UserSessionDAO;
 import dao.UserSessionDAOImpl;
 import entity.UserSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
-/**
- * Created by eriol4ik on 19.02.2017.
- */
-public class UserSessionServiceImpl extends ServiceImpl<UserSession> implements UserSessionService {
+@Service("userSessionService")
+public class UserSessionServiceImpl extends UserSessionDAOImpl implements UserSessionService {
+    @Autowired
+    @Qualifier("userSessionDAO")
     private UserSessionDAO userSessionDAO;
-    private static UserSessionServiceImpl singleton;
 
     private UserSessionServiceImpl() {
-        super(UserSession.class);
-        userSessionDAO = UserSessionDAOImpl.getInstance();
+        super();
     }
 
-    public static UserSessionServiceImpl getInstance() {
-        if (singleton == null) singleton = new UserSessionServiceImpl();
-        return singleton;
-    }
 
     @Override
     public void createOrUpdate(UserSession session) {

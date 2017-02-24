@@ -1,12 +1,13 @@
 package entity;
 
 import enum_types.OrderStatus;
-import service.OrderServiceImpl;
+import service.OrderService;
+import util.ApplicationContextFactory;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
 
 /**
@@ -113,7 +114,8 @@ public class Order {
     }
 
     public List<Item> getItems() {
-        return items != null && items.isEmpty() ? items = OrderServiceImpl.getInstance().findItems(this) : items;
+//        return items;
+        return items.isEmpty() ? (items = ApplicationContextFactory.getApplicationContext().getBean(OrderService.class).findItems(this)) : items;
     }
 
     public void setItems(List<Item> items) {

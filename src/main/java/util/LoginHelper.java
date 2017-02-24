@@ -1,21 +1,20 @@
 package util;
 
+import org.springframework.context.ApplicationContext;
 import service.UserService;
-import service.UserServiceImpl;
 
 public class LoginHelper {
-    private static UserService service;
-
-    static {
-        service = UserServiceImpl.getInstance();
-    }
+    private static UserService userService;
+    private static ApplicationContext context;
 
     public static String generate(String name, String surname) {
+        context = ApplicationContextFactory.getApplicationContext();
+        userService = (UserService) context.getBean("userService");
         String loginOriginal = name.charAt(0) + "." + surname;
         String login = Translit.cyr2lat(loginOriginal);
         String tempLogin = login;
         int i = 2;
-        while (service.find(login) != null) {
+        while (userService.find(login) != null) {
             login = tempLogin;
             login = login + i;
             i++;

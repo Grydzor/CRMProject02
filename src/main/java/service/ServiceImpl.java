@@ -2,14 +2,12 @@ package service;
 
 import dao.DAO;
 import dao.DAOImpl;
-import entity.User;
 
 import java.util.List;
 
-/**
- * Created by eriol4ik on 06/02/2017.
- */
 public class ServiceImpl<T> implements Service<T> {
+
+
     private DAO<T> dao;
 
     public ServiceImpl(Class<T> entityClass) {
@@ -17,7 +15,7 @@ public class ServiceImpl<T> implements Service<T> {
     }
 
     @Override
-    public Long add(T entity) {
+    public Long create(T entity) {
         return dao.create(entity);
     }
 

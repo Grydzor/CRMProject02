@@ -1,24 +1,15 @@
 package dao;
 
 import entity.Employee;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import util.HibernateSessionFactory;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
+@Repository("employeeDAO")
 public class EmployeeDAOImpl extends DAOImpl<Employee> implements EmployeeDAO {
-    private SessionFactory factory;
-    private static EmployeeDAOImpl singleton;
 
-    private EmployeeDAOImpl() {
+
+    protected EmployeeDAOImpl() {
         super(Employee.class);
-        factory = HibernateSessionFactory.getSessionFactory();
     }
 
-    public static EmployeeDAOImpl getInstance() {
-        if (singleton == null) singleton = new EmployeeDAOImpl();
-        return singleton;
-    }
+
 }

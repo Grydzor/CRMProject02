@@ -1,6 +1,7 @@
 package entity;
 
-import service.CustomerServiceImpl;
+import service.CustomerService;
+import util.ApplicationContextFactory;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -86,7 +87,10 @@ public class Customer {
     }
 
     public List<Order> getOrders() {
-        return orders != null && orders.isEmpty() ? orders = CustomerServiceImpl.getInstance().findOrders(this) : orders;
+        return orders != null && orders.isEmpty() ? orders = ApplicationContextFactory
+                .getApplicationContext()
+                .getBean(CustomerService.class)
+                .findOrders(this) : orders;
     }
 
     public void setOrders(List<Order> orders) {

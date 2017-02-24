@@ -2,23 +2,19 @@ package service;
 
 import dao.ProductDAO;
 import dao.ProductDAOImpl;
-import entity.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
-/**
- * Created by eriol4ik on 16.02.2017.
- */
-public class ProductServiceImpl extends ServiceImpl<Product> implements ProductService {
+@Service("productService")
+public class ProductServiceImpl extends ProductDAOImpl implements ProductService {
+    @Autowired
+    @Qualifier("productDAO")
     private ProductDAO productDAO;
-    private static ProductServiceImpl singleton;
 
 
     private ProductServiceImpl() {
-        super(Product.class);
-        productDAO = ProductDAOImpl.getInstance();
+        super();
     }
 
-    public static ProductServiceImpl getInstance() {
-        if (singleton == null) singleton = new ProductServiceImpl();
-        return singleton;
-    }
 }

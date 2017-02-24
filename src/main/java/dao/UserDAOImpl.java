@@ -1,26 +1,22 @@
 package dao;
 
 import entity.User;
-
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import util.HibernateSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository("userDAO")
 public class UserDAOImpl extends DAOImpl<User> implements UserDAO {
-    private SessionFactory factory;
-    private static UserDAOImpl singleton;
 
-    private UserDAOImpl() {
+
+    @Autowired
+    protected UserDAOImpl() {
         super(User.class);
-        factory = HibernateSessionFactory.getSessionFactory();
     }
 
-    public static UserDAOImpl getInstance() {
-        if (singleton == null) singleton = new UserDAOImpl();
-        return singleton;
-    }
+
 
     @Override
     public User find(String login) {

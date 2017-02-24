@@ -1,9 +1,16 @@
 package entity;
 
-import service.UserSessionServiceImpl;
+import org.springframework.context.ApplicationContext;
+import service.UserSessionService;
 
-import javax.persistence.*;
-import java.io.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
@@ -14,6 +21,7 @@ import java.util.Scanner;
 @Entity
 @Table(name = "Session")
 public class UserSession {
+    private static ApplicationContext context;
 
     @Id
     @Column(name = "EMPLOYEE_ID")
@@ -56,6 +64,7 @@ public class UserSession {
 
     public static UserSession writeToResource(Long userId) {
         if (userId != null && userId.equals(-1L)) return null;
+        UserSessionService userSessionService = context.getBean(UserSessionService.class);
 
         UserSession userSession = new UserSession();
         userSession.userId = userId;
@@ -70,7 +79,7 @@ public class UserSession {
         try (PrintWriter out = new PrintWriter(file.getAbsoluteFile())) {
             if (userId == null) {
                 if (from == null) return null;
-                UserSessionServiceImpl.getInstance().delete(from);
+                userSessionService.delete(from);
                 out.print(""); return null; }
             out.println(userId);
             out.println(userSession.sessionId);
@@ -78,7 +87,7 @@ public class UserSession {
             ioe.printStackTrace();
         }
 
-        UserSessionServiceImpl.getInstance().createOrUpdate(userSession);
+        userSessionService.createOrUpdate(userSession);
         return userSession;
     }
 }

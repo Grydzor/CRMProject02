@@ -11,9 +11,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.springframework.context.ApplicationContext;
 import service.ProductService;
-import service.ProductServiceImpl;
 import service.StorageService;
+import util.ApplicationContextFactory;
 import util.StageFactory;
 
 import java.math.BigDecimal;
@@ -38,6 +39,7 @@ public class StorageItemsController {
     @FXML Button deleteButton;
     @FXML Button closeButton;
 
+    private ApplicationContext context;
     private ProductService productService;
     private StorageService storageService;
 
@@ -45,7 +47,8 @@ public class StorageItemsController {
     private ObservableList<Storage> storages;
 
     public void initialize() {
-        productService = ProductServiceImpl.getInstance();
+        context = ApplicationContextFactory.getApplicationContext();
+        productService = (ProductService) context.getBean("productService");
         productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         productQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         productPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));

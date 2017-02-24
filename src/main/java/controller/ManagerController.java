@@ -11,16 +11,17 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+import org.springframework.context.ApplicationContext;
 import service.*;
+import util.ApplicationContextFactory;
 import util.InputDataChecker;
 import util.StageFactory;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.sql.Date;
-import java.util.List;
 
 public class ManagerController {
     @FXML private Button logOutButton;
@@ -94,15 +95,17 @@ public class ManagerController {
     private DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
     private Helper helper;
+    private ApplicationContext context;
 
     public void initialize() {
+        context = ApplicationContextFactory.getApplicationContext();
         helper = new Helper();
 
-        orderService = OrderServiceImpl.getInstance();
-        itemService = ItemServiceImpl.getInstance();
-        productService = ProductServiceImpl.getInstance();
-        customerService = CustomerServiceImpl.getInstance();
-        userService = UserServiceImpl.getInstance();
+        orderService = (OrderService) context.getBean("orderService");
+        itemService = (ItemService) context.getBean("itemService");
+        productService = (ProductService) context.getBean("productService");
+        customerService = (CustomerService) context.getBean("customerService");
+        userService = (UserService) context.getBean("userService");
 
         UserSession session = UserSession.readFromResource();
         if (session != null) currentManager = userService.read(session.getUserId()).getEmployee();
@@ -191,12 +194,18 @@ public class ManagerController {
         helper.checkFields();
 
         if (currentCustomer != null && currentDeadline != null) {
-            Order order = new Order(currentManager, currentCustomer, currentDeadline, OrderStatus.OPENED);
+            Order order = context.getBean(Order.class);
+            order.setManager(currentManager);
+            order.setCustomer(currentCustomer);
+            order.setDeadline(currentDeadline);
+            order.setStatus(OrderStatus.OPENED);
+            order.setDate(Date.valueOf(LocalDate.now()));
+
             for (Item item : items) {
                 item.setOrder(order);
                 itemService.update(item);
             }
-            orderService.add(order);
+            orderService.create(order);
             ordersTable.getItems().add(order);
 
             helper.disableForActionButNot(false, addOrderButton, applyAddingOrderButton, cancelAddingOrderButton,

@@ -2,21 +2,18 @@ package service;
 
 import dao.EmployeeDAO;
 import dao.EmployeeDAOImpl;
-import entity.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
-
-public class EmployeeServiceImpl extends ServiceImpl<Employee> implements EmployeeService {
+@Service("employeeService")
+public class EmployeeServiceImpl extends EmployeeDAOImpl implements EmployeeService {
+    @Autowired
+    //@Qualifier("employeeDAO")
     private EmployeeDAO employeeDAO;
-    private static EmployeeServiceImpl singleton;
 
     private EmployeeServiceImpl() {
-        super(Employee.class);
-        employeeDAO = EmployeeDAOImpl.getInstance();
+        super();
     }
 
-    public static EmployeeServiceImpl getInstance() {
-        if (singleton == null) singleton = new EmployeeServiceImpl();
-        return singleton;
-    }
+
 }

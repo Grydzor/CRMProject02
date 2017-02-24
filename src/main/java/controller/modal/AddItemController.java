@@ -10,10 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import org.springframework.context.ApplicationContext;
 import service.ItemService;
-import service.ItemServiceImpl;
 import service.ProductService;
-import service.ProductServiceImpl;
+import util.ApplicationContextFactory;
 import util.InputDataChecker;
 import util.StageFactory;
 
@@ -43,10 +43,12 @@ public class AddItemController implements ValueSettable<Order, Item> {
 
     private ProductService productService;
     private ItemService itemService;
+    private ApplicationContext context;
 
     public void initialize() {
-        productService = ProductServiceImpl.getInstance();
-        itemService = ItemServiceImpl.getInstance();
+        context = ApplicationContextFactory.getApplicationContext();
+        productService = (ProductService) context.getBean("productService");
+        itemService = (ItemService) context.getBean("itemService");
 
         products = FXCollections.observableArrayList(productService.findAll());
         productBox.setItems(products);
@@ -70,9 +72,12 @@ public class AddItemController implements ValueSettable<Order, Item> {
                 product.setPrice(price);
                 productService.update(product);
             }
-            item = new Item(product, amount, currentOrder);
+            item = context.getBean(Item.class);
+            item.setOrder(currentOrder);
+            item.setAmount(amount);
+            item.setProduct(product);
             if (currentOrder != null) {
-                itemService.add(item);
+                itemService.create(item);
             }
 
             StageFactory.closeModal();
@@ -100,8 +105,10 @@ public class AddItemController implements ValueSettable<Order, Item> {
         BigDecimal price = InputDataChecker.checkBigDecimal(priceField);
 
         if (name != null && price != null) {
-            Product product = new Product(name, price);
-            productService.add(product);
+            Product product = context.getBean(Product.class);
+            product.setName(name);
+            product.setPrice(price);
+            productService.create(product);
             products.add(product);
             disableFields(false);
             productBox.getSelectionModel().select(product);

@@ -4,28 +4,26 @@ import dao.CustomerDAO;
 import dao.CustomerDAOImpl;
 import entity.Customer;
 import entity.Order;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by eriol4ik on 16.02.2017.
- */
-public class CustomerServiceImpl extends ServiceImpl<Customer> implements CustomerService {
+@Service("customerService")
+public class CustomerServiceImpl extends CustomerDAOImpl implements CustomerService {
+    @Autowired
+    @Qualifier("customerDAO")
     private CustomerDAO customerDAO;
-    private static CustomerServiceImpl singleton;
 
     private CustomerServiceImpl() {
-        super(Customer.class);
-        customerDAO = CustomerDAOImpl.getInstance();
+        super();
     }
 
-    public static CustomerServiceImpl getInstance() {
-        if (singleton == null) singleton = new CustomerServiceImpl();
-        return singleton;
-    }
 
     @Override
     public List<Order> findOrders(Customer customer) {
         return customerDAO.findOrders(customer);
     }
+
 }

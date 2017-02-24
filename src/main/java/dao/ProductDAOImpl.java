@@ -1,23 +1,16 @@
 package dao;
 
 import entity.Product;
-import org.hibernate.SessionFactory;
-import util.HibernateSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-/**
- * Created by eriol4ik on 16.02.2017.
- */
+@Repository("productDAO")
 public class ProductDAOImpl extends DAOImpl<Product> implements ProductDAO {
-    private SessionFactory factory;
-    private static ProductDAOImpl singleton;
 
-    private ProductDAOImpl() {
+
+    @Autowired
+    protected ProductDAOImpl() {
         super(Product.class);
-        factory = HibernateSessionFactory.getSessionFactory();
     }
 
-    public static ProductDAOImpl getInstance() {
-        if (singleton == null) singleton = new ProductDAOImpl();
-        return singleton;
-    }
 }

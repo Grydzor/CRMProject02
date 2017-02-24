@@ -3,21 +3,20 @@ package service;
 import dao.UserDAO;
 import dao.UserDAOImpl;
 import entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
+@Service("userService")
+public class UserServiceImpl extends UserDAOImpl implements UserService {
 
-public class UserServiceImpl extends ServiceImpl<User> implements UserService {
+    @Autowired
+    @Qualifier("userDAO")
     private UserDAO userDAO;
-    private static UserServiceImpl singleton;
+
 
     private UserServiceImpl() {
-        super(User.class);
-        userDAO = UserDAOImpl.getInstance();
-    }
-
-    public static UserServiceImpl getInstance() {
-        if (singleton == null) singleton = new UserServiceImpl();
-        return singleton;
+        super();
     }
 
     @Override

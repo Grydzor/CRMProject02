@@ -1,28 +1,23 @@
 package service;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
 import dao.OrderDAO;
 import dao.OrderDAOImpl;
 import entity.Item;
 import entity.Order;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by eriol4ik on 16.02.2017.
- */
-public class OrderServiceImpl extends ServiceImpl<Order> implements OrderService {
+@Service("orderService")
+public class OrderServiceImpl extends OrderDAOImpl implements OrderService {
+    @Autowired
+    @Qualifier("orderDAO")
     private OrderDAO orderDAO;
-    private static OrderServiceImpl singleton;
 
     private OrderServiceImpl() {
-        super(Order.class);
-        orderDAO = OrderDAOImpl.getInstance();
-    }
-
-    public static OrderServiceImpl getInstance() {
-        if (singleton == null) singleton = new OrderServiceImpl();
-        return singleton;
+        super();
     }
 
     @Override

@@ -3,13 +3,12 @@ package controller.modal;
 import entity.Customer;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import service.CustomerServiceImpl;
+import org.springframework.context.ApplicationContext;
+import service.CustomerService;
+import util.ApplicationContextFactory;
 import util.InputDataChecker;
 import util.StageFactory;
 
-/**
- * Created by eriol4ik on 19.02.2017.
- */
 public class NewCustomerController implements ValueSettable<Object, Customer> {
     @FXML private TextField nameField;
     @FXML private TextField surnameField;
@@ -17,9 +16,10 @@ public class NewCustomerController implements ValueSettable<Object, Customer> {
     @FXML private TextField emailField;
 
     private Customer customer;
+    private ApplicationContext context;
 
     public void initialize() {
-
+        context = ApplicationContextFactory.getApplicationContext();
     }
 
     @FXML
@@ -30,8 +30,13 @@ public class NewCustomerController implements ValueSettable<Object, Customer> {
         String email = InputDataChecker.checkString(emailField);
 
         if (name != null && surname != null && mobile != null && email != null) {
-            customer = new Customer(name, surname, mobile, email);
-            CustomerServiceImpl.getInstance().add(customer);
+            customer = context.getBean(Customer.class);
+            customer.setName(name);
+            customer.setSurname(surname);
+            customer.setMobile(mobile);
+            customer.setEmail(email);
+            CustomerService customerService = (CustomerService) context.getBean("customerService");
+            customerService.create(customer);
 
             StageFactory.closeModal();
         }

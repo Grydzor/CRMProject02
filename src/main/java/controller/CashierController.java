@@ -10,10 +10,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
+import org.springframework.context.ApplicationContext;
 import service.ItemService;
-import service.ItemServiceImpl;
 import service.OrderService;
-import service.OrderServiceImpl;
+import util.ApplicationContextFactory;
 import util.StageFactory;
 
 import java.math.BigDecimal;
@@ -60,19 +60,21 @@ public class CashierController {
     private ItemService itemService;
 
     private Helper helper;
+    private ApplicationContext context;
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
     private DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
     public void initialize() {
 
+        context = ApplicationContextFactory.getApplicationContext();
         helper = new Helper();
 
         saveButton.setDisable(true);
         statusBox.setDisable(true);
 
-        orderService = OrderServiceImpl.getInstance();
-        itemService = ItemServiceImpl.getInstance();
+        orderService = (OrderService) context.getBean("orderService");
+        itemService = (ItemService) context.getBean("itemService");
 
         ordersIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         ordersDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
