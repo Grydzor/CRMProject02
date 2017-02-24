@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import service.*;
+import util.ApplicationContextFactory;
 import util.InputDataChecker;
 import util.LoginHelper;
 import util.StageFactory;
@@ -72,8 +73,8 @@ public class AdminController {
 
     /* Loading of Employees list */
     public void initialize() {
-        employeeService = EmployeeServiceImpl.getInstance();
-        userService = UserServiceImpl.getInstance();
+        employeeService = ApplicationContextFactory.getApplicationContext().getBean("employeeService", EmployeeService.class);
+        userService = ApplicationContextFactory.getApplicationContext().getBean("userService", UserService.class);
 
         // has supplementary methods
         helper = new Helper();
@@ -129,7 +130,7 @@ public class AdminController {
         if (name != null && surname != null && age != null && sex != null && position != null) {
             Employee employee = new Employee(name, surname, age, sex, position);
 
-            employeeService.add(employee);
+            employeeService.create(employee);
             employees.add(employee);
             employeesTable.getSelectionModel().select(employee);
 
@@ -217,7 +218,7 @@ public class AdminController {
             String surname = currentEmployee.getSurname();
             String login = LoginHelper.generate(name, surname);
             User user = new User(login, LoginHelper.generatePassword(), currentEmployee);
-            userService.add(user);
+            userService.create(user);
             currentEmployee.setUser(user);
             employeeService.update(currentEmployee);
 

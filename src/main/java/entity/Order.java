@@ -56,11 +56,11 @@ public class Order {
     public Order() {
     }
 
-    public Order(Employee manager, Customer customer, Date deadline, OrderStatus status/*, BigDecimal summary*/) {
+    public Order(Employee manager, Customer customer, Date deadline/*, OrderStatus status, BigDecimal summary*/) {
         this.manager = manager;
         this.customer = customer;
         this.deadline = deadline;
-        this.status = status;
+        this.status = OrderStatus.OPENED;
         this.date = Date.valueOf(LocalDate.now());
         /*this.summary = summary;*/
     }

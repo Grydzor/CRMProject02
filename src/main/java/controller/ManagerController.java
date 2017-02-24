@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import org.springframework.context.ApplicationContext;
@@ -18,10 +19,10 @@ import util.InputDataChecker;
 import util.StageFactory;
 
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.sql.Date;
 
 public class ManagerController {
     @FXML private Button logOutButton;
@@ -76,12 +77,17 @@ public class ManagerController {
     @FXML private Button applyDeletingItemButton;
     @FXML private Button cancelDeletingItemButton;
 
+    @FXML private HBox newItemRow;
+
     // Displayed info
     private Order currentOrder;
+    private Order beforeCurrentOrder;
     private Employee currentManager;
     private Customer currentCustomer;
     private Item currentItem;
     private Date currentDeadline;
+
+    ApplicationContext context;
 
     // Services
     private OrderService orderService;
@@ -95,20 +101,20 @@ public class ManagerController {
     private DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
     private Helper helper;
-    private ApplicationContext context;
 
     public void initialize() {
-        context = ApplicationContextFactory.getApplicationContext();
         helper = new Helper();
 
-        orderService = (OrderService) context.getBean("orderService");
-        itemService = (ItemService) context.getBean("itemService");
-        productService = (ProductService) context.getBean("productService");
-        customerService = (CustomerService) context.getBean("customerService");
-        userService = (UserService) context.getBean("userService");
+        context = ApplicationContextFactory.getApplicationContext();
+        orderService = context.getBean("orderService", OrderService.class);
+        itemService = context.getBean("itemService", ItemService.class);
+        productService = context.getBean("productService", ProductService.class);
+        customerService = context.getBean("customerService", CustomerService.class);
+        userService = context.getBean("userService", UserService.class);
 
         UserSession session = UserSession.readFromResource();
         if (session != null) currentManager = userService.read(session.getUserId()).getEmployee();
+        else currentManager = userService.read(13L).getEmployee();
 
         // set columns in TableView
         orderIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -165,6 +171,8 @@ public class ManagerController {
 
     @FXML
     public void addOrder() {
+        beforeCurrentOrder = currentOrder;
+        currentOrder = new Order();
         helper.disableForActionButNot(true, addOrderButton, applyAddingOrderButton, cancelAddingOrderButton,
                 itemsTable);
 
@@ -180,6 +188,7 @@ public class ManagerController {
 
     @FXML
     public void cancelAddingOrder() {
+        currentOrder = beforeCurrentOrder;
         helper.disableForActionButNot(false, addOrderButton, applyAddingOrderButton, cancelAddingOrderButton,
                 itemsTable);
 
@@ -187,33 +196,40 @@ public class ManagerController {
 
         helper.selectCurrentOrder();
         helper.selectCurrentItem();
+
+        itemsTable.setStyle("-fx-border-color: inherit");
     }
 
     @FXML
     public void applyAddingOrder() {
         helper.checkFields();
 
-        if (currentCustomer != null && currentDeadline != null) {
-            Order order = context.getBean(Order.class);
-            order.setManager(currentManager);
-            order.setCustomer(currentCustomer);
-            order.setDeadline(currentDeadline);
-            order.setStatus(OrderStatus.OPENED);
-            order.setDate(Date.valueOf(LocalDate.now()));
+        if (items.isEmpty()) {
+            itemsTable.setStyle("-fx-border-color: red");
+            return;
+        } else {
+            itemsTable.setStyle("-fx-border-color: inherit");
+        }
 
+        if (currentCustomer != null && currentDeadline != null) {
+            currentOrder.setManager(currentManager);
+            currentOrder.setCustomer(currentCustomer);
+            currentOrder.setDeadline(currentDeadline);
+            currentOrder.setStatus(OrderStatus.OPENED);
             for (Item item : items) {
-                item.setOrder(order);
+                item.setOrder(currentOrder);
                 itemService.update(item);
             }
-            orderService.create(order);
-            ordersTable.getItems().add(order);
+            orderService.create(currentOrder);
+            ordersTable.getItems().add(currentOrder);
 
             helper.disableForActionButNot(false, addOrderButton, applyAddingOrderButton, cancelAddingOrderButton,
                     itemsTable);
             helper.disableOrderInfo(true);
 
-            ordersTable.getSelectionModel().select(order);
-//            helper.selectCurrentItem();
+            ordersTable.getSelectionModel().select(currentOrder);
+            ordersTable.scrollTo(currentOrder);
+            currentOrder = null;
         }
     }
 
@@ -256,11 +272,14 @@ public class ManagerController {
     public void addItem() {
         helper.disableForActionButNot(true,
                 addItemButton, applyAddingItemButton, cancelAddingItemButton);
-
+        helper.disableNewItemRow(false);
     }
 
     @FXML
     public void applyAddingItem() {
+
+
+        helper.disableNewItemRow(true);
         helper.disableForActionButNot(false,
                 addItemButton, applyAddingItemButton, cancelAddingItemButton);
         helper.selectCurrentOrder();
@@ -268,6 +287,7 @@ public class ManagerController {
 
     @FXML
     public void cancelAddingItem() {
+        helper.disableNewItemRow(true);
         helper.disableForActionButNot(false,
                 addItemButton, applyAddingItemButton, cancelAddingItemButton);
         helper.selectCurrentOrder();
@@ -482,6 +502,10 @@ public class ManagerController {
 
         private void disableIfEnabled(Boolean bool, Node node) {
             if (bool && !node.isDisabled() || !bool && node.isDisabled()) node.setDisable(bool);
+        }
+
+        private void disableNewItemRow(Boolean bool) {
+            newItemRow.setDisable(bool);
         }
     }
 }

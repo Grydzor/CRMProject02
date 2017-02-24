@@ -101,15 +101,15 @@
                   <TableColumn fx:id="itemSumVATColumn" maxWidth="${(itemsTable.width - 14) * 0.16}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.16}" text="Sum (VAT inc.)" />
                </columns>
             </TableView>
-            <HBox fx:id="newItemRow" alignment="CENTER_LEFT" maxHeight="30.0" minHeight="30.0" prefHeight="30.0">
+            <HBox fx:id="newItemRow" alignment="CENTER_LEFT" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" spacing="2.0" disable="true">
                <children>
-                  <Label fx:id="numberNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 14) * 0.06}" minHeight="30.0" minWidth="10" prefHeight="30.0" prefWidth="${(newItemRow.width - 14) * 0.06}" />
-                  <ComboBox fx:id="productsNewItem" disable="true" maxHeight="30.0" maxWidth="${(newItemRow.width - 14) * 0.24}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 14) * 0.24}" />
-                  <TextField fx:id="amountNewItem" disable="true" maxHeight="30.0" maxWidth="${(newItemRow.width - 14) * 0.10}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 14) * 0.10}" />
-                  <TextField fx:id="priceNewItem" disable="true" maxHeight="30.0" maxWidth="${(newItemRow.width - 14) * 0.14}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 14) * 0.14}" />
-                  <Label fx:id="sumNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 14) * 0.14}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 14) * 0.14}" />
-                  <Label fx:id="PriceVATNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 14) * 0.16}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 14) * 0.16}" />
-                  <Label fx:id="SumVATNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 14) * 0.16}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 14) * 0.16}" />
+                  <Label fx:id="numberNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.06}" minHeight="30.0" minWidth="10" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.06}" />
+                  <ComboBox fx:id="productsNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.24}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.24}" />
+                  <TextField fx:id="amountNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.10}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.10}" />
+                  <TextField fx:id="priceNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.14}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.14}" />
+                  <Label fx:id="sumNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.14}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.14}" />
+                  <Label fx:id="PriceVATNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.16}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.16}" />
+                  <Label fx:id="SumVATNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.16}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.16}" />
                </children>
             </HBox>
          </children>
