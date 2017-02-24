@@ -53,7 +53,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="cancelOrderButton" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="32.0" prefWidth="181.0" text="Log out" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                        <Button fx:id="cancelAddingOrderButton" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#cancelAddingOrder" prefHeight="32.0" prefWidth="181.0" text="Log out" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="TOP">
                            <font>
                               <Font size="15.0" />
                            </font>

@@ -30,12 +30,12 @@
       <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <FlowPane alignment="CENTER" hgap="10.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
          <children>
-            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#save" prefWidth="60.0" text="Save">
+            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#save" prefWidth="80.0" text="Save">
                <FlowPane.margin>
                   <Insets />
                </FlowPane.margin>
             </Button>
-            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" prefWidth="60.0" text="Cancel" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" prefWidth="80.0" text="Cancel" />
          </children>
       </FlowPane>
    </children>

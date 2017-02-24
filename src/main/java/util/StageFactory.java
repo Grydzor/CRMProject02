@@ -18,6 +18,14 @@ public class StageFactory {
         stageWindow = new Stage();
         stageModal = new Stage();
         stageModal.initModality(Modality.APPLICATION_MODAL);
+
+        stageWindow.setResizable(true);
+        stageWindow.setMinHeight(540);
+        stageWindow.setMinWidth(960);
+
+        stageWindow.getIcons().add(new Image("/view/imgs/little_icon.png"));
+        stageWindow.setOnCloseRequest((event) ->
+                HibernateSessionFactory.getSessionFactory().close());
     }
 
 
@@ -33,17 +41,10 @@ public class StageFactory {
             System.out.println("Проблема в пути к FXML");
             return null;
         }
-        stageWindow.setOnCloseRequest((event) ->
-                HibernateSessionFactory.getSessionFactory().close());
         stageWindow.setTitle(title);
 
-        stageWindow.setResizable(true);
-        stageWindow.setMinHeight(540);
-        stageWindow.setMinWidth(960);
-
         Scene scene = new Scene(root);
-//        scene.getStylesheets().add("/view/styles/default.css");
-        scene.getStylesheets().add("/view/styles/dark_theme.css");
+        scene.getStylesheets().add("/view/styles/light_theme.css");
         stageWindow.setScene(scene);
 
         T controller = loader.getController();
@@ -71,12 +72,13 @@ public class StageFactory {
                 HibernateSessionFactory.getSessionFactory().close());
         stageWindow.setTitle(title);
 
+
         stageWindow.setResizable(true);
         stageWindow.setMinHeight(540);
         stageWindow.setMinWidth(960);
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(style);
+        scene.getStylesheets().add("/view/styles/light_theme.css");
         stageWindow.setScene(scene);
 
         T controller = loader.getController();
@@ -99,12 +101,12 @@ public class StageFactory {
             return null;
         }
 
+
         stageModal.setResizable(false);
 
         Scene scene = new Scene(root);
         stageModal.setScene(scene);
-//        scene.getStylesheets().add("/view/styles/default.css");
-        scene.getStylesheets().add("/view/styles/dark_theme.css");
+        scene.getStylesheets().add("/view/styles/light_theme.css");
         stageModal.setTitle(title);
 
         ControllerT controller = loader.getController();

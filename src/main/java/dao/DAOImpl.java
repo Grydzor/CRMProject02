@@ -1,11 +1,8 @@
 package dao;
 
-import entity.User;
-import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import util.HibernateSessionFactory;
 
 import java.util.List;
@@ -39,7 +36,6 @@ public class DAOImpl<T> implements DAO<T> {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public T read(Long id) {
         Session session = factory.openSession();
         try {
@@ -48,6 +44,7 @@ public class DAOImpl<T> implements DAO<T> {
             session.close();
         }
     }
+
 
     @Override
     public Boolean update(T entity) {
@@ -82,10 +79,9 @@ public class DAOImpl<T> implements DAO<T> {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<T> findAll() {
         try(Session session = factory.openSession()) {
-            return session.createQuery("FROM " + entityClass.getSimpleName() + " t").list();
+            return session.createQuery("FROM " + entityClass.getSimpleName() + " t", entityClass).list();
         }
     }
 }

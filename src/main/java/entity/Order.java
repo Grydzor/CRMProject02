@@ -4,7 +4,6 @@ import enum_types.OrderStatus;
 import service.OrderServiceImpl;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.sql.Date;
@@ -114,8 +113,7 @@ public class Order {
     }
 
     public List<Item> getItems() {
-//        return items;
-        return items.isEmpty() ? (items = OrderServiceImpl.getInstance().findItems(this)) : items;
+        return items != null && items.isEmpty() ? items = OrderServiceImpl.getInstance().findItems(this) : items;
     }
 
     public void setItems(List<Item> items) {

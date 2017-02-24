@@ -1,10 +1,10 @@
 .root {
     -fx-accent: #99ccff;
     -fx-focus-color: #99ccff;
-}
-
-.background {
-    -fx-background-color: white;
+    -fx-shadow: dropshadow(three-pass-box, lightgrey, 5, 0, 0, 0);
+    -fx-shadow-edit: dropshadow(three-pass-box, #999999, 5, 0, 0, 0);
+    -fx-shadow-focus: dropshadow(three-pass-box, #1a8cff, 5, 0, 0, 0);
+    -fx-back: white;
 }
 
 .button {
@@ -12,28 +12,65 @@
     -fx-border-radius: 0;
 }
 
-.text-field {
-    -fx-background-radius: 0;
-    -fx-border-radius: 0;
+.text-field,
+.text-field:disabled,
+.combo-box-base,
+.combo-box-base:disabled,
+.combo-box-base .arrow:disabled,
+.combo-box-base .arrow-button:disabled,
+.date-picker .arrow-button {
+    -fx-background-color: -fx-back;
 }
 
-.text-field:disabled {
-    -fx-opacity: 0.7;
+.text-field:disabled,
+.combo-box-base:disabled,
+.combo-box-base:disabled > * {
+    -fx-opacity: 1;
 }
 
-.text-input:focused {
+.text-field:disabled,
+.combo-box-base:disabled {
+    -fx-effect: -fx-shadow;
+}
+
+.text-field,
+.combo-box-base {
+    -fx-effect: -fx-shadow-edit;
+}
+
+.text-field:focused,
+.combo-box-base:focused {
+    -fx-effect: -fx-shadow-focus;
     -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
 }
 
-.combo-box {
-    -fx-background-radius: 0;
+.text-field {
     -fx-border-radius: 0;
-    -fx-font-size: 14px;
+    -fx-background-radius: 3, 2;
 }
 
-.combo-box:disabled {
-    -fx-opacity: 0.7;
+.text-field:focused {
+    -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
+}
+
+.combo-box-base,
+.combo-box-base:disabled {
+    -fx-background-radius: 3, 2;
     -fx-font-size: 14px;
+    -fx-background-insets: 0, 0;
+}
+
+.date-picker > .arrow-button > .arrow {
+    /* svg path */
+    -fx-shape: "M71.4,58.3c0-9.5,0-46.4,0-46.4h-2.6H16.8l-5.6,3.3v66.9h57.7v-6h8.3C77.2,76.2,71.4,71.6,71.4,58.3z M67.6,48.3h-9.9V37.7h9.9V48.3z M43.5,25.5v10.6h-11V25.5H43.5z M45.1,25.5h11v10.6h-11V25.5z M20.6,25.5h10.2v10.6H20.6V25.5z M20.6,37.7h10.2v10.6H20.6V37.7z M20.6,49.9h10.2v8.4c0,0.8,0,1.5,0,2.2H20.6V49.9z M32.4,58.3v-8.4h11v8.4c0,0.8,0,1.5,0,2.2h-11 C32.4,59.8,32.4,59.1,32.4,58.3z M32.4,48.3V37.7h11v10.6H32.4z M45.1,37.7h11v10.6h-11V37.7z M67.6,36.1h-9.9V25.5h9.9V36.1z M30.9,62.1c0.4,5.4,1.8,8.5,3.1,10.3H23.4c-0.3-0.2-0.7-0.7-1.1-1.7c-0.7-1.4-1.5-4-1.6-8.6H30.9z M36.2,72.4 c-1.3-1.2-3.1-3.9-3.6-10.3h11c0.4,5.4,1.8,8.5,3.1,10.3H36.2z M48.8,72.4c-1.3-1.2-3.1-3.9-3.6-10.3h11c0.4,5.4,1.8,8.5,3.1,10.3 H48.8z M45.1,60.5c0-0.7,0-1.4,0-2.2v-8.4h11v8.4c0,0.8,0,1.5,0,2.2H45.1z M57.8,58.3v-8.4h9.9v8.4v1.6c0,0.2,0,0.4,0,0.5h-9.8 C57.8,59.8,57.8,59.1,57.8,58.3z M65.1,78.3H15v-61l1.8-1.1c0,10.2,0,35.4,0,44.2c0,14.6,5.7,15.7,5.7,15.7h42.5L65.1,78.3 L65.1,78.3z M68.9,72.4h-3.8h-3.5c-1.3-1.2-3.1-3.9-3.6-10.3h9.8c0.2,4,0.8,7.4,2,10.3H68.9z";
+    -fx-scale-x: 1.4;
+    -fx-scale-y: 1.4;
+    -fx-scale-z: 1.4;
+}
+
+/* Turn off style of textfield in date picker */
+.date-picker > .text-field:disabled, .date-picker > .text-field {
+    -fx-effect: null;
 }
 
 .Alert .header-panel {
@@ -46,65 +83,54 @@
 }
 
 .scroll-bar:vertical {
-    -fx-background-color: transparent, transparent, transparent;
+    -fx-background-color: transparent;
     -fx-pref-width: 1em;
-    -fx-base: rgb(150,150,0);
-}
-
-.scroll-bar:horizontal {
-    /*-fx-pref-width: 0em;*/
-    /*-fx-max-width: 0em;*/
-    -fx-padding: 0em;
-    -fx-background-color:transparent, transparent, transparent;
-    -fx-border-color:transparent;
-    -fx-background-radius: 0em;
-    -fx-border-radius:0em;
-}
-.scroll-bar:horizontal .increment-button ,
-.scroll-bar:horizontal .decrement-button {
-
-    -fx-background-color:transparent;
-    -fx-background-radius: 0em;
-    -fx-padding:0em;
-}
-.scroll-bar:horizontal .increment-arrow,
-.scroll-bar:horizontal .decrement-arrow {
-    -fx-shape: "";
-    -fx-padding:0;
-}
-.scroll-bar:horizontal .thumb {
-    -fx-background-color:transparent, transparent, transparent;
-    -fx-background-insets: 0, 0, 0;
-    -fx-background-radius: 2em;
-    -fx-padding:0px;
-
-}
-
-.scroll-bar:vertical .track {
-    -fx-background-color: transparent, transparent, transparent;
-    -fx-border-color: transparent;
-    -fx-background-radius: 0em;
 }
 
 .scroll-bar:vertical .thumb {
     -fx-background-color: rgb(200,200,200);
     -fx-background-insets: 0 4 0 4/*0 4 0 4*/;
 }
-
 .scroll-bar:vertical .thumb:hover {
     -fx-background-color: rgb(150,150,150);
 }
-
 .scroll-bar:vertical .thumb:pressed {
     -fx-background-color: rgb(100,100,100);
 }
-/* "disable" increment, decrement buttons & arrows */
+/* offset vertical scroll-bar on arrows' place */
 .scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
-    -fx-background-color:transparent;
-    -fx-background-radius: 0em;
     -fx-padding: 0.1em;
 }
+/* "disable" increment, decrement buttons & arrows */
 .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
     -fx-pref-width: 0cm;
     -fx-pref-height: 0cm;
 }
+
+.scroll-bar:horizontal .increment-button,
+.scroll-bar:horizontal .decrement-button {
+    -fx-padding: 0;
+}
+
+.scroll-bar:horizontal .increment-arrow,
+.scroll-bar:horizontal .decrement-arrow {
+    -fx-shape: null;
+    -fx-padding: 0;
+}
+
+.table-view, .table-view .column-header .label {
+    -fx-font-size: 12px;
+}
+
+.button,
+.label,
+.combo-box {
+    -fx-font-size: 14px;
+}
+
+/*
+The disabled property cascades from a scene graph node to its child nodes,
+so all the child nodes of the combo box effectively pick up their :disabled CSS styles.
+So, for example, the Label displaying the selected item uses its disabled style,
+which has opacity set to 0.4.
+*/

@@ -7,7 +7,6 @@
 
     -fx-dark-text-color: #1a1a1a;
     -fx-mid-text-color: #333;
-    /*-fx-light-text-color: #e6e6e6;*/
     -fx-light-text-color: #bfbfbf;
 
     -fx-control-inner-background: derive(-fx-base, 40%);
@@ -15,7 +14,6 @@
 }
 
 .text-field {
-    /*-fx-border-color: transparent;*/
     -fx-font-size: 14px;
 }
 

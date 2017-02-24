@@ -1,12 +1,9 @@
 package entity;
 
-import com.sun.istack.internal.NotNull;
 import service.CustomerServiceImpl;
-import service.OrderServiceImpl;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -89,8 +86,7 @@ public class Customer {
     }
 
     public List<Order> getOrders() {
-//        return orders;
-        return orders.isEmpty() ? (orders = CustomerServiceImpl.getInstance().findOrders(this)) : orders;
+        return orders != null && orders.isEmpty() ? orders = CustomerServiceImpl.getInstance().findOrders(this) : orders;
     }
 
     public void setOrders(List<Order> orders) {

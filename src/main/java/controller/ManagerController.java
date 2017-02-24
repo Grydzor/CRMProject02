@@ -6,6 +6,7 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
@@ -19,16 +20,41 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.sql.Date;
-import java.util.ArrayList;
+import java.util.List;
 
 public final class ManagerController {
+    @FXML private Button logOutButton;
 
+    // Orders table
     @FXML private TableView<Order> ordersTable;
           private ObservableList<Order> orders;
     @FXML private TableColumn<Order, Long> orderIdColumn;
     @FXML private TableColumn<Order, Date> orderDateColumn;
     @FXML private TableColumn<Order, BigDecimal> orderPriceColumn;
+    // Order info
+    @FXML private TextField managerField;
+    @FXML private TextField orderNumberField;
+    @FXML private TextField orderDateField;
+    @FXML private ComboBox<OrderStatus> statusBox;
+    private ObservableList<OrderStatus> statuses;
+    @FXML private DatePicker deadlinePicker;
+    @FXML private ComboBox<Customer> customerBox;
+    @FXML private Button newCustomerButton;
+    // Total
+    @FXML private Label amountLabel;
+    @FXML private Label sumLabel;
+    // Order buttons
+    @FXML private Button addOrderButton;
+    @FXML private Button applyAddingOrderButton;
+    @FXML private Button cancelAddingOrderButton;
+    @FXML private Button changeOrderButton;
+    @FXML private Button applyChangingOrderButton;
+    @FXML private Button cancelChangingOrderButton;
+    @FXML private Button deleteOrderButton;
+    @FXML private Button applyDeletingOrderButton;
+    @FXML private Button cancelDeletingOrderButton;
 
+    // Items table
     @FXML private TableView<Item> itemsTable;
           private ObservableList<Item> items;
     @FXML private TableColumn<Item, Integer> itemIdColumn;
@@ -38,60 +64,39 @@ public final class ManagerController {
     @FXML private TableColumn<Item, BigDecimal> itemSumNoVATColumn;
     @FXML private TableColumn<Item, BigDecimal> itemPriceVATColumn;
     @FXML private TableColumn<Item, BigDecimal> itemSumVATColumn;
-
-    @FXML private Label amountLabel;
-    @FXML private Label sumLabel;
-
-    @FXML private Button newOrderButton;
-    @FXML private Button saveOrderButton;
-    @FXML private Button changeOrderButton;
-    @FXML private Button cancelOrderButton;
-    @FXML private Button deleteOrderButton;
-    @FXML private Button applyDeletingOrderButton;
-
-    @FXML private Button logOutButton;
+    // Item buttons
     @FXML private Button addItemButton;
+    @FXML private Button applyAddingItemButton;
+    @FXML private Button cancelAddingItemButton;
     @FXML private Button changeItemButton;
+    @FXML private Button applyChangingItemButton;
+    @FXML private Button cancelChangingItemButton;
     @FXML private Button deleteItemButton;
     @FXML private Button applyDeletingItemButton;
     @FXML private Button cancelDeletingItemButton;
 
-    @FXML private Button newCustomerButton;
-
-    @FXML private TextField managerField;
-    @FXML private TextField orderNumberField;
-    @FXML private TextField orderDateField;
-    @FXML private ComboBox<OrderStatus> statusBox;
-          private ObservableList<OrderStatus> statuses;
-    @FXML private DatePicker deadlinePicker;
-    @FXML private ComboBox<Customer> customerBox;
-
+    // Displayed info
+    private Order currentOrder;
     private Employee currentManager;
-    private Long orderNumber;
-    private Date orderDate;
-    private Date deadline;
-    private Customer customer;
+    private Customer currentCustomer;
+    private Item currentItem;
+    private Date currentDeadline;
 
+    // Services
     private OrderService orderService;
     private ItemService itemService;
     private ProductService productService;
     private CustomerService customerService;
     private UserService userService;
 
+    // formats for dates & BigDecimal
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
     private DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
     private Helper helper;
 
-    private Order currentOrder;
-    private Item currentItem;
-
     public void initialize() {
         helper = new Helper();
-
-//        setPercentWidth();
-
-//        helper.createItemColumns();
 
         orderService = OrderServiceImpl.getInstance();
         itemService = ItemServiceImpl.getInstance();
@@ -111,7 +116,7 @@ public final class ManagerController {
         ordersTable.setItems(orders);
 
 //        itemIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        itemIdColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper(itemsTable.getItems().indexOf(p.getValue()) + 1 + ""));
+        itemIdColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(itemsTable.getItems().indexOf(p.getValue()) + 1));
 
         itemQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         itemNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
@@ -142,12 +147,27 @@ public final class ManagerController {
             }
         });
         helper.addSelectListener();
+
+
+        deadlinePicker.setDayCellFactory(datePicker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item.isBefore(LocalDate.now())) {
+                    setDisable(true);
+                }
+            }
+        });
     }
 
     @FXML
-    public void newOrder() {
-        helper.disableOrderInfo(false);
-        addItemButton.setDisable(false);
+    public void addOrder() {
+
+        helper.disableForActionButReverseButNot(true, addOrderButton, applyAddingOrderButton, cancelAddingOrderButton,
+                new Node[]{customerBox, deadlinePicker},
+                addItemButton, newCustomerButton, itemsTable);
+
+        items.clear();
 
         managerField.setText(currentManager.shortInfo());
         statusBox.getSelectionModel().select(0);
@@ -156,16 +176,24 @@ public final class ManagerController {
     }
 
     @FXML
-    public void cancelOrder() {
-        helper.disableOrderInfo(true);
+    public void cancelAddingOrder() {
+
+        helper.disableForActionButReverseButNot(false, addOrderButton, applyAddingOrderButton, cancelAddingOrderButton,
+                new Node[]{customerBox, deadlinePicker},
+                addItemButton, newCustomerButton, itemsTable);
+        changeItemButton.setDisable(true);
+
+        List<Item> itemsDB = currentOrder != null ? currentOrder.getItems() : null;
+        if (itemsDB != null) items.setAll(itemsDB);
+
     }
 
     @FXML
-    public void saveOrder() {
+    public void applyAddingOrder() {
         helper.checkFields();
 
-        if (customer != null && deadline != null) {
-            Order order = new Order(currentManager, customer, deadline, OrderStatus.OPENED);
+        if (currentCustomer != null && currentDeadline != null) {
+            Order order = new Order(currentManager, currentCustomer, currentDeadline, OrderStatus.OPENED);
             for (Item item : items) {
                 item.setOrder(order);
                 itemService.update(item);
@@ -173,12 +201,26 @@ public final class ManagerController {
             orderService.add(order);
             ordersTable.getItems().add(order);
             ordersTable.getSelectionModel().select(order);
-            helper.disableOrderInfo(true);
+
+            helper.disableForActionButReverseButNot(false, addOrderButton, applyAddingOrderButton, cancelAddingOrderButton,
+                    new Node[]{addItemButton, customerBox, deadlinePicker, itemsTable},
+                    newCustomerButton, itemsTable);
+            changeItemButton.setDisable(true);
         }
     }
 
     @FXML
     public void changeOrder() {
+
+    }
+
+    @FXML
+    public void applyChangingOrder() {
+
+    }
+
+    @FXML
+    public void cancelChangingOrder() {
 
     }
 
@@ -192,6 +234,10 @@ public final class ManagerController {
 
     }
 
+    @FXML
+    public void cancelDeletingOrder() {
+
+    }
 
     @FXML
     public void logOut() {
@@ -211,31 +257,45 @@ public final class ManagerController {
     }
 
     @FXML
+    public void applyAddingItem() {
+
+    }
+
+    @FXML
+    public void cancelAddingItem() {
+
+    }
+
+    @FXML
     public void changeItem() {
 
     }
 
     @FXML
+    public void applyChangingItem() {
+
+    }
+
+    @FXML
+    public void cancelChangingItem() {
+
+    }
+
+    @FXML
     public void deleteItem() {
-        applyDeletingItemButton.setVisible(true);
-        cancelDeletingItemButton.setVisible(true);
-        helper.disableAll(true);
+        helper.disableForActionButReverseButNot(true, deleteItemButton, applyDeletingItemButton, cancelDeletingItemButton, null);
     }
 
     @FXML
     public void cancelDeletingItem() {
-        applyDeletingItemButton.setVisible(false);
-        cancelDeletingItemButton.setVisible(false);
-        helper.disableAll(false);
+        helper.disableForActionButReverseButNot(false, deleteItemButton, applyDeletingItemButton, cancelDeletingItemButton, null);
     }
 
     @FXML
     public void applyDeletingItem() {
         itemService.delete(currentItem);
         items.remove(currentItem);
-        applyDeletingItemButton.setVisible(false);
-        cancelDeletingItemButton.setVisible(false);
-        helper.disableAll(false);
+        helper.disableForActionButReverseButNot(false, deleteItemButton, applyDeletingItemButton, cancelDeletingItemButton, null);
     }
 
     @FXML
@@ -249,17 +309,15 @@ public final class ManagerController {
         }
     }
 
-    @FXML
-    public void nextStatus() {
-
-    }
-
     protected class Helper {
         private void addSelectListener() {
             ordersTable.getSelectionModel().selectedItemProperty()
                     .addListener((observable, oldValue, newValue) -> {
                         currentOrder = newValue;
                         fillInfoWith(currentOrder);
+                        addItemButton.setDisable(currentOrder == null);
+                        changeItemButton.setDisable(true);
+                        deleteItemButton.setDisable(true);
                     });
             itemsTable.getSelectionModel().selectedItemProperty()
                     .addListener((observable, oldValue, newValue) -> {
@@ -269,8 +327,9 @@ public final class ManagerController {
                     });
         }
 
+        // Override method for updating table column with specified format
         private void setCellFactoryForBigDecimal() {
-            Callback callback = param -> new TableCell<Item, BigDecimal>() {
+            Callback<TableColumn<Item, BigDecimal>, TableCell<Item, BigDecimal>> callback = param -> new TableCell<Item, BigDecimal>() {
                 @Override
                 protected void updateItem(BigDecimal item, boolean empty) {
                     super.updateItem(item, empty);
@@ -281,6 +340,7 @@ public final class ManagerController {
                     }
                 }
             };
+
             itemPriceNoVATColumn.setCellFactory(callback);
             itemPriceVATColumn.setCellFactory(callback);
             itemSumNoVATColumn.setCellFactory(callback);
@@ -292,12 +352,7 @@ public final class ManagerController {
                 items.setAll(currentOrder.getItems());
                 itemsTable.setItems(items);
 
-                managerField.setText(currentOrder.getManager().shortInfo());
-                orderNumberField.setText(currentOrder.getId().toString());
-                orderDateField.setText(currentOrder.getDate().toLocalDate().format(formatter));
-                deadlinePicker.setValue(currentOrder.getDeadline().toLocalDate());
-                statusBox.setValue(currentOrder.getStatus());
-                customerBox.setValue(currentOrder.getCustomer());
+                fillOrderInfo(currentOrder);
 
                 newCustomerButton.setVisible(true);
 
@@ -319,6 +374,15 @@ public final class ManagerController {
 
                 addItemButton.setDisable(true);
             }
+        }
+
+        private void fillOrderInfo(Order currentOrder) {
+            managerField.setText(currentOrder.getManager().shortInfo());
+            orderNumberField.setText(currentOrder.getId().toString());
+            orderDateField.setText(currentOrder.getDate().toLocalDate().format(formatter));
+            deadlinePicker.setValue(currentOrder.getDeadline().toLocalDate());
+            statusBox.setValue(currentOrder.getStatus());
+            customerBox.setValue(currentOrder.getCustomer());
         }
 
         private void clearOrderInfo() {
@@ -344,9 +408,9 @@ public final class ManagerController {
 //            saveOrderButton.setDisable(bool);
             deleteOrderButton.setDisable(!bool);
             changeOrderButton.setDisable(!bool);
-            newOrderButton.setVisible(bool);
-            saveOrderButton.setVisible(!bool);
-            cancelOrderButton.setVisible(!bool);
+            addOrderButton.setVisible(bool);
+            applyAddingOrderButton.setVisible(!bool);
+            cancelAddingOrderButton.setVisible(!bool);
 
             ordersTable.setDisable(!bool);
 
@@ -356,30 +420,48 @@ public final class ManagerController {
             newCustomerButton.setVisible(!bool || currentOrder != null);
         }
 
-        private void disableAll(Boolean bool) {
+        private void checkFields() {
+            currentCustomer = InputDataChecker.checkEnum(customerBox);
+            currentDeadline = InputDataChecker.checkDate(deadlinePicker);
+        }
+
+        // disables/enables buttons but enable/disable (reverse!) nodes
+        private void disableForActionButReverseButNot(boolean bool, Button actionButton, Button applyButton, Button cancelButton,
+                                                      Node[] reverseNodes,
+                                                      Node... nodes) {
+
+            actionButton.setVisible(!bool);
+            actionButton.setDisable(bool);
+            applyButton.setVisible(bool);
+            applyButton.setDisable(!bool);
+            cancelButton.setVisible(bool);
+            cancelButton.setDisable(!bool);
+
+            if (reverseNodes != null) {
+                for (Node node : reverseNodes) {
+                    node.setDisable(!bool);
+                }
+            }
+
+            disableAllButNot(bool, nodes);
+        }
+
+        // disables all but doesn't disable nodes independently from bool
+        private void disableAllButNot(Boolean bool, Node... nodes) {
             ordersTable.setDisable(bool);
             itemsTable.setDisable(bool);
 
-            newOrderButton.setDisable(bool);
+            addOrderButton.setDisable(bool);
             deleteOrderButton.setDisable(bool);
             changeOrderButton.setDisable(bool);
 
             newCustomerButton.setDisable(bool);
             addItemButton.setDisable(bool);
             changeItemButton.setDisable(bool);
-        }
 
-        private void checkFields() {
-            customer = InputDataChecker.checkEnum(customerBox);
-            deadline = InputDataChecker.checkDate(deadlinePicker);
-        }
-
-        private void disableAllBut(boolean bool, Button actionButton,
-                                    Button applyButton, Button cancelButton) {
-
-            actionButton.setVisible(bool);
-            applyButton.setVisible(!bool);
-            cancelButton.setVisible(!bool);
+            for (Node node : nodes) {
+                node.setDisable(false);
+            }
         }
     }
 }

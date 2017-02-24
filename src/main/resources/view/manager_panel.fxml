@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -8,17 +16,20 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import com.sun.javafx.scene.control.skin.IntegerField?>
+<?import javafx.beans.property.DoubleProperty?>
 
-<GridPane fx:id="mainPane" hgap="20.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" vgap="15.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
+<GridPane fx:id="mainPane" hgap="20.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" vgap="15.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
    <children>
       <Label text="Manager:" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <font>
@@ -50,7 +61,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <DatePicker fx:id="deadlinePicker" disable="true" prefWidth="140.0" style="-fx-font-size: 14;" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+      <DatePicker fx:id="deadlinePicker" disable="true" prefWidth="${mainPane.width * 0.2}" style="-fx-font-size: 14;" GridPane.columnIndex="4" GridPane.rowIndex="4" />
       <Label text="Order date:" GridPane.columnIndex="3" GridPane.rowIndex="3">
          <font>
             <Font size="14.0" />
@@ -116,73 +127,50 @@
          </font>
       </Label>
       <ComboBox fx:id="statusBox" disable="true" prefWidth="${mainPane.width * 0.3}" style="-fx-font-size: 14;" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-      <FlowPane fx:id="totalLabels" vgap="10.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
-         <children>
-            <Label prefWidth="${totalLabels.width}" text="Total amount:">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label prefWidth="${totalLabels.width}" text="Total sum:">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-         </children>
-         <GridPane.margin>
-            <Insets top="7.0" />
-         </GridPane.margin>
-      </FlowPane>
-      <FlowPane fx:id="total" vgap="10.0" GridPane.columnIndex="4" GridPane.rowIndex="6">
-         <children>
-            <Label fx:id="amountLabel" minWidth="60.0" prefWidth="${total.width}" style="-fx-font-weight: bold;" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="sumLabel" minWidth="120.0" prefWidth="${total.width}" style="-fx-font-weight: bold;">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-         </children>
-         <GridPane.margin>
-            <Insets top="7.0" />
-         </GridPane.margin>
-      </FlowPane>
       <Label style="-fx-font-size: 24px;" text="Orders" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
       <GridPane maxWidth="300.0" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
          <children>
-            <Button fx:id="deleteOrderButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteOrder" prefWidth="80.0" text="Delete" textAlignment="CENTER">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-            <StackPane GridPane.columnIndex="1">
+            <StackPane>
                <children>
-                  <Button fx:id="newOrderButton" mnemonicParsing="false" onAction="#newOrder" prefWidth="80.0" text="New">
+                  <Button fx:id="addOrderButton" mnemonicParsing="false" onAction="#addOrder" prefWidth="80.0" text="New">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="saveOrderButton" alignment="CENTER" mnemonicParsing="false" onAction="#saveOrder" prefWidth="80.0" style="-fx-base: admin;" text="Save" textAlignment="CENTER" visible="false">
+                  <Button fx:id="applyAddingOrderButton" alignment="CENTER" mnemonicParsing="false" onAction="#applyAddingOrder" prefWidth="80.0" style="-fx-base: #b6e7c9;" text="Save" textAlignment="CENTER" visible="false">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
                </children>
             </StackPane>
-            <Button fx:id="changeOrderButton" mnemonicParsing="false" onAction="#changeOrder" prefWidth="80.0" style="-fx-font-size: 14;" text="Change" GridPane.columnIndex="2" />
-            <Button fx:id="applyDeletingOrderButton" mnemonicParsing="false" onAction="#applyDeletingOrder" prefWidth="80.0" text="Delete" visible="false" GridPane.rowIndex="1">
+            <Button fx:id="applyDeletingOrderButton" mnemonicParsing="false" onAction="#applyDeletingOrder" prefWidth="80.0" text="Delete" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="cancelOrderButton" mnemonicParsing="false" onAction="#cancelOrder" prefWidth="80.0" text="Cancel" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="cancelAddingOrderButton" mnemonicParsing="false" onAction="#cancelAddingOrder" prefWidth="80.0" text="Cancel" visible="false" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
+            <Button fx:id="cancelChangingOrderButton" mnemonicParsing="false" onAction="#cancelChangingOrder" prefWidth="80.0" style="-fx-font-size: 14;" text="Cancel" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <StackPane GridPane.columnIndex="2">
+               <children>
+                  <Button fx:id="deleteOrderButton" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onAction="#deleteOrder" prefWidth="80.0" text="Delete" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="cancelDeletingOrderButton" mnemonicParsing="false" onAction="#cancelDeletingOrder" prefWidth="80.0" style="-fx-font-size: 14;" text="Cancel" visible="false" />
+               </children>
+            </StackPane>
+            <StackPane GridPane.columnIndex="1">
+               <children>
+                  <Button fx:id="changeOrderButton" disable="true" mnemonicParsing="false" onAction="#changeOrder" prefWidth="80.0" style="-fx-font-size: 14;" text="Change" />
+                  <Button fx:id="applyChangingOrderButton" mnemonicParsing="false" onAction="#applyChangingOrder" prefWidth="80.0" style="-fx-font-size: 14;" text="Apply" visible="false" />
+               </children>
+            </StackPane>
          </children>
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
@@ -194,18 +182,8 @@
             <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <GridPane maxWidth="350.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6">
+      <GridPane fx:id="newItemPane" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="6">
          <children>
-            <Button fx:id="addItemButton" alignment="CENTER" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#addItem" prefWidth="99.0" text="Add item" textAlignment="CENTER">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-            <Button fx:id="changeItemButton" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#changeItem" prefWidth="99.0" text="Change item" textAlignment="CENTER" GridPane.columnIndex="1">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
             <StackPane GridPane.columnIndex="2">
                <children>
                   <Button fx:id="deleteItemButton" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#deleteItem" prefWidth="99.0" text="Delete item" textAlignment="CENTER">
@@ -217,11 +195,56 @@
                </children>
             </StackPane>
             <Button fx:id="applyDeletingItemButton" mnemonicParsing="false" onAction="#applyDeletingItem" prefWidth="99.0" style="-fx-font-size: 14; -fx-base: #ff9999;" text="Delete" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label prefWidth="120" text="Total amount:" GridPane.columnIndex="4">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label prefWidth="120" text="Total sum:" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="amountLabel" minWidth="${newItemPane.width - 490}" prefWidth="${newItemPane.width - 490}" style="-fx-font-weight: bold;" textAlignment="CENTER" GridPane.columnIndex="5">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="sumLabel" minWidth="${newItemPane.width - 490}" prefWidth="${newItemPane.width - 490}" style="-fx-font-weight: bold;" GridPane.columnIndex="5" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="cancelAddingItemButton" mnemonicParsing="false" onAction="#cancelAddingItem" prefWidth="99.0" style="-fx-font-size: 14;" text="Cancel" visible="false" GridPane.rowIndex="1" />
+            <Button fx:id="cancelChangingItemButton" mnemonicParsing="false" onAction="#cancelChangingItem" prefWidth="99.0" style="-fx-font-size: 14;" text="Cancel" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <StackPane>
+               <children>
+                  <Button fx:id="addItemButton" alignment="CENTER" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#addItem" prefWidth="99.0" text="Add item" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="applyAddingItemButton" disable="true" mnemonicParsing="false" onAction="#applyAddingItem" prefWidth="99.0" style="-fx-font-size: 14; -fx-base: #b6e7c9;" text="Add" visible="false" />
+               </children>
+            </StackPane>
+            <StackPane GridPane.columnIndex="1">
+               <children>
+                  <Button fx:id="changeItemButton" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#changeItem" prefWidth="99.0" text="Change item" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="applyChangingItemButton" disable="true" mnemonicParsing="false" onAction="#applyChangingItem" prefWidth="99.0" style="-fx-font-size: 14; -fx-base: #b6e7c9;" text="Change" visible="false" />
+               </children>
+            </StackPane>
          </children>
          <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="110" prefWidth="110" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="110" prefWidth="110" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="110" prefWidth="110" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="120" prefWidth="120" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="${newItemPane.width - 490}" prefWidth="${newItemPane.width - 490}" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints vgrow="SOMETIMES" />
