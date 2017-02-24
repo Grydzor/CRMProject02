@@ -88,9 +88,7 @@ public class StageFactory {
         return controller;
     }
 
-    public static <ControllerT extends ValueSettable
-            <ParameterT, ResultT>, ParameterT, ResultT>
-            ResultT genericModal(String resource, String title, ParameterT parameter) {
+    public static <ControllerT extends ValueSettable<ParameterT, ResultT>, ParameterT, ResultT> ResultT genericModal(String resource, String title, ParameterT parameter) {
         FXMLLoader loader = new FXMLLoader(StageFactory.class.getResource(resource));
         Parent root;
         try {

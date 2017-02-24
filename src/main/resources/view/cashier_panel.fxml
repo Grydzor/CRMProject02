@@ -16,11 +16,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" styleClass="background" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CashierController">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: white;" styleClass="background" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CashierController">
    <children>
       <VBox alignment="CENTER" prefHeight="540.0" prefWidth="280.0" spacing="8.0" HBox.hgrow="ALWAYS">
          <children>
-            <Label alignment="CENTER" text="Orders">
+            <Label alignment="CENTER" style="-fx-font-size: 24px;" text="Orders">
                <font>
                   <Font size="24.0" />
                </font>
@@ -43,7 +43,7 @@
       <Separator orientation="VERTICAL" prefHeight="200.0" prefWidth="10.0" />
       <VBox alignment="CENTER" prefHeight="540.0" prefWidth="670.0" spacing="10.0" HBox.hgrow="ALWAYS">
          <children>
-            <Label text="Order Information">
+            <Label style="-fx-font-size: 24px;" text="Order Information">
                <font>
                   <Font size="24.0" />
                </font>

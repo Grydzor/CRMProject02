@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: white; fx-background-image: url(https://www.transparenttextures.com/patterns/climpek.png);" stylesheets="@styles/light_theme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: white; fx-background-image: url(https://www.transparenttextures.com/patterns/climpek.png);" stylesheets="@styles/light_theme.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
    <children>
       <VBox alignment="CENTER" prefHeight="540.0" prefWidth="320.0" HBox.hgrow="ALWAYS">
          <children>
@@ -46,7 +46,7 @@
                   <Image url="@imgs/admin_panel_icon.png" />
                </image>
             </ImageView>
-            <Label text="Employee Details">
+            <Label style="-fx-font-size: 24px;" text="Employee Details">
                <font>
                   <Font size="24.0" />
                </font>
@@ -132,7 +132,7 @@
                </padding>
             </Separator>
             <Region VBox.vgrow="ALWAYS" />
-            <Label fx:id="accountInformation" text="Account Information">
+            <Label fx:id="accountInformation" style="-fx-font-size: 24px;" text="Account Information">
                <font>
                   <Font size="24.0" />
                </font>

@@ -52,6 +52,7 @@ public class StorageController {
 
     @FXML private Button saveButton;
     @FXML private Button logOutButton;
+    @FXML private Button storageButton;
 
     private ObservableList<Order> orders;
     private ObservableList<Item> items;
@@ -121,6 +122,10 @@ public class StorageController {
                 getClass().getResource("/view/styles/light_theme.css").toExternalForm());
         dialogPane.getStyleClass().add("Alert");
         alert.showAndWait();
+    }
+
+    public void storageButtonOnAction() {
+        StageFactory.genericWindow("/view/storage_items_panel.fxml", "Storage", null, "/view/styles/light_theme.css");
     }
 
     @FXML
