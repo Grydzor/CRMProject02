@@ -18,11 +18,6 @@ public class HibernateSessionFactory {
         registry = new StandardServiceRegistryBuilder()
                 .configure("/hibernate.cfg.xml").build();
         Metadata metadata = new MetadataSources(registry)
-                /*.addAnnotatedClass(Employee.class)
-                .addAnnotatedClass(User.class)
-                .addAnnotatedClass(Item.class)
-                .addAnnotatedClass(Order.class)
-                .addAnnotatedClass(Product.class)*/
                 .getMetadataBuilder()
                 .build();
 

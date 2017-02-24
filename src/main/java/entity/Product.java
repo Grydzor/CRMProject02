@@ -1,6 +1,9 @@
 package entity;
 
+import service.ServiceImpl;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -9,7 +12,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "PRODUCTS")
-public class Product {
+public class Product implements Serializable {
 
     @Id
     @Column(name = "PRODUCT_ID")

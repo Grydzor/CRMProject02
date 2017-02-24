@@ -5,10 +5,10 @@
 <hibernate-configuration>
     <session-factory>
         <!-- Блок настроек подключения к DB -->
-        <property name="connection.url">jdbc:mysql://localhost/crm</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/crm</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.username">root</property>
-        <property name="connection.password">root</property>
+        <property name="connection.password">mysqlroot</property>
 
         <!-- Рекомендуется использовать create: при подключении к BD создается схема
         Потом нужно переключиться на update - обновление содержимого базы данных
@@ -18,12 +18,14 @@
         <property name="connection.pool_size">1</property>
 
         <property name="show_sql">true</property>
-        
+
         <mapping class="entity.Employee"/>
         <mapping class="entity.User"/>
         <mapping class="entity.Item"/>
         <mapping class="entity.Product"/>
         <mapping class="entity.Order"/>
         <mapping class="entity.Customer"/>
+        <mapping class="entity.Storage"/>
+        <mapping class="entity.UserSession"/>
     </session-factory>
 </hibernate-configuration>
