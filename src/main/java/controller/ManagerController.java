@@ -22,7 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.sql.Date;
 import java.util.List;
 
-public final class ManagerController {
+public class ManagerController {
     @FXML private Button logOutButton;
 
     // Orders table
@@ -162,10 +162,10 @@ public final class ManagerController {
 
     @FXML
     public void addOrder() {
+        helper.disableForActionButNot(true, addOrderButton, applyAddingOrderButton, cancelAddingOrderButton,
+                itemsTable);
 
-        helper.disableForActionButReverseButNot(true, addOrderButton, applyAddingOrderButton, cancelAddingOrderButton,
-                new Node[]{customerBox, deadlinePicker},
-                addItemButton, newCustomerButton, itemsTable);
+        helper.disableOrderInfo(false);
 
         items.clear();
 
@@ -177,15 +177,13 @@ public final class ManagerController {
 
     @FXML
     public void cancelAddingOrder() {
+        helper.disableForActionButNot(false, addOrderButton, applyAddingOrderButton, cancelAddingOrderButton,
+                itemsTable);
 
-        helper.disableForActionButReverseButNot(false, addOrderButton, applyAddingOrderButton, cancelAddingOrderButton,
-                new Node[]{customerBox, deadlinePicker},
-                addItemButton, newCustomerButton, itemsTable);
-        changeItemButton.setDisable(true);
+        helper.disableOrderInfo(true);
 
-        List<Item> itemsDB = currentOrder != null ? currentOrder.getItems() : null;
-        if (itemsDB != null) items.setAll(itemsDB);
-
+        helper.selectCurrentOrder();
+        helper.selectCurrentItem();
     }
 
     @FXML
@@ -200,12 +198,13 @@ public final class ManagerController {
             }
             orderService.add(order);
             ordersTable.getItems().add(order);
-            ordersTable.getSelectionModel().select(order);
 
-            helper.disableForActionButReverseButNot(false, addOrderButton, applyAddingOrderButton, cancelAddingOrderButton,
-                    new Node[]{addItemButton, customerBox, deadlinePicker, itemsTable},
-                    newCustomerButton, itemsTable);
-            changeItemButton.setDisable(true);
+            helper.disableForActionButNot(false, addOrderButton, applyAddingOrderButton, cancelAddingOrderButton,
+                    itemsTable);
+            helper.disableOrderInfo(true);
+
+            ordersTable.getSelectionModel().select(order);
+//            helper.selectCurrentItem();
         }
     }
 
@@ -246,56 +245,65 @@ public final class ManagerController {
 
     @FXML
     public void addItem() {
-        Item item = StageFactory.genericModal("/view/modal/add_item.fxml", "Add item", currentOrder);
-        if (item != null) {
-            items.add(item);
-        }
-        if (currentOrder == null) {
-//            items.add
-        }
+        helper.disableForActionButNot(true,
+                addItemButton, applyAddingItemButton, cancelAddingItemButton);
 
     }
 
     @FXML
     public void applyAddingItem() {
-
+        helper.disableForActionButNot(false,
+                addItemButton, applyAddingItemButton, cancelAddingItemButton);
+        helper.selectCurrentOrder();
     }
 
     @FXML
     public void cancelAddingItem() {
-
+        helper.disableForActionButNot(false,
+                addItemButton, applyAddingItemButton, cancelAddingItemButton);
+        helper.selectCurrentOrder();
     }
 
     @FXML
     public void changeItem() {
-
+        helper.disableForActionButNot(true,
+                changeItemButton, applyChangingItemButton, cancelChangingItemButton);
     }
 
     @FXML
     public void applyChangingItem() {
-
+        helper.disableForActionButNot(false,
+                changeItemButton, applyChangingItemButton, cancelChangingItemButton);
+        helper.selectCurrentOrder();
     }
 
     @FXML
     public void cancelChangingItem() {
-
+        helper.disableForActionButNot(false,
+                changeItemButton, applyChangingItemButton, cancelChangingItemButton);
+        helper.selectCurrentOrder();
     }
 
     @FXML
     public void deleteItem() {
-        helper.disableForActionButReverseButNot(true, deleteItemButton, applyDeletingItemButton, cancelDeletingItemButton, null);
-    }
-
-    @FXML
-    public void cancelDeletingItem() {
-        helper.disableForActionButReverseButNot(false, deleteItemButton, applyDeletingItemButton, cancelDeletingItemButton, null);
+        helper.disableForActionButNot(true, deleteItemButton, applyDeletingItemButton, cancelDeletingItemButton);
     }
 
     @FXML
     public void applyDeletingItem() {
-        itemService.delete(currentItem);
-        items.remove(currentItem);
-        helper.disableForActionButReverseButNot(false, deleteItemButton, applyDeletingItemButton, cancelDeletingItemButton, null);
+        Item itemToDelete = currentItem;
+        itemService.delete(itemToDelete);
+        System.out.println(itemToDelete);
+        currentOrder.getItems().remove(itemToDelete);
+        System.out.println(itemToDelete);
+        helper.disableForActionButNot(false, deleteItemButton, applyDeletingItemButton, cancelDeletingItemButton);
+        helper.selectCurrentOrder();
+    }
+
+    @FXML
+    public void cancelDeletingItem() {
+        helper.disableForActionButNot(false, deleteItemButton, applyDeletingItemButton, cancelDeletingItemButton);
+        helper.selectCurrentOrder();
     }
 
     @FXML
@@ -309,23 +317,37 @@ public final class ManagerController {
         }
     }
 
-    protected class Helper {
+    private class Helper {
         private void addSelectListener() {
             ordersTable.getSelectionModel().selectedItemProperty()
                     .addListener((observable, oldValue, newValue) -> {
                         currentOrder = newValue;
-                        fillInfoWith(currentOrder);
-                        addItemButton.setDisable(currentOrder == null);
-                        changeItemButton.setDisable(true);
-                        deleteItemButton.setDisable(true);
+                        selectCurrentOrder();
                     });
             itemsTable.getSelectionModel().selectedItemProperty()
                     .addListener((observable, oldValue, newValue) -> {
                         currentItem = newValue;
-                        changeItemButton.setDisable(currentItem == null);
-                        deleteItemButton.setDisable(currentItem == null);
+                        selectCurrentItem();
                     });
         }
+
+        private void selectCurrentItem() {
+            changeItemButton.setDisable(currentItem == null);
+            deleteItemButton.setDisable(currentItem == null);
+        }
+
+        private void selectCurrentOrder() {
+            fillInfoWith(currentOrder);
+            addItemButton.setDisable(currentOrder == null);
+            changeOrderButton.setDisable(currentOrder == null);
+            deleteOrderButton.setDisable(currentOrder == null);
+            selectCurrentItem();
+        }
+
+        /*private void selectOrderAndItem() {
+            selectCurrentOrder(currentOrder);
+            selectCurrentItem(currentItem);
+        }*/
 
         // Override method for updating table column with specified format
         private void setCellFactoryForBigDecimal() {
@@ -354,8 +376,6 @@ public final class ManagerController {
 
                 fillOrderInfo(currentOrder);
 
-                newCustomerButton.setVisible(true);
-
                 addItemButton.setDisable(false);
 
                 Integer amount = 0;
@@ -369,8 +389,6 @@ public final class ManagerController {
             } else {
                 items.clear();
                 clearOrderInfo();
-
-                newCustomerButton.setVisible(false);
 
                 addItemButton.setDisable(true);
             }
@@ -404,20 +422,8 @@ public final class ManagerController {
             deadlinePicker.setDisable(bool);
             deadlinePicker.setStyle("-fx-border-color: transparent");
 
-            // buttons for order
-//            saveOrderButton.setDisable(bool);
-            deleteOrderButton.setDisable(!bool);
-            changeOrderButton.setDisable(!bool);
-            addOrderButton.setVisible(bool);
-            applyAddingOrderButton.setVisible(!bool);
-            cancelAddingOrderButton.setVisible(!bool);
-
-            ordersTable.setDisable(!bool);
-
             if (bool) fillInfoWith(currentOrder);
             else fillInfoWith(null);
-
-            newCustomerButton.setVisible(!bool || currentOrder != null);
         }
 
         private void checkFields() {
@@ -425,10 +431,9 @@ public final class ManagerController {
             currentDeadline = InputDataChecker.checkDate(deadlinePicker);
         }
 
-        // disables/enables buttons but enable/disable (reverse!) nodes
-        private void disableForActionButReverseButNot(boolean bool, Button actionButton, Button applyButton, Button cancelButton,
-                                                      Node[] reverseNodes,
+        private void disableForActionButNot(boolean bool, Button actionButton, Button applyButton, Button cancelButton,
                                                       Node... nodes) {
+            disableAllButNot(bool);
 
             actionButton.setVisible(!bool);
             actionButton.setDisable(bool);
@@ -437,31 +442,37 @@ public final class ManagerController {
             cancelButton.setVisible(bool);
             cancelButton.setDisable(!bool);
 
-            if (reverseNodes != null) {
-                for (Node node : reverseNodes) {
-                    node.setDisable(!bool);
+            if (nodes != null) {
+                for (Node node : nodes) {
+                    node.setDisable(false);
                 }
             }
 
-            disableAllButNot(bool, nodes);
         }
 
         // disables all but doesn't disable nodes independently from bool
-        private void disableAllButNot(Boolean bool, Node... nodes) {
+        private void disableAllButNot(Boolean bool) {
             ordersTable.setDisable(bool);
             itemsTable.setDisable(bool);
 
-            addOrderButton.setDisable(bool);
-            deleteOrderButton.setDisable(bool);
-            changeOrderButton.setDisable(bool);
+            disableIfEnabled(bool, addOrderButton);
+            disableIfEnabled(bool, applyAddingOrderButton);
+            disableIfEnabled(bool, cancelAddingOrderButton);
+            disableIfEnabled(bool, deleteOrderButton);
+            disableIfEnabled(bool, applyDeletingOrderButton);
+            disableIfEnabled(bool, cancelDeletingOrderButton);
+            disableIfEnabled(bool, changeOrderButton);
+            disableIfEnabled(bool, applyChangingOrderButton);
+            disableIfEnabled(bool, cancelChangingOrderButton);
 
-            newCustomerButton.setDisable(bool);
-            addItemButton.setDisable(bool);
-            changeItemButton.setDisable(bool);
 
-            for (Node node : nodes) {
-                node.setDisable(false);
-            }
+            disableIfEnabled(bool, addItemButton);
+            disableIfEnabled(bool, changeItemButton);
+            disableIfEnabled(bool, deleteItemButton);
+        }
+
+        private void disableIfEnabled(Boolean bool, Node node) {
+            if (bool && !node.isDisabled() || !bool && node.isDisabled()) node.setDisable(bool);
         }
     }
 }

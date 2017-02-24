@@ -101,15 +101,15 @@
                   <TableColumn fx:id="itemSumVATColumn" maxWidth="${(itemsTable.width - 14) * 0.16}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.16}" text="Sum (VAT inc.)" />
                </columns>
             </TableView>
-            <HBox alignment="CENTER" maxHeight="30.0" minHeight="30.0" prefHeight="30.0">
+            <HBox fx:id="newItemRow" alignment="CENTER_LEFT" maxHeight="30.0" minHeight="30.0" prefHeight="30.0">
                <children>
-                  <Label fx:id="numberNewItem" maxWidth="${(itemsTable.width - 14) * 0.06}" minWidth="30" prefWidth="${(itemsTable.width - 14) * 0.06}" />
-                  <ComboBox fx:id="productsNewItem" disable="true" maxWidth="${(itemsTable.width - 14) * 0.24}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.24}" />
-                  <TextField fx:id="amountNewItem" disable="true" maxWidth="${(itemsTable.width - 14) * 0.10}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.10}" />
-                  <TextField fx:id="priceNewItem" disable="true" maxWidth="${(itemsTable.width - 14) * 0.14}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.14}" />
-                  <Label fx:id="sumNewItem" maxWidth="${(itemsTable.width - 14) * 0.14}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.14}" />
-                  <Label fx:id="PriceVATNewItem" maxWidth="${(itemsTable.width - 14) * 0.16}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.16}" />
-                  <Label fx:id="SumVATNewItem" maxWidth="${(itemsTable.width - 14) * 0.16}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.16}" />
+                  <Label fx:id="numberNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 14) * 0.06}" minHeight="30.0" minWidth="10" prefHeight="30.0" prefWidth="${(newItemRow.width - 14) * 0.06}" />
+                  <ComboBox fx:id="productsNewItem" disable="true" maxHeight="30.0" maxWidth="${(newItemRow.width - 14) * 0.24}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 14) * 0.24}" />
+                  <TextField fx:id="amountNewItem" disable="true" maxHeight="30.0" maxWidth="${(newItemRow.width - 14) * 0.10}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 14) * 0.10}" />
+                  <TextField fx:id="priceNewItem" disable="true" maxHeight="30.0" maxWidth="${(newItemRow.width - 14) * 0.14}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 14) * 0.14}" />
+                  <Label fx:id="sumNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 14) * 0.14}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 14) * 0.14}" />
+                  <Label fx:id="PriceVATNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 14) * 0.16}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 14) * 0.16}" />
+                  <Label fx:id="SumVATNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 14) * 0.16}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 14) * 0.16}" />
                </children>
             </HBox>
          </children>
@@ -168,7 +168,7 @@
             <StackPane GridPane.columnIndex="1">
                <children>
                   <Button fx:id="changeOrderButton" disable="true" mnemonicParsing="false" onAction="#changeOrder" prefWidth="80.0" style="-fx-font-size: 14;" text="Change" />
-                  <Button fx:id="applyChangingOrderButton" mnemonicParsing="false" onAction="#applyChangingOrder" prefWidth="80.0" style="-fx-font-size: 14;" text="Apply" visible="false" />
+                  <Button fx:id="applyChangingOrderButton" mnemonicParsing="false" onAction="#applyChangingOrder" prefWidth="80.0" style="-fx-font-size: 14;" text="Save" visible="false" />
                </children>
             </StackPane>
          </children>
@@ -224,7 +224,7 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="applyAddingItemButton" disable="true" mnemonicParsing="false" onAction="#applyAddingItem" prefWidth="99.0" style="-fx-font-size: 14; -fx-base: #b6e7c9;" text="Add" visible="false" />
+                  <Button fx:id="applyAddingItemButton" disable="true" mnemonicParsing="false" onAction="#applyAddingItem" prefWidth="99.0" style="-fx-font-size: 14; -fx-base: #b6e7c9;" text="Save" visible="false" />
                </children>
             </StackPane>
             <StackPane GridPane.columnIndex="1">
@@ -234,7 +234,7 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="applyChangingItemButton" disable="true" mnemonicParsing="false" onAction="#applyChangingItem" prefWidth="99.0" style="-fx-font-size: 14; -fx-base: #b6e7c9;" text="Change" visible="false" />
+                  <Button fx:id="applyChangingItemButton" disable="true" mnemonicParsing="false" onAction="#applyChangingItem" prefWidth="99.0" style="-fx-font-size: 14; -fx-base: #b6e7c9;" text="Save" visible="false" />
                </children>
             </StackPane>
          </children>
@@ -260,7 +260,6 @@
                </HBox.margin></Button>
          </children>
       </HBox>
-         
    </children>
    <columnConstraints>
       <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" prefWidth="${mainPane.width * 0.3}" />

@@ -83,7 +83,6 @@ public class LoginController {
         Long userId;
         if (fromSession) userId = -1L;
         else userId = user.getId();
-        System.out.println(user.getEmployee().getPosition());
         setStatusMsg(UserStatus.SUCCESS);
 //                StageFactory.backToLogInWindow();
         switch (user.getEmployee().getPosition()) {
