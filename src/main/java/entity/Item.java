@@ -1,14 +1,7 @@
 package entity;
 
-import org.springframework.context.ApplicationContext;
-import service.StorageService;
-import service.StorageServiceImpl;
-import util.ApplicationContextFactory;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by Никита on 15.02.2017.
@@ -44,18 +37,6 @@ public class Item {
         this.price = product.getPrice();
         this.amount = amount;
         this.order = order;
-    }
-
-    public Integer getStorage() {
-        ApplicationContext context = ApplicationContextFactory.getApplicationContext();
-        StorageService storageService = (StorageService) context.getBean("storageService");
-        List<Storage> storages = storageService.findAll();
-        for (Storage storage : storages) {
-            if (storage.getProduct().getId().equals(this.getProduct().getId())) {
-                return storage.getAmount();
-            }
-        }
-        return 0;
     }
 
     public Long getId() {

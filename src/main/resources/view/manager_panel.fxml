@@ -88,20 +88,20 @@
             <Insets />
          </GridPane.margin>
       </Button>
-      <VBox fx:id="itemsTablePane" spacing="5.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="5">
+      <VBox fx:id="itemsTablePane" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="5">
          <children>
             <TableView fx:id="itemsTable">
                <columns>
                   <TableColumn fx:id="itemIdColumn" maxWidth="${(itemsTable.width - 14) * 0.06}" minWidth="30" prefWidth="${(itemsTable.width - 14) * 0.06}" text="№" />
                   <TableColumn fx:id="itemNameColumn" maxWidth="${(itemsTable.width - 14) * 0.24}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.24}" text="Product" />
-                  <TableColumn fx:id="itemQuantityColumn" maxWidth="${(itemsTable.width - 14) * 0.10}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.10}" text="Amount" />
+                  <TableColumn fx:id="itemQuantityColumn" maxWidth="${(itemsTable.width - 14) * 0.10}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.10}" text="Quantity" />
                   <TableColumn fx:id="itemPriceNoVATColumn" maxWidth="${(itemsTable.width - 14) * 0.14}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.14}" text="Price" />
                   <TableColumn fx:id="itemSumNoVATColumn" maxWidth="${(itemsTable.width - 14) * 0.14}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.14}" text="Sum" />
                   <TableColumn fx:id="itemPriceVATColumn" maxWidth="${(itemsTable.width - 14) * 0.16}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.16}" text="Price (VAT inc.)" />
                   <TableColumn fx:id="itemSumVATColumn" maxWidth="${(itemsTable.width - 14) * 0.16}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.16}" text="Sum (VAT inc.)" />
                </columns>
             </TableView>
-            <HBox fx:id="newItemRow" alignment="CENTER_LEFT" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" spacing="2.0" disable="true">
+            <HBox fx:id="newItemRow" alignment="CENTER_LEFT" disable="true" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" spacing="2.0">
                <children>
                   <Label fx:id="numberNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.06}" minHeight="30.0" minWidth="10" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.06}" />
                   <ComboBox fx:id="productsNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.24}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.24}" />
@@ -109,8 +109,11 @@
                   <TextField fx:id="priceNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.14}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.14}" />
                   <Label fx:id="sumNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.14}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.14}" />
                   <Label fx:id="PriceVATNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.16}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.16}" />
-                  <Label fx:id="SumVATNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.16}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.16}" />
+                  <Label fx:id="sumVATNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.16}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.16}" />
                </children>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>
@@ -195,7 +198,7 @@
                </children>
             </StackPane>
             <Button fx:id="applyDeletingItemButton" mnemonicParsing="false" onAction="#applyDeletingItem" prefWidth="99.0" style="-fx-font-size: 14; -fx-base: #ff9999;" text="Delete" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label prefWidth="120" text="Total amount:" GridPane.columnIndex="4">
+            <Label prefWidth="120" text="Total quantity:" GridPane.columnIndex="4">
                <font>
                   <Font size="14.0" />
                </font>
