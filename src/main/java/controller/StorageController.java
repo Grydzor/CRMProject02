@@ -105,7 +105,6 @@ public class StorageController {
                     }
                 }
         );
-
         helper.addSelectListener();
 
     }
