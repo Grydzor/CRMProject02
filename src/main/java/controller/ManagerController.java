@@ -41,7 +41,6 @@ public class ManagerController {
     private ObservableList<OrderStatus> statuses;
     @FXML private DatePicker deadlinePicker;
     @FXML private ComboBox<Customer> customerBox;
-    @FXML private Button newCustomerButton;
     // Total
     @FXML private Label amountLabel;
     @FXML private Label sumLabel;

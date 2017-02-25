@@ -7,7 +7,6 @@ import java.util.List;
 
 public class ServiceImpl<T> implements Service<T> {
 
-
     private DAO<T> dao;
 
     public ServiceImpl(Class<T> entityClass) {

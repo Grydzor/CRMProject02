@@ -34,12 +34,6 @@ public class EmployeeDAOTest {
         assertNotNull("Проверка чтения первого работника", employee);
     }
 
-    @Test
-    public void testFailRead(){
-        Employee employee = employeeDAO.read(new Long("1000"));
-
-        assertNull("Проверка чтения 1000 работника", employee);
-    }
 
     @Test
     public void CheckEmployeeDAO(){
@@ -55,7 +49,7 @@ public class EmployeeDAOTest {
 
         assertEquals("Проверка корректности записаного сотрудника", employeeReturned.toString(), employee.toString());
 
-        Employee employee1 = (Employee) context.getBean("employee");
+        Employee employee1 = context.getBean(Employee.class);
         employee1.setName("Ivan");
         employee1.setSurname("Ivanov");
         employee1.setAge(12);
@@ -63,8 +57,6 @@ public class EmployeeDAOTest {
         employee1.setPosition(Position.ADMIN);
         employee1.setId(id);
 
-
-        System.out.println(employee1.toString());
 
         employeeDAO.update(employee1);
         Employee employeeReturned1 = employeeDAO.read(id);
