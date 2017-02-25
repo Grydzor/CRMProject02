@@ -1,5 +1,9 @@
 package entity;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -29,6 +33,14 @@ public class Item {
     @ManyToOne
     @JoinColumn(name = "ORDER_ID", nullable = false)
     private Order order;
+
+    // for JavaFX TableView update
+    private transient SimpleIntegerProperty idProperty;
+    private transient SimpleStringProperty productNameProperty;
+    private transient SimpleStringProperty priceProperty;
+    private transient SimpleStringProperty priceVATProperty;
+    private transient SimpleStringProperty sumProperty;
+    private transient SimpleStringProperty sumVATProperty;
 
     public Item() {}
 

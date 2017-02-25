@@ -78,6 +78,14 @@ public class ManagerController {
     @FXML private Button cancelDeletingItemButton;
 
     @FXML private HBox newItemRow;
+    @FXML private ComboBox<Product> productsNewItem;
+          private ObservableList<Product> productsList;
+    @FXML private Label numberNewItem;
+    @FXML private TextField amountNewItem;
+    @FXML private TextField priceNewItem;
+    @FXML private Label sumNewItem;
+    @FXML private Label PriceVATNewItem;
+    @FXML private Label sumVATNewItem;
 
     // Displayed info
     private Order currentOrder;
@@ -177,6 +185,7 @@ public class ManagerController {
                 itemsTable);
 
         helper.disableOrderInfo(false);
+        helper.selectCurrentOrder();
 
         items.clear();
 
@@ -218,7 +227,7 @@ public class ManagerController {
             currentOrder.setStatus(OrderStatus.OPENED);
             for (Item item : items) {
                 item.setOrder(currentOrder);
-                itemService.update(item);
+                itemService.create(item);
             }
             orderService.create(currentOrder);
             ordersTable.getItems().add(currentOrder);
@@ -273,16 +282,47 @@ public class ManagerController {
         helper.disableForActionButNot(true,
                 addItemButton, applyAddingItemButton, cancelAddingItemButton);
         helper.disableNewItemRow(false);
+
+        productsList = FXCollections.observableArrayList(productService.findAll());
+        productsNewItem.setItems(productsList);
+
+        productsNewItem.getSelectionModel().selectedItemProperty()
+                .addListener(((observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        priceNewItem.setText("" + newValue.getPrice());
+                    }
+                }));
     }
+
 
     @FXML
     public void applyAddingItem() {
+        // todo
+
+        Product product = InputDataChecker.checkEnum(productsNewItem);
+        BigDecimal price = InputDataChecker.checkBigDecimal(priceNewItem);
+        Integer amount = InputDataChecker.checkInteger(amountNewItem);
+
+        if (product != null && price != null && amount != null) {
+            Item item = context.getBean(Item.class, product, amount, currentOrder);
+            if (!price.equals(product.getPrice())) {
+                product.setPrice(price);
+                productService.update(product);
+            }
+            if (!isCurrentOrderNew()) {
+                itemService.create(item);
+            }
+//            items.add(item);
+            itemsTable.getItems().add(item);
+            itemsTable.refresh();
+
+            helper.disableNewItemRow(true);
+            helper.disableForActionButNot(false,
+                    addItemButton, applyAddingItemButton, cancelAddingItemButton);
+            helper.selectCurrentOrder();
+        }
 
 
-        helper.disableNewItemRow(true);
-        helper.disableForActionButNot(false,
-                addItemButton, applyAddingItemButton, cancelAddingItemButton);
-        helper.selectCurrentOrder();
     }
 
     @FXML
@@ -301,6 +341,8 @@ public class ManagerController {
 
     @FXML
     public void applyChangingItem() {
+        // todo
+
         helper.disableForActionButNot(false,
                 changeItemButton, applyChangingItemButton, cancelChangingItemButton);
         helper.selectCurrentOrder();
@@ -368,8 +410,8 @@ public class ManagerController {
         private void selectCurrentOrder() {
             fillInfoWith(currentOrder);
             addItemButton.setDisable(currentOrder == null);
-            changeOrderButton.setDisable(currentOrder == null);
-            deleteOrderButton.setDisable(currentOrder == null);
+            changeOrderButton.setDisable(!isCurrentOrderNew());
+            deleteOrderButton.setDisable(!isCurrentOrderNew());
             selectCurrentItem();
         }
 
@@ -399,7 +441,8 @@ public class ManagerController {
         }
 
         private void fillInfoWith(Order currentOrder) {
-            if (currentOrder != null) {
+            // second check in case if order is not saved in DB (in other words if it's new)
+            if (currentOrder != null && currentOrder.getId() != null) {
                 items.setAll(currentOrder.getItems());
                 itemsTable.setItems(items);
 
@@ -507,5 +550,9 @@ public class ManagerController {
         private void disableNewItemRow(Boolean bool) {
             newItemRow.setDisable(bool);
         }
+    }
+
+    public Boolean isCurrentOrderNew() {
+        return currentOrder != null && currentOrder.getId() == null;
     }
 }
