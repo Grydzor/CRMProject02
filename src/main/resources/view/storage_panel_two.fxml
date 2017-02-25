@@ -105,7 +105,7 @@
                         <TableColumn fx:id="itemsNameColumn" prefWidth="128.0" text="Name" />
                         <TableColumn fx:id="itemsQuantityColumn" prefWidth="70.0" text="Quantity" />
                         <TableColumn fx:id="itemsPriceNoVATColumn" prefWidth="95.0" text="Price" />
-                        <TableColumn prefWidth="95.0" text="Storage" />
+                        <TableColumn fx:id="storageColumn" prefWidth="95.0" text="Storage" />
                         <TableColumn prefWidth="95.0" text="In Stock" />
                     </columns>
                     <columnResizePolicy>

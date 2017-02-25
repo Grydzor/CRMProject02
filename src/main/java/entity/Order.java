@@ -1,13 +1,18 @@
 package entity;
 
 import enum_types.OrderStatus;
+import org.springframework.context.ApplicationContext;
+import service.ItemService;
 import service.OrderService;
+import service.StorageService;
 import util.ApplicationContextFactory;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -122,9 +127,16 @@ public class Order {
         this.items = items;
     }
 
-/*    public BigDecimal getSummary() {return summary;}
+    public BigDecimal getSummary() {
+        List<Item> items = getItems();
+        BigDecimal sum = BigDecimal.ZERO;
+        for (Item item : items) {
+            sum = sum.add(item.getSumVAT());
+        }
+        return sum;
+    }
 
-    public void setSummary(BigDecimal summary) {this.summary = summary;}*/
+    /*public void setSummary(BigDecimal summary) {this.summary = summary;}*/
 
     @Override
     public String toString() {

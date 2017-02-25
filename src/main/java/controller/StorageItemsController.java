@@ -56,6 +56,8 @@ public class StorageItemsController {
 
     private Helper helper;
 
+    private Boolean isNew;
+
     public void initialize() {
         helper = new Helper();
         helper.refreshTable();
@@ -65,17 +67,26 @@ public class StorageItemsController {
     @FXML
     public void editButtonOnAction() {
         if (currentStorage != null) {
+            isNew = false;
             helper.fieldsOnForSaving();
         }
     }
 
     @FXML
     public void saveButtonOnAction() {
-        if (helper.fieldsChanged()) {
+        if (isNew) {
+            helper.createProduct();
+        } else {
             helper.saveProduct();
-            helper.refreshTable();
-            helper.fieldsOff();
         }
+        helper.refreshTable();
+        helper.fieldsOff();
+    }
+
+    @FXML
+    public void newButtonOnAction() {
+        isNew = true;
+        helper.fieldsOnCreating();
     }
 
     @FXML
@@ -86,14 +97,14 @@ public class StorageItemsController {
     @FXML
     public void deleteButtonOnAction() {
         if (currentStorage != null) {
-        helper.fieldsOnForDeleting();
+            helper.fieldsOnForDeleting();
         }
     }
 
     public void deleteHiddenButtonOnAction() {
-        Product product = currentStorage.getProduct();
         storageService.delete(currentStorage);
-        productService.delete(product);
+        helper.refreshTable();
+        helper.fieldsOff();
     }
 
     @FXML
@@ -129,6 +140,13 @@ public class StorageItemsController {
             storageService.update(currentStorage);
         }
 
+        public void createProduct() {
+            Product product = new Product(InputDataChecker.checkString(nameTextField), InputDataChecker.checkBigDecimal(priceTextField));
+            productService.create(product);
+            Storage storage = new Storage(product, InputDataChecker.checkInteger(quantityTextField));
+            storageService.create(storage);
+        }
+
         public boolean fieldsChanged() {
             if (!currentStorage.getName().equals(InputDataChecker.checkString(nameTextField))) return true;
             if (!currentStorage.getAmount().equals(InputDataChecker.checkInteger(quantityTextField))) return true;
@@ -139,6 +157,17 @@ public class StorageItemsController {
         public void fieldsOnForSaving() {
             fieldsOn();
             saveCancel.setVisible(true);
+        }
+
+        public void fieldsOnCreating() {
+            nameTextField.setVisible(true);
+            quantityTextField.setVisible(true);
+            priceTextField.setVisible(true);
+            nameTextField.setText("");
+            quantityTextField.setText("");
+            priceTextField.setText("");
+            saveCancel.setVisible(true);
+            newEditDelete.setVisible(false);
         }
 
         public void fieldsOnForDeleting() {
