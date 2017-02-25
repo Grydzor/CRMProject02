@@ -1,6 +1,5 @@
 package controller;
 
-import entity.Order;
 import entity.Product;
 import entity.Storage;
 import javafx.collections.FXCollections;
@@ -11,10 +10,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import org.springframework.context.ApplicationContext;
 import service.ProductService;
 import service.StorageService;
 import util.ApplicationContextFactory;
+import util.InputDataChecker;
 import util.StageFactory;
 
 import java.math.BigDecimal;
@@ -25,10 +26,10 @@ import java.math.BigDecimal;
 
 public class StorageItemsController {
 
-    @FXML TableView<Product> productTableView;
-    @FXML TableColumn<Product, String> productNameColumn;
-    @FXML TableColumn<Order, Integer> productQuantityColumn;
-    @FXML TableColumn<Product, BigDecimal> productPriceColumn;
+    @FXML TableView<Storage> productTableView;
+    @FXML TableColumn<Storage, String> productNameColumn;
+    @FXML TableColumn<Storage, Integer> productQuantityColumn;
+    @FXML TableColumn<Storage, BigDecimal> productPriceColumn;
 
     @FXML TextField nameTextField;
     @FXML TextField quantityTextField;
@@ -38,29 +39,141 @@ public class StorageItemsController {
     @FXML Button editButton;
     @FXML Button deleteButton;
     @FXML Button closeButton;
+    @FXML Button deleteHiddenButton;
+    @FXML Button cancelHiddenButton;
+
+    @FXML HBox newEditDelete;
+    @FXML HBox deleteCancel;
+    @FXML HBox saveCancel;
+
+    private StorageService storageService;
+    private ProductService productService;
+
+    private ObservableList<Storage> storages;
+    private Storage currentStorage;
 
     private ApplicationContext context;
-    private ProductService productService;
-    private StorageService storageService;
 
-    private ObservableList<Product> products;
-    private ObservableList<Storage> storages;
+    private Helper helper;
 
     public void initialize() {
-        context = ApplicationContextFactory.getApplicationContext();
-        productService = (ProductService) context.getBean("productService");
-        productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        productQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        productPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        products = FXCollections.observableArrayList(productService.findAll());
-        storages = FXCollections.observableArrayList(storageService.findAll());
-        productTableView.setItems(products);
-        //productTableView.setItems(storages);
+        helper = new Helper();
+        helper.refreshTable();
+        helper.addSelectListener();
+    }
+
+    @FXML
+    public void editButtonOnAction() {
+        if (currentStorage != null) {
+            helper.fieldsOnForSaving();
+        }
+    }
+
+    @FXML
+    public void saveButtonOnAction() {
+        if (helper.fieldsChanged()) {
+            helper.saveProduct();
+            helper.refreshTable();
+            helper.fieldsOff();
+        }
+    }
+
+    @FXML
+    public void cancelButtonOnAction() {
+        helper.fieldsOff();
+    }
+
+    @FXML
+    public void deleteButtonOnAction() {
+        if (currentStorage != null) {
+        helper.fieldsOnForDeleting();
+        }
+    }
+
+    public void deleteHiddenButtonOnAction() {
+        Product product = currentStorage.getProduct();
+        storageService.delete(currentStorage);
+        productService.delete(product);
     }
 
     @FXML
     public void closeButtonOnAction() {
         StageFactory.genericWindow("/view/storage_panel_two.fxml", "Storage", null, "/view/styles/light_theme.css");
+    }
+
+    private class Helper {
+
+        private void addSelectListener() {
+            productTableView.getSelectionModel().selectedItemProperty()
+                    .addListener((observable, oldValue, newValue) -> {
+                        currentStorage = newValue;
+                    });
+        }
+
+        private void refreshTable() {
+            context = ApplicationContextFactory.getApplicationContext();
+            storageService = (StorageService) context.getBean("storageService");
+            productService = (ProductService) context.getBean("productService");
+            productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+            productQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+            productPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+            storages = FXCollections.observableArrayList(storageService.findAll());
+            productTableView.setItems(storages);
+        }
+
+        public void saveProduct() {
+            currentStorage.getProduct().setName(InputDataChecker.checkString(nameTextField));
+            currentStorage.getProduct().setPrice(InputDataChecker.checkBigDecimal(priceTextField));
+            currentStorage.setAmount(InputDataChecker.checkInteger(quantityTextField));
+            productService.update(currentStorage.getProduct());
+            storageService.update(currentStorage);
+        }
+
+        public boolean fieldsChanged() {
+            if (!currentStorage.getName().equals(InputDataChecker.checkString(nameTextField))) return true;
+            if (!currentStorage.getAmount().equals(InputDataChecker.checkInteger(quantityTextField))) return true;
+            if (!currentStorage.getPrice().equals(InputDataChecker.checkBigDecimal(priceTextField))) return true;
+            return false;
+        }
+
+        public void fieldsOnForSaving() {
+            fieldsOn();
+            saveCancel.setVisible(true);
+        }
+
+        public void fieldsOnForDeleting() {
+            productTableView.setDisable(true);
+            newEditDelete.setVisible(false);
+            deleteCancel.setVisible(true);
+        }
+
+        private void fieldsOn() {
+            nameTextField.setVisible(true);
+            quantityTextField.setVisible(true);
+            priceTextField.setVisible(true);
+            nameTextField.setText(currentStorage.getName());
+            quantityTextField.setText(currentStorage.getAmount().toString());
+            priceTextField.setText(currentStorage.getPrice().toString());
+            productTableView.setDisable(true);
+            newEditDelete.setVisible(false);
+        }
+
+        public void fieldsOff() {
+            nameTextField.setVisible(false);
+            quantityTextField.setVisible(false);
+            priceTextField.setVisible(false);
+            nameTextField.setText("");
+            quantityTextField.setText("");
+            priceTextField.setText("");
+            productTableView.setDisable(false);
+            if (saveCancel.isVisible()) {
+                saveCancel.setVisible(false);
+            } else if (deleteCancel.isVisible()) {
+                deleteCancel.setVisible(false);
+            }
+            newEditDelete.setVisible(true);
+        }
+
     }
 
 }
