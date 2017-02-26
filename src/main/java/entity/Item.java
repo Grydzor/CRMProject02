@@ -1,7 +1,10 @@
 package entity;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 /**
  * Created by Никита on 15.02.2017.
@@ -29,6 +32,8 @@ public class Item {
     @ManyToOne
     @JoinColumn(name = "ORDER_ID", nullable = false)
     private Order order;
+
+    private transient DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
     public Item() {}
 
@@ -77,9 +82,9 @@ public class Item {
         this.order = order;
     }
 
-    public String getProductName() {
-        return product.getName();
-    }
+//    public String getProductName() {
+//        return product.getName();
+//    }
 
     public BigDecimal getPriceVAT() {
         return price.multiply(BigDecimal.valueOf(1.2));
@@ -91,6 +96,22 @@ public class Item {
 
     public BigDecimal getSumVAT() {
         return getPriceVAT().multiply(BigDecimal.valueOf(amount));
+    }
+
+    public SimpleStringProperty productNameProperty() {
+        return new SimpleStringProperty(product.getName());
+    }
+    public SimpleStringProperty priceProperty() {
+        return new SimpleStringProperty(decimalFormat.format(price));
+    }
+    public SimpleStringProperty priceVATProperty() {
+        return new SimpleStringProperty(decimalFormat.format(getPriceVAT()));
+    }
+    public SimpleStringProperty sumProperty() {
+        return new SimpleStringProperty(decimalFormat.format(getSumNoVAT()));
+    }
+    public SimpleStringProperty sumVATProperty() {
+        return new SimpleStringProperty(decimalFormat.format(getSumVAT()));
     }
 
     @Override

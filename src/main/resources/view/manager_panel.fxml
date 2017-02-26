@@ -101,14 +101,17 @@
                   <TableColumn fx:id="itemSumVATColumn" maxWidth="${(itemsTable.width - 14) * 0.16}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.16}" text="Sum (VAT inc.)" />
                </columns>
             </TableView>
-            <HBox fx:id="newItemRow" alignment="CENTER_LEFT" disable="true" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" spacing="2.0">
+            <HBox fx:id="newItemRow" alignment="CENTER_LEFT" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" spacing="2.0" visible="false">
                <children>
-                  <Label fx:id="numberNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.06}" minHeight="30.0" minWidth="10" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.06}" />
+                  <Label fx:id="numberNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.06 - 4}" minHeight="30.0" minWidth="10" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.06}">
+                     <HBox.margin>
+                        <Insets left="4.0" />
+                     </HBox.margin></Label>
                   <ComboBox fx:id="productsNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.24}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.24}" />
                   <TextField fx:id="amountNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.10}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.10}" />
                   <TextField fx:id="priceNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.14}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.14}" />
                   <Label fx:id="sumNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.14}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.14}" />
-                  <Label fx:id="PriceVATNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.16}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.16}" />
+                  <Label fx:id="priceVATNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.16}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.16}" />
                   <Label fx:id="sumVATNewItem" maxHeight="30.0" maxWidth="${(newItemRow.width - 20) * 0.16}" minHeight="30.0" minWidth="30" prefHeight="30.0" prefWidth="${(newItemRow.width - 20) * 0.16}" />
                </children>
                <VBox.margin>
@@ -147,7 +150,7 @@
                   </Button>
                </children>
             </StackPane>
-            <Button fx:id="applyDeletingOrderButton" mnemonicParsing="false" onAction="#applyDeletingOrder" prefWidth="80.0" text="Delete" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="applyDeletingOrderButton" mnemonicParsing="false" onAction="#applyDeletingOrder" prefWidth="80.0" style="-fx-base: #ff9999" text="Delete" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />
                </font>

@@ -2,6 +2,7 @@ package controller;
 
 import entity.*;
 import enum_types.OrderStatus;
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +11,6 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-import javafx.util.Callback;
 import javafx.util.StringConverter;
 import org.springframework.context.ApplicationContext;
 import service.*;
@@ -60,11 +60,11 @@ public class ManagerController {
           private ObservableList<Item> items;
     @FXML private TableColumn<Item, Integer> itemIdColumn;
     @FXML private TableColumn<Item, String> itemNameColumn;
-    @FXML private TableColumn<Item, Integer> itemQuantityColumn;
-    @FXML private TableColumn<Item, BigDecimal> itemPriceNoVATColumn;
-    @FXML private TableColumn<Item, BigDecimal> itemSumNoVATColumn;
-    @FXML private TableColumn<Item, BigDecimal> itemPriceVATColumn;
-    @FXML private TableColumn<Item, BigDecimal> itemSumVATColumn;
+    @FXML private TableColumn<Item, String> itemQuantityColumn;
+    @FXML private TableColumn<Item, String> itemPriceNoVATColumn;
+    @FXML private TableColumn<Item, String> itemSumNoVATColumn;
+    @FXML private TableColumn<Item, String> itemPriceVATColumn;
+    @FXML private TableColumn<Item, String> itemSumVATColumn;
     // Item buttons
     @FXML private Button addItemButton;
     @FXML private Button applyAddingItemButton;
@@ -75,7 +75,7 @@ public class ManagerController {
     @FXML private Button deleteItemButton;
     @FXML private Button applyDeletingItemButton;
     @FXML private Button cancelDeletingItemButton;
-
+    // newItemRow
     @FXML private HBox newItemRow;
     @FXML private ComboBox<Product> productsNewItem;
           private ObservableList<Product> productsList;
@@ -83,8 +83,15 @@ public class ManagerController {
     @FXML private TextField amountNewItem;
     @FXML private TextField priceNewItem;
     @FXML private Label sumNewItem;
-    @FXML private Label PriceVATNewItem;
+    @FXML private Label priceVATNewItem;
     @FXML private Label sumVATNewItem;
+
+          private Integer number;
+          private Integer amount;
+          private BigDecimal price;
+          private BigDecimal sum;
+          private BigDecimal priceVAT;
+          private BigDecimal sumVAT;
 
     // Displayed info
     private Order currentOrder;
@@ -105,7 +112,7 @@ public class ManagerController {
 
     // formats for dates & BigDecimal
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
-    private DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+    private transient DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
     private Helper helper;
 
@@ -140,7 +147,7 @@ public class ManagerController {
         itemPriceVATColumn.setCellValueFactory(new PropertyValueFactory<>("priceVAT"));
         itemSumNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumNoVAT"));
         itemSumVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumVAT"));
-        helper.setCellFactoryForBigDecimal();
+//        helper.setCellFactoryForBigDecimal();
 
         statuses = FXCollections.observableArrayList(OrderStatus.values());
         statusBox.setItems(statuses);
@@ -148,6 +155,7 @@ public class ManagerController {
         customerBox.setItems(FXCollections.observableArrayList(customerService.findAll()));
 
         items = FXCollections.observableArrayList();
+        itemsTable.setItems(items);
 
         deadlinePicker.setConverter(new StringConverter<LocalDate>() {
             @Override
@@ -174,19 +182,27 @@ public class ManagerController {
                 }
             }
         });
+
+        helper.addInvalidationListenerForNewItemRow();
     }
 
     @FXML
     public void addOrder() {
         beforeCurrentOrder = currentOrder;
         currentOrder = new Order();
+
+        currentOrder.setStatus(OrderStatus.OPENED);
+        currentOrder.setDate(Date.valueOf(LocalDate.now()));
+        currentOrder.setManager(currentManager);
+
+        items.setAll(currentOrder.getItems());
         helper.disableForActionButNot(true, addOrderButton, applyAddingOrderButton, cancelAddingOrderButton,
                 itemsTable);
 
         helper.disableOrderInfo(false);
         helper.selectCurrentOrder();
 
-        items.clear();
+//        items.clear();
 
         managerField.setText(currentManager.shortInfo());
         statusBox.getSelectionModel().select(0);
@@ -203,7 +219,6 @@ public class ManagerController {
         helper.disableOrderInfo(true);
 
         helper.selectCurrentOrder();
-        helper.selectCurrentItem();
 
         itemsTable.setStyle("-fx-border-color: inherit");
     }
@@ -220,15 +235,15 @@ public class ManagerController {
         }
 
         if (currentCustomer != null && currentDeadline != null) {
-            currentOrder.setManager(currentManager);
             currentOrder.setCustomer(currentCustomer);
             currentOrder.setDeadline(currentDeadline);
-            currentOrder.setStatus(OrderStatus.OPENED);
+//            currentOrder.updateSummary();
+            orderService.create(currentOrder);
             for (Item item : items) {
-                item.setOrder(currentOrder);
+                // set here because currentOrder got its id at creating (2 rows above)
+//                item.setOrder(currentOrder);
                 itemService.create(item);
             }
-            orderService.create(currentOrder);
             ordersTable.getItems().add(currentOrder);
 
             helper.disableForActionButNot(false, addOrderButton, applyAddingOrderButton, cancelAddingOrderButton,
@@ -237,7 +252,6 @@ public class ManagerController {
 
             ordersTable.getSelectionModel().select(currentOrder);
             ordersTable.scrollTo(currentOrder);
-            currentOrder = null;
         }
     }
 
@@ -258,17 +272,22 @@ public class ManagerController {
 
     @FXML
     public void deleteOrder() {
-
+        helper.disableForActionButNot(true, deleteOrderButton, applyDeletingOrderButton, cancelDeletingOrderButton);
     }
 
     @FXML
     public void applyDeletingOrder() {
-
+        for (Item item : currentOrder.getItems()) {
+            itemService.delete(item);
+        }
+        orderService.delete(currentOrder);
+        ordersTable.getItems().remove(currentOrder);
+        helper.disableForActionButNot(false, deleteOrderButton, applyDeletingOrderButton, cancelDeletingOrderButton);
     }
 
     @FXML
     public void cancelDeletingOrder() {
-
+        helper.disableForActionButNot(false, deleteOrderButton, applyDeletingOrderButton, cancelDeletingOrderButton);
     }
 
     @FXML
@@ -278,47 +297,45 @@ public class ManagerController {
 
     @FXML
     public void addItem() {
+        helper.clearNewItemRow();
         helper.disableForActionButNot(true,
                 addItemButton, applyAddingItemButton, cancelAddingItemButton);
         helper.disableNewItemRow(false);
 
         productsList = FXCollections.observableArrayList(productService.findAll());
         productsNewItem.setItems(productsList);
-
-        productsNewItem.getSelectionModel().selectedItemProperty()
-                .addListener(((observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        priceNewItem.setText("" + newValue.getPrice());
-                    }
-                }));
     }
 
 
     @FXML
     public void applyAddingItem() {
-        // todo
-
         Product product = InputDataChecker.checkEnum(productsNewItem);
         BigDecimal price = InputDataChecker.checkBigDecimal(priceNewItem);
         Integer amount = InputDataChecker.checkInteger(amountNewItem);
 
         if (product != null && price != null && amount != null) {
-            Item item = context.getBean(Item.class, product, amount, currentOrder);
             if (!price.equals(product.getPrice())) {
+                System.out.println("here");
                 product.setPrice(price);
                 productService.update(product);
             }
-            if (!isCurrentOrderNew()) {
-                itemService.create(item);
+            currentItem = context.getBean(Item.class, product, amount, currentOrder);
+            if (!helper.isCurrentOrderNew()) {
+                itemService.create(currentItem);
             }
-//            items.add(item);
-            itemsTable.getItems().add(item);
-            itemsTable.refresh();
+
+            // How????!!!
+            // upd: understand (because of helper.selectCurrentOrder(); <- items.setAll(currentOrder.getItems();)
+            currentOrder.getItems().add(currentItem);
 
             helper.disableNewItemRow(true);
             helper.disableForActionButNot(false,
                     addItemButton, applyAddingItemButton, cancelAddingItemButton);
             helper.selectCurrentOrder();
+
+            itemsTable.requestFocus();
+            itemsTable.getSelectionModel().select(currentItem);
+            itemsTable.scrollTo(currentItem);
         }
 
 
@@ -363,9 +380,7 @@ public class ManagerController {
     public void applyDeletingItem() {
         Item itemToDelete = currentItem;
         itemService.delete(itemToDelete);
-        System.out.println(itemToDelete);
         currentOrder.getItems().remove(itemToDelete);
-        System.out.println(itemToDelete);
         helper.disableForActionButNot(false, deleteItemButton, applyDeletingItemButton, cancelDeletingItemButton);
         helper.selectCurrentOrder();
     }
@@ -409,54 +424,28 @@ public class ManagerController {
         private void selectCurrentOrder() {
             fillInfoWith(currentOrder);
             addItemButton.setDisable(currentOrder == null);
-            changeOrderButton.setDisable(!isCurrentOrderNew());
-            deleteOrderButton.setDisable(!isCurrentOrderNew());
+            changeOrderButton.setDisable(currentOrder == null || isCurrentOrderNew());
+            deleteOrderButton.setDisable(currentOrder == null || isCurrentOrderNew());
             selectCurrentItem();
-        }
-
-        /*private void selectOrderAndItem() {
-            selectCurrentOrder(currentOrder);
-            selectCurrentItem(currentItem);
-        }*/
-
-        // Override method for updating table column with specified format
-        private void setCellFactoryForBigDecimal() {
-            Callback<TableColumn<Item, BigDecimal>, TableCell<Item, BigDecimal>> callback = param -> new TableCell<Item, BigDecimal>() {
-                @Override
-                protected void updateItem(BigDecimal item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if(empty || item == null) {
-                        setText("");
-                    } else {
-                        setText(decimalFormat.format(item));
-                    }
-                }
-            };
-
-            itemPriceNoVATColumn.setCellFactory(callback);
-            itemPriceVATColumn.setCellFactory(callback);
-            itemSumNoVATColumn.setCellFactory(callback);
-            itemSumVATColumn.setCellFactory(callback);
         }
 
         private void fillInfoWith(Order currentOrder) {
             // second check in case if order is not saved in DB (in other words if it's new)
-            if (currentOrder != null && currentOrder.getId() != null) {
+            if (currentOrder != null) {
                 items.setAll(currentOrder.getItems());
-                itemsTable.setItems(items);
-
+                addItemButton.setDisable(false);
                 fillOrderInfo(currentOrder);
 
-                addItemButton.setDisable(false);
-
-                Integer amount = 0;
-                BigDecimal sum = BigDecimal.ZERO;
-                for (Item item : items) {
-                    amount += item.getAmount();
-                    sum = sum.add(item.getSumVAT());
+                if (currentOrder.getId() != null) {
+                    Integer amount = 0;
+                    BigDecimal sum = BigDecimal.ZERO;
+                    for (Item item : items) {
+                        amount += item.getAmount();
+                        sum = sum.add(item.getSumVAT());
+                    }
+                    amountLabel.setText("" + amount);
+                    sumLabel.setText(decimalFormat.format(sum));
                 }
-                amountLabel.setText("" + amount);
-                sumLabel.setText(decimalFormat.format(sum));
             } else {
                 items.clear();
                 clearOrderInfo();
@@ -466,12 +455,14 @@ public class ManagerController {
         }
 
         private void fillOrderInfo(Order currentOrder) {
+            // extra checks for case - new Order()
+            if (currentOrder.getId() != null) orderNumberField.setText(currentOrder.getId().toString());
+            if (currentOrder.getDeadline() != null) deadlinePicker.setValue(currentOrder.getDeadline().toLocalDate());
+            if (currentOrder.getCustomer() != null) customerBox.setValue(currentOrder.getCustomer());
+
             managerField.setText(currentOrder.getManager().shortInfo());
-            orderNumberField.setText(currentOrder.getId().toString());
             orderDateField.setText(currentOrder.getDate().toLocalDate().format(formatter));
-            deadlinePicker.setValue(currentOrder.getDeadline().toLocalDate());
             statusBox.setValue(currentOrder.getStatus());
-            customerBox.setValue(currentOrder.getCustomer());
         }
 
         private void clearOrderInfo() {
@@ -547,11 +538,53 @@ public class ManagerController {
         }
 
         private void disableNewItemRow(Boolean bool) {
-            newItemRow.setDisable(bool);
+            newItemRow.setVisible(!bool);
         }
-    }
 
-    public Boolean isCurrentOrderNew() {
-        return currentOrder != null && currentOrder.getId() == null;
+        private Boolean isCurrentOrderNew() {
+            return currentOrder != null && currentOrder.getId() == null;
+        }
+
+        private void clearNewItemRow() {
+            numberNewItem.setText("" + (items.size() + 1));
+            productsNewItem.setItems(productsList == null ? productsList = FXCollections.observableArrayList(productService.findAll()) : productsList);
+            amountNewItem.setText("");
+            priceNewItem.setText("");
+            sumNewItem.setText("");
+            priceVATNewItem.setText("");
+            sumVATNewItem.setText("");
+        }
+
+        private void addInvalidationListenerForNewItemRow() {
+            InvalidationListener listener = (observable) -> {
+                if (amountNewItem.getText().isEmpty()) return;
+                if (priceNewItem.getText().isEmpty()) return;
+                if (productsNewItem.getSelectionModel().getSelectedItem() == null) return;
+                try {
+                    amount = Integer.parseInt(amountNewItem.getText());
+                    price = BigDecimal.valueOf(Double.parseDouble(priceNewItem.getText()));
+
+                    sum = price.multiply(BigDecimal.valueOf(amount));
+                    priceVAT = price.multiply(BigDecimal.valueOf(1.2));
+                    sumVAT = priceVAT.multiply(BigDecimal.valueOf(amount));
+                    sumNewItem.setText(decimalFormat.format(sum));
+                    priceVATNewItem.setText(decimalFormat.format(priceVAT));
+                    sumVATNewItem.setText(decimalFormat.format(sumVAT));
+                } catch (NumberFormatException nfe) {
+                    sumNewItem.setText("");
+                    priceVATNewItem.setText("");
+                    sumVATNewItem.setText("");
+                }
+            };
+            productsNewItem.getSelectionModel().selectedItemProperty()
+                    .addListener(((observable, oldValue, newValue) -> {
+                        if (newValue != null) {
+                            priceNewItem.setText("" + newValue.getPrice());
+                        }
+                    }));
+
+            amountNewItem.textProperty().addListener(listener);
+            priceNewItem.textProperty().addListener(listener);
+        }
     }
 }

@@ -47,27 +47,24 @@ public class Order {
     /*@OneToMany(mappedBy = "order")
     private List<Item> items = new ArrayList<>();*/
 
-    transient private List<Item> items = new ArrayList<>();
+    transient private List<Item> items;
 
     @Column(name = "STATUS")
     private OrderStatus status;
 
-/*
     @Column(name = "SUMMARY")
-    private BigDecimal summary;
-*/
+    private BigDecimal summary/* = BigDecimal.ZERO*/;
 
 
     public Order() {
     }
 
-    public Order(Employee manager, Customer customer, Date deadline/*, OrderStatus status, BigDecimal summary*/) {
+    public Order(Employee manager, Customer customer, Date deadline) {
         this.manager = manager;
         this.customer = customer;
         this.deadline = deadline;
         this.status = OrderStatus.OPENED;
         this.date = Date.valueOf(LocalDate.now());
-        /*this.summary = summary;*/
     }
 
     public Long getId() {
@@ -119,8 +116,8 @@ public class Order {
     }
 
     public List<Item> getItems() {
-//        return items;
-        return items.isEmpty() ? (items = ApplicationContextFactory.getApplicationContext().getBean(OrderService.class).findItems(this)) : items;
+        // id == null <- is it new Order?
+        return items == null ? (id == null ? (items = new ArrayList<>()) : (items = ApplicationContextFactory.getApplicationContext().getBean(OrderService.class).findItems(this))) : items;
     }
 
     public void setItems(List<Item> items) {
@@ -136,7 +133,18 @@ public class Order {
         return sum;
     }
 
-    /*public void setSummary(BigDecimal summary) {this.summary = summary;}*/
+    public void setSummary(BigDecimal summary) {
+        this.summary = summary;
+    }
+
+    /*// updates summary based on items collection
+    // @return summary
+    public BigDecimal updateSummary() {
+        for (Item item : getItems()) {
+            summary = summary.add(item.getSumVAT());
+        }
+        return summary;
+    }*/
 
     @Override
     public String toString() {

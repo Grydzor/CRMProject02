@@ -35,7 +35,7 @@ public class Customer {
     /*@OneToMany(mappedBy = "customer")
     private List<Order> orders = new ArrayList<>();*/
 
-    transient private List<Order> orders = new ArrayList<>();
+    transient private List<Order> orders;
 
     public Customer() {}
 
@@ -87,7 +87,7 @@ public class Customer {
     }
 
     public List<Order> getOrders() {
-        return orders != null && orders.isEmpty() ? orders = ApplicationContextFactory
+        return orders == null ? orders = ApplicationContextFactory
                 .getApplicationContext()
                 .getBean(CustomerService.class)
                 .findOrders(this) : orders;
