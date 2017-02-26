@@ -1,15 +1,18 @@
 package entity;
 
 import enum_types.OrderStatus;
+import javafx.beans.property.SimpleStringProperty;
 import org.springframework.context.ApplicationContext;
 import service.ItemService;
 import service.OrderService;
+import service.OrderServiceImpl;
 import service.StorageService;
 import util.ApplicationContextFactory;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -55,6 +58,7 @@ public class Order {
     @Column(name = "SUMMARY")
     private BigDecimal summary/* = BigDecimal.ZERO*/;
 
+    private transient DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
     public Order() {
     }
@@ -125,26 +129,34 @@ public class Order {
     }
 
     public BigDecimal getSummary() {
+        if (summary != null) return summary;
+
         List<Item> items = getItems();
         BigDecimal sum = BigDecimal.ZERO;
         for (Item item : items) {
             sum = sum.add(item.getSumVAT());
         }
-        return sum;
+        return summary = sum;
     }
 
     public void setSummary(BigDecimal summary) {
         this.summary = summary;
     }
 
-    /*// updates summary based on items collection
+    // updates summary based on items collection
     // @return summary
     public BigDecimal updateSummary() {
+        summary = BigDecimal.ZERO;
         for (Item item : getItems()) {
             summary = summary.add(item.getSumVAT());
         }
+        ApplicationContextFactory.getApplicationContext().getBean("orderService", OrderServiceImpl.class).update(this);
         return summary;
-    }*/
+    }
+
+    public SimpleStringProperty summaryProperty() {
+        return new SimpleStringProperty(decimalFormat.format(getSummary()));
+    }
 
     @Override
     public String toString() {

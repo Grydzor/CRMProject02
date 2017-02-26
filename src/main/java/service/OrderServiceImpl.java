@@ -2,6 +2,7 @@ package service;
 
 import dao.OrderDAO;
 import dao.OrderDAOImpl;
+import entity.Employee;
 import entity.Item;
 import entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,12 @@ public class OrderServiceImpl extends OrderDAOImpl implements OrderService {
 
     private OrderServiceImpl() {
         super();
+    }
+
+
+    @Override
+    public List<Order> findAllFor(Employee manager) {
+        return orderDAO.findOrdersFor(manager);
     }
 
     @Override

@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.time.LocalDate;
 
 /* Класс принимает поля ввода (текста и чисел - TextField,
@@ -77,10 +78,8 @@ public class InputDataChecker {
 
         BigDecimal num;
         try {
-            num = new BigDecimal(text);
-            /*String text2 = decimalFormat.format(num);
-            num = new BigDecimal(text2);*/
-        } catch (NumberFormatException nfe) {
+            num = new BigDecimal(decimalFormat.parse(text).doubleValue());
+        } catch (NumberFormatException | ParseException e) {
             textField.setStyle(STYLE_BAD);
             return null;
         }
@@ -124,6 +123,26 @@ public class InputDataChecker {
         }
 
         textField.setStyle(STYLE_OK);
+        return num;
+    }
+
+    public static Integer checkAmount(TextField amountField) {
+        String text = amountField.getText().trim();
+        if (text.isEmpty()) {
+            amountField.setStyle(STYLE_BAD);
+            return null;
+        }
+
+        Integer num;
+        try {
+            num = Integer.parseInt(text);
+            if (num <= 0) throw new NumberFormatException();
+        } catch (NumberFormatException nfe) {
+            amountField.setStyle(STYLE_BAD);
+            return null;
+        }
+
+        amountField.setStyle(STYLE_OK);
         return num;
     }
 

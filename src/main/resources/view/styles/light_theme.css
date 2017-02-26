@@ -7,6 +7,11 @@
     -fx-back: white;
 }
 
+.texture {
+    -fx-background-color: white/*#262626*/;
+    -fx-background-image: url('/view/imgs/texture.png');
+}
+
 .button {
 
 }

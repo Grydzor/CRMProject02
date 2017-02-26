@@ -20,6 +20,7 @@ import util.StageFactory;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.sql.Date;
@@ -135,7 +136,7 @@ public class ManagerController {
         orderDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         orderPriceColumn.setCellValueFactory(new PropertyValueFactory<>("summary"));
 
-        orders = FXCollections.observableArrayList(orderService.findAll());
+        orders = FXCollections.observableArrayList(orderService.findAllFor(currentManager));
         ordersTable.setItems(orders);
 
 //        itemIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -145,7 +146,7 @@ public class ManagerController {
         itemNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
         itemPriceNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         itemPriceVATColumn.setCellValueFactory(new PropertyValueFactory<>("priceVAT"));
-        itemSumNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumNoVAT"));
+        itemSumNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("sum"));
         itemSumVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumVAT"));
 //        helper.setCellFactoryForBigDecimal();
 
@@ -311,11 +312,10 @@ public class ManagerController {
     public void applyAddingItem() {
         Product product = InputDataChecker.checkEnum(productsNewItem);
         BigDecimal price = InputDataChecker.checkBigDecimal(priceNewItem);
-        Integer amount = InputDataChecker.checkInteger(amountNewItem);
+        Integer amount = InputDataChecker.checkAmount(amountNewItem);
 
         if (product != null && price != null && amount != null) {
             if (!price.equals(product.getPrice())) {
-                System.out.println("here");
                 product.setPrice(price);
                 productService.update(product);
             }
@@ -325,8 +325,12 @@ public class ManagerController {
             }
 
             // How????!!!
-            // upd: understand (because of helper.selectCurrentOrder(); <- items.setAll(currentOrder.getItems();)
+            // upd: understand (because of helper.selectCurrentOrder(); <- items.setAll(currentOrder.getItems());
             currentOrder.getItems().add(currentItem);
+            currentOrder.updateSummary();
+            if (!helper.isCurrentOrderNew()) {
+                orders.set(orders.indexOf(currentOrder), currentOrder);
+            }
 
             helper.disableNewItemRow(true);
             helper.disableForActionButNot(false,
@@ -338,7 +342,6 @@ public class ManagerController {
             itemsTable.scrollTo(currentItem);
         }
 
-
     }
 
     @FXML
@@ -347,28 +350,75 @@ public class ManagerController {
         helper.disableForActionButNot(false,
                 addItemButton, applyAddingItemButton, cancelAddingItemButton);
         helper.selectCurrentOrder();
+
+        productsNewItem.setStyle("-fx-border-color: inherit");
+        amountNewItem.setStyle("-fx-border-color: inherit");
+        priceNewItem.setStyle("-fx-border-color: inherit");
     }
 
     @FXML
     public void changeItem() {
         helper.disableForActionButNot(true,
                 changeItemButton, applyChangingItemButton, cancelChangingItemButton);
+
+        numberNewItem.setText("" + itemsTable.getSelectionModel().getSelectedIndex());
+        amountNewItem.setText("" + currentItem.getAmount());
+        productsNewItem.setItems(productsList == null ? productsList = FXCollections.observableArrayList(productService.findAll()) : productsList);
+        productsNewItem.getSelectionModel().select(currentItem.getProduct());
+//        priceNewItem.setText(decimalFormat.format(currentItem.getPrice()));
+
+        // sets text in last cells
+        sum = currentItem.getPrice().multiply(BigDecimal.valueOf(currentItem.getAmount()));
+        priceVAT = currentItem.getPrice().multiply(BigDecimal.valueOf(1.2));
+        sumVAT = priceVAT.multiply(BigDecimal.valueOf(currentItem.getAmount()));
+
+        sumNewItem.setText(decimalFormat.format(sum));
+        priceVATNewItem.setText(decimalFormat.format(priceVAT));
+        sumVATNewItem.setText(decimalFormat.format(sumVAT));
+
+
+        newItemRow.setVisible(true);
     }
 
     @FXML
     public void applyChangingItem() {
-        // todo
+        Product product = InputDataChecker.checkEnum(productsNewItem);
+        BigDecimal price = InputDataChecker.checkBigDecimal(priceNewItem);
+        Integer amount = InputDataChecker.checkAmount(amountNewItem);
 
-        helper.disableForActionButNot(false,
-                changeItemButton, applyChangingItemButton, cancelChangingItemButton);
-        helper.selectCurrentOrder();
+        if (product != null && price != null && amount != null) {
+            newItemRow.setVisible(false);
+
+            if (!price.equals(product.getPrice())) {
+                product.setPrice(price);
+                productService.update(product);
+            }
+            currentItem.setProduct(product);
+            currentItem.setPrice(price);
+            currentItem.setAmount(amount);
+
+            itemService.update(currentItem);
+            currentOrder.updateSummary();
+            if (!helper.isCurrentOrderNew()) {
+                orders.set(orders.indexOf(currentOrder), currentOrder);
+            }
+
+            helper.disableForActionButNot(false,
+                    changeItemButton, applyChangingItemButton, cancelChangingItemButton);
+            helper.selectCurrentOrder();
+        }
     }
 
     @FXML
     public void cancelChangingItem() {
+        newItemRow.setVisible(false);
         helper.disableForActionButNot(false,
                 changeItemButton, applyChangingItemButton, cancelChangingItemButton);
         helper.selectCurrentOrder();
+
+        productsNewItem.setStyle("-fx-border-color: inherit");
+        amountNewItem.setStyle("-fx-border-color: inherit");
+        priceNewItem.setStyle("-fx-border-color: inherit");
     }
 
     @FXML
@@ -557,12 +607,20 @@ public class ManagerController {
 
         private void addInvalidationListenerForNewItemRow() {
             InvalidationListener listener = (observable) -> {
-                if (amountNewItem.getText().isEmpty()) return;
-                if (priceNewItem.getText().isEmpty()) return;
+                if (amountNewItem.getText().isEmpty()) {
+                    sumNewItem.setText("");
+                    priceVATNewItem.setText("");
+                    sumVATNewItem.setText("");
+                }
+                if (priceNewItem.getText().isEmpty()) {
+                    sumNewItem.setText("");
+                    priceVATNewItem.setText("");
+                    sumVATNewItem.setText("");
+                }
                 if (productsNewItem.getSelectionModel().getSelectedItem() == null) return;
                 try {
                     amount = Integer.parseInt(amountNewItem.getText());
-                    price = BigDecimal.valueOf(Double.parseDouble(priceNewItem.getText()));
+                    price = BigDecimal.valueOf(decimalFormat.parse(priceNewItem.getText()).doubleValue());
 
                     sum = price.multiply(BigDecimal.valueOf(amount));
                     priceVAT = price.multiply(BigDecimal.valueOf(1.2));
@@ -570,7 +628,7 @@ public class ManagerController {
                     sumNewItem.setText(decimalFormat.format(sum));
                     priceVATNewItem.setText(decimalFormat.format(priceVAT));
                     sumVATNewItem.setText(decimalFormat.format(sumVAT));
-                } catch (NumberFormatException nfe) {
+                } catch (NumberFormatException | ParseException  e) {
                     sumNewItem.setText("");
                     priceVATNewItem.setText("");
                     sumVATNewItem.setText("");
@@ -579,7 +637,7 @@ public class ManagerController {
             productsNewItem.getSelectionModel().selectedItemProperty()
                     .addListener(((observable, oldValue, newValue) -> {
                         if (newValue != null) {
-                            priceNewItem.setText("" + newValue.getPrice());
+                            priceNewItem.setText(decimalFormat.format(newValue.getPrice()));
                         }
                     }));
 

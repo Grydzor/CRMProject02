@@ -45,6 +45,7 @@ public class StageFactory {
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/view/styles/light_theme.css");
+//        scene.getStylesheets().add("/view/styles/dark_theme.css");
         stageWindow.setScene(scene);
 
         T controller = loader.getController();
@@ -79,6 +80,7 @@ public class StageFactory {
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/view/styles/light_theme.css");
+//        scene.getStylesheets().add("/view/styles/dark_theme.css");
         stageWindow.setScene(scene);
 
         T controller = loader.getController();
@@ -105,6 +107,7 @@ public class StageFactory {
         Scene scene = new Scene(root);
         stageModal.setScene(scene);
         scene.getStylesheets().add("/view/styles/light_theme.css");
+//        scene.getStylesheets().add("/view/styles/dark_theme.css");
         stageModal.setTitle(title);
 
         ControllerT controller = loader.getController();

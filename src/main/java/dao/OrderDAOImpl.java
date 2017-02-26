@@ -1,5 +1,6 @@
 package dao;
 
+import entity.Employee;
 import entity.Item;
 import entity.Order;
 import org.hibernate.Session;
@@ -16,6 +17,15 @@ public class OrderDAOImpl extends DAOImpl<Order> implements OrderDAO {
         super(Order.class);
     }
 
+
+    @Override
+    public List<Order> findOrdersFor(Employee manager) {
+        try (Session session = factory.openSession()) {
+            Query<Order> query = session.createQuery("FROM Order o WHERE o.manager = :manager", Order.class);
+            query.setParameter("manager", manager);
+            return query.getResultList();
+        }
+    }
 
     @Override
     public List<Item> findItems(Order order) {
