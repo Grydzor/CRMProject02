@@ -99,7 +99,7 @@ public class StorageController {
         orderStatuses.add(OrderStatus.PAID);
         orderStatuses.add(OrderStatus.FORMED);
         orderStatuses.add(OrderStatus.UNDER_REVIEW);
-        statuses = FXCollections.observableArrayList(OrderStatus.values());
+        statuses = FXCollections.observableArrayList(orderStatuses);
         statusBox.setItems(statuses);
 
         statusBox.getSelectionModel().selectedItemProperty().addListener(

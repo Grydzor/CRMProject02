@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class CashierController {
 
@@ -93,6 +94,11 @@ public class CashierController {
         items = FXCollections.observableArrayList();
 
         statuses = FXCollections.observableArrayList(OrderStatus.values());
+//        ArrayList<OrderStatus> orderStatuses = new ArrayList<>();
+//        orderStatuses.add(OrderStatus.PAID);
+//        orderStatuses.add(OrderStatus.FORMED);
+//        orderStatuses.add(OrderStatus.UNDER_REVIEW);
+//        statuses = FXCollections.observableArrayList(orderStatuses);
         statusBox.setItems(statuses);
 
         statusBox.getSelectionModel().selectedItemProperty().addListener(
@@ -141,22 +147,22 @@ public class CashierController {
 
         private void setCellFactoryForBigDecimal() {
 
-            Callback callback = param -> new TableCell<Item, BigDecimal>() {
-                @Override
-                protected void updateItem(BigDecimal item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if(empty || item == null) {
-                        setText("");
-                    } else {
-                        setText(decimalFormat.format(item));
-                    }
-                }
-            };
-
-            itemsPriceNoVATColumn.setCellFactory(callback);
-            itemsPriceVATColumn.setCellFactory(callback);
-            itemsSumNoVATColumn.setCellFactory(callback);
-            itemsSumVATColumn.setCellFactory(callback);
+//            Callback callback = param -> new TableCell<Item, BigDecimal>() {
+//                @Override
+//                protected void updateItem(BigDecimal item, boolean empty) {
+//                    super.updateItem(item, empty);
+//                    if(empty || item == null) {
+//                        setText("");
+//                    } else {
+//                        setText(decimalFormat.format(item));
+//                    }
+//                }
+//            };
+//
+//            itemsPriceNoVATColumn.setCellFactory(callback);
+//            itemsPriceVATColumn.setCellFactory(callback);
+//            itemsSumNoVATColumn.setCellFactory(callback);
+//            itemsSumVATColumn.setCellFactory(callback);
 
         }
 
