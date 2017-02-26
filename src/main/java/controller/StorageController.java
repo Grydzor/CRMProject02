@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * Created by Никита on 21.02.2017.
@@ -94,7 +95,10 @@ public class StorageController {
         inStockColumn.setCellValueFactory(new PropertyValueFactory<>("inStock"));
         //helper.setCellFactoryForBigDecimal();
         items = FXCollections.observableArrayList();
-
+        ArrayList<OrderStatus> orderStatuses = new ArrayList<>();
+        orderStatuses.add(OrderStatus.PAID);
+        orderStatuses.add(OrderStatus.FORMED);
+        orderStatuses.add(OrderStatus.UNDER_REVIEW);
         statuses = FXCollections.observableArrayList(OrderStatus.values());
         statusBox.setItems(statuses);
 
