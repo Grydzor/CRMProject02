@@ -71,6 +71,7 @@ public class UserDAOTest {
 
         userDAO.delete(userReturned1);
         User userReturned2 = userDAO.read(idUser);
+        employeeDAO.delete(employee);
 
         assertNull("Проверка корректности удаления информации о пользователе", userReturned2);
     }

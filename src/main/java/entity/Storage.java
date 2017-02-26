@@ -49,4 +49,11 @@ public class Storage implements Serializable {
         return product.getPrice();
     }
 
+    @Override
+    public String toString() {
+        return "Storage{" +
+                "product=" + product +
+                ", amount=" + amount +
+                '}';
+    }
 }
