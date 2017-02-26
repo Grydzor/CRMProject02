@@ -258,17 +258,51 @@ public class ManagerController {
 
     @FXML
     public void changeOrder() {
+        helper.disableForActionButNot(true, changeOrderButton, applyChangingOrderButton, cancelChangingOrderButton,
+                itemsTable);
 
+        // editable fields
+        statusBox.setDisable(false);
+        statusBox.setStyle("-fx-border-color: transparent");
+        customerBox.setDisable(false);
+        customerBox.setStyle("-fx-border-color: transparent");
+        deadlinePicker.setDisable(false);
+        deadlinePicker.setStyle("-fx-border-color: transparent");
     }
 
     @FXML
     public void applyChangingOrder() {
+        helper.checkFields();
+        if (currentCustomer != null && currentDeadline != null) {
+            currentOrder.setCustomer(currentCustomer);
+            currentOrder.setDeadline(currentDeadline);
+            currentOrder.setStatus(statusBox.getValue());
+            orderService.update(currentOrder);
+            helper.disableForActionButNot(false, changeOrderButton, applyChangingOrderButton, cancelChangingOrderButton,
+                    itemsTable);
 
+            // editable fields
+            statusBox.setDisable(true);
+            statusBox.setStyle("-fx-border-color: transparent");
+            customerBox.setDisable(true);
+            customerBox.setStyle("-fx-border-color: transparent");
+            deadlinePicker.setDisable(true);
+            deadlinePicker.setStyle("-fx-border-color: transparent");
+        }
     }
 
     @FXML
     public void cancelChangingOrder() {
+        helper.disableForActionButNot(false, changeOrderButton, applyChangingOrderButton, cancelChangingOrderButton,
+                itemsTable);
 
+        // editable fields
+        statusBox.setDisable(true);
+        statusBox.setStyle("-fx-border-color: transparent");
+        customerBox.setDisable(true);
+        customerBox.setStyle("-fx-border-color: transparent");
+        deadlinePicker.setDisable(true);
+        deadlinePicker.setStyle("-fx-border-color: transparent");
     }
 
     @FXML
