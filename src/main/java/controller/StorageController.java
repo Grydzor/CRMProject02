@@ -39,7 +39,7 @@ public class StorageController {
     @FXML private TableColumn<Item, Integer> itemsQuantityColumn;
     @FXML private TableColumn<Item, BigDecimal> itemsPriceNoVATColumn;
     @FXML private TableColumn<Item, Integer> storageColumn;
-    @FXML private TableColumn<Item, BigDecimal> itemsPriceVATColumn;
+    @FXML private TableColumn<Item, String> inStockColumn;
 
     @FXML private TextField managerField;
     @FXML private TextField deadlineField;
@@ -91,7 +91,7 @@ public class StorageController {
         itemsNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
         itemsPriceNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         storageColumn.setCellValueFactory(new PropertyValueFactory<>("storage"));
-        //itemsSumNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumNoVAT"));
+        inStockColumn.setCellValueFactory(new PropertyValueFactory<>("inStock"));
         //helper.setCellFactoryForBigDecimal();
         items = FXCollections.observableArrayList();
 

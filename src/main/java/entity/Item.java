@@ -1,10 +1,15 @@
 package entity;
 
 import javafx.beans.property.SimpleStringProperty;
+import org.springframework.context.ApplicationContext;
+import service.ItemService;
+import service.StorageService;
+import util.ApplicationContextFactory;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.List;
 
 /**
  * Created by Никита on 15.02.2017.
@@ -112,6 +117,26 @@ public class Item {
     }
     public SimpleStringProperty sumVATProperty() {
         return new SimpleStringProperty(decimalFormat.format(getSumVAT()));
+    }
+
+    public Integer getStorage() {
+        ApplicationContext context = ApplicationContextFactory.getApplicationContext();
+        StorageService storageService = (StorageService) context.getBean("storageService");
+        List<Storage> storages = storageService.findAll();
+        for (Storage storage : storages) {
+            if (storage.getProduct().getId().equals(this.getProduct().getId())) {
+                return storage.getAmount();
+            }
+        }
+        return 0;
+    }
+
+    public String getInStock() {
+        if (this.getStorage() >= this.amount) {
+            return "+";
+        } else {
+            return "-";
+        }
     }
 
     @Override
