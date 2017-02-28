@@ -119,6 +119,7 @@ public class Order {
         this.status = status;
     }
 
+    // todo update summary when method is calling
     public List<Item> getItems() {
         // id == null <- is it new Order?
         return items == null ? (id == null ? (items = new ArrayList<>()) : (items = ApplicationContextFactory.getApplicationContext().getBean(OrderService.class).findItems(this))) : items;
@@ -150,7 +151,9 @@ public class Order {
         for (Item item : getItems()) {
             summary = summary.add(item.getSumVAT());
         }
-        ApplicationContextFactory.getApplicationContext().getBean("orderService", OrderServiceImpl.class).update(this);
+        if (this.id != null) {
+            ApplicationContextFactory.getApplicationContext().getBean("orderService", OrderService.class).update(this);
+        }
         return summary;
     }
 

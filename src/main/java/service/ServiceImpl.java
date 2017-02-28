@@ -2,38 +2,43 @@ package service;
 
 import dao.DAO;
 import dao.DAOImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 public class ServiceImpl<T> implements Service<T> {
-
+    @Autowired
     private DAO<T> dao;
 
-    public ServiceImpl(Class<T> entityClass) {
-        dao = new DAOImpl<>(entityClass);
-    }
+    public ServiceImpl() {}
 
     @Override
+    @Transactional
     public Long create(T entity) {
         return dao.create(entity);
     }
 
     @Override
+    @Transactional
     public T read(Long id) {
         return dao.read(id);
     }
 
     @Override
-    public Boolean update(T entity) {
-        return dao.update(entity);
+    @Transactional
+    public void update(T entity) {
+        dao.update(entity);
     }
 
     @Override
-    public Boolean delete(T entity) {
-        return dao.delete(entity);
+    @Transactional
+    public void delete(T entity) {
+        dao.delete(entity);
     }
 
     @Override
+    @Transactional
     public List<T> findAll() {
         return dao.findAll();
     }

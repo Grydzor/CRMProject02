@@ -9,7 +9,6 @@
     <bean id="order" class="entity.Order" scope="prototype"/>
     <bean id="product" class="entity.Product" scope="prototype"/>
     <bean id="user" class="entity.User" scope="prototype"/>
-    <bean id="userSession" class="entity.UserSession" scope="prototype"/>
     <bean id="storage" class="entity.Storage" scope="prototype"/>
-
+    <bean id="userSession" class="entity.UserSession" scope="prototype"/>
 </beans>

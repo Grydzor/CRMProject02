@@ -11,9 +11,9 @@ public interface DAO<T> {
 
     T read(Long id);
 
-    Boolean update(T entity);
+    void update(T entity);
 
-    Boolean delete(T entity);
+    void delete(T entity);
 
     List<T> findAll();
 }

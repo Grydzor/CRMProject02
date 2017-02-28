@@ -1,12 +1,11 @@
 package entity;
 
 import org.springframework.context.ApplicationContext;
+import service.UserService;
 import service.UserSessionService;
+import util.ApplicationContextFactory;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,7 +23,6 @@ public class UserSession {
     private static ApplicationContext context;
 
     @Id
-    @Column(name = "EMPLOYEE_ID")
     private Long userId;
 
     @Column(name = "SESSION_ID")
@@ -32,62 +30,27 @@ public class UserSession {
 
     public UserSession() {}
 
-    private void setEmployeeId(Long userId) {
+    public UserSession(Long userId) {
         this.userId = userId;
-    }
-
-    private void setSessionId(Integer sessionId) {
-        this.sessionId = sessionId;
-    }
-
-    public Integer getSessionId() {
-        return sessionId;
+        sessionId = LocalDateTime.now().toString().hashCode();
     }
 
     public Long getUserId() {
         return userId;
     }
-
-    public static UserSession readFromResource() {
-        InputStream stream = UserSession.class.getResourceAsStream("/session.properties");
-        Scanner scanner = new Scanner(stream);
-
-        UserSession userSession = new UserSession();
-        if (scanner.hasNextLong()) userSession.setEmployeeId(scanner.nextLong());
-        else return null;
-
-        if (scanner.hasNextInt()) userSession.setSessionId(scanner.nextInt());
-        else return null;
-
-        return userSession;
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+    public Integer getSessionId() {
+        return sessionId;
+    }
+    public void setSessionId(Integer sessionId) {
+        this.sessionId = sessionId;
     }
 
-    public static UserSession writeToResource(Long userId) {
-        if (userId != null && userId.equals(-1L)) return null;
-        UserSessionService userSessionService = context.getBean(UserSessionService.class);
-
-        UserSession userSession = new UserSession();
-        userSession.userId = userId;
-        userSession.sessionId = LocalDateTime.now().toString().hashCode();
-
-        UserSession from = readFromResource();
-
-        String path = UserSession.class.getResource("/session.properties").getPath();
-
-        File file = new File(path);
-
-        try (PrintWriter out = new PrintWriter(file.getAbsoluteFile())) {
-            if (userId == null) {
-                if (from == null) return null;
-                userSessionService.delete(from);
-                out.print(""); return null; }
-            out.println(userId);
-            out.println(userSession.sessionId);
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-
-        userSessionService.createOrUpdate(userSession);
-        return userSession;
+    @Override
+    public String toString() {
+        return "UserSession{userId = '" + userId + "', " +
+                "sessionId = '" + sessionId + "'}";
     }
 }

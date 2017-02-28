@@ -3,28 +3,20 @@ package dao;
 import entity.Storage;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository("storageDAO")
 public class StorageDAOImpl extends DAOImpl<Storage> implements StorageDAO {
+    @Autowired
+    private SessionFactory factory;
 
-    protected StorageDAOImpl() {
-        super(Storage.class);
-    }
+    protected StorageDAOImpl() {}
 
     @Override
     public Long create(Storage entity) {
-        Session session = factory.openSession();
-        try {
-            session.beginTransaction();
-            session.save(entity);
-            session.getTransaction().commit();
-            return entity.getProduct().getId();
-        } catch (HibernateException he) {
-            session.getTransaction().rollback();
-            return null;
-        } finally {
-            session.close();
-        }
+        factory.getCurrentSession().save(entity);
+        return entity.getProduct().getId();
     }
 }

@@ -59,7 +59,7 @@ public class ManagerController {
     // Items table
     @FXML private TableView<Item> itemsTable;
           private ObservableList<Item> items;
-    @FXML private TableColumn<Item, Integer> itemIdColumn;
+    @FXML private TableColumn<Item, String> itemIdColumn;
     @FXML private TableColumn<Item, String> itemNameColumn;
     @FXML private TableColumn<Item, String> itemQuantityColumn;
     @FXML private TableColumn<Item, String> itemPriceNoVATColumn;
@@ -110,6 +110,7 @@ public class ManagerController {
     private ProductService productService;
     private CustomerService customerService;
     private UserService userService;
+    private UserSessionService sessionService;
 
     // formats for dates & BigDecimal
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
@@ -126,8 +127,9 @@ public class ManagerController {
         productService = context.getBean("productService", ProductService.class);
         customerService = context.getBean("customerService", CustomerService.class);
         userService = context.getBean("userService", UserService.class);
+        sessionService = context.getBean(UserSessionService.class);
 
-        UserSession session = UserSession.readFromResource();
+        UserSession session = sessionService.restoreSession();
         if (session != null) currentManager = userService.read(session.getUserId()).getEmployee();
         else currentManager = userService.read(13L).getEmployee();
 
@@ -139,8 +141,8 @@ public class ManagerController {
         orders = FXCollections.observableArrayList(orderService.findAllFor(currentManager));
         ordersTable.setItems(orders);
 
-//        itemIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        itemIdColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(itemsTable.getItems().indexOf(p.getValue()) + 1));
+        //
+        itemIdColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(itemsTable.getItems().indexOf(p.getValue()) + 1 + "."));
 
         itemQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         itemNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
@@ -256,6 +258,7 @@ public class ManagerController {
         }
     }
 
+    // todo 'Add item' does not work when changing Order
     @FXML
     public void changeOrder() {
         helper.disableForActionButNot(true, changeOrderButton, applyChangingOrderButton, cancelChangingOrderButton,

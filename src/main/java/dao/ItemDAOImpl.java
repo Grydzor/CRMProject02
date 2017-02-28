@@ -6,12 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository("itemDAO")
 public class ItemDAOImpl extends DAOImpl<Item> implements ItemDAO {
-
-
     @Autowired
-    protected ItemDAOImpl() {
-        super(Item.class);
-    }
-
+    protected ItemDAOImpl() {}
 
 }

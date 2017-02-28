@@ -1,86 +1,51 @@
 package dao;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 
-public class DAOImpl<T> implements DAO<T> {
-
+@Repository
+public abstract class DAOImpl<T> implements DAO<T> {
     @Autowired
-    protected SessionFactory factory;
+    private SessionFactory factory;
+
     private Class<T> entityClass;
 
-    public DAOImpl(Class<T> entityClass) {
-        //factory = HibernateSessionFactory.getSessionFactory();
-        this.entityClass = entityClass;
+    @SuppressWarnings("unchecked")
+    public DAOImpl() {
+        Type t = getClass().getGenericSuperclass();
+        ParameterizedType pt = (ParameterizedType) t;
+        entityClass = (Class) pt.getActualTypeArguments()[0];
     }
 
     @Override
     public Long create(T entity) {
-        Session session = factory.openSession();
-        try {
-            session.beginTransaction();
-            Long id = (Long) session.save(entity);
-            session.getTransaction().commit();
-            return id;
-        } catch (HibernateException he) {
-            session.getTransaction().rollback();
-            return null;
-        } finally {
-            session.close();
-        }
+       return (Long) factory.getCurrentSession().save(entity);
     }
 
     @Override
     public T read(Long id) {
-        Session session = factory.openSession();
-        try {
-            return session.get(entityClass, id);
-        } finally {
-            session.close();
-        }
-    }
-
-
-    @Override
-    public Boolean update(T entity) {
-        Session session = factory.openSession();
-        try {
-            session.beginTransaction();
-            session.update(entity);
-            session.getTransaction().commit();
-            return true;
-        } catch (HibernateException he) {
-            session.getTransaction().rollback();
-            return false;
-        } finally {
-            session.close();
-        }
+        return factory.getCurrentSession().get(entityClass, id);
     }
 
     @Override
-    public Boolean delete(T entity) {
-        Session session = factory.openSession();
-        try {
-            session.beginTransaction();
-            session.delete(entity);
-            session.getTransaction().commit();
-            return true;
-        } catch (HibernateException he) {
-            session.getTransaction().rollback();
-            return false;
-        } finally {
-            session.close();
-        }
+    public void update(T entity) {
+        factory.getCurrentSession().update(entity);
+    }
+
+    @Override
+    public void delete(T entity) {
+        factory.getCurrentSession().delete(entity);
     }
 
     @Override
     public List<T> findAll() {
-        try(Session session = factory.openSession()) {
-            return session.createQuery("FROM " + entityClass.getSimpleName() + " t", entityClass).list();
-        }
+        return factory.getCurrentSession()
+                .createQuery("FROM " + entityClass.getSimpleName() + " t", entityClass)
+                .list();
     }
 }

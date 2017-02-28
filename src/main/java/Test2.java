@@ -1,23 +1,23 @@
+import org.springframework.context.ApplicationContext;
+import service.CustomerService;
+import service.UserSessionService;
+import util.ApplicationContextFactory;
+
 /**
  * Created by eriol4ik on 17.02.2017.
  */
 public class Test2 {
     public static void main(String[] args) {
-//        Order order = OrderServiceImpl.getInstance().read(1L);
-//        List<Item> items = order.getItems();
-//
-//        for (Item item : items) {
-//            System.out.println(item);
-//        }
-//
-//        List<Order> orders = OrderServiceImpl.getInstance().findAll();
-//
-//        for (Order order1 : orders) {
-//            System.out.println(order1);
-//        }
-//
-//        order.getItems();
-//
-//        HibernateSessionFactory.getSessionFactory().close();
+        ApplicationContext context = ApplicationContextFactory.getApplicationContext();
+        CustomerService service = context.getBean(CustomerService.class);
+        UserSessionService service2 = context.getBean(UserSessionService.class);
+        System.out.println(service.read(2L));
+        System.out.println(service2.read(1L));
+
+        System.out.println("1:" + service2.restoreSession());
+        System.out.println("2:" + service2.writeToResource(1L));
+        System.out.println("3:" + service2.restoreSession());
+        System.out.println("4:" + service2.writeToResource(null));
+        System.out.println("5:" + service2.restoreSession());
     }
 }

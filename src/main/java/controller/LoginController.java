@@ -26,15 +26,17 @@ public class LoginController {
     @FXML private Label lblStatus;
 
     private UserService userService;
+    private UserSessionService sessionService;
     private ApplicationContext context;
 
     public void initialize() {
 
-
         Platform.runLater(() -> {
             context = ApplicationContextFactory.getApplicationContext();
-            userService = (UserService) context.getBean("userService");
-            UserSession fromResource = UserSession.readFromResource();
+            userService = context.getBean(UserService.class);
+            sessionService = context.getBean(UserSessionService.class);
+
+            UserSession fromResource = sessionService.restoreSession();
             if (fromResource == null) return;
             UserSessionService userSessionService = (UserSessionService) context.getBean("userSessionService");
 
@@ -43,7 +45,7 @@ public class LoginController {
 
 
             if (fromResource.getSessionId().equals(fromDB.getSessionId())) logIn(userService.read(fromDB.getUserId()), true);
-            else UserSession.writeToResource(null);
+            else sessionService.writeToResource(null);
         });
     }
 
