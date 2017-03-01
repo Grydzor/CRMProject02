@@ -1,110 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0"
-            xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controller.LoginController">
-    <top>
-        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
-    </top>
-    <left>
-        <Pane prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER"/>
-    </left>
-    <right>
-        <Pane prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER"/>
-    </right>
-    <bottom>
-        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
-    </bottom>
-    <center>
-        <VBox maxHeight="180.0" maxWidth="360.0" minHeight="180.0" minWidth="360.0" prefHeight="180.0" prefWidth="360.0"
-              BorderPane.alignment="CENTER">
-            <Label alignment="CENTER" contentDisplay="TEXT_ONLY" prefHeight="18.0" prefWidth="360.0"
-                   text="Welcome! Please enter the system:" textAlignment="CENTER">
-                <font>
-                    <Font size="14.0"/>
-                </font>
-                <VBox.margin>
-                    <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
-                </VBox.margin>
+<HBox alignment="CENTER" prefHeight="540.0" prefWidth="960.0" styleClass="texture" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+   <children>
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="370.0" prefWidth="330.0" spacing="10.0" style="-fx-border-color: darkgray; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0.0, 0, 1); -fx-background-color: -fx-base">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" scaleX="0.9" scaleY="0.9">
+               <image>
+                  <Image url="@imgs/logo_icon.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+            <Label text="Enter your username and password:" underline="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
             </Label>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-                <Label maxWidth="80.0" minWidth="80.0" prefWidth="80.0" text="Username:" textAlignment="CENTER">
-                    <font>
-                        <Font size="14.0"/>
-                    </font>
-                    <HBox.margin>
-                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0"/>
-                    </HBox.margin>
-                </Label>
-                <TextField fx:id="fldLogin" maxWidth="240.0" minWidth="240.0" prefWidth="240.0">
-                    <font>
-                        <Font size="14.0"/>
-                    </font>
-                </TextField>
-                <VBox.margin>
-                    <Insets bottom="8.0" left="16.0" right="8.0" top="8.0"/>
-                </VBox.margin>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-                <Label maxWidth="80.0" minWidth="80.0" prefWidth="80.0" text="Password:" textAlignment="CENTER">
-                    <font>
-                        <Font size="14.0"/>
-                    </font>
-                    <HBox.margin>
-                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0"/>
-                    </HBox.margin>
-                </Label>
-                <PasswordField fx:id="fldPassword" maxWidth="240.0" minWidth="240.0" onAction="#enterButtonAction"
-                               prefWidth="240.0">
-                    <font>
-                        <Font size="14.0"/>
-                    </font>
-                </PasswordField>
-                <VBox.margin>
-                    <Insets bottom="8.0" left="16.0" right="8.0" top="8.0"/>
-                </VBox.margin>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-                <Label fx:id="lblStatus" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" textAlignment="CENTER"
-                       textFill="#ed0000" wrapText="true">
-                    <font>
-                        <Font size="14.0"/>
-                    </font>
-                    <HBox.margin>
-                        <Insets bottom="18.0" left="18.0" right="18.0" top="18.0"/>
-                    </HBox.margin>
-                </Label>
-                <Button fx:id="enterButton" mnemonicParsing="false" onAction="#enterButtonAction" prefWidth="70.0"
-                        text="Log In">
-                    <font>
-                        <Font size="14.0"/>
-                    </font>
-                    <HBox.margin>
-                        <Insets bottom="12.0" left="12.0" right="12.0" top="12.0"/>
-                    </HBox.margin>
-                </Button>
-                <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitButtonAction" prefWidth="70.0"
-                        text="Exit">
-                    <font>
-                        <Font size="14.0"/>
-                    </font>
-                    <HBox.margin>
-                        <Insets bottom="12.0" left="12.0" right="12.0" top="12.0"/>
-                    </HBox.margin>
-                </Button>
-            </HBox>
-        </VBox>
-    </center>
-</BorderPane>
+            <TextField fx:id="fldLogin" alignment="CENTER" prefWidth="200.0" promptText="username">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <PasswordField fx:id="fldPassword" alignment="CENTER" onAction="#enterButtonAction" promptText="password">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </PasswordField>
+            <Label fx:id="lblStatus" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="276.0" textAlignment="CENTER" textFill="RED" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="enterButton" defaultButton="true" mnemonicParsing="false" onAction="#enterButtonAction" prefWidth="308.0" text="Log In">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="15.0" />
+         </padding>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </VBox>
+   </children>
+</HBox>

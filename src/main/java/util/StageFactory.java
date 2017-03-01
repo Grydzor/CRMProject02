@@ -50,9 +50,8 @@ public class StageFactory {
 
         T controller = loader.getController();
 
-        UserSession userSession;
         if (!Long.valueOf(-1L).equals(userId)) {
-            userSession = ApplicationContextFactory.getApplicationContext()
+            ApplicationContextFactory.getApplicationContext()
                     .getBean(UserSessionService.class).writeToResource(userId);
         }
 
@@ -130,7 +129,7 @@ public class StageFactory {
     // Передать в метод любой элемент который находится в окне, которое нужно закрыть.
     public static void backToLogInWindow() {
         stageWindow.close();
-        genericWindow("/view/login_panel_two.fxml", "Login panel", null);
+        genericWindow("/view/login_panel.fxml", "Login panel", null);
     }
 
     public static void closeLogInWindow(){

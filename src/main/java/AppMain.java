@@ -17,7 +17,7 @@ public class AppMain extends Application {
                 .getApplicationContext()
                 .getBean(UserSessionService.class).restoreSession();
         if (session == null) {
-            StageFactory.genericWindow("/view/login_panel_two.fxml", "CRM", -1L);
+            StageFactory.genericWindow("/view/login_panel.fxml", "CRM", -1L);
         } else {
             User user = ApplicationContextFactory.getApplicationContext()
                     .getBean(UserService.class).read(session.getUserId());

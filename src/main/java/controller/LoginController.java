@@ -1,9 +1,7 @@
 package controller;
 
 import entity.User;
-import entity.UserSession;
 import enum_types.UserStatus;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -30,23 +28,9 @@ public class LoginController {
     private ApplicationContext context;
 
     public void initialize() {
-
-        Platform.runLater(() -> {
-            context = ApplicationContextFactory.getApplicationContext();
-            userService = context.getBean(UserService.class);
-            sessionService = context.getBean(UserSessionService.class);
-
-            UserSession fromResource = sessionService.restoreSession();
-            if (fromResource == null) return;
-            UserSessionService userSessionService = (UserSessionService) context.getBean("userSessionService");
-
-            UserSession fromDB = userSessionService.read(fromResource.getUserId());
-            if (fromDB == null) return;
-
-
-            if (fromResource.getSessionId().equals(fromDB.getSessionId())) logIn(userService.read(fromDB.getUserId()), true);
-            else sessionService.writeToResource(null);
-        });
+        context = ApplicationContextFactory.getApplicationContext();
+        userService = context.getBean(UserService.class);
+        sessionService = context.getBean(UserSessionService.class);
     }
 
 
@@ -65,12 +49,13 @@ public class LoginController {
                 ADMIN или MANAGER - необходимую панель (Administration & Management)
 
      */
+
+    @FXML
     public void enterButtonAction() throws IOException {
         String login = InputDataChecker.checkString(fldLogin);
         String password = InputDataChecker.checkString(fldPassword);
 
         if (login != null && password != null) {
-
             User user = userService.find(login);
 
             if (user == null) {
@@ -79,7 +64,21 @@ public class LoginController {
             }
 
             if (user.getPassword().equals(password)) {
-                logIn(user, false);
+                setStatusMsg(UserStatus.SUCCESS);
+                switch (user.getEmployee().getPosition()) {
+                    case ADMIN:
+                        StageFactory.genericWindow("/view/admin_panel_two.fxml", "Administration", user.getId());
+                        break;
+                    case MANAGER:
+                        StageFactory.genericWindow("/view/manager_panel.fxml", "Management", user.getId());
+                        break;
+                    case CASHIER:
+                        StageFactory.genericWindow("/view/cashier_panel.fxml", "Cashier", user.getId());
+                        break;
+                    case STOREKEEPER:
+                        StageFactory.genericWindow("/view/storage_panel_two.fxml", "Storage", user.getId());
+                        break;
+                }
                 return;
             }
 
@@ -87,28 +86,7 @@ public class LoginController {
         }
     }
 
-    private void logIn(User user, Boolean fromSession) {
-        Long userId;
-        if (fromSession) userId = -1L;
-        else userId = user.getId();
-        setStatusMsg(UserStatus.SUCCESS);
-//                StageFactory.backToLogInWindow();
-        switch (user.getEmployee().getPosition()) {
-            case ADMIN:
-                StageFactory.genericWindow("/view/admin_panel_two.fxml", "Administration", userId);
-                break;
-            case MANAGER:
-                StageFactory.genericWindow("/view/manager_panel.fxml", "Management", userId);
-                break;
-            case CASHIER:
-                StageFactory.genericWindow("/view/cashier_panel.fxml", "Cashier", userId);
-                break;
-            case STOREKEEPER:
-                StageFactory.genericWindow("/view/storage_panel_two.fxml", "Storage", userId);
-                break;
-        }
-    }
-
+    @FXML
     public void exitButtonAction() {
         StageFactory.closeLogInWindow();
         HibernateSessionFactory.getSessionFactory().close();

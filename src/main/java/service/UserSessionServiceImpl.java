@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.util.Scanner;
 
 @Service("userSessionService")
@@ -35,6 +36,7 @@ public class UserSessionServiceImpl extends ServiceImpl<UserSession> implements 
         Integer sessionId;
 
         InputStream stream = UserSession.class.getResourceAsStream("/session.properties");
+        if (stream == null) return null;
         Scanner scanner = new Scanner(stream);
 
         if (scanner.hasNextLong()) userId = scanner.nextLong();
@@ -73,9 +75,9 @@ public class UserSessionServiceImpl extends ServiceImpl<UserSession> implements 
         UserSession userSession = new UserSession(userId);
         UserSession from = readFromResource();
 
-        String path = UserSession.class.getResource("/session.properties").getPath();
+        String path = getClass().getResource("/").getPath();
 
-        File file = new File(path);
+        File file = new File(path + "session.properties");
         if (!file.exists()) try {
             file.createNewFile();
         } catch (IOException ioe) {
