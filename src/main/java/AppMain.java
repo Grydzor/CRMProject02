@@ -36,8 +36,6 @@ public class AppMain extends Application {
                     break;
             }
         }
-        // todo add log-in with UserSession
-
     }
 
     public static void main(String[] args) {

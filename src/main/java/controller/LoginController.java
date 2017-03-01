@@ -1,6 +1,7 @@
 package controller;
 
 import entity.User;
+import entity.UserSession;
 import enum_types.UserStatus;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -26,6 +27,8 @@ public class LoginController {
     private UserService userService;
     private UserSessionService sessionService;
     private ApplicationContext context;
+
+    private UserSession session;
 
     public void initialize() {
         context = ApplicationContextFactory.getApplicationContext();

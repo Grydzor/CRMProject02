@@ -2,6 +2,7 @@ package controller;
 
 import entity.Item;
 import entity.Order;
+import entity.UserSession;
 import enum_types.OrderStatus;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -22,7 +23,7 @@ import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class CashierController {
+public class CashierController implements MainController {
 
     @FXML private TableView<Order> ordersTable;
     @FXML private TableColumn<Order, Long> ordersIdColumn;
@@ -61,6 +62,7 @@ public class CashierController {
     private ItemService itemService;
 
     private Helper helper;
+    private UserSession session;
     private ApplicationContext context;
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
@@ -132,6 +134,11 @@ public class CashierController {
     @FXML
     public void logOutButtonOnAction() {
         StageFactory.backToLogInWindow();
+    }
+
+    @Override
+    public void setUserSession(UserSession session) {
+        this.session = session;
     }
 
     private class Helper {

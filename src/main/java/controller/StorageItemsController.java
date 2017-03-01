@@ -2,6 +2,7 @@ package controller;
 
 import entity.Product;
 import entity.Storage;
+import entity.UserSession;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -109,11 +110,10 @@ public class StorageItemsController {
 
     @FXML
     public void closeButtonOnAction() {
-        StageFactory.genericWindow("/view/storage_panel_two.fxml", "Storage", null, "/view/styles/light_theme.css");
+        StageFactory.genericWindow("/view/storage_panel_two.fxml", "Storage", -1L);
     }
 
     private class Helper {
-
         private void addSelectListener() {
             productTableView.getSelectionModel().selectedItemProperty()
                     .addListener((observable, oldValue, newValue) -> {

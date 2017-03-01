@@ -2,6 +2,7 @@ package controller;
 
 import entity.Item;
 import entity.Order;
+import entity.UserSession;
 import enum_types.OrderStatus;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
  * Created by Никита on 21.02.2017.
  */
 
-public class StorageController {
+public class StorageController implements MainController {
 
 
     @FXML private TableView<Order> ordersTable;
@@ -65,6 +66,7 @@ public class StorageController {
     private ItemService itemService;
 
     private Helper helper;
+    private UserSession session;
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
     private DecimalFormat decimalFormat = new DecimalFormat("#0.00");
@@ -130,12 +132,17 @@ public class StorageController {
     }
 
     public void storageButtonOnAction() {
-        StageFactory.genericWindow("/view/storage_items_panel.fxml", "Storage", null, "/view/styles/light_theme.css");
+        StageFactory.genericWindow("/view/storage_items_panel.fxml", "Storage", -1L);
     }
 
     @FXML
     public void logOutButtonOnAction() {
         StageFactory.backToLogInWindow();
+    }
+
+    @Override
+    public void setUserSession(UserSession session) {
+        this.session = session;
     }
 
     private class Helper {

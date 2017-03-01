@@ -1,6 +1,7 @@
 package util;
 
-import controller.modal.ValueSettable;
+import controller.MainController;
+import controller.modal.ModalController;
 import entity.UserSession;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,8 +31,7 @@ public class StageFactory {
                 HibernateSessionFactory.getSessionFactory().close());
     }
 
-
-    public static <T> T genericWindow(String resource, String title, Long userId) {
+    public static <ControllerT extends MainController> void genericWindow(String resource, String title, Long userId) {
         FXMLLoader loader = new FXMLLoader(StageFactory.class.getResource(resource));
         Parent root;
         try {
@@ -39,7 +39,7 @@ public class StageFactory {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Проблема в пути к FXML");
-            return null;
+            return;
         }
         stageWindow.setTitle(title);
 
@@ -48,21 +48,20 @@ public class StageFactory {
 //        scene.getStylesheets().add("/view/styles/dark_theme.css");
         stageWindow.setScene(scene);
 
-        T controller = loader.getController();
 
         if (!Long.valueOf(-1L).equals(userId)) {
-            ApplicationContextFactory.getApplicationContext()
+            UserSession session = ApplicationContextFactory.getApplicationContext()
                     .getBean(UserSessionService.class).writeToResource(userId);
+            if (userId != null) {
+                ControllerT controller = loader.getController();
+                controller.setUserSession(session);
+            }
         }
 
         stageWindow.show();
-
-        return controller;
     }
 
-    public static <T> T genericWindow(String resource, String title, Long userId, String style) {
-        //UserSession userSession = UserSession.writeToResource(userId);
-
+    public static <ControllerT extends ModalController<ParameterT, ResultT>, ParameterT, ResultT> ResultT genericModal(String resource, String title, ParameterT parameter) {
         FXMLLoader loader = new FXMLLoader(StageFactory.class.getResource(resource));
         Parent root;
         try {
@@ -72,40 +71,6 @@ public class StageFactory {
             System.out.println("Проблема в пути к FXML");
             return null;
         }
-        stageWindow.getIcons().add(new Image("/view/imgs/little_icon.png"));
-
-        stageWindow.setOnCloseRequest((event) ->
-                HibernateSessionFactory.getSessionFactory().close());
-        stageWindow.setTitle(title);
-
-
-        stageWindow.setResizable(true);
-        stageWindow.setMinHeight(540);
-        stageWindow.setMinWidth(960);
-
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/view/styles/light_theme.css");
-//        scene.getStylesheets().add("/view/styles/dark_theme.css");
-        stageWindow.setScene(scene);
-
-        T controller = loader.getController();
-
-        stageWindow.show();
-
-        return controller;
-    }
-
-    public static <ControllerT extends ValueSettable<ParameterT, ResultT>, ParameterT, ResultT> ResultT genericModal(String resource, String title, ParameterT parameter) {
-        FXMLLoader loader = new FXMLLoader(StageFactory.class.getResource(resource));
-        Parent root;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Проблема в пути к FXML");
-            return null;
-        }
-
 
         stageModal.setResizable(false);
 

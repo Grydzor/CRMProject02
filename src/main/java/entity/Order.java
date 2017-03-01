@@ -119,10 +119,11 @@ public class Order {
         this.status = status;
     }
 
-    // todo update summary when method is calling
     public List<Item> getItems() {
         // id == null <- is it new Order?
-        return items == null ? (id == null ? (items = new ArrayList<>()) : (items = ApplicationContextFactory.getApplicationContext().getBean(OrderService.class).findItems(this))) : items;
+        items = items == null ? (id == null ? (new ArrayList<>()) : (ApplicationContextFactory.getApplicationContext().getBean(OrderService.class).findItems(this))) : items;
+        updateSummary();
+        return items;
     }
 
     public void setItems(List<Item> items) {
@@ -147,11 +148,13 @@ public class Order {
     // updates summary based on items collection
     // @return summary
     public BigDecimal updateSummary() {
-        summary = BigDecimal.ZERO;
-        for (Item item : getItems()) {
+        BigDecimal summary = BigDecimal.ZERO;
+        if (items == null) items = getItems();
+        for (Item item : items) {
             summary = summary.add(item.getSumVAT());
         }
-        if (this.id != null) {
+        if (this.id != null && !this.summary.equals(summary)) {
+            this.summary = summary;
             ApplicationContextFactory.getApplicationContext().getBean("orderService", OrderService.class).update(this);
         }
         return summary;

@@ -2,6 +2,7 @@ package controller;
 
 import entity.Employee;
 import entity.User;
+import entity.UserSession;
 import enum_types.Position;
 import enum_types.Sex;
 import javafx.beans.InvalidationListener;
@@ -21,7 +22,7 @@ import util.StageFactory;
 import java.io.IOException;
 
 /* Controller for Admin panel */
-public class AdminController {
+public class AdminController implements MainController {
     @FXML private TableView<Employee> employeesTable;
           private ObservableList<Employee> employees;
     @FXML private TableColumn<Employee, Long> idColumn;
@@ -70,6 +71,7 @@ public class AdminController {
     private UserService userService;
 
     private Helper helper;
+    private UserSession session;
 
     /* Loading of Employees list */
     public void initialize() {
@@ -266,6 +268,11 @@ public class AdminController {
     @FXML
     public void cancelDeleting() {
         helper.disableAnother(false, deleteButton, applyDeletingButton, cancelDeletingButton);
+    }
+
+    @Override
+    public void setUserSession(UserSession session) {
+        this.session = session;
     }
 
     /* contains all supplementary methods */

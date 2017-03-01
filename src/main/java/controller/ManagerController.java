@@ -1,6 +1,6 @@
 package controller;
 
-import controller.modal.ValueSettable;
+import controller.modal.ModalController;
 import entity.*;
 import enum_types.OrderStatus;
 import javafx.beans.InvalidationListener;
@@ -26,7 +26,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.sql.Date;
 
-public class ManagerController implements ValueSettable<UserSession, Object> {
+public class ManagerController implements MainController {
     @FXML private Button logOutButton;
 
     // Orders table
@@ -124,13 +124,7 @@ public class ManagerController implements ValueSettable<UserSession, Object> {
     public void initialize() {
         helper = new Helper();
 
-        context = ApplicationContextFactory.getApplicationContext();
-        orderService = context.getBean(OrderService.class);
-        itemService = context.getBean(ItemService.class);
-        productService = context.getBean(ProductService.class);
-        customerService = context.getBean(CustomerService.class);
-        userService = context.getBean(UserService.class);
-        sessionService = context.getBean(UserSessionService.class);
+        helper.initServices();
 
         UserSession session = sessionService.restoreSession();
         if (session != null) currentManager = userService.read(session.getUserId()).getEmployee();
@@ -144,9 +138,7 @@ public class ManagerController implements ValueSettable<UserSession, Object> {
         orders = FXCollections.observableArrayList(orderService.findAllFor(currentManager));
         ordersTable.setItems(orders);
 
-        //
         itemIdColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(itemsTable.getItems().indexOf(p.getValue()) + 1 + "."));
-
         itemQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         itemNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
         itemPriceNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
@@ -261,7 +253,6 @@ public class ManagerController implements ValueSettable<UserSession, Object> {
         }
     }
 
-    // todo 'Add item' does not work when changing Order
     @FXML
     public void changeOrder() {
         helper.disableForActionButNot(true, changeOrderButton, applyChangingOrderButton, cancelChangingOrderButton,
@@ -346,7 +337,6 @@ public class ManagerController implements ValueSettable<UserSession, Object> {
         productsList = FXCollections.observableArrayList(productService.findAll());
         productsNewItem.setItems(productsList);
     }
-
 
     @FXML
     public void applyAddingItem() {
@@ -493,16 +483,21 @@ public class ManagerController implements ValueSettable<UserSession, Object> {
     }
 
     @Override
-    public void setParameter(UserSession parameter) {
-        userSession = parameter;
-    }
-
-    @Override
-    public Object getResult() {
-        return null;
+    public void setUserSession(UserSession session) {
+        this.userSession = session;
     }
 
     private class Helper {
+        private void initServices() {
+            context = ApplicationContextFactory.getApplicationContext();
+            orderService = context.getBean(OrderService.class);
+            itemService = context.getBean(ItemService.class);
+            productService = context.getBean(ProductService.class);
+            customerService = context.getBean(CustomerService.class);
+            userService = context.getBean(UserService.class);
+            sessionService = context.getBean(UserSessionService.class);
+        }
+
         private void addSelectListener() {
             ordersTable.getSelectionModel().selectedItemProperty()
                     .addListener((observable, oldValue, newValue) -> {

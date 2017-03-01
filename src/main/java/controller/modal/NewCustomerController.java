@@ -9,7 +9,7 @@ import util.ApplicationContextFactory;
 import util.InputDataChecker;
 import util.StageFactory;
 
-public class NewCustomerController implements ValueSettable<Object, Customer> {
+public class NewCustomerController implements ModalController<Object, Customer> {
     @FXML private TextField nameField;
     @FXML private TextField surnameField;
     @FXML private TextField mobileField;
