@@ -95,16 +95,16 @@ public class LoginController {
 //                StageFactory.backToLogInWindow();
         switch (user.getEmployee().getPosition()) {
             case ADMIN:
-                StageFactory.genericWindow("/view/admin_panel_two.fxml", "Administration", userId, "/view/styles/light_theme.css");
+                StageFactory.genericWindow("/view/admin_panel_two.fxml", "Administration", userId);
                 break;
             case MANAGER:
                 StageFactory.genericWindow("/view/manager_panel.fxml", "Management", userId);
                 break;
             case CASHIER:
-                StageFactory.genericWindow("/view/cashier_panel.fxml", "Cashier", userId, "/view/styles/light_theme.css");
+                StageFactory.genericWindow("/view/cashier_panel.fxml", "Cashier", userId);
                 break;
             case STOREKEEPER:
-                StageFactory.genericWindow("/view/storage_panel_two.fxml", "Storage", userId, "/view/styles/light_theme.css");
+                StageFactory.genericWindow("/view/storage_panel_two.fxml", "Storage", userId);
                 break;
         }
     }

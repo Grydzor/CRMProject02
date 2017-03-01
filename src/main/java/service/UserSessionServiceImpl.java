@@ -89,6 +89,7 @@ public class UserSessionServiceImpl extends ServiceImpl<UserSession> implements 
                 userSessionDAO.createOrUpdate(userSession);
                 return userSession;
             } else {
+                out.print("");
                 userSessionDAO.delete(from);
                 return from;
             }

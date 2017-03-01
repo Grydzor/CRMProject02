@@ -1,12 +1,14 @@
 package util;
 
 import controller.modal.ValueSettable;
+import entity.UserSession;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import service.UserSessionService;
 
 import java.io.IOException;
 
@@ -30,8 +32,6 @@ public class StageFactory {
 
 
     public static <T> T genericWindow(String resource, String title, Long userId) {
-        //UserSession userSession = UserSession.writeToResource(userId);
-
         FXMLLoader loader = new FXMLLoader(StageFactory.class.getResource(resource));
         Parent root;
         try {
@@ -49,6 +49,12 @@ public class StageFactory {
         stageWindow.setScene(scene);
 
         T controller = loader.getController();
+
+        UserSession userSession;
+        if (!Long.valueOf(-1L).equals(userId)) {
+            userSession = ApplicationContextFactory.getApplicationContext()
+                    .getBean(UserSessionService.class).writeToResource(userId);
+        }
 
         stageWindow.show();
 
@@ -124,7 +130,7 @@ public class StageFactory {
     // Передать в метод любой элемент который находится в окне, которое нужно закрыть.
     public static void backToLogInWindow() {
         stageWindow.close();
-        StageFactory.genericWindow("/view/login_panel_two.fxml", "Login panel", null, "/view/styles/light_theme.css");
+        genericWindow("/view/login_panel_two.fxml", "Login panel", null);
     }
 
     public static void closeLogInWindow(){

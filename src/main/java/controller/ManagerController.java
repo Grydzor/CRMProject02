@@ -1,5 +1,6 @@
 package controller;
 
+import controller.modal.ValueSettable;
 import entity.*;
 import enum_types.OrderStatus;
 import javafx.beans.InvalidationListener;
@@ -25,7 +26,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.sql.Date;
 
-public class ManagerController {
+public class ManagerController implements ValueSettable<UserSession, Object> {
     @FXML private Button logOutButton;
 
     // Orders table
@@ -116,17 +117,19 @@ public class ManagerController {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
     private transient DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
+    private UserSession userSession;
+
     private Helper helper;
 
     public void initialize() {
         helper = new Helper();
 
         context = ApplicationContextFactory.getApplicationContext();
-        orderService = context.getBean("orderService", OrderService.class);
-        itemService = context.getBean("itemService", ItemService.class);
-        productService = context.getBean("productService", ProductService.class);
-        customerService = context.getBean("customerService", CustomerService.class);
-        userService = context.getBean("userService", UserService.class);
+        orderService = context.getBean(OrderService.class);
+        itemService = context.getBean(ItemService.class);
+        productService = context.getBean(ProductService.class);
+        customerService = context.getBean(CustomerService.class);
+        userService = context.getBean(UserService.class);
         sessionService = context.getBean(UserSessionService.class);
 
         UserSession session = sessionService.restoreSession();
@@ -262,7 +265,7 @@ public class ManagerController {
     @FXML
     public void changeOrder() {
         helper.disableForActionButNot(true, changeOrderButton, applyChangingOrderButton, cancelChangingOrderButton,
-                itemsTable);
+                itemsTable, addItemButton);
 
         // editable fields
         statusBox.setDisable(false);
@@ -282,7 +285,7 @@ public class ManagerController {
             currentOrder.setStatus(statusBox.getValue());
             orderService.update(currentOrder);
             helper.disableForActionButNot(false, changeOrderButton, applyChangingOrderButton, cancelChangingOrderButton,
-                    itemsTable);
+                    itemsTable, addItemButton);
 
             // editable fields
             statusBox.setDisable(true);
@@ -297,7 +300,7 @@ public class ManagerController {
     @FXML
     public void cancelChangingOrder() {
         helper.disableForActionButNot(false, changeOrderButton, applyChangingOrderButton, cancelChangingOrderButton,
-                itemsTable);
+                itemsTable, addItemButton);
 
         // editable fields
         statusBox.setDisable(true);
@@ -487,6 +490,16 @@ public class ManagerController {
                 customerBox.getSelectionModel().select(customer);
             }
         }
+    }
+
+    @Override
+    public void setParameter(UserSession parameter) {
+        userSession = parameter;
+    }
+
+    @Override
+    public Object getResult() {
+        return null;
     }
 
     private class Helper {
