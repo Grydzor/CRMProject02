@@ -8,6 +8,7 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -20,11 +21,13 @@ import util.InputDataChecker;
 import util.StageFactory;
 
 import java.math.BigDecimal;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.sql.Date;
+import java.util.ResourceBundle;
 
 public class ManagerController implements MainController {
     @FXML private Button logOutButton;
@@ -122,21 +125,15 @@ public class ManagerController implements MainController {
     private Helper helper;
 
     public void initialize() {
+        System.out.println("here");
         helper = new Helper();
 
         helper.initServices();
-
-        UserSession session = sessionService.restoreSession();
-        if (session != null) currentManager = userService.read(session.getUserId()).getEmployee();
-        else currentManager = userService.read(13L).getEmployee();
 
         // set columns in TableView
         orderIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         orderDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         orderPriceColumn.setCellValueFactory(new PropertyValueFactory<>("summary"));
-
-        orders = FXCollections.observableArrayList(orderService.findAllFor(currentManager));
-        ordersTable.setItems(orders);
 
         itemIdColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(itemsTable.getItems().indexOf(p.getValue()) + 1 + "."));
         itemQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
@@ -170,7 +167,6 @@ public class ManagerController implements MainController {
         });
         helper.addSelectListener();
 
-
         deadlinePicker.setDayCellFactory(datePicker -> new DateCell() {
             @Override
             public void updateItem(LocalDate item, boolean empty) {
@@ -185,15 +181,21 @@ public class ManagerController implements MainController {
     }
 
     @FXML
+    public void logOut() {
+        StageFactory.backToLogInWindow();
+    }
+
+    @FXML
     public void addOrder() {
+        // save before order for selecting it after 'cancel adding order'
         beforeCurrentOrder = currentOrder;
         currentOrder = new Order();
 
+        // auto fill
         currentOrder.setStatus(OrderStatus.OPENED);
         currentOrder.setDate(Date.valueOf(LocalDate.now()));
         currentOrder.setManager(currentManager);
 
-        items.setAll(currentOrder.getItems());
         helper.disableForActionButNot(true, addOrderButton, applyAddingOrderButton, cancelAddingOrderButton,
                 itemsTable);
 
@@ -320,11 +322,6 @@ public class ManagerController implements MainController {
     @FXML
     public void cancelDeletingOrder() {
         helper.disableForActionButNot(false, deleteOrderButton, applyDeletingOrderButton, cancelDeletingOrderButton);
-    }
-
-    @FXML
-    public void logOut() {
-        StageFactory.backToLogInWindow();
     }
 
     @FXML
@@ -485,6 +482,9 @@ public class ManagerController implements MainController {
     @Override
     public void setUserSession(UserSession session) {
         this.userSession = session;
+        if (userSession != null) currentManager = userService.read(userSession.getUserId()).getEmployee();
+        orders = FXCollections.observableArrayList(orderService.findAllFor(currentManager));
+        ordersTable.setItems(orders);
     }
 
     private class Helper {
@@ -510,12 +510,11 @@ public class ManagerController implements MainController {
                         selectCurrentItem();
                     });
         }
-
         private void selectCurrentItem() {
             changeItemButton.setDisable(currentItem == null);
-            deleteItemButton.setDisable(currentItem == null);
+            // items.size() <= 1 --- cannot delete last item!, use deleteOrder instead of
+            deleteItemButton.setDisable(currentItem == null || items.size() <= 1);
         }
-
         private void selectCurrentOrder() {
             fillInfoWith(currentOrder);
             addItemButton.setDisable(currentOrder == null);
@@ -548,7 +547,6 @@ public class ManagerController implements MainController {
                 addItemButton.setDisable(true);
             }
         }
-
         private void fillOrderInfo(Order currentOrder) {
             // extra checks for case - new Order()
             if (currentOrder.getId() != null) orderNumberField.setText(currentOrder.getId().toString());
@@ -559,7 +557,6 @@ public class ManagerController implements MainController {
             orderDateField.setText(currentOrder.getDate().toLocalDate().format(formatter));
             statusBox.setValue(currentOrder.getStatus());
         }
-
         private void clearOrderInfo() {
             managerField.setText("");
             orderNumberField.setText("");
@@ -571,7 +568,6 @@ public class ManagerController implements MainController {
             amountLabel.setText("");
             sumLabel.setText("");
         }
-
         private void disableOrderInfo(Boolean bool) {
             // editable fields
             customerBox.setDisable(bool);
@@ -588,6 +584,8 @@ public class ManagerController implements MainController {
             currentDeadline = InputDataChecker.checkDate(deadlinePicker);
         }
 
+        // disables nodes for action with three buttons
+        // but doesn't disable 'nodes'
         private void disableForActionButNot(boolean bool, Button actionButton, Button applyButton, Button cancelButton,
                                                       Node... nodes) {
             disableAllButNot(bool);
@@ -606,7 +604,6 @@ public class ManagerController implements MainController {
             }
 
         }
-
         // disables all but doesn't disable nodes independently from bool
         private void disableAllButNot(Boolean bool) {
             ordersTable.setDisable(bool);
@@ -622,12 +619,10 @@ public class ManagerController implements MainController {
             disableIfEnabled(bool, applyChangingOrderButton);
             disableIfEnabled(bool, cancelChangingOrderButton);
 
-
             disableIfEnabled(bool, addItemButton);
             disableIfEnabled(bool, changeItemButton);
             disableIfEnabled(bool, deleteItemButton);
         }
-
         private void disableIfEnabled(Boolean bool, Node node) {
             if (bool && !node.isDisabled() || !bool && node.isDisabled()) node.setDisable(bool);
         }
@@ -635,11 +630,6 @@ public class ManagerController implements MainController {
         private void disableNewItemRow(Boolean bool) {
             newItemRow.setVisible(!bool);
         }
-
-        private Boolean isCurrentOrderNew() {
-            return currentOrder != null && currentOrder.getId() == null;
-        }
-
         private void clearNewItemRow() {
             numberNewItem.setText("" + (items.size() + 1));
             productsNewItem.setItems(productsList == null ? productsList = FXCollections.observableArrayList(productService.findAll()) : productsList);
@@ -649,7 +639,9 @@ public class ManagerController implements MainController {
             priceVATNewItem.setText("");
             sumVATNewItem.setText("");
         }
-
+        private Boolean isCurrentOrderNew() {
+            return currentOrder != null && currentOrder.getId() == null;
+        }
         private void addInvalidationListenerForNewItemRow() {
             InvalidationListener listener = (observable) -> {
                 if (amountNewItem.getText().isEmpty()) {

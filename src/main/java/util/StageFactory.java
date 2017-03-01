@@ -34,6 +34,7 @@ public class StageFactory {
     public static <ControllerT extends MainController> void genericWindow(String resource, String title, Long userId) {
         FXMLLoader loader = new FXMLLoader(StageFactory.class.getResource(resource));
         Parent root;
+
         try {
             root = loader.load();
         } catch (IOException e) {
@@ -43,12 +44,6 @@ public class StageFactory {
         }
         stageWindow.setTitle(title);
 
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/view/styles/light_theme.css");
-//        scene.getStylesheets().add("/view/styles/dark_theme.css");
-        stageWindow.setScene(scene);
-
-
         if (!Long.valueOf(-1L).equals(userId)) {
             UserSession session = ApplicationContextFactory.getApplicationContext()
                     .getBean(UserSessionService.class).writeToResource(userId);
@@ -57,6 +52,13 @@ public class StageFactory {
                 controller.setUserSession(session);
             }
         }
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/view/styles/light_theme.css");
+//        scene.getStylesheets().add("/view/styles/dark_theme.css");
+        stageWindow.setScene(scene);
+
+        // Important: probably UserSession is setting after initialize() method in Controller
 
         stageWindow.show();
     }

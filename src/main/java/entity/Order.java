@@ -133,12 +133,8 @@ public class Order {
     public BigDecimal getSummary() {
         if (summary != null) return summary;
 
-        List<Item> items = getItems();
-        BigDecimal sum = BigDecimal.ZERO;
-        for (Item item : items) {
-            sum = sum.add(item.getSumVAT());
-        }
-        return summary = sum;
+        updateSummary();
+        return summary;
     }
 
     public void setSummary(BigDecimal summary) {
@@ -153,9 +149,13 @@ public class Order {
         for (Item item : items) {
             summary = summary.add(item.getSumVAT());
         }
-        if (this.id != null && !this.summary.equals(summary)) {
+        if (!summary.equals(this.summary)) {
             this.summary = summary;
-            ApplicationContextFactory.getApplicationContext().getBean("orderService", OrderService.class).update(this);
+            if (this.id != null) {
+                ApplicationContextFactory.getApplicationContext()
+                        .getBean("orderService", OrderService.class)
+                        .update(this);
+            }
         }
         return summary;
     }
