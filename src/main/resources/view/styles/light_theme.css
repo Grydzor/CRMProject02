@@ -127,6 +127,10 @@
     -fx-font-size: 12px;
 }
 
+.table-view {
+    -fx-table-cell-border-color: #f2f2f2;
+}
+
 .button,
 .label,
 .combo-box {

@@ -135,6 +135,23 @@ public class ManagerController implements MainController {
         orderDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         orderPriceColumn.setCellValueFactory(new PropertyValueFactory<>("summary"));
 
+        ordersTable.setRowFactory(row -> new TableRow<Order>(){
+            @Override
+            protected void updateItem(Order item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (item == null) {
+                    setStyle("");
+                } else {
+                    switch (item.getStatus()){
+                        case UNDER_REVIEW:
+                            setStyle("-fx-base: #ff7777");
+                            break;
+                    }
+                }
+            }
+        });
+
         itemIdColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(itemsTable.getItems().indexOf(p.getValue()) + 1 + "."));
         itemQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         itemNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
@@ -144,7 +161,7 @@ public class ManagerController implements MainController {
         itemSumVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumVAT"));
 //        helper.setCellFactoryForBigDecimal();
 
-        statuses = FXCollections.observableArrayList(OrderStatus.values());
+        statuses = FXCollections.observableArrayList();
         statusBox.setItems(statuses);
 
         customerBox.setItems(FXCollections.observableArrayList(customerService.findAll()));
@@ -260,9 +277,9 @@ public class ManagerController implements MainController {
         helper.disableForActionButNot(true, changeOrderButton, applyChangingOrderButton, cancelChangingOrderButton,
                 itemsTable, addItemButton);
 
-        // editable fields
-        statusBox.setDisable(false);
         statusBox.setStyle("-fx-border-color: transparent");
+
+        // editable fields
         customerBox.setDisable(false);
         customerBox.setStyle("-fx-border-color: transparent");
         deadlinePicker.setDisable(false);

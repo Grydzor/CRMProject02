@@ -98,7 +98,7 @@
                   <TableColumn fx:id="itemPriceNoVATColumn" maxWidth="${(itemsTable.width - 14) * 0.14}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.14}" text="Price" />
                   <TableColumn fx:id="itemSumNoVATColumn" maxWidth="${(itemsTable.width - 14) * 0.14}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.14}" text="Sum" />
                   <TableColumn fx:id="itemPriceVATColumn" maxWidth="${(itemsTable.width - 14) * 0.16}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.16}" text="Price (VAT inc.)" />
-                  <TableColumn fx:id="itemSumVATColumn" maxWidth="${(itemsTable.width - 14) * 0.16}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.16}" text="Sum (VAT inc.)" />
+                  <TableColumn fx:id="itemSumVATColumn" maxWidth="${(itemsTable.width - 14) * 0.16 + 14}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.16 + 14}" text="Sum (VAT inc.)" />
                </columns>
             </TableView>
             <HBox fx:id="newItemRow" alignment="CENTER_LEFT" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" spacing="2.0" visible="false">
@@ -124,7 +124,7 @@
          <columns>
             <TableColumn fx:id="orderIdColumn" maxWidth="${(ordersTable.width - 14) * 0.2}" minWidth="50.0" prefWidth="${(ordersTable.width - 14) * 0.2}" text="ID" />
             <TableColumn fx:id="orderDateColumn" maxWidth="${(ordersTable.width - 14) * 0.4}" minWidth="50.0" prefWidth="${(ordersTable.width - 14) * 0.4}" text="Date" />
-            <TableColumn fx:id="orderPriceColumn" maxWidth="${(ordersTable.width - 14) * 0.4}" minWidth="50.0" prefWidth="${(ordersTable.width - 14) * 0.4}" text="Sum" />
+            <TableColumn fx:id="orderPriceColumn" maxWidth="${(ordersTable.width - 14) * 0.4 + 14}" minWidth="50.0" prefWidth="${(ordersTable.width - 14) * 0.4 + 14}" text="Sum" />
          </columns>
       </TableView>
       <Label text="Customer:" GridPane.columnIndex="1" GridPane.rowIndex="3">
