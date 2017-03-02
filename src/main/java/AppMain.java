@@ -7,8 +7,6 @@ import service.UserSessionService;
 import util.ApplicationContextFactory;
 import util.StageFactory;
 
-import static enum_types.Position.*;
-
 public class AppMain extends Application {
 
     @Override
@@ -23,7 +21,7 @@ public class AppMain extends Application {
                     .getBean(UserService.class).read(session.getUserId());
             switch (user.getEmployee().getPosition()) {
                 case ADMIN:
-                    StageFactory.genericWindow("/view/admin_panel_two.fxml", "Administration", session.getUserId());
+                    StageFactory.genericWindow("/view/admin_panel.fxml", "Administration", session.getUserId());
                     break;
                 case MANAGER:
                     StageFactory.genericWindow("/view/manager_panel.fxml", "Management", session.getUserId());

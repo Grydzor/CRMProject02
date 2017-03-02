@@ -48,7 +48,7 @@ public class AdminController implements MainController {
     @FXML private TextField ageField;
     @FXML private ComboBox<Sex> sexBox;
     @FXML private ComboBox<Position> positionBox;
-    //@FXML private Label userLogin;
+    @FXML private TextField emailField;
 
     @FXML private TextField loginField;
     @FXML private TextField passwordField;
@@ -64,6 +64,7 @@ public class AdminController implements MainController {
     private Integer age;
     private Sex sex;
     private Position position;
+    private String email;
 
     private Employee currentEmployee;
 
@@ -129,8 +130,8 @@ public class AdminController implements MainController {
     public void add() throws IOException {
         helper.validateFields();
 
-        if (name != null && surname != null && age != null && sex != null && position != null) {
-            Employee employee = new Employee(name, surname, age, sex, position);
+        if (name != null && surname != null && age != null && sex != null && position != null && email != null) {
+            Employee employee = new Employee(name, surname, age, sex, position, email);
 
             employeeService.create(employee);
             employees.add(employee);
@@ -184,12 +185,13 @@ public class AdminController implements MainController {
         helper.validateFields();
 
         // If Fields are correct, apply changes
-        if (name != null && surname != null && age != null) {
+        if (name != null && surname != null && age != null && email != null) {
             if (!name.equals(currentEmployee.getName()))            currentEmployee.setName(name);
             if (!surname.equals(currentEmployee.getSurname()))      currentEmployee.setSurname(surname);
             if (!age.equals(currentEmployee.getAge()))              currentEmployee.setAge(age);
             if (!sex.equals(currentEmployee.getSex()))              currentEmployee.setSex(sex);
             if (!position.equals(currentEmployee.getPosition()))    currentEmployee.setPosition(position);
+            if (!email.equals(currentEmployee.getEmail()))          currentEmployee.setEmail(email);
 
             helper.disableAnother(false, changeButton, applyButton, cancelChangingButton);
             helper.openFields(false);
@@ -291,6 +293,7 @@ public class AdminController implements MainController {
                 ageField.setText("");
                 loginField.setText("");
                 passwordField.setText("");
+                emailField.setText("");
                 // Boxes
                 sexBox.setPromptText("");
                 sexBox.setValue(null);
@@ -308,6 +311,7 @@ public class AdminController implements MainController {
             nameField.setText(employee.getName());
             surnameField.setText(employee.getSurname());
             ageField.setText(employee.getAge().toString());
+            emailField.setText(employee.getEmail());
             sexBox.setValue(employee.getSex());
             positionBox.setValue(employee.getPosition());
 
@@ -367,6 +371,7 @@ public class AdminController implements MainController {
             ageField.setDisable(bool);
             sexBox.setDisable(bool);
             positionBox.setDisable(bool);
+            emailField.setDisable(bool);
         }
 
         private void disableButtons(Boolean bool) {
@@ -386,7 +391,8 @@ public class AdminController implements MainController {
                         !surnameField.getText().isEmpty() &&
                         !ageField.getText().isEmpty() &&
                         sexBox.getValue() != null &&
-                        positionBox.getValue() != null) {
+                        positionBox.getValue() != null &&
+                        !emailField.getText().isEmpty()) {
                     button.setDisable(false);
                 } else {
                     button.setDisable(true);
@@ -397,6 +403,7 @@ public class AdminController implements MainController {
             ageField.textProperty().addListener(listener);
             sexBox.valueProperty().addListener(listener);
             positionBox.valueProperty().addListener(listener);
+            emailField.textProperty().addListener(listener);
         }
 
         private void addSelectListener() {
@@ -417,6 +424,7 @@ public class AdminController implements MainController {
             age = InputDataChecker.checkInteger(ageField);
             sex = InputDataChecker.checkEnum(sexBox);
             position = InputDataChecker.checkEnum(positionBox);
+            email = InputDataChecker.checkEmail(emailField);
         }
     }
 

@@ -31,18 +31,22 @@ public class Employee {
     @Enumerated
     private Position position;
 
+    @Column
+    private String email;
+
     @OneToOne
     @JoinColumn(name = "USER_ID")
     private User user;
 
     public Employee() {}
 
-    public Employee(String name, String surname, Integer age, Sex sex, Position position) {
+    public Employee(String name, String surname, Integer age, Sex sex, Position position, String email) {
         this.name = name;
         this.surname = surname;
         this.age = age;
         this.sex = sex;
         this.position = position;
+        this.email = email;
     }
 
     public Long getId() {
@@ -101,16 +105,24 @@ public class Employee {
         this.user = user;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
+                ", name='" + name + "'" +
+                ", surname='" + surname + "'" +
                 ", age=" + age +
                 ", sex=" + sex +
                 ", position=" + position +
-                '}';
+                "}";
     }
 
     public String shortInfo() {

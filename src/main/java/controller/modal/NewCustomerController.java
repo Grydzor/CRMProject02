@@ -26,8 +26,8 @@ public class NewCustomerController implements ModalController<Object, Customer> 
     public void save() {
         String name = InputDataChecker.checkString(nameField);
         String surname = InputDataChecker.checkString(surnameField);
-        String mobile = InputDataChecker.checkString(mobileField);
-        String email = InputDataChecker.checkString(emailField);
+        String mobile = InputDataChecker.checkMobile(mobileField);
+        String email = InputDataChecker.checkEmail(emailField);
 
         if (name != null && surname != null && mobile != null && email != null) {
             customer = context.getBean(Customer.class);

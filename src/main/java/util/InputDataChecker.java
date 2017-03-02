@@ -9,6 +9,8 @@ import java.sql.Date;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /* Класс принимает поля ввода (текста и чисел - TextField,
    даты - DatePicker) и:
@@ -154,5 +156,41 @@ public class InputDataChecker {
 
         box.setStyle(STYLE_OK);
         return box.getValue();
+    }
+
+    public static String checkEmail(TextField emailField) {
+        String email = emailField.getText().trim();
+        if (email.isEmpty()) {
+            emailField.setStyle(STYLE_BAD);
+            return null;
+        }
+
+        Pattern p = Pattern.compile("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
+        Matcher m = p.matcher(email);
+        if (m.matches()) {
+            emailField.setStyle(STYLE_OK);
+            return email;
+        } else {
+            emailField.setStyle(STYLE_BAD);
+            return null;
+        }
+    }
+
+    public static String checkMobile(TextField mobileField) {
+        String mobile = mobileField.getText().trim();
+        if (mobile.isEmpty()) {
+            mobileField.setStyle(STYLE_BAD);
+            return null;
+        }
+
+        Pattern p = Pattern.compile("^(\\+\\d{1,3}[- ]?)?\\d{10}$");
+        Matcher m = p.matcher(mobile);
+        if (m.matches()) {
+            mobileField.setStyle(STYLE_OK);
+            return mobile;
+        } else {
+            mobileField.setStyle(STYLE_BAD);
+            return null;
+        }
     }
 }

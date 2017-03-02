@@ -133,7 +133,8 @@
 
 .button,
 .label,
-.combo-box {
+.combo-box,
+.text-field {
     -fx-font-size: 14px;
 }
 
