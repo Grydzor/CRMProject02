@@ -9,7 +9,7 @@ public class LoginHelper {
 
     public static String generate(String name, String surname) {
         context = ApplicationContextFactory.getApplicationContext();
-        userService = (UserService) context.getBean("userService");
+        userService = context.getBean(UserService.class);
         String loginOriginal = name.charAt(0) + "." + surname;
         String login = Translit.cyr2lat(loginOriginal);
         String tempLogin = login;

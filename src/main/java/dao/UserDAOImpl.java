@@ -20,9 +20,10 @@ public class UserDAOImpl extends DAOImpl<User> implements UserDAO {
     @Override
 
     public User find(String login) {
-        return factory.getCurrentSession()
+        List<User> result = factory.getCurrentSession()
                     .createQuery("FROM User u WHERE u.login = :login", User.class)
                     .setParameter("login", login)
-                    .getSingleResult();
+                    .list();
+        return result.isEmpty() ? null : result.get(0);
     }
 }
