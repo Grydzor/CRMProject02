@@ -266,6 +266,24 @@
                </HBox.margin></Button>
          </children>
       </HBox>
+      <MenuBar maxHeight="30.0" minHeight="30.0" prefHeight="30.0" style="-fx-font-size: 14;" GridPane.columnSpan="5">
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Log out" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit" />
+            <Menu mnemonicParsing="false" text="Personal">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#changePassword" text="Change password" />
+               </items>
+            </Menu>
+         </menus>
+         <GridPane.margin>
+            <Insets left="-8.0" right="-8.0" />
+         </GridPane.margin>
+      </MenuBar>
    </children>
    <columnConstraints>
       <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" prefWidth="${mainPane.width * 0.3}" />
@@ -281,7 +299,7 @@
       <!--<ColumnConstraints hgrow="SOMETIMES" percentWidth="20.0" />-->
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints vgrow="SOMETIMES" />
       <RowConstraints vgrow="SOMETIMES" />
       <RowConstraints vgrow="SOMETIMES" />
@@ -290,6 +308,6 @@
       <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <padding>
-      <Insets bottom="8.0" left="8.0" right="8.0" top="-7.0" />
+      <Insets bottom="8.0" left="8.0" right="8.0" />
    </padding>
 </GridPane>

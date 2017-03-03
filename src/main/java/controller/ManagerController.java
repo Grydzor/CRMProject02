@@ -157,7 +157,7 @@ public class ManagerController implements MainController {
         itemSumVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumVAT"));
 //        helper.setCellFactoryForBigDecimal();
 
-        statuses = FXCollections.observableArrayList();
+        statuses = FXCollections.observableArrayList(OrderStatus.values());
         statusBox.setItems(statuses);
 
         customerBox.setItems(FXCollections.observableArrayList(customerService.findAll()));
@@ -276,6 +276,8 @@ public class ManagerController implements MainController {
         statusBox.setStyle("-fx-border-color: transparent");
 
         // editable fields
+        statusBox.setDisable(false);
+        statusBox.setStyle("-fx-border-color: transparent");
         customerBox.setDisable(false);
         customerBox.setStyle("-fx-border-color: transparent");
         deadlinePicker.setDisable(false);
@@ -490,6 +492,11 @@ public class ManagerController implements MainController {
                 customerBox.getSelectionModel().select(customer);
             }
         }
+    }
+
+    @FXML
+    public void changePassword() {
+        StageFactory.loadModal("/view/modal/change_password.fxml", "Change password", userSession);
     }
 
     @Override
