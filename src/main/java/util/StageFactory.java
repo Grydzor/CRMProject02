@@ -3,6 +3,7 @@ package util;
 import controller.MainController;
 import controller.modal.ModalController;
 import entity.UserSession;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -32,6 +33,9 @@ public class StageFactory {
     }
 
     public static <ControllerT extends MainController> void genericWindow(String resource, String title, Long userId) {
+        Double currentWidth = stageWindow.getWidth();
+        Double currentHeight = stageWindow.getHeight();
+
         FXMLLoader loader = new FXMLLoader(StageFactory.class.getResource(resource));
         Parent root;
 
@@ -44,6 +48,8 @@ public class StageFactory {
         }
         stageWindow.setTitle(title);
 
+        // Important: UserSession is setting after initialize() method in Controller
+        // Controller loads in 'loader.load()'
         if (!Long.valueOf(-1L).equals(userId)) {
             UserSession session = ApplicationContextFactory.getApplicationContext()
                     .getBean(UserSessionService.class).writeToResource(userId);
@@ -58,7 +64,8 @@ public class StageFactory {
 //        scene.getStylesheets().add("/view/styles/dark_theme.css");
         stageWindow.setScene(scene);
 
-        // Important: probably UserSession is setting after initialize() method in Controller
+        stageWindow.setWidth(currentWidth);
+        stageWindow.setHeight(currentHeight);
 
         stageWindow.show();
     }
