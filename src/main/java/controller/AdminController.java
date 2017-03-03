@@ -14,10 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import service.*;
-import util.ApplicationContextFactory;
-import util.InputDataChecker;
-import util.LoginHelper;
-import util.StageFactory;
+import util.*;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -232,7 +229,7 @@ public class AdminController implements MainController {
             String login = LoginHelper.generate(name, surname);
             User user = new User(login, LoginHelper.generatePassword(), currentEmployee);
 
-            helper.sendEmail(user);
+            EmailSender.newUser(user);
 
             userService.create(user);
             currentEmployee.setUser(user);
@@ -438,71 +435,6 @@ public class AdminController implements MainController {
             sex = InputDataChecker.checkEnum(sexBox);
             position = InputDataChecker.checkEnum(positionBox);
             email = InputDataChecker.checkEmail(emailField);
-        }
-
-        private void sendEmail(User user) {
-            Properties prop = new Properties();
-            InputStream input;
-
-            try {
-                input = new FileInputStream(getClass().getResource("/").getPath() + "mail.properties");
-                // load a properties file
-                prop.load(input);
-            } catch (IOException fnfe) {
-                fnfe.printStackTrace();
-            }
-
-            final String FROM = prop.getProperty("from");
-            final String TO = user.getEmployee().getEmail();
-
-            final String BODY = "Hello, " + user.getLogin() + "!\nYour password: " + user.getPassword();
-            final String SUBJECT = "Account details";
-
-            final String SMTP_USERNAME = prop.getProperty("username");
-            final String SMTP_PASSWORD = prop.getProperty("password");
-
-            final String HOST = prop.getProperty("host");
-
-            final int PORT = 465;
-
-            // Create a Properties object to contain connection configuration information.
-            Properties props = System.getProperties();
-            props.put("mail.smtps.host", HOST);
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.transport.protocol", "smtps");
-            props.put("mail.smtp.port", PORT);
-
-            // Create a Session object to represent a mail session with the specified properties.
-            Session session = Session.getDefaultInstance(props);
-
-            try {
-                // Create a message with the specified information.
-                MimeMessage msg = new MimeMessage(session);
-                msg.setFrom(new InternetAddress(FROM));
-                msg.setRecipient(Message.RecipientType.TO, new InternetAddress(TO));
-                msg.setSubject(SUBJECT);
-                msg.setContent(BODY, "text/plain");
-
-                // Create a transport.
-                Transport transport = session.getTransport();
-
-                // Send the message.
-                try {
-                    System.out.println("Attempting to send an email through the SMTP interface...");
-                    transport.connect(HOST, SMTP_USERNAME, SMTP_PASSWORD);
-                    // Send the email.
-                    transport.sendMessage(msg, msg.getAllRecipients());
-                    System.out.println("Email sent!");
-                } catch (Exception ex) {
-                    System.out.println("The email was not sent.");
-                    System.out.println("Error message: " + ex.getMessage());
-                } finally {
-                    // Close and terminate the connection.
-                    transport.close();
-                }
-            } catch (MessagingException me) {
-                me.printStackTrace();
-            }
         }
     }
 

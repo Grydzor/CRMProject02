@@ -4,25 +4,34 @@ import entity.User;
 import entity.UserSession;
 import enum_types.UserStatus;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.springframework.context.ApplicationContext;
+import service.EmployeeService;
 import service.UserService;
 import service.UserSessionService;
 import util.ApplicationContextFactory;
-import util.HibernateSessionFactory;
+import util.EmailSender;
 import util.InputDataChecker;
 import util.StageFactory;
 
 import java.io.IOException;
 
+import static util.InputDataChecker.checkEmail;
+
 public class LoginController {
 
-    @FXML private TextField fldLogin;
-    @FXML private PasswordField fldPassword;
+    @FXML private Label loginHintLabel;
+    @FXML private TextField loginField;
+    @FXML private PasswordField passwordField;
+    @FXML private Label statusLabel;
+    @FXML private Label forgotPassLabel;
 
-    @FXML private Label lblStatus;
+    @FXML private Label emailHintLabel;
+    @FXML private TextField emailField;
+    @FXML private Button resetPasswordButton;
 
     private UserService userService;
     private UserSessionService sessionService;
@@ -55,8 +64,8 @@ public class LoginController {
 
     @FXML
     public void enterButtonAction() throws IOException {
-        String login = InputDataChecker.checkString(fldLogin);
-        String password = InputDataChecker.checkString(fldPassword);
+        String login = InputDataChecker.checkString(loginField);
+        String password = InputDataChecker.checkString(passwordField);
 
         if (login != null && password != null) {
             User user = userService.find(login);
@@ -90,12 +99,39 @@ public class LoginController {
     }
 
     @FXML
-    public void exitButtonAction() {
-        StageFactory.closeLogInWindow();
-        HibernateSessionFactory.getSessionFactory().close();
+    public void forgotPass() {
+        disableForResetPass(true);
+    }
+
+    @FXML
+    public void resetPassword() {
+        String email = InputDataChecker.checkEmail(emailField);
+        if (email != null) {
+            User user = context.getBean(EmployeeService.class).find(email);
+            if (user != null) {
+                if (EmailSender.resetPass(user)) {
+                    System.out.println("Password is reset!");
+                    disableForResetPass(false);
+                    return;
+                }
+            }
+        }
+        System.out.println("Password is not reset!");
     }
 
     private void setStatusMsg(UserStatus userStatus) {
-        lblStatus.setText(userStatus.toString());
+        statusLabel.setText(userStatus.toString());
+    }
+
+    private void disableForResetPass(Boolean bool) {
+        loginHintLabel.setVisible(!bool);
+        loginField.setVisible(!bool);
+        passwordField.setVisible(!bool);
+        statusLabel.setVisible(!bool);
+        forgotPassLabel.setVisible(!bool);
+
+        emailHintLabel.setVisible(bool);
+        emailField.setVisible(bool);
+        resetPasswordButton.setVisible(bool);
     }
 }

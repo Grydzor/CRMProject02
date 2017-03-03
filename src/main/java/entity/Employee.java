@@ -14,20 +14,20 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "NAME")
+    @Column
     private String name;
 
-    @Column(name = "SURNAME")
+    @Column
     private String surname;
 
-    @Column(name = "AGE")
+    @Column
     private Integer age;
 
-    @Column(name = "SEX")
+    @Column
     @Enumerated
     private Sex sex;
 
-    @Column(name = "POSITION")
+    @Column
     @Enumerated
     private Position position;
 

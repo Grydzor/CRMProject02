@@ -138,6 +138,21 @@
     -fx-font-size: 14px;
 }
 
+.forgot-pass {
+    -fx-font-size: 12px;
+    -fx-underline: false;
+}
+
+.forgot-pass:hover {
+    -fx-underline: true;
+}
+
+.forgot-pass:pressed {
+    -fx-underline: true;
+    -fx-text-fill: blue;
+}
+
+
 /*
 The disabled property cascades from a scene graph node to its child nodes,
 so all the child nodes of the combo box effectively pick up their :disabled CSS styles.
