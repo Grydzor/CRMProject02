@@ -1,6 +1,5 @@
-package TestDAO;
+package TestService;
 
-import dao.EmployeeDAO;
 import entity.Employee;
 import enum_types.Position;
 import enum_types.Sex;
@@ -8,27 +7,27 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import service.EmployeeService;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import java.util.List;
 
-public class EmployeeDAOTest {
+import static org.junit.Assert.*;
+
+public class EmployeeServiceTest {
     ApplicationContext context;
-    EmployeeDAO employeeDAO;
+    EmployeeService employeeService;
 
     @Before
     public void init(){
         context = new ClassPathXmlApplicationContext(
                         "/spring/spring-config.xml");
-        employeeDAO= (EmployeeDAO) context.getBean("employeeDAO");
+        employeeService = context.getBean("employeeService", EmployeeService.class);
     }
 
     @Test
     public void testRead(){
-
-
-        Employee employee = employeeDAO.read(1L);
+        List<Employee> list = employeeService.findAll();
+        Employee employee = employeeService.read(list.get(0).getId());
         System.out.println(employee.toString());
 
         assertNotNull("Проверка чтения первого работника", employee);
@@ -36,16 +35,16 @@ public class EmployeeDAOTest {
 
 
     @Test
-    public void CheckEmployeeDAO(){
-        Employee employee = (Employee) context.getBean("employee");
+    public void CheckEmployeeService(){
+        Employee employee = context.getBean(Employee.class);
         employee.setName("Ivan");
         employee.setSurname("Ivanov");
         employee.setAge(12);
         employee.setSex(Sex.MALE);
         employee.setPosition(Position.ADMIN);
 
-        Long id = employeeDAO.create(employee);
-        Employee employeeReturned = employeeDAO.read(id);
+        Long id = employeeService.create(employee);
+        Employee employeeReturned = employeeService.read(id);
 
         assertEquals("Проверка корректности записаного сотрудника", employeeReturned.toString(), employee.toString());
 
@@ -58,13 +57,13 @@ public class EmployeeDAOTest {
         employee1.setId(id);
 
 
-        employeeDAO.update(employee1);
-        Employee employeeReturned1 = employeeDAO.read(id);
+        employeeService.update(employee1);
+        Employee employeeReturned1 = employeeService.read(id);
 
         assertEquals("Проверка корректности обновления информации о сотруднике", employeeReturned1.toString(), employee1.toString());
 
-        employeeDAO.delete(employeeReturned1);
-        Employee employeeReturned2 = employeeDAO.read(id);
+        employeeService.delete(employeeReturned1);
+        Employee employeeReturned2 = employeeService.read(id);
 
         assertNull("Проверка корректности удаления информации о сотруднике", employeeReturned2);
     }
