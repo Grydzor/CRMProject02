@@ -84,12 +84,15 @@ public class ChangePasswordController implements ModalController<UserSession, St
         UserService service = ApplicationContextFactory.getApplicationContext().getBean(UserService.class);
         User user = service.read(currentSession.getUserId());
         if (user.getPassword().equals(oldPasswordField.getText())) {
+            wrongPassLabel.setVisible(false);
             user.setPassword(newPasswordField.getText());
             if (EmailSender.newPass(user)) {
                 service.update(user);
                 result = "success";
                 StageFactory.closeModal();
             }
+        } else {
+            wrongPassLabel.setVisible(true);
         }
     }
 
