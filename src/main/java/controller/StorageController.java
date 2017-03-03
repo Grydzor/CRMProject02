@@ -56,7 +56,7 @@ public class StorageController implements MainController {
     @FXML private Button logOutButton;
     @FXML private Button storageButton;
 
-    private ObservableList<Order> orders;
+    private ObservableList<Order> orders = FXCollections.observableArrayList();
     private ObservableList<Item> items;
     private ObservableList<OrderStatus> statuses;
 
@@ -83,11 +83,7 @@ public class StorageController implements MainController {
         saveButton.setDisable(true);
         statusBox.setDisable(true);
 
-        ordersIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        ordersDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-        ordersPriceColumn.setCellValueFactory(new PropertyValueFactory<>("summary"));
-        orders = FXCollections.observableArrayList(orderService.findAll());
-        ordersTable.setItems(orders);
+        helper.refreshTable();
 
         itemsIdColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper(itemsTable.getItems().indexOf(p.getValue()) + 1 + ""));
         itemsQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
@@ -126,6 +122,7 @@ public class StorageController implements MainController {
         dialogPane.getStylesheets().add(
                 getClass().getResource("/view/styles/light_theme.css").toExternalForm());
         dialogPane.getStyleClass().add("Alert");
+        helper.refreshTable();
         alert.showAndWait();
     }
 
@@ -152,6 +149,33 @@ public class StorageController implements MainController {
                         fillInfoWith(currentOrder);
                         statusBox.setDisable(false);
                     });
+        }
+
+        private boolean isKeeperStatus(Order order) {
+            return order.getStatus().equals(OrderStatus.PAID);
+        }
+
+        private void refreshTable() {
+            orders.clear();
+            clearFields();
+            ordersIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+            ordersDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+            ordersPriceColumn.setCellValueFactory(new PropertyValueFactory<>("summary"));
+            ObservableList<Order> result = FXCollections.observableArrayList(orderService.findAll());
+            for (Order order : result) {
+                if (helper.isKeeperStatus(order)) {
+                    orders.add(order);
+                }
+            }
+            ordersTable.setItems(orders);
+        }
+
+        private void clearFields() {
+            managerField.setText("");
+            customerField.setText("");
+            deadlineField.setText("");
+            statusBox.setValue(null);
+            currentOrder = null;
         }
 
         private void fillInfoWith(Order currentOrder) {

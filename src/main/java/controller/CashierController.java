@@ -123,8 +123,8 @@ public class CashierController implements MainController {
         dialogPane.getStylesheets().add(
                 getClass().getResource("/view/styles/light_theme.css").toExternalForm());
         dialogPane.getStyleClass().add("Alert");
-        alert.showAndWait();
         helper.refreshTable();
+        alert.showAndWait();
     }
 
     @FXML
