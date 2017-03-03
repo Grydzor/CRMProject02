@@ -27,8 +27,6 @@ public class StageFactory {
         stageWindow.setMinWidth(960);
 
         stageWindow.getIcons().add(new Image("/view/imgs/little_icon.png"));
-        stageWindow.setOnCloseRequest((event) ->
-                HibernateSessionFactory.getSessionFactory().close());
     }
 
     public static <ControllerT extends MainController>

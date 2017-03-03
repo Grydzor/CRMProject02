@@ -143,7 +143,7 @@
     -fx-underline: false;
 }
 
-.forgot-pass:hover {
+.forgot-pass:collapsed {
     -fx-underline: true;
 }
 

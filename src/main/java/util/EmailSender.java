@@ -22,7 +22,10 @@ public class EmailSender {
         return "Hello, " + user.getLogin() + "!\nYour password: " + user.getPassword();
     };
     private static String BODY_RESET_PASS(User user) {
-        return "Hello, " + user.getLogin() + "!\nYour new password: " + user.getPassword();
+        return "Hello, " + user.getLogin() + "!\nYou reset your password. Here your new password: " + user.getPassword();
+    }
+    private static String BODY_NEW_PASS(User user) {
+        return "Hello, " + user.getLogin() + "!\nYou changed your password. Your new password: " + user.getPassword();
     }
 
     private static Boolean send(User user, String body) {
@@ -108,5 +111,20 @@ public class EmailSender {
 
     public static Boolean newUser(User user) {
         return send(user, BODY_NEW_USER(user));
+    }
+
+    // new password must be saved into 'user'
+    public static Boolean newPass(User user) {
+        if (send(user, BODY_NEW_PASS(user))) {
+            ApplicationContextFactory.getApplicationContext().getBean(UserService.class).update(user);
+            return true;
+        } else {
+            // revert changes
+            user.setPassword(
+                    ApplicationContextFactory.getApplicationContext()
+                            .getBean(UserService.class)
+                            .read(user.getId()).getPassword());
+            return false;
+        }
     }
 }

@@ -442,4 +442,10 @@ public class AdminController implements MainController {
     public void logOut() {
         StageFactory.backToLogInWindow();
     }
+
+    // Menu
+    @FXML
+    public void changePassword() {
+        StageFactory.loadModal("/view/modal/change_password.fxml", "Change password", session);
+    }
 }
