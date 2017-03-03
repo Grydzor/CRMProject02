@@ -51,7 +51,7 @@ public class CashierController implements MainController {
     @FXML private Button saveButton;
     @FXML private Button logOutButton;
 
-    private ObservableList<Order> orders;
+    private ObservableList<Order> orders = FXCollections.observableArrayList();
     private ObservableList<Item> items;
     private ObservableList<OrderStatus> statuses;
 
@@ -71,6 +71,7 @@ public class CashierController implements MainController {
     public void initialize() {
 
         context = ApplicationContextFactory.getApplicationContext();
+
         helper = new Helper();
 
         saveButton.setDisable(true);
@@ -79,11 +80,7 @@ public class CashierController implements MainController {
         orderService = (OrderService) context.getBean("orderService");
         itemService = (ItemService) context.getBean("itemService");
 
-        ordersIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        ordersDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-        ordersPriceColumn.setCellValueFactory(new PropertyValueFactory<>("summary"));
-        orders = FXCollections.observableArrayList(orderService.findAll());
-        ordersTable.setItems(orders);
+        helper.refreshTable();
 
         itemsIdColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper(itemsTable.getItems().indexOf(p.getValue()) + 1 + ""));
         itemsQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
@@ -92,15 +89,14 @@ public class CashierController implements MainController {
         itemsPriceVATColumn.setCellValueFactory(new PropertyValueFactory<>("priceVAT"));
         itemsSumNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumNoVAT"));
         itemsSumVATColumn.setCellValueFactory(new PropertyValueFactory<>("sumVAT"));
-        helper.setCellFactoryForBigDecimal();
         items = FXCollections.observableArrayList();
 
         statuses = FXCollections.observableArrayList(OrderStatus.values());
-//        ArrayList<OrderStatus> orderStatuses = new ArrayList<>();
-//        orderStatuses.add(OrderStatus.PAID);
-//        orderStatuses.add(OrderStatus.FORMED);
-//        orderStatuses.add(OrderStatus.UNDER_REVIEW);
-//        statuses = FXCollections.observableArrayList(orderStatuses);
+        ArrayList<OrderStatus> orderStatuses = new ArrayList<>();
+        orderStatuses.add(OrderStatus.REVIEWED);
+        orderStatuses.add(OrderStatus.FORMED);
+        orderStatuses.add(OrderStatus.PAID);
+        statuses = FXCollections.observableArrayList(orderStatuses);
         statusBox.setItems(statuses);
 
         statusBox.getSelectionModel().selectedItemProperty().addListener(
@@ -129,6 +125,7 @@ public class CashierController implements MainController {
                 getClass().getResource("/view/styles/light_theme.css").toExternalForm());
         dialogPane.getStyleClass().add("Alert");
         alert.showAndWait();
+        helper.refreshTable();
     }
 
     @FXML
@@ -152,25 +149,31 @@ public class CashierController implements MainController {
                     });
         }
 
-        private void setCellFactoryForBigDecimal() {
+        private boolean isCashierStatus(Order order) {
+            return order.getStatus().equals(OrderStatus.REVIEWED) || order.getStatus().equals(OrderStatus.FORMED);
+        }
 
-//            Callback callback = param -> new TableCell<Item, BigDecimal>() {
-//                @Override
-//                protected void updateItem(BigDecimal item, boolean empty) {
-//                    super.updateItem(item, empty);
-//                    if(empty || item == null) {
-//                        setText("");
-//                    } else {
-//                        setText(decimalFormat.format(item));
-//                    }
-//                }
-//            };
-//
-//            itemsPriceNoVATColumn.setCellFactory(callback);
-//            itemsPriceVATColumn.setCellFactory(callback);
-//            itemsSumNoVATColumn.setCellFactory(callback);
-//            itemsSumVATColumn.setCellFactory(callback);
+        private void refreshTable() {
+            orders.clear();
+            clearFields();
+            ordersIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+            ordersDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+            ordersPriceColumn.setCellValueFactory(new PropertyValueFactory<>("summary"));
+            ObservableList<Order> result = FXCollections.observableArrayList(orderService.findAll());
+            for (Order order : result) {
+                if (helper.isCashierStatus(order)) {
+                    orders.add(order);
+                }
+            }
+            ordersTable.setItems(orders);
+        }
 
+        private void clearFields() {
+            managerField.setText("");
+            customerField.setText("");
+            deadlineField.setText("");
+            statusBox.setValue(null);
+            currentOrder = null;
         }
 
         private void fillInfoWith(Order currentOrder) {
