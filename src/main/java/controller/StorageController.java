@@ -101,11 +101,14 @@ public class StorageController implements MainController {
 
         statusBox.getSelectionModel().selectedItemProperty().addListener(
                 (v, oldValue, newValue) -> {
-                    if (!currentOrder.getStatus().equals(newValue)) {
-                        saveButton.setDisable(false);
+                    if (currentOrder != null) {
+                        if (!currentOrder.getStatus().equals(newValue)) {
+                            saveButton.setDisable(false);
+                        }
                     }
                 }
         );
+
         helper.addSelectListener();
     }
 
@@ -174,7 +177,8 @@ public class StorageController implements MainController {
             managerField.setText("");
             customerField.setText("");
             deadlineField.setText("");
-            statusBox.setValue(null);
+            statusBox.setDisable(true);
+            statusBox.getSelectionModel().clearSelection();
             currentOrder = null;
         }
 

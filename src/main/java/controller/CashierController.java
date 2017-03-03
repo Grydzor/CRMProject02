@@ -92,16 +92,16 @@ public class CashierController implements MainController {
 
         statuses = FXCollections.observableArrayList(OrderStatus.values());
         ArrayList<OrderStatus> orderStatuses = new ArrayList<>();
-        orderStatuses.add(OrderStatus.REVIEWED);
-        orderStatuses.add(OrderStatus.FORMED);
         orderStatuses.add(OrderStatus.PAID);
         statuses = FXCollections.observableArrayList(orderStatuses);
         statusBox.setItems(statuses);
 
         statusBox.getSelectionModel().selectedItemProperty().addListener(
                 (v, oldValue, newValue) -> {
-                    if (!currentOrder.getStatus().equals(newValue)) {
-                        saveButton.setDisable(false);
+                    if (currentOrder != null) {
+                        if (!currentOrder.getStatus().equals(newValue)) {
+                            saveButton.setDisable(false);
+                        }
                     }
                 }
         );
@@ -149,12 +149,14 @@ public class CashierController implements MainController {
         }
 
         private boolean isCashierStatus(Order order) {
-            return order.getStatus().equals(OrderStatus.REVIEWED) || order.getStatus().equals(OrderStatus.FORMED);
+            return order.getStatus().equals(OrderStatus.REVIEWED) || order.getStatus().equals(OrderStatus.FORMED) || order.getStatus().equals(OrderStatus.OPENED);
         }
 
         private void refreshTable() {
             orders.clear();
-            clearFields();
+            if (orders.isEmpty()){
+                clearFields();
+            }
             ordersIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
             ordersDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
             ordersPriceColumn.setCellValueFactory(new PropertyValueFactory<>("summary"));
@@ -171,7 +173,8 @@ public class CashierController implements MainController {
             managerField.setText("");
             customerField.setText("");
             deadlineField.setText("");
-            statusBox.setValue(null);
+            statusBox.setDisable(true);
+            statusBox.getSelectionModel().clearSelection();
             currentOrder = null;
         }
 
