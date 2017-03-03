@@ -110,7 +110,7 @@ public class StorageItemsController {
 
     @FXML
     public void closeButtonOnAction() {
-        StageFactory.genericWindow("/view/storage_panel_two.fxml", "Storage", -1L);
+        StageFactory.loadWindow("/view/storage_panel_two.fxml", "Storage", -1L);
     }
 
     private class Helper {

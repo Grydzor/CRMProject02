@@ -75,13 +75,13 @@ public class StorageController implements MainController {
     public void initialize() {
         context = ApplicationContextFactory.getApplicationContext();
 
+        orderService = context.getBean(OrderService.class);
+        itemService = context.getBean(ItemService.class);
+
         helper = new Helper();
 
         saveButton.setDisable(true);
         statusBox.setDisable(true);
-
-        orderService = (OrderService) context.getBean("orderService");
-        itemService = (ItemService) context.getBean("itemService");
 
         ordersIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         ordersDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -93,12 +93,11 @@ public class StorageController implements MainController {
         itemsQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         itemsNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
         itemsPriceNoVATColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        storageColumn.setCellValueFactory(new PropertyValueFactory<>("storage"));
+        storageColumn.setCellValueFactory(new PropertyValueFactory<>("availability"));
         inStockColumn.setCellValueFactory(new PropertyValueFactory<>("inStock"));
-        //helper.setCellFactoryForBigDecimal();
+
         items = FXCollections.observableArrayList();
         ArrayList<OrderStatus> orderStatuses = new ArrayList<>();
-        orderStatuses.add(OrderStatus.PAID);
         orderStatuses.add(OrderStatus.FORMED);
         orderStatuses.add(OrderStatus.UNDER_REVIEW);
         statuses = FXCollections.observableArrayList(orderStatuses);
@@ -112,7 +111,6 @@ public class StorageController implements MainController {
                 }
         );
         helper.addSelectListener();
-
     }
 
     @FXML
@@ -132,7 +130,7 @@ public class StorageController implements MainController {
     }
 
     public void storageButtonOnAction() {
-        StageFactory.genericWindow("/view/storage_items_panel.fxml", "Storage", -1L);
+        StageFactory.loadWindow("/view/storage_items_panel.fxml", "Storage", -1L);
     }
 
     @FXML
@@ -156,30 +154,8 @@ public class StorageController implements MainController {
                     });
         }
 
-        private void setCellFactoryForBigDecimal() {
-
-            Callback callback = param -> new TableCell<Item, BigDecimal>() {
-                @Override
-                protected void updateItem(BigDecimal item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if(empty || item == null) {
-                        setText("");
-                    } else {
-                        //setText(decimalFormat.format(item));
-                    }
-                }
-            };
-
-            //itemsPriceNoVATColumn.setCellFactory(callback);
-            //itemsPriceVATColumn.setCellFactory(callback);
-            //itemsSumNoVATColumn.setCellFactory(callback);
-            //itemsSumVATColumn.setCellFactory(callback);
-
-        }
-
         private void fillInfoWith(Order currentOrder) {
             if (currentOrder != null) {
-
                 items.setAll(currentOrder.getItems());
                 itemsTable.setItems(items);
 
@@ -188,15 +164,8 @@ public class StorageController implements MainController {
                 customerField.setText(currentOrder.getCustomer().toString());
                 statusBox.setValue(currentOrder.getStatus());
 
-                Integer amount = 0;
-                BigDecimal sum = BigDecimal.ZERO;
-                for (Item item : items) {
-                    amount += item.getAmount();
-                    sum = sum.add(item.getSumVAT());
-                }
-
-                amountLabel.setText("" + amount);
-                summaryLabel.setText(decimalFormat.format(sum));
+                amountLabel.setText("" + currentOrder.getAmount());
+                summaryLabel.setText(currentOrder.summaryProperty().get());
 
             } else {
                 items.clear();

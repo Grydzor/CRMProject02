@@ -2,11 +2,7 @@ package entity;
 
 import enum_types.OrderStatus;
 import javafx.beans.property.SimpleStringProperty;
-import org.springframework.context.ApplicationContext;
-import service.ItemService;
 import service.OrderService;
-import service.OrderServiceImpl;
-import service.StorageService;
 import util.ApplicationContextFactory;
 
 import javax.persistence.*;
@@ -15,7 +11,6 @@ import java.sql.Date;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -56,7 +51,10 @@ public class Order {
     private OrderStatus status;
 
     @Column(name = "SUMMARY")
-    private BigDecimal summary/* = BigDecimal.ZERO*/;
+    private BigDecimal summary;
+
+    @Column
+    private Integer amount;
 
     private transient DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
@@ -122,7 +120,7 @@ public class Order {
     public List<Item> getItems() {
         // id == null <- is it new Order?
         items = items == null ? (id == null ? (new ArrayList<>()) : (ApplicationContextFactory.getApplicationContext().getBean(OrderService.class).findItems(this))) : items;
-        updateSummary();
+        updateSummaryAndAmount();
         return items;
     }
 
@@ -133,7 +131,7 @@ public class Order {
     public BigDecimal getSummary() {
         if (summary != null) return summary;
 
-        updateSummary();
+        updateSummaryAndAmount();
         return summary;
     }
 
@@ -143,12 +141,23 @@ public class Order {
 
     // updates summary based on items collection
     // @return summary
-    public BigDecimal updateSummary() {
+    public void updateSummaryAndAmount() {
         BigDecimal summary = BigDecimal.ZERO;
+        Integer amount = 0;
         if (items == null) items = getItems();
         for (Item item : items) {
             summary = summary.add(item.getSumVAT());
+            amount = amount + item.getAmount();
         }
+        if (!amount.equals(this.amount)) {
+            this.amount = amount;
+            if (this.id != null) {
+                ApplicationContextFactory.getApplicationContext()
+                        .getBean("orderService", OrderService.class)
+                        .update(this);
+            }
+        }
+        summary = summary.setScale(2, BigDecimal.ROUND_HALF_UP);
         if (!summary.equals(this.summary)) {
             this.summary = summary;
             if (this.id != null) {
@@ -157,7 +166,17 @@ public class Order {
                         .update(this);
             }
         }
-        return summary;
+    }
+
+    public Integer getAmount() {
+        if (amount != null) return amount;
+
+        updateSummaryAndAmount();
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 
     public SimpleStringProperty summaryProperty() {

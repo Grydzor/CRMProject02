@@ -1,6 +1,5 @@
 package controller;
 
-import controller.modal.ModalController;
 import entity.*;
 import enum_types.OrderStatus;
 import javafx.beans.InvalidationListener;
@@ -8,7 +7,6 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -21,13 +19,11 @@ import util.InputDataChecker;
 import util.StageFactory;
 
 import java.math.BigDecimal;
-import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.sql.Date;
-import java.util.ResourceBundle;
 
 public class ManagerController implements MainController {
     @FXML private Button logOutButton;
@@ -254,7 +250,7 @@ public class ManagerController implements MainController {
         if (currentCustomer != null && currentDeadline != null) {
             currentOrder.setCustomer(currentCustomer);
             currentOrder.setDeadline(currentDeadline);
-//            currentOrder.updateSummary();
+//            currentOrder.updateSummaryAndAmount();
             orderService.create(currentOrder);
             for (Item item : items) {
                 // set here because currentOrder got its id at creating (2 rows above)
@@ -371,7 +367,7 @@ public class ManagerController implements MainController {
             // How????!!!
             // upd: understand (because of helper.selectCurrentOrder(); <- items.setAll(currentOrder.getItems());
             currentOrder.getItems().add(currentItem);
-            currentOrder.updateSummary();
+            currentOrder.updateSummaryAndAmount();
             if (!helper.isCurrentOrderNew()) {
                 orders.set(orders.indexOf(currentOrder), currentOrder);
             }
@@ -442,7 +438,7 @@ public class ManagerController implements MainController {
             currentItem.setAmount(amount);
 
             itemService.update(currentItem);
-            currentOrder.updateSummary();
+            currentOrder.updateSummaryAndAmount();
             if (!helper.isCurrentOrderNew()) {
                 orders.set(orders.indexOf(currentOrder), currentOrder);
             }
@@ -487,7 +483,7 @@ public class ManagerController implements MainController {
 
     @FXML
     public void newCustomer() {
-        Customer customer = StageFactory.genericModal("/view/modal/new_customer.fxml", "New customer", null);
+        Customer customer = StageFactory.loadModal("/view/modal/new_customer.fxml", "New customer", null);
         if (customer != null) {
             customerBox.getItems().add(customer);
             if (!customerBox.isDisable()) {

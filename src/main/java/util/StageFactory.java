@@ -3,7 +3,6 @@ package util;
 import controller.MainController;
 import controller.modal.ModalController;
 import entity.UserSession;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -32,7 +31,8 @@ public class StageFactory {
                 HibernateSessionFactory.getSessionFactory().close());
     }
 
-    public static <ControllerT extends MainController> void genericWindow(String resource, String title, Long userId) {
+    public static <ControllerT extends MainController>
+            void loadWindow(String resource, String title, Long userId) {
         Double currentWidth = stageWindow.getWidth();
         Double currentHeight = stageWindow.getHeight();
 
@@ -70,7 +70,9 @@ public class StageFactory {
         stageWindow.show();
     }
 
-    public static <ControllerT extends ModalController<ParameterT, ResultT>, ParameterT, ResultT> ResultT genericModal(String resource, String title, ParameterT parameter) {
+    public static <ControllerT extends
+            ModalController<ParameterT, ResultT>, ParameterT, ResultT>
+            ResultT loadModal(String resource, String title, ParameterT parameter) {
         FXMLLoader loader = new FXMLLoader(StageFactory.class.getResource(resource));
         Parent root;
         try {
@@ -102,8 +104,8 @@ public class StageFactory {
 
     // Передать в метод любой элемент который находится в окне, которое нужно закрыть.
     public static void backToLogInWindow() {
-        stageWindow.close();
-        genericWindow("/view/login_panel.fxml", "Login panel", null);
+//        stageWindow.close();
+        loadWindow("/view/login_panel.fxml", "Login panel", null);
     }
 
     public static void closeLogInWindow(){
