@@ -69,7 +69,6 @@ public class CashierController implements MainController {
     private DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
     public void initialize() {
-
         context = ApplicationContextFactory.getApplicationContext();
 
         helper = new Helper();
