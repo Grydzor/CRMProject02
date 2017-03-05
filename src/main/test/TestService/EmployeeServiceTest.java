@@ -14,8 +14,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class EmployeeServiceTest {
-    ApplicationContext context;
-    EmployeeService employeeService;
+    private ApplicationContext context;
+    private EmployeeService employeeService;
 
     @Before
     public void init(){
@@ -28,14 +28,13 @@ public class EmployeeServiceTest {
     public void testRead(){
         List<Employee> list = employeeService.findAll();
         Employee employee = employeeService.read(list.get(0).getId());
-        System.out.println(employee.toString());
 
         assertNotNull("Проверка чтения первого работника", employee);
     }
 
 
     @Test
-    public void CheckEmployeeService(){
+    public void createUpdateDelete(){
         Employee employee = context.getBean(Employee.class);
         employee.setName("Ivan");
         employee.setSurname("Ivanov");

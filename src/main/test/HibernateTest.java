@@ -29,18 +29,6 @@ public class HibernateTest {
     }
 
 
-
-    /*@Test
-    public void HibernateObjectTest(){
-        Class hibernate = HibernateSessionFactory.class;
-        Constructor[] constructor = hibernate.getDeclaredConstructors();
-        assertEquals("HibernateSessionFactory have more then 1 constructor", 1,constructor.length);
-
-        int modifier = constructor[0].getModifiers();
-        if(!Modifier.isPrivate(modifier)) {fail("Constructor HibernateSessionFactory is not private!");}
-
-    }*/
-
 //    @Test
 //    @After
 //    public void HiberSessionClosed(){

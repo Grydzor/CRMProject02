@@ -9,34 +9,39 @@ import enum_types.Sex;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import service.EmployeeService;
+import service.UserService;
 import util.ApplicationContextFactory;
+
+import java.util.List;
 
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class UserDAOTest {
+public class UserServiceTest {
     private ApplicationContext context;
-    private UserDAO userDAO;
-    private EmployeeDAO employeeDAO;
+    private UserService userService;
+    private EmployeeService employeeService;
 
     @Before
     public void init(){
         context = ApplicationContextFactory.getApplicationContext();
-        employeeDAO = context.getBean("employeeDAO", EmployeeDAO.class);
-        userDAO = context.getBean("userDAO", UserDAO.class);
+        employeeService = context.getBean("employeeService", EmployeeService.class);
+        userService = context.getBean("userService", UserService.class);
     }
 
     @Test
     public void testRead(){
-        User user = userDAO.read(new Long("1"));
+        List<User> userList = userService.findAll();
+        User user = userService.read(userList.get(0).getId());
 
         assertNotNull("Проверка чтения первого пользователя", user);
     }
 
 
     @Test
-    public void CheckUserDAO(){
+    public void createUpdateDelete(){
         Employee employee = context.getBean(Employee.class);
         employee.setName("User");
         employee.setSurname("Userov");
@@ -44,7 +49,7 @@ public class UserDAOTest {
         employee.setSex(Sex.MALE);
         employee.setPosition(Position.ADMIN);
 
-        Long idEmployee = employeeDAO.create(employee);
+        Long idEmployee = employeeService.create(employee);
 
         User user = context.getBean(User.class);
         user.setLogin("login");
@@ -52,8 +57,8 @@ public class UserDAOTest {
         user.setEmployee(employee);
 
 
-        Long idUser = userDAO.create(user);
-        User userReturned = userDAO.read(idUser);
+        Long idUser = userService.create(user);
+        User userReturned = userService.read(idUser);
 
         assertEquals("Проверка корректности записаного пользователя", userReturned, user);
 
@@ -64,14 +69,14 @@ public class UserDAOTest {
         user1.setId(idUser);
 
 
-        userDAO.update(user1);
-        User userReturned1 = userDAO.read(idUser);
+        userService.update(user1);
+        User userReturned1 = userService.read(idUser);
 
         assertEquals("Проверка корректности обновления информации о пользователе", userReturned1, user1);
 
-        userDAO.delete(userReturned1);
-        User userReturned2 = userDAO.read(idUser);
-        employeeDAO.delete(employee);
+        userService.delete(userReturned1);
+        User userReturned2 = userService.read(idUser);
+        employeeService.delete(employee);
 
         assertNull("Проверка корректности удаления информации о пользователе", userReturned2);
     }
