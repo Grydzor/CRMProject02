@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CRMProject02.iml" filepath="$PROJECT_DIR$/CRMProject02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DesktopApp/DesktopApp.iml" filepath="$PROJECT_DIR$/DesktopApp/DesktopApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WebApp/WebApp.iml" filepath="$PROJECT_DIR$/WebApp/WebApp.iml" />
     </modules>
   </component>
 </project>

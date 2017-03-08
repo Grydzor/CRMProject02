@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" >
+    <Appenders>
+        <File name="LogFile" fileName="DesktopApp/logs/app.log">
+            <PatternLayout>
+                <Pattern>"%d{HH:mm:ss.SSS} [%t] %-5level %logger{1} - %msg%n"</Pattern>
+            </PatternLayout>
+        </File>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="util.log.CreateService"
+                level="debug" additivity="false">
+            <AppenderRef ref="LogFile"/>
+        </Logger>
+        <Logger name="util.log.ReadService"
+                level="debug" additivity="false">
+            <AppenderRef ref="LogFile"/>
+        </Logger>
+        <Logger name="util.log.DeleteService"
+                level="debug" additivity="false">
+            <AppenderRef ref="LogFile"/>
+        </Logger>
+        <Logger name="util.log.UpdateService"
+                level="debug" additivity="false">
+            <AppenderRef ref="LogFile"/>
+        </Logger>
+        <Logger name="util.log.FindAllService"
+                level="debug" additivity="false">
+            <AppenderRef ref="LogFile"/>
+        </Logger>
+        <!-- Root Logger -->
+        <Root level="WARN">
+            <AppenderRef ref="LogFile"/>
+        </Root>
+
+    </Loggers>
+</Configuration>

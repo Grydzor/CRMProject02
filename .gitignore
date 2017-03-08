@@ -6,7 +6,6 @@
 .idea/
 target/
 
-*.iml
+#*.iml
 hibernate.cfg.xml
-session.properties
 mail.properties

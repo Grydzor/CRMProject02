@@ -8,10 +8,17 @@
     <groupId>CRMProject02</groupId>
     <artifactId>CRMProject02</artifactId>
 
-    <packaging>pom</packaging>
+    <!--<packaging>pom</packaging>-->
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>DesktopApp</module>
+        <module>WebApp</module>
+    </modules>
 
     <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
         <junit.version>4.12</junit.version>
         <org.mysql.version>5.1.40</org.mysql.version>
         <org.hibernate.version>5.2.7.Final</org.hibernate.version>
@@ -26,58 +33,40 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- Подключение MySQL Connector -->
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${org.mysql.version}</version>
         </dependency>
+
         <dependency>
-            <!-- Подключение Google json -->
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.8.0</version>
         </dependency>
-        <!-- Подключение ORM Hibernate -->
-        <dependency>
-            <groupId>org.hibernate.common</groupId>
-            <artifactId>hibernate-commons-annotations</artifactId>
-            <version>5.0.1.Final</version>
-        </dependency>
+        <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${org.hibernate.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>${org.hibernate.version}</version>
-        </dependency>
-
-        <!-- Подключение Spring Framework-->
-        <!-- Ядро фреймворка-->
+        <!-- Spring Framework  -->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
+            <artifactId>spring-orm</artifactId>
             <version>${org.springframework.version}</version>
         </dependency>
-        <!-- Подключение контекста-->
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>${org.springframework.version}</version>
         </dependency>
-        <!-- Подключение модуля поддержки-->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>${org.springframework.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
+            <artifactId>spring-context-support</artifactId>
             <version>${org.springframework.version}</version>
         </dependency>
 
@@ -87,7 +76,24 @@
             <version>${org.springframework.version}</version>
         </dependency>
 
-        <!-- AspectJ Framework -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <!-- Spring Web -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
@@ -99,8 +105,7 @@
             <artifactId>aspectjweaver</artifactId>
             <version>${org.aspectj.version}</version>
         </dependency>
-
-        <!-- Логгирование событий -->
+        <!-- Log4j-->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
@@ -112,29 +117,10 @@
             <version>2.8</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>1.4.7</version>
         </dependency>
-
     </dependencies>
-
-    <build>
-        <!-- Плагин который собирает проект на уровне языка Java 1.8 -->
-        <!-- Добавлено в связи с тем что у нас разнобой в настройках -->
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>
