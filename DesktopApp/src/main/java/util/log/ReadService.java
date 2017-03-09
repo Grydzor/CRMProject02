@@ -15,7 +15,7 @@ public class ReadService{
     private void pointcutRead() {
     }
 
-    @Before("pointcutRead()" )
+    @Before("pointcutRead()")
     private void beforeRead(JoinPoint joinPoint) {
         Object[] objectArgs = joinPoint.getArgs();
         String args = "";

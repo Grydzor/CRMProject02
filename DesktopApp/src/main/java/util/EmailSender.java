@@ -28,10 +28,9 @@ public class EmailSender {
     private static Boolean send(User user, String body) {
         Properties prop = new Properties();
         InputStream input;
-
         try {
             input = new FileInputStream(EmailSender.class
-                    .getResource("/").getPath() + "mail.properties");
+                    .getResource("/").getPath() + "properties/mail.properties");
             // load a properties file
             prop.load(input);
         } catch (IOException fnfe) {

@@ -8,4 +8,4 @@ target/
 
 #*.iml
 hibernate.cfg.xml
-mail.properties
+*.properties

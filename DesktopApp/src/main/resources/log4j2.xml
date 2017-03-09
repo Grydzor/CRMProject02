@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="warn" >
     <Appenders>
-        <File name="LogFile" fileName="DesktopApp/logs/app.log">
+        <File name="LogFile" fileName="logs/app.log">
             <PatternLayout>
                 <Pattern>"%d{HH:mm:ss.SSS} [%t] %-5level %logger{1} - %msg%n"</Pattern>
             </PatternLayout>
