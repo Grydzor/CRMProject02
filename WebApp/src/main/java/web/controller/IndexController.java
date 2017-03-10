@@ -7,13 +7,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import web.service.UserService;
 
 @Controller
-public class   HelloController {
+public class IndexController {
     @Autowired
     private UserService service;
 
     @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.HEAD})
     public String index() {
-        System.out.println("--->>> CONTROLLER INDEX <<<---");
         return "index";
+    }
+
+    @RequestMapping(value = "/register")
+    public String register() {
+        return "registration";
+    }
+
+    @RequestMapping(value = "/recover")
+    public String recover() {
+        return "recover";
+    }
+
+    @RequestMapping(value = "/backoffice")
+    public String backoffice() {
+        return "backoffice";
     }
 }
