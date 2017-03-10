@@ -11,7 +11,7 @@
         <property name="url"
                   value="jdbc:mysql://localhost:3306/web"/>
         <property name="username" value="root"/>
-        <property name="password" value="mysqlroot"/>
+        <property name="password" value="root"/>
     </bean>
 
     <bean id="sessionFactory"
