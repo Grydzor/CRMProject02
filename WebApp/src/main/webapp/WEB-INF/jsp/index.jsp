@@ -24,7 +24,7 @@
             <a href="recover" class="recover-pass">Lost your password?</a>
         </div>
         <button name="signin" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <button name="signup" class="btn btn-lg btn-success btn-block" type="button">Sign up</button>
+        <button name="signup" class="btn btn-lg btn-success btn-block" onclick="location.href='register'" type="button">Sign up</button>
     </form>
 </div>
 </body>
