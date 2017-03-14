@@ -35,6 +35,11 @@ public class LoadingController {
             }
         });
 
+        service.setOnFailed((event -> {
+            System.out.println("Cannot connect to db");
+            System.exit(0);
+        }));
+
         service.start();
     }
 }
