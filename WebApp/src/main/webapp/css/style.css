@@ -1,0 +1,13 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #cdf7cf/*#bde3bf*/;
+    background-image: url("/img/checkered-pattern.png");
+}
+
+.navbar{
+    border: none;
+    border-radius: 0;
+    background-color: rgba(0,0,0,0.8);
+}

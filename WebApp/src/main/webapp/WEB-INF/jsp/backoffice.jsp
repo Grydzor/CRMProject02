@@ -3,8 +3,10 @@
 <html>
 <head>
     <title>Back office</title>
+    <%@include file="../html/load-libraries.html"%>
 </head>
 <body>
+<%@include file="../html/navigation-bar.html"%>
 
 </body>
 </html>

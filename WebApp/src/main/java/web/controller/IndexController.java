@@ -16,7 +16,7 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping(value = "/register")
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register() {
         return "registration";
     }
@@ -26,8 +26,13 @@ public class IndexController {
         return "recover";
     }
 
-    @RequestMapping(value = "/backoffice")
+    @RequestMapping(value = "/backoffice", method = RequestMethod.POST)
     public String backoffice() {
         return "backoffice";
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String search() {
+        return "search";
     }
 }
