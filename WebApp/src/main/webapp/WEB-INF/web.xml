@@ -6,6 +6,11 @@
          version="3.0">
     <display-name>WebApp</display-name>
 
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/html/error.html</location>
+    </error-page>
+
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>

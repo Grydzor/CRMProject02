@@ -12,10 +12,10 @@
             <li class="dropdown" id="loginMenu">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navLogin">Login</a>
                 <div class="dropdown-menu pull-right" id="loginForm">
-                    <form class="form-signin" method="post" name="loginform">
+                    <form class="form-signin" method="post" name="loginform" action="/backoffice">
                         <div class="input-group">
                             <span class="input-group-addon"><i style="width: 18px" class="fa fa-envelope"></i></span>
-                            <input type="text" class="form-control" id="inputEmail" placeholder="Email" autofocus>
+                            <input type="text" class="form-control" id="inputEmail" placeholder="Email">
                         </div>
                         <div class="input-group">
                             <span class="input-group-addon"><i style="width: 18px" class="fa fa-lock fa-lg"></i></span>
@@ -27,9 +27,12 @@
                             </label>
                             <a href="recover" class="recover-pass">Lost your password?</a>
                         </div>
-                        <button name="signin" class="btn btn-lg btn-primary btn-block" onclick="this.form.action = '/backoffice'">Sign in</button>
-                        <button name="signup" class="btn btn-lg btn-success btn-block" onclick="this.form.action = '/register'">Sign up</button>
+                        <button name="signin" class="btn btn-lg btn-primary btn-block" onclick="" type="submit">Sign in</button>
                     </form>
+                    <div style="margin-top: 10px">
+                        Don't have an account?
+                        <a name="signup" href="/register">Sign up</a>
+                    </div>
                 </div>
             </li>
         </ul>
@@ -53,6 +56,7 @@
         function () {
             if ($('.dropdown.open').length == 0) {
                 $('.dropdown .dropdown-toggle').dropdown("toggle");
+                document.getElementById("inputEmail").focus();
             }
         },
         function () {}
