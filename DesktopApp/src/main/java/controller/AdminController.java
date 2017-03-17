@@ -436,5 +436,6 @@ public class AdminController implements MainController {
     @FXML
     public void changePassword() {
         StageFactory.loadModal("/view/modal/change_password.fxml", "Change password", session);
+
     }
 }
