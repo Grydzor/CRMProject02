@@ -23,7 +23,7 @@ public class LoginHelper {
     }
 
     public static String generatePassword(){
-        int charLength = (int) ((Math.random()*12) +6);
+        int charLength = (int) ((Math.random()*2) + 6);
         char[] temp = new char[charLength];
         String possibleChar =
                 "QWERTYUIOPLKJHGFDSAZXCVBNM,.mnbvcxzlkjhgfdsapoiuytrewq1234567890-=!@#$%^&*_+";

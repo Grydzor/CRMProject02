@@ -38,14 +38,14 @@ public class CashierController implements MainController {
     @FXML private TableColumn<Item, BigDecimal> itemsPriceVATColumn;
     @FXML private TableColumn<Item, BigDecimal> itemsSumVATColumn;
 
-    @FXML private TextField managerField;
-    @FXML private TextField deadlineField;
-    @FXML private TextField customerField;
+    //@FXML private TextField managerField;
+    //@FXML private TextField deadlineField;
+    //@FXML private TextField customerField;
 
-    @FXML private ComboBox<OrderStatus> statusBox;
+    //@FXML private ComboBox<OrderStatus> statusBox;
 
-    @FXML private Label amountLabel;
-    @FXML private Label summaryLabel;
+    //@FXML private Label amountLabel;
+    //@FXML private Label summaryLabel;
 
     @FXML private Button saveButton;
     @FXML private Button logOutButton;
@@ -73,7 +73,7 @@ public class CashierController implements MainController {
         helper = new Helper();
 
         saveButton.setDisable(true);
-        statusBox.setDisable(true);
+        //statusBox.setDisable(true);
 
         orderService = (OrderService) context.getBean("orderService");
         itemService = (ItemService) context.getBean("itemService");
@@ -93,9 +93,9 @@ public class CashierController implements MainController {
         ArrayList<OrderStatus> orderStatuses = new ArrayList<>();
         orderStatuses.add(OrderStatus.PAID);
         statuses = FXCollections.observableArrayList(orderStatuses);
-        statusBox.setItems(statuses);
+        //statusBox.setItems(statuses);
 
-        statusBox.getSelectionModel().selectedItemProperty().addListener(
+        /*statusBox.getSelectionModel().selectedItemProperty().addListener(
                 (v, oldValue, newValue) -> {
                     if (currentOrder != null) {
                         if (!currentOrder.getStatus().equals(newValue)) {
@@ -103,7 +103,7 @@ public class CashierController implements MainController {
                         }
                     }
                 }
-        );
+        );*/
 
         helper.addSelectListener();
 
@@ -111,13 +111,13 @@ public class CashierController implements MainController {
 
     @FXML
     public void saveButtonOnAction() {
-        currentOrder.setStatus(statusBox.getValue());
+        //currentOrder.setStatus(statusBox.getValue());
         orderService.update(currentOrder);
         saveButton.setDisable(true);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
         alert.setHeaderText("Successfully saved!");
-        alert.setContentText("Order status has been changed to - " + statusBox.getValue().toString().toLowerCase() + ".");
+        alert.setContentText("Order status has been changed to - " /*+ statusBox.getValue().toString().toLowerCase()*/ + ".");
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(
                 getClass().getResource("/view/styles/light_theme.css").toExternalForm());
@@ -143,7 +143,7 @@ public class CashierController implements MainController {
                     .addListener((observable, oldValue, newValue) -> {
                         currentOrder = newValue;
                         fillInfoWith(currentOrder);
-                        statusBox.setDisable(false);
+                        //statusBox.setDisable(false);
                     });
         }
 
@@ -169,11 +169,11 @@ public class CashierController implements MainController {
         }
 
         private void clearFields() {
-            managerField.setText("");
+            /*managerField.setText("");
             customerField.setText("");
             deadlineField.setText("");
             statusBox.setDisable(true);
-            statusBox.getSelectionModel().clearSelection();
+            statusBox.getSelectionModel().clearSelection();*/
             currentOrder = null;
         }
 
@@ -183,10 +183,10 @@ public class CashierController implements MainController {
                 items.setAll(currentOrder.getItems());
                 itemsTable.setItems(items);
 
-                managerField.setText(currentOrder.getManager().shortInfo());
+                /*managerField.setText(currentOrder.getManager().shortInfo());
                 deadlineField.setText(currentOrder.getDeadline().toLocalDate().format(formatter));
                 customerField.setText(currentOrder.getCustomer().toString());
-                statusBox.setValue(currentOrder.getStatus());
+                statusBox.setValue(currentOrder.getStatus());*/
 
                 Integer amount = 0;
                 BigDecimal sum = BigDecimal.ZERO;
@@ -195,8 +195,8 @@ public class CashierController implements MainController {
                     sum = sum.add(item.getSumVAT());
                 }
 
-                amountLabel.setText("" + amount);
-                summaryLabel.setText(decimalFormat.format(sum));
+                /*amountLabel.setText("" + amount);
+                summaryLabel.setText(decimalFormat.format(sum));*/
 
             } else {
                 items.clear();

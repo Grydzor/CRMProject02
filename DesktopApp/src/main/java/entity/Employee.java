@@ -113,6 +113,13 @@ public class Employee {
         this.email = email;
     }
 
+    public String getAccount() {
+        if (this.getUser() != null) {
+            return "+";
+        }
+        return "-";
+    }
+
     @Override
     public String toString() {
         return "Employee{" +

@@ -389,12 +389,9 @@ public class AdminController implements MainController {
         // then Change button becomes active
         private void addInvalidationListenerFor(Button button) {
             InvalidationListener listener = (observable) -> {
-                if (!nameField.getText().isEmpty() &&
-                        !surnameField.getText().isEmpty() &&
-                        !ageField.getText().isEmpty() &&
-                        sexBox.getValue() != null &&
-                        positionBox.getValue() != null &&
-                        !emailField.getText().isEmpty()) {
+                if (!nameField.getText().isEmpty() && !surnameField.getText().isEmpty() &&
+                        !ageField.getText().isEmpty() && sexBox.getValue() != null &&
+                        positionBox.getValue() != null && !emailField.getText().isEmpty()) {
                     button.setDisable(false);
                 } else {
                     button.setDisable(true);

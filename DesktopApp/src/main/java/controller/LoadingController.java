@@ -10,7 +10,6 @@ import util.StageFactory;
 public class LoadingController {
     public void initialize() {
         LoadingService service = new LoadingService();
-
         service.setOnSucceeded((event) -> {
             UserSession session = service.getValue();
             if (session == null) {
@@ -20,7 +19,7 @@ public class LoadingController {
                         .getBean(UserService.class).read(session.getUserId());
                 switch (user.getEmployee().getPosition()) {
                     case ADMIN:
-                        StageFactory.loadWindow("/view/admin_panel.fxml", "Administration", session.getUserId());
+                        StageFactory.loadWindow("/view/admin_panel2.fxml", "Administration", session.getUserId());
                         break;
                     case MANAGER:
                         StageFactory.loadWindow("/view/manager_panel.fxml", "Management", session.getUserId());

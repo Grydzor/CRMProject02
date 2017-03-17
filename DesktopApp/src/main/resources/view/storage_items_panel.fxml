@@ -6,26 +6,19 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" spacing="10.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StorageItemsController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" spacing="10.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StorageItemsController">
    <children>
-      <HBox alignment="CENTER" spacing="20.0">
-         <children>
-            <Label style="-fx-font-size: 36px;" text="Storage" />
-            <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@imgs/Storage.png" />
-               </image>
-            </ImageView>
-         </children>
-      </HBox>
+      <Label styleClass="label-header-title" text="Storage">
+         <VBox.margin>
+            <Insets bottom="10.0" top="20.0" />
+         </VBox.margin>
+      </Label>
       <TableView fx:id="productTableView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
         <columns>
           <TableColumn fx:id="productNameColumn" editable="false" prefWidth="75.0" text="Product" />
@@ -59,23 +52,23 @@
          <children>
             <HBox fx:id="newEditDelete" spacing="10.0">
                <children>
-                  <Button fx:id="newButton" mnemonicParsing="false" onAction="#newButtonOnAction" prefWidth="80.0" text="New">
+                  <Button fx:id="newButton" mnemonicParsing="false" onAction="#newButtonOnAction" prefWidth="80.0" styleClass="round-button" text="New">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#editButtonOnAction" prefWidth="80.0" text="Edit">
+                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#editButtonOnAction" prefWidth="80.0" styleClass="round-button" text="Edit">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonOnAction" prefWidth="80.0" text="Delete">
+                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonOnAction" prefWidth="80.0" styleClass="round-button" text="Delete">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
                   <Region HBox.hgrow="ALWAYS" />
-                  <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closeButtonOnAction" prefWidth="80.0" text="Close">
+                  <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closeButtonOnAction" prefWidth="80.0" styleClass="round-button" text="Close">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -84,12 +77,12 @@
             </HBox>
             <HBox fx:id="deleteCancel" alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="10.0" visible="false">
                <children>
-                  <Button fx:id="deleteHiddenButton" mnemonicParsing="false" onAction="#deleteHiddenButtonOnAction" prefWidth="80.0" style="-fx-base: #ff9999;" text="Delete">
+                  <Button fx:id="deleteHiddenButton" mnemonicParsing="false" onAction="#deleteHiddenButtonOnAction" prefWidth="80.0" styleClass="cancel-button" text="Delete">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#cancelButtonOnAction" prefWidth="80.0" text="Cancel">
+                  <Button mnemonicParsing="false" onAction="#cancelButtonOnAction" prefWidth="80.0" styleClass="round-button" text="Cancel">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -98,12 +91,12 @@
             </HBox>
             <HBox fx:id="saveCancel" alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="10.0" visible="false">
                <children>
-                  <Button fx:id="saveHiddenButton" mnemonicParsing="false" onAction="#saveButtonOnAction" prefWidth="80.0" style="-fx-base: #b6e7c9;" text="Save">
+                  <Button fx:id="saveHiddenButton" mnemonicParsing="false" onAction="#saveButtonOnAction" prefWidth="80.0" styleClass="apply-button" text="Save">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#cancelButtonOnAction" prefWidth="80.0" text="Cancel">
+                  <Button mnemonicParsing="false" onAction="#cancelButtonOnAction" prefWidth="80.0" styleClass="round-button" text="Cancel">
                      <font>
                         <Font size="14.0" />
                      </font>

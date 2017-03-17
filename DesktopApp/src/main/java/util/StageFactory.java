@@ -58,7 +58,8 @@ public class StageFactory {
         }
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/view/styles/light_theme.css");
+        scene.getStylesheets().add("/view/styles/final_theme.css");
+//        scene.getStylesheets().add("/view/styles/light_theme.css");
 //        scene.getStylesheets().add("/view/styles/dark_theme.css");
         stageWindow.setScene(scene);
 
@@ -85,7 +86,9 @@ public class StageFactory {
 
         Scene scene = new Scene(root);
         stageModal.setScene(scene);
-        scene.getStylesheets().add("/view/styles/light_theme.css");
+
+        scene.getStylesheets().add("/view/styles/final_theme.css");
+//        scene.getStylesheets().add("/view/styles/light_theme.css");
 //        scene.getStylesheets().add("/view/styles/dark_theme.css");
         stageModal.setTitle(title);
 

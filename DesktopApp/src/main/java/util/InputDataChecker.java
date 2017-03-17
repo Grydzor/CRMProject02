@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 *
 * */
 public class InputDataChecker {
-    private static final String STYLE_OK = "-fx-border-color: transparent;";
+    private static final String STYLE_OK = "-fx-border-color: inherit;";
     private static final String STYLE_BAD = "-fx-border-color: red;" +
                                             "-fx-border-radius: inherit";
 
@@ -156,6 +156,17 @@ public class InputDataChecker {
 
         box.setStyle(STYLE_OK);
         return box.getValue();
+    }
+
+    public static boolean checkPassword(TextField passwordField) {
+        String password = passwordField.getText().trim();
+        if (password.isEmpty() || password.length() < 8 || password.length() > 16) {
+            passwordField.setStyle(STYLE_BAD);
+            return false;
+        } else {
+            passwordField.setStyle(STYLE_OK);
+            return true;
+        }
     }
 
     public static String checkEmail(TextField emailField) {

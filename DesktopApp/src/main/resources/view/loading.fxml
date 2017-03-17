@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoadingController">
+<BorderPane prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoadingController">
    <center>
-      <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url('/view/imgs/ring.gif')" BorderPane.alignment="CENTER" />
+      <ImageView fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: url('https://tesoreria.tlajomulco.gob.mx/Impuestos/img/spinner/spin3.gif');" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

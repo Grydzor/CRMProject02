@@ -77,7 +77,7 @@ public class LoginController {
                 setStatusMsg(UserStatus.SUCCESS);
                 switch (user.getEmployee().getPosition()) {
                     case ADMIN:
-                        StageFactory.loadWindow("/view/admin_panel.fxml", "Administration", user.getId());
+                        StageFactory.loadWindow("/view/admin_panel2.fxml", "Administration", user.getId());
                         break;
                     case MANAGER:
                         StageFactory.loadWindow("/view/manager_panel.fxml", "Management", user.getId());
