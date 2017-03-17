@@ -91,6 +91,7 @@
                   <TableColumn fx:id="itemPriceVATColumn" maxWidth="${(itemsTable.width - 14) * 0.16}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.16}" text="Price (VAT inc.)" />
                   <TableColumn fx:id="itemSumVATColumn" maxWidth="${(itemsTable.width - 14) * 0.16 + 14}" minWidth="50" prefWidth="${(itemsTable.width - 14) * 0.16 + 14}" text="Sum (VAT inc.)" />
                </columns>
+
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
