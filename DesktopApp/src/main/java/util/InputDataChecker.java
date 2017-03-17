@@ -194,7 +194,7 @@ public class InputDataChecker {
             return null;
         }
 
-        Pattern p = Pattern.compile("^(\\+\\d{1,3}[- ]?)?\\d{10}$");
+        Pattern p = Pattern.compile("^(([(]?(\\d{2,4})[)]?)|(\\d{2,4})|([+1-9]+\\d{1,2}))?[-\\s]?(\\d{2,3})?[-\\s]?((\\d{7,8})|(\\d{3,4}[-\\s]\\d{3,4}))$");
         Matcher m = p.matcher(mobile);
         if (m.matches()) {
             mobileField.setStyle(STYLE_OK);

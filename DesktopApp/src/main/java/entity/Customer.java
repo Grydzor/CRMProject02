@@ -1,5 +1,6 @@
 package entity;
 
+import org.springframework.transaction.annotation.Transactional;
 import service.CustomerService;
 import util.ApplicationContextFactory;
 

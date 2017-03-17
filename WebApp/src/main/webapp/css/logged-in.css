@@ -1,0 +1,64 @@
+.user-form {
+    min-width: 50px;
+}
+
+.user-form .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 7px;
+    font-size: 16px;
+}
+
+.user-form .input-group {
+    margin-bottom: 7px;
+}
+
+.inline-block {
+    text-align: justify;
+    -ms-text-justify: distribute-all-lines;
+    text-justify: distribute-all-lines;
+}
+.inline-block:after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+    height: 0;
+    font-size:0;
+    line-height:0;
+}
+.recover-pass, .remember-me {
+    display: inline-block;
+}
+
+.dropdown .dropdown-menu {
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+
+    max-height: 0;
+    display: block;
+    overflow: hidden;
+    opacity: 0;
+    padding: 0;
+}
+
+.dropdown.open .dropdown-menu {
+    max-height: 200px;
+    opacity: 1;
+    padding: 10px;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+#logOut {
+    margin-top: 10px;
+}
+
+#userForm {
+    min-width: 50px;
+}

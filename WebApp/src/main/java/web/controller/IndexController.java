@@ -1,22 +1,17 @@
 package web.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import web.service.UserService;
 
 @Controller
 public class IndexController {
-    @Autowired
-    private UserService service;
-
     @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.HEAD})
     public String index() {
         return "index";
     }
 
-    @RequestMapping(value = "/register")
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register() {
         return "registration";
     }
@@ -26,8 +21,13 @@ public class IndexController {
         return "recover";
     }
 
-    @RequestMapping(value = "/backoffice")
+    @RequestMapping(value = "/backoffice", method = RequestMethod.GET)
     public String backoffice() {
         return "backoffice";
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String search() {
+        return "search";
     }
 }
