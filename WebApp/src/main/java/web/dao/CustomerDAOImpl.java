@@ -23,4 +23,17 @@ public class CustomerDAOImpl extends DAOImpl<Customer> implements CustomerDAO {
                 .setParameter("customer", customer)
                 .list();
     }
+
+    @Override
+    public Customer find(String email) {
+        List<Customer> result = factory.getCurrentSession()
+                .createQuery("FROM Customer c WHERE c.email = :email", Customer.class)
+                .setParameter("email", email)
+                .list();
+        if (result.size() > 0) {
+            return result.get(0);
+        } else {
+            return null;
+        }
+    }
 }

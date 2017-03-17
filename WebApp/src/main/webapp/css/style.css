@@ -6,8 +6,9 @@ body {
     background-image: url("/img/checkered-pattern.png");
 }
 
-.navbar{
+.navbar {
     border: none;
     border-radius: 0;
     background-color: rgba(0,0,0,0.8);
 }
+

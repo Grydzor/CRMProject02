@@ -2,8 +2,10 @@
 <html>
 <head>
     <title>Search results</title>
+    <%@include file="../../html/load-libraries.html"%>
 </head>
 <body>
+<%@include file="embedded-jsp/navigation-bar.jsp"%>
 
 </body>
 </html>

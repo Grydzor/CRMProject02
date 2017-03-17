@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
-    <%@include file="../html/load-libraries.html"%>
+    <%@include file="../../html/load-libraries.html"%>
     <link rel="stylesheet" href="../../css/sign-up.css">
 
 </head>
 <body>
-<%@include file="../html/navigation-bar.html"%>
+<%@include file="embedded-jsp/navigation-bar.jsp"%>
 
 <fieldset class="form-horizontal" id="reg-form">
     <div class="input-group">
@@ -125,16 +125,19 @@
 
             var xhttp = new XMLHttpRequest();
             xhttp.open("POST", "http://" + window.location.host + "/finishReg");
-            xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            xhttp.send("email=" + $regEmail.val() +
-                "&password=" + $regPassword.val() +
-                "&confirmPassword=" + $confirmRegPassword.val() +
-                "&name=" + $regName.val() +
-                "&surname=" + $regSurname.val() +
-                "&phone=" + $regPhone.val() +
-                "&address=" + $regAddress.val());
+            xhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+            var obj = {"email":$regEmail.val(),
+                       "password":$regPassword.val(),
+                       "confirmPassword":$confirmRegPassword.val(),
+                       "name":$regName.val(),
+                       "surname":$regSurname.val(),
+                       "phone":$regPhone.val(),
+                       "address":$regAddress.val()};
+            alert(JSON.stringify(obj));
+            xhttp.send(JSON.stringify(obj));
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
+                    alert(JSON.stringify(obj));
                     $("#reg-form").hide();
                     document.getElementById("regStatus").innerHTML = this.responseText;
                 }

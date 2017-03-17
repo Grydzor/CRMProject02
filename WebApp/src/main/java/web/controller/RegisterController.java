@@ -3,12 +3,11 @@ package web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import web.entity.Customer;
 import web.entity.CustomerAccount;
+import web.form.RegisterData;
+import web.service.CustomerAccountService;
 import web.service.CustomerService;
 
 @Controller
@@ -17,26 +16,21 @@ public class RegisterController {
     private ApplicationContext context;
 
     @RequestMapping(value = "/finishReg", method = RequestMethod.POST)
-    private @ResponseBody String submitReg(
-                            @RequestParam("email") String email,
-                            @RequestParam("password") String password,
-                            @RequestParam("confirmPassword") String confirmPassword,
-                            @RequestParam("name") String name,
-                            @RequestParam("surname") String surname,
-                            @RequestParam("phone") String phone,
-                            @RequestParam("address") String address) {
+    private @ResponseBody String finishReg(@RequestBody RegisterData data) {
         Customer customer = context.getBean(Customer.class);
-        customer.setEmail(email);
-        customer.setName(name);
-        customer.setSurname(surname);
-        customer.setMobile(phone);
-        customer.setAddress(address);
+        customer.setEmail(data.getEmail());
+        customer.setName(data.getName());
+        customer.setSurname(data.getSurname());
+        customer.setMobile(data.getPhone());
+        customer.setAddress(data.getAddress());
         CustomerService customerService = context.getBean(CustomerService.class);
         customerService.create(customer);
 
         CustomerAccount customerAccount = context.getBean(CustomerAccount.class);
         customerAccount.setCustomerId(customer.getId());
-        customerAccount.setPassword(password);
+        customerAccount.setPassword(data.getPassword());
+        CustomerAccountService customerAccountService = context.getBean(CustomerAccountService.class);
+        customerAccountService.create(customerAccount);
 
         if (customer.getId() != null) {
             return "<h2>" +

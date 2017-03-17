@@ -1,26 +1,19 @@
+.user-form {
+    min-width: 50px;
+}
 
-.form-signin {
-    max-width: 350px;
-}
-.form-signin .form-signin-heading,
-.form-signin .checkbox {
-    margin-bottom: 10px;
-}
-.form-signin .checkbox {
-    font-weight: normal;
-}
-.form-signin .form-control {
+.user-form .form-control {
     position: relative;
     height: auto;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 7px;
     font-size: 16px;
 }
 
-.form-signin .input-group {
-    margin-bottom: 10px;
+.user-form .input-group {
+    margin-bottom: 7px;
 }
 
 .inline-block {
@@ -52,13 +45,20 @@
     overflow: hidden;
     opacity: 0;
     padding: 0;
-
-    min-width: 300px;
 }
 
 .dropdown.open .dropdown-menu {
-    max-height: 350px;
+    max-height: 200px;
     opacity: 1;
-    padding: 15px;
-    margin-top: 15px;
+    padding: 10px;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+#logOut {
+    margin-top: 10px;
+}
+
+#userForm {
+    min-width: 50px;
 }
