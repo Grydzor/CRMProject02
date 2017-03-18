@@ -21,15 +21,11 @@ import util.StageFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 
 public class StorageItemsController {
-
     @FXML TableView<Storage> productTableView;
     @FXML TableColumn<Storage, String> productNameColumn;
     @FXML TableColumn<Storage, Integer> productQuantityColumn;
@@ -72,7 +68,6 @@ public class StorageItemsController {
     private Boolean isNew;
 
     private FileChooser chooser;
-    private String fileName;
 
     public void initialize() {
         context = ApplicationContextFactory.getApplicationContext();
@@ -155,6 +150,9 @@ public class StorageItemsController {
                     .addListener((observable, oldValue, newValue) -> {
                         currentStorage = newValue;
                         if (currentStorage != null) {
+                            nameTextField.setText(currentStorage.getName());
+                            priceTextField.setText(currentStorage.priceProperty().get());
+                            quantityTextField.setText(currentStorage.getAmount().toString());
                             descriptionArea.setText(currentStorage.getProduct().getDescription());
                             String filename = currentStorage.getProduct().getFilename();
                             if (filename != null) {
@@ -162,6 +160,12 @@ public class StorageItemsController {
                             } else {
                                 productImage.setImage(null);
                             }
+                        } else {
+                            nameTextField.setText("");
+                            priceTextField.setText("");
+                            quantityTextField.setText("");
+                            descriptionArea.setText("");
+                            productImage.setImage(null);
                         }
                     });
         }
@@ -185,29 +189,25 @@ public class StorageItemsController {
 
                 if (chosenPicture != null) {
                     String imageFilename = FilenameGenerator.generate();
-
                     String path = this.getClass().getResource("/product_images").getFile();
-
                     File imageFile = new File(path + "/" + imageFilename + ".jpg");
+
                     try {
                         Files.copy(chosenPicture.toPath(), imageFile.toPath());
-
                         // consider that image files are placed in webapp/img/product_images
                         currentStorage.getProduct().setFilename(imageFilename);
-
                         chosenPicture = null;
                     } catch (IOException e) {
                         e.printStackTrace();
+                        return false;
                     }
-
                 }
 
                 productService.update(currentStorage.getProduct());
                 storageService.update(currentStorage);
                 return true;
-            } else {
-                return false;
             }
+            return false;
         }
 
         public Boolean createProduct() {
@@ -238,11 +238,12 @@ public class StorageItemsController {
                     Files.copy(chosenPicture.toPath(), imageFile.toPath());
 
                     // consider that image files are placed in webapp/img/product_images
-                    currentStorage.getProduct().setFilename(imageFilename);
+                    product.setFilename(imageFilename);
 
                     chosenPicture = null;
                 } catch (IOException e) {
                     e.printStackTrace();
+                    return false;
                 }
 
                 productService.create(product);
@@ -271,12 +272,12 @@ public class StorageItemsController {
             priceBox.setVisible(true);
             descriptionArea.setEditable(true);
             pictureChooser.setVisible(true);
-            nameTextField.setText("");
-            quantityTextField.setText("");
-            priceTextField.setText("");
-            descriptionArea.setText("");
             saveCancel.setVisible(true);
             newEditDelete.setVisible(false);
+
+            productTableView.setDisable(true);
+
+            productTableView.getSelectionModel().select(null);
         }
 
         public void fieldsOnForDeleting() {
@@ -291,11 +292,11 @@ public class StorageItemsController {
             priceBox.setVisible(true);
             descriptionArea.setEditable(true);
             pictureChooser.setVisible(true);
-            nameTextField.setText(currentStorage.getName());
-            quantityTextField.setText(currentStorage.getAmount().toString());
-            priceTextField.setText(currentStorage.getPrice().toString());
             productTableView.setDisable(true);
             newEditDelete.setVisible(false);
+
+            productTableView.setDisable(false);
+            productTableView.getSelectionModel().select(currentStorage);
         }
 
         public void fieldsOff() {
@@ -304,10 +305,6 @@ public class StorageItemsController {
             priceBox.setVisible(false);
             descriptionArea.setEditable(false);
             pictureChooser.setVisible(false);
-            nameTextField.setText("");
-            quantityTextField.setText("");
-            priceTextField.setText("");
-            descriptionArea.setText("");
             productTableView.setDisable(false);
 
             nameTextField.setStyle("-fx-border-color: inherit");
@@ -315,6 +312,8 @@ public class StorageItemsController {
             priceTextField.setStyle("-fx-border-color: inherit");
             descriptionArea.setStyle("-fx-border-color: inherit");
             pictureChooser.setStyle("-fx-border-color: inherit");
+
+            productTableView.getSelectionModel().select(null);
 
             if (saveCancel.isVisible()) {
                 saveCancel.setVisible(false);

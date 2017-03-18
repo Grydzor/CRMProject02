@@ -29,7 +29,6 @@
     -fx-border-radius: 3;
 }
 
-
 .button {
     -fx-font-size: 13px;
     -fx-font-family: 'Roboto', serif;
@@ -122,11 +121,17 @@
     -fx-font-family: 'Roboto', serif;
     -fx-background-color: white;
     -fx-border-radius: 2;
-    -fx-border-color: #ebebeb;
+    -fx-border-color: white;
     -fx-border-width: 1px;
 }
 .text-area .content {
     -fx-background-color: white;
+}
+
+#imagePane {
+    -fx-border-radius: 3px;
+    -fx-border-color: rgba(0,0,255,0.2);
+    -fx-border-style: dashed;
 }
 
 .login-pass-field {
@@ -187,18 +192,20 @@
     -fx-background-radius: 0, 0, 0;
 }
 
-.table-row-cell:filled {
+/*.table-row-cell:filled {
     -fx-background-color: #ffffff;
-}
+}*/
 
 .table-row-cell:focused {
+    -fx-border-width: 0 0 0 0;
     -fx-focus-color: #f2fcfe;
-    -fx-background-color: -fx-focus-color;
+    -fx-background-color: transparent, transparent, -fx-background; /* here bug (of focused row) is eliminated! */
+    /*-fx-table-cell-border-color: derive(ebebeb, 20%);*/
 }
 
 .table-row-cell:selected {
     -fx-background: #f2fcfe;
-    -fx-table-cell-border-color: derive(ebebeb, 20%);
+    -fx-table-cell-border-color: white/*derive(ebebeb, 20%)*/;
 }
 
 .table-view .table-column {

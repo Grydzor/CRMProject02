@@ -48,10 +48,25 @@
             </TableView>
             <VBox alignment="TOP_CENTER" maxWidth="400.0" minWidth="400.0" prefWidth="400.0" spacing="5.0">
                <children>
-                  <HBox alignment="BOTTOM_LEFT">
+                  <HBox>
                      <children>
-                        <ImageView fx:id="productImage" fitHeight="190.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: grey; -fx-border-radius: 5px;" />
-                        <Button fx:id="pictureChooser" mnemonicParsing="false" onAction="#choosePicture" style="-fx-font-size: 14px;" text="Choose picture..." visible="false" />
+                        <Label maxWidth="75.0" minWidth="75.0" prefWidth="75.0" style="-fx-font-size: 14px;" text="Image:">
+                           <HBox.margin>
+                              <Insets top="7.0" />
+                           </HBox.margin>
+                        </Label>
+                        <StackPane fx:id="imagePane" alignment="TOP_LEFT">
+                           <children>
+                              <ImageView fx:id="productImage" fitHeight="190.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: grey; -fx-border-radius: 5px;" />
+                              <Button fx:id="pictureChooser" alignment="CENTER" mnemonicParsing="false" onAction="#choosePicture" style="-fx-font-size: 14px;" visible="false">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="22.0" fitWidth="22.0" style="-fx-image: url('/view/imgs/edituser.png')" />
+                                 </graphic>
+                              </Button>
+                           </children></StackPane>
                      </children>
                   </HBox>
                   <HBox fx:id="descriptionBox" maxHeight="120.0" minHeight="100.0" prefHeight="120.0" spacing="5.0">
@@ -60,8 +75,11 @@
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
+                           <HBox.margin>
+                              <Insets top="6.0" />
+                           </HBox.margin>
                         </Label>
-                        <TextArea fx:id="descriptionArea" editable="false" style="-fx-font-size: 14;" HBox.hgrow="ALWAYS" />
+                        <TextArea fx:id="descriptionArea" editable="false" style="-fx-font-size: 14;" wrapText="true" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                   <HBox fx:id="nameBox" alignment="CENTER_LEFT" spacing="5.0" visible="false">
