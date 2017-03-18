@@ -61,7 +61,7 @@
                               <Insets />
                            </VBox.margin>
                         </Label>
-                        <TextArea fx:id="descriptionArea" style="-fx-font-size: 14;" HBox.hgrow="ALWAYS" />
+                        <TextArea fx:id="descriptionArea" editable="false" style="-fx-font-size: 14;" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                   <HBox fx:id="nameBox" alignment="CENTER_LEFT" spacing="5.0" visible="false">
