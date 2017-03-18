@@ -1,5 +1,6 @@
 package controller;
 
+import entity.Customer;
 import entity.Item;
 import entity.Order;
 import entity.UserSession;
@@ -10,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import org.springframework.context.ApplicationContext;
 import service.ItemService;
 import service.OrderService;
@@ -27,7 +29,9 @@ public class CashierController implements MainController {
     @FXML private TableView<Order> ordersTable;
     @FXML private TableColumn<Order, Long> ordersIdColumn;
     @FXML private TableColumn<Order, Date> ordersDateColumn;
+    @FXML private TableColumn<Order, Date> ordersDeadlineColumn;
     @FXML private TableColumn<Order, BigDecimal> ordersPriceColumn;
+    @FXML private TableColumn<Order, Customer> ordersCustomerColumn;
 
     @FXML private TableView<Item> itemsTable;
     @FXML private TableColumn<Item, Integer> itemsIdColumn;
@@ -49,6 +53,11 @@ public class CashierController implements MainController {
 
     @FXML private Button saveButton;
     @FXML private Button logOutButton;
+    @FXML private Button statusButton;
+    @FXML private Button paidButton;
+
+    @FXML private HBox tables;
+    @FXML private HBox statusButtons;
 
     private ObservableList<Order> orders = FXCollections.observableArrayList();
     private ObservableList<Item> items;
@@ -114,21 +123,44 @@ public class CashierController implements MainController {
         //currentOrder.setStatus(statusBox.getValue());
         orderService.update(currentOrder);
         saveButton.setDisable(true);
+        saveButton.setVisible(false);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
         alert.setHeaderText("Successfully saved!");
-        alert.setContentText("Order status has been changed to - " /*+ statusBox.getValue().toString().toLowerCase()*/ + ".");
+        alert.setContentText("Order status has been changed to - " + currentOrder.getStatus().toString().toLowerCase() + ".");
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(
                 getClass().getResource("/view/styles/light_theme.css").toExternalForm());
         dialogPane.getStyleClass().add("Alert");
         helper.refreshTable();
         alert.showAndWait();
+        tables.setDisable(false);
+        tables.setVisible(true);
+        statusButtons.setDisable(true);
+        statusButtons.setVisible(false);
     }
 
     @FXML
     public void logOutButtonOnAction() {
         StageFactory.backToLogInWindow();
+    }
+
+    @FXML
+    private void statusButtonOnAction() {
+        if (currentOrder != null) {
+            tables.setDisable(true);
+            tables.setVisible(false);
+            statusButtons.setDisable(false);
+            statusButtons.setVisible(true);
+        }
+    }
+
+    @FXML
+    private void paidButtonOnAction() {
+        currentOrder.setStatus(OrderStatus.PAID);
+        System.out.println(currentOrder);
+        saveButton.setDisable(false);
+        saveButton.setVisible(true);
     }
 
     @Override
@@ -143,7 +175,7 @@ public class CashierController implements MainController {
                     .addListener((observable, oldValue, newValue) -> {
                         currentOrder = newValue;
                         fillInfoWith(currentOrder);
-                        //statusBox.setDisable(false);
+                        statusButton.setDisable(false);
                     });
         }
 
@@ -159,6 +191,8 @@ public class CashierController implements MainController {
             ordersIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
             ordersDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
             ordersPriceColumn.setCellValueFactory(new PropertyValueFactory<>("summary"));
+            ordersDeadlineColumn.setCellValueFactory(new PropertyValueFactory<>("deadline"));
+            ordersCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("customer"));
             ObservableList<Order> result = FXCollections.observableArrayList(orderService.findAll());
             for (Order order : result) {
                 if (helper.isCashierStatus(order)) {
@@ -174,7 +208,7 @@ public class CashierController implements MainController {
             deadlineField.setText("");
             statusBox.setDisable(true);
             statusBox.getSelectionModel().clearSelection();*/
-            currentOrder = null;
+//            currentOrder = null;
         }
 
         private void fillInfoWith(Order currentOrder) {

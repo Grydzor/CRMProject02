@@ -21,7 +21,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Cashier">
             <items>
-              <MenuItem mnemonicParsing="false" text="Change status" />
+              <MenuItem mnemonicParsing="false" onAction="#statusButtonOnAction" text="Change status" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Settings">
@@ -39,7 +39,7 @@
       </MenuBar>
       <HBox prefHeight="103.0" prefWidth="960.0" styleClass="button-bar">
          <children>
-            <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0">
+            <Button fx:id="statusButton" mnemonicParsing="false" onAction="#statusButtonOnAction" prefHeight="100.0" prefWidth="100.0">
                <graphic>
                   <VBox alignment="CENTER" spacing="5.0">
                      <children>
@@ -115,9 +115,9 @@
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </VBox.margin>
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="button-bar" StackPane.alignment="CENTER">
+            <HBox fx:id="statusButtons" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="button-bar" visible="false" StackPane.alignment="CENTER">
                <children>
-                  <VBox alignment="TOP_CENTER" spacing="10.0" visible="false">
+                  <VBox alignment="TOP_CENTER" spacing="10.0">
                      <children>
                         <Label styleClass="label-header-title" text="CHOOSE ORDER STATUS">
                            <VBox.margin>
@@ -126,7 +126,7 @@
                         </Label>
                         <HBox spacing="10.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="300.0" styleClass="big-box-button">
+                              <Button fx:id="paidButton" mnemonicParsing="false" onAction="#paidButtonOnAction" prefHeight="100.0" prefWidth="300.0" styleClass="big-box-button">
                                  <graphic>
                                     <HBox alignment="CENTER" spacing="25.0">
                                        <children>
@@ -173,13 +173,14 @@
                   </VBox>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+            <HBox fx:id="tables" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                <children>
                   <TableView fx:id="ordersTable" prefHeight="200.0" prefWidth="300.0" HBox.hgrow="ALWAYS">
                     <columns>
                       <TableColumn fx:id="ordersIdColumn" prefWidth="75.0" text="Number" />
                       <TableColumn fx:id="ordersDateColumn" prefWidth="75.0" text="Date" />
-                        <TableColumn prefWidth="75.0" text="Customer" />
+                        <TableColumn fx:id="ordersDeadlineColumn" prefWidth="75.0" text="Deadline" />
+                        <TableColumn fx:id="ordersCustomerColumn" prefWidth="75.0" text="Customer" />
                         <TableColumn fx:id="ordersPriceColumn" prefWidth="75.0" text="Summary" />
                     </columns>
                      <columnResizePolicy>
@@ -191,11 +192,10 @@
                         <Image url="@imgs/rightarrow.png" />
                      </image>
                   </ImageView>
-                  <TableView fx:id="itemsTable" prefHeight="200.0" prefWidth="700.0" HBox.hgrow="ALWAYS">
+                  <TableView fx:id="itemsTable" prefHeight="200.0" prefWidth="550.0" HBox.hgrow="ALWAYS">
                      <columns>
                         <TableColumn fx:id="itemsIdColumn" maxWidth="1000.0" prefWidth="10.0" text="№" />
                         <TableColumn fx:id="itemsNameColumn" prefWidth="136.0" text="Name" />
-                        <TableColumn prefWidth="75.0" text="Deadline" />
                         <TableColumn fx:id="itemsQuantityColumn" prefWidth="75.0" text="Quantity" />
                         <TableColumn fx:id="itemsPriceNoVATColumn" prefWidth="75.0" text="Price (No VAT)" />
                         <TableColumn fx:id="itemsSumNoVATColumn" prefWidth="75.0" text="Sum (No VAT)" />
