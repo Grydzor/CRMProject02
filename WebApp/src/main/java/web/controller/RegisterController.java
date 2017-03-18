@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import service.CustomerService;
 import entity.Customer;
 import entity.CustomerAccount;
-import util.ApplicationContextFactory;
 import web.form.RegisterData;
 import service.CustomerAccountService;
 

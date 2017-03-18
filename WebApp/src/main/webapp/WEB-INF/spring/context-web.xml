@@ -11,7 +11,6 @@
 
     <context:component-scan base-package="dao"/>
     <context:component-scan base-package="service"/>
-    <context:component-scan base-package="entity"/>
     <context:component-scan base-package="web"/>
 
     <mvc:resources mapping="/**" location="/"/>
