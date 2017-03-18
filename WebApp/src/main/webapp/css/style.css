@@ -2,7 +2,7 @@ body {
     font-family: 'Roboto', sans-serif;
     padding-top: 60px;
     padding-bottom: 40px;
-    background-color: #cdf7cf/*#bde3bf*/;
+    background-color: rgba(0,0,0,0);/*#bde3bf*/;
     background-image: url("/img/checkered-pattern.png");
 }
 
@@ -16,6 +16,7 @@ body {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+    background-color: rgba(255,255,255,0.9);
     border: 1px dashed rgba(0,0,255,0.5);
     margin: 5px 5px 5px 5px;
     min-height: 200px;

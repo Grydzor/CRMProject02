@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Bad request</title>
+    <%@include file="../../html/load-libraries.html"%>
 </head>
 <body>
 <h2 style="text-align: center; margin-top: 50px">
