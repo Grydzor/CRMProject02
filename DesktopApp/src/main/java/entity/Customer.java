@@ -1,11 +1,9 @@
 package entity;
 
-import org.springframework.transaction.annotation.Transactional;
 import service.CustomerService;
 import util.ApplicationContextFactory;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity

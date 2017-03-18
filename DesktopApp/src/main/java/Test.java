@@ -1,9 +1,19 @@
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Controller;
+
 import java.io.*;
 import java.net.URL;
 import java.util.*;
 
+@Controller
 public class Test {
+
     public static void main(String[] args) {
+
+    }
+
+    private static void renameFile() {
         String path = Test.class.getResource("/product_images").getFile();
 
         File file = new File(Test.class.getResource("/some.txt").getFile());

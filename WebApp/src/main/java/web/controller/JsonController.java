@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import web.entity.Customer;
-import web.entity.CustomerAccount;
+import entity.Customer;
+import entity.CustomerAccount;
 import web.form.LoginData;
-import web.service.CustomerAccountService;
-import web.service.CustomerService;
+import service.CustomerAccountService;
+import service.CustomerService;
 
 import java.util.HashSet;
 import java.util.Set;
