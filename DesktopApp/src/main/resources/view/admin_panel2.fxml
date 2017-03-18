@@ -102,7 +102,7 @@
                      <children>
                         <ImageView fitHeight="32.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../../../../CRMProject02/DesktopApp/src/main/resources/view/imgs/refresh.png" />
+                              <Image url="@/view/imgs/refresh.png" />
                            </image>
                         </ImageView>
                         <Label text="REFRESH" />

@@ -234,12 +234,16 @@ public class StorageItemsController {
                 String path = this.getClass().getResource("/product_images").getFile();
 
                 File imageFile = new File(path + "/" + imageFilename + ".jpg");
-                chosenPicture.renameTo(imageFile);
+                try {
+                    Files.copy(chosenPicture.toPath(), imageFile.toPath());
 
-                // consider that image files are placed in webapp/img/product_images
-                currentStorage.getProduct().setFilename(imageFilename);
+                    // consider that image files are placed in webapp/img/product_images
+                    currentStorage.getProduct().setFilename(imageFilename);
 
-                chosenPicture = null;
+                    chosenPicture = null;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 productService.create(product);
                 Storage storage = new Storage(product, quantity);
