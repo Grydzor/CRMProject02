@@ -5,20 +5,28 @@ import entity.Storage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 import org.springframework.context.ApplicationContext;
 import service.ProductService;
 import service.StorageService;
 import util.ApplicationContextFactory;
+import util.FilenameGenerator;
 import util.InputDataChecker;
 import util.StageFactory;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class StorageItemsController {
 
@@ -30,6 +38,15 @@ public class StorageItemsController {
     @FXML TextField nameTextField;
     @FXML TextField quantityTextField;
     @FXML TextField priceTextField;
+
+    @FXML HBox nameBox;
+    @FXML HBox quantityBox;
+    @FXML HBox priceBox;
+
+    @FXML TextArea  descriptionArea;
+    @FXML Button pictureChooser;
+    private File chosenPicture;
+    @FXML ImageView productImage;
 
     @FXML Button newButton;
     @FXML Button editButton;
@@ -45,7 +62,7 @@ public class StorageItemsController {
     private StorageService storageService;
     private ProductService productService;
 
-    private ObservableList<Storage> storages;
+    private ObservableList<Storage> storageItems;
     private Storage currentStorage;
 
     private ApplicationContext context;
@@ -54,10 +71,22 @@ public class StorageItemsController {
 
     private Boolean isNew;
 
+    private FileChooser chooser;
+    private String fileName;
+
     public void initialize() {
+        context = ApplicationContextFactory.getApplicationContext();
+        storageService = context.getBean(StorageService.class);
+        productService = context.getBean(ProductService.class);
+        productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        productQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        productPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
         helper = new Helper();
         helper.refreshTable();
         helper.addSelectListener();
+
+        chooser = new FileChooser();
     }
 
     @FXML
@@ -71,9 +100,9 @@ public class StorageItemsController {
     @FXML
     public void saveButtonOnAction() {
         if (isNew) {
-            helper.createProduct();
+            if (!helper.createProduct()) return;
         } else {
-            helper.saveProduct();
+            if (!helper.saveProduct()) return;
         }
         helper.refreshTable();
         helper.fieldsOff();
@@ -108,38 +137,120 @@ public class StorageItemsController {
         StageFactory.loadWindow("/view/storage_panel_two.fxml", "Storage", -1L);
     }
 
+    @FXML
+    public void choosePicture() {
+        chosenPicture = chooser.showOpenDialog(this.deleteButton.getScene().getWindow());
+        if (chosenPicture != null) {
+            try {
+                productImage.setImage(new Image(chosenPicture.toURI().toURL().toString()));
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private class Helper {
         private void addSelectListener() {
             productTableView.getSelectionModel().selectedItemProperty()
                     .addListener((observable, oldValue, newValue) -> {
                         currentStorage = newValue;
+                        if (currentStorage != null) {
+                            descriptionArea.setText(currentStorage.getProduct().getDescription());
+                            String filename = currentStorage.getProduct().getFilename();
+                            if (filename != null) {
+                                productImage.setImage(new Image(this.getClass().getResource("/product_images/").toString() + filename + ".jpg"));
+                            } else {
+                                productImage.setImage(null);
+                            }
+                        }
                     });
         }
 
         private void refreshTable() {
-            context = ApplicationContextFactory.getApplicationContext();
-            storageService = (StorageService) context.getBean("storageService");
-            productService = (ProductService) context.getBean("productService");
-            productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-            productQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
-            productPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-            storages = FXCollections.observableArrayList(storageService.findAll());
-            productTableView.setItems(storages);
+            storageItems = FXCollections.observableArrayList(storageService.findAll());
+            productTableView.setItems(storageItems);
         }
 
-        public void saveProduct() {
-            currentStorage.getProduct().setName(InputDataChecker.checkString(nameTextField));
-            currentStorage.getProduct().setPrice(InputDataChecker.checkBigDecimal(priceTextField));
-            currentStorage.setAmount(InputDataChecker.checkInteger(quantityTextField));
-            productService.update(currentStorage.getProduct());
-            storageService.update(currentStorage);
+        public Boolean saveProduct() {
+            String name = InputDataChecker.checkString(nameTextField);
+            BigDecimal price = InputDataChecker.checkBigDecimal(priceTextField);
+            Integer amount = InputDataChecker.checkInteger(quantityTextField);
+            String description = InputDataChecker.checkString(descriptionArea);
+
+            if (name != null && price != null && amount != null && description != null) {
+                currentStorage.getProduct().setName(name);
+                currentStorage.getProduct().setPrice(price);
+                currentStorage.getProduct().setDescription(description);
+                currentStorage.setAmount(amount);
+
+                if (chosenPicture != null) {
+                    String imageFilename = FilenameGenerator.generate();
+
+                    String path = this.getClass().getResource("/product_images").getFile();
+
+                    File imageFile = new File(path + "/" + imageFilename + ".jpg");
+                    try {
+                        Files.copy(chosenPicture.toPath(), imageFile.toPath());
+
+                        // consider that image files are placed in webapp/img/product_images
+                        currentStorage.getProduct().setFilename(imageFilename);
+
+                        chosenPicture = null;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                productService.update(currentStorage.getProduct());
+                storageService.update(currentStorage);
+                return true;
+            } else {
+                return false;
+            }
         }
 
-        public void createProduct() {
-            Product product = new Product(InputDataChecker.checkString(nameTextField), InputDataChecker.checkBigDecimal(priceTextField));
-            productService.create(product);
-            Storage storage = new Storage(product, InputDataChecker.checkInteger(quantityTextField));
-            storageService.create(storage);
+        public Boolean createProduct() {
+            String name = InputDataChecker.checkString(nameTextField);
+            BigDecimal price = InputDataChecker.checkBigDecimal(priceTextField);
+            Integer quantity = InputDataChecker.checkInteger(quantityTextField);
+            String description = InputDataChecker.checkString(descriptionArea);
+            if (chosenPicture == null) {
+                pictureChooser.setStyle("-fx-border-color: red;" +
+                                        "-fx-border-radius: inherit");
+                return false;
+            } else {
+                pictureChooser.setStyle("-fx-border-color: inherit;");
+            }
+
+            if (name != null && price != null && quantity != null && description != null) {
+                Product product = new Product();
+                product.setName(name);
+                product.setPrice(price);
+                product.setDescription(description);
+
+                String imageFilename = FilenameGenerator.generate();
+
+                String path = this.getClass().getResource("/product_images").getFile();
+
+                File imageFile = new File(path + "/" + imageFilename + ".jpg");
+                try {
+                    Files.copy(chosenPicture.toPath(), imageFile.toPath());
+
+                    // consider that image files are placed in webapp/img/product_images
+                    currentStorage.getProduct().setFilename(imageFilename);
+
+                    chosenPicture = null;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                productService.create(product);
+                Storage storage = new Storage(product, quantity);
+                storageService.create(storage);
+                return true;
+            }
+            return false;
         }
 
         public boolean fieldsChanged() {
@@ -155,12 +266,15 @@ public class StorageItemsController {
         }
 
         public void fieldsOnCreating() {
-            nameTextField.setVisible(true);
-            quantityTextField.setVisible(true);
-            priceTextField.setVisible(true);
+            nameBox.setVisible(true);
+            quantityBox.setVisible(true);
+            priceBox.setVisible(true);
+            descriptionArea.setEditable(true);
+            pictureChooser.setVisible(true);
             nameTextField.setText("");
             quantityTextField.setText("");
             priceTextField.setText("");
+            descriptionArea.setText("");
             saveCancel.setVisible(true);
             newEditDelete.setVisible(false);
         }
@@ -172,9 +286,11 @@ public class StorageItemsController {
         }
 
         private void fieldsOn() {
-            nameTextField.setVisible(true);
-            quantityTextField.setVisible(true);
-            priceTextField.setVisible(true);
+            nameBox.setVisible(true);
+            quantityBox.setVisible(true);
+            priceBox.setVisible(true);
+            descriptionArea.setEditable(true);
+            pictureChooser.setVisible(true);
             nameTextField.setText(currentStorage.getName());
             quantityTextField.setText(currentStorage.getAmount().toString());
             priceTextField.setText(currentStorage.getPrice().toString());
@@ -183,13 +299,23 @@ public class StorageItemsController {
         }
 
         public void fieldsOff() {
-            nameTextField.setVisible(false);
-            quantityTextField.setVisible(false);
-            priceTextField.setVisible(false);
+            nameBox.setVisible(false);
+            quantityBox.setVisible(false);
+            priceBox.setVisible(false);
+            descriptionArea.setEditable(false);
+            pictureChooser.setVisible(false);
             nameTextField.setText("");
             quantityTextField.setText("");
             priceTextField.setText("");
+            descriptionArea.setText("");
             productTableView.setDisable(false);
+
+            nameTextField.setStyle("-fx-border-color: inherit");
+            quantityTextField.setStyle("-fx-border-color: inherit");
+            priceTextField.setStyle("-fx-border-color: inherit");
+            descriptionArea.setStyle("-fx-border-color: inherit");
+            pictureChooser.setStyle("-fx-border-color: inherit");
+
             if (saveCancel.isVisible()) {
                 saveCancel.setVisible(false);
             } else if (deleteCancel.isVisible()) {

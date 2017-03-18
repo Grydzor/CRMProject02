@@ -2,8 +2,10 @@ package util;
 
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.DecimalFormat;
@@ -49,6 +51,17 @@ public class InputDataChecker {
         }
 
         textField.setStyle(STYLE_OK);
+        return text;
+    }
+
+    public static String checkString(TextArea textArea) {
+        String text = textArea.getText().trim();
+        if (text.isEmpty()) {
+            textArea.setStyle(STYLE_BAD);
+            return null;
+        }
+
+        textArea.setStyle(STYLE_OK);
         return text;
     }
 

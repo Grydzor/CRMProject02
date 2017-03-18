@@ -1,6 +1,6 @@
-package web.dao;
+package dao;
 
-import web.entity.CustomerAccount;
+import entity.CustomerAccount;
 
 public interface CustomerAccountDAO extends DAO<CustomerAccount> {
     String findPass(String email);

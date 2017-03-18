@@ -20,11 +20,19 @@ public class Product implements Serializable {
     @Column(name = "PRICE", nullable = false)
     private BigDecimal price;
 
+    @Column
+    private String filename;
+
+    @Column
+    private String description;
+
     public Product() {}
 
-    public Product(String name, BigDecimal price) {
+    public Product(String name, BigDecimal price, String pathImage, String description) {
         this.name = name;
         this.price = price;
+        this.filename = pathImage;
+        this.description = description;
     }
 
     public Long getId() {
@@ -46,6 +54,22 @@ public class Product implements Serializable {
     public BigDecimal getPrice() {return price;}
 
     public void setPrice(BigDecimal price) {this.price = price;}
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     @Override
     public String toString() {

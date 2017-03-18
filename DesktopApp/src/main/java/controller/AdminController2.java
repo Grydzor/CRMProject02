@@ -161,9 +161,9 @@ public class AdminController2 implements MainController {
                 passwordField.setEditable(true);
                 clearFields();
                 activateButtonBarButtons();
-                refreshTable();
                 currentUser = null;
                 currentEmployee = null;
+                refreshTable();
                 break;
         }
     }
@@ -179,6 +179,7 @@ public class AdminController2 implements MainController {
         cancelButton.setVisible(false);
         applyButton.setDisable(true);
         cancelButton.setDisable(true);
+        tableView.getSelectionModel().select(null);
     }
 
     @FXML
@@ -284,29 +285,22 @@ public class AdminController2 implements MainController {
         accountColumn.setCellValueFactory(new PropertyValueFactory<>("account"));
         ObservableList<Employee> employees = FXCollections.observableArrayList(employeeService.findAll());
         tableView.setItems(employees);
+        tableView.getSelectionModel().select(null);
     }
 
     private void fillTableViewAndBoxes() {
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        surnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
-        genderColumn.setCellValueFactory(new PropertyValueFactory<>("sex"));
-        ageColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
-        positionColumn.setCellValueFactory(new PropertyValueFactory<>("position"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        accountColumn.setCellValueFactory(new PropertyValueFactory<>("account"));
-        ObservableList<Employee> employees = FXCollections.observableArrayList(employeeService.findAll());
-        tableView.setItems(employees);
+        refreshTable();
+        tableView.getSelectionModel().select(null);
         sexComboBox.setItems(FXCollections.observableArrayList(Sex.values()));
         positionComboBox.setItems(FXCollections.observableArrayList(Position.values()));
     }
 
     private void addListenerTableView() {
         tableView.getSelectionModel().selectedItemProperty().addListener(
-                (observable, newValue, oldValue) -> {
-                    currentEmployee = oldValue;
-                    editUserButton.setDisable(false);
-                    deleteUserButton.setDisable(false);
+                (observable, oldValue, newValue) -> {
+                    currentEmployee = newValue;
+                    editUserButton.setDisable(currentEmployee == null);
+                    deleteUserButton.setDisable(currentEmployee == null);
                 });
     }
 

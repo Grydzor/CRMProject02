@@ -1,5 +1,5 @@
 // opens menu when hover on it
-$('#menu').hover(
+$('#userMenu').hover(
     function () {
         if ($('.dropdown.open').length == 0) {
             $('.dropdown .dropdown-toggle').dropdown("toggle");
@@ -7,7 +7,7 @@ $('#menu').hover(
         }
     },
     function () {}
-)
+);
 
 function logOut() {
     var xhttp = new XMLHttpRequest();

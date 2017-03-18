@@ -9,5 +9,6 @@
 <body>
 <%@include file="embedded-jsp/navigation-bar.jsp"%>
 
+
 </body>
 </html>

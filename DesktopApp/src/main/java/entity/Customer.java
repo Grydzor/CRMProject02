@@ -1,11 +1,9 @@
 package entity;
 
-import org.springframework.transaction.annotation.Transactional;
 import service.CustomerService;
 import util.ApplicationContextFactory;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,6 +27,9 @@ public class Customer {
     @Column(name = "EMAIL")
     private String email;
 
+    @Column
+    private String address;
+
     /*@OneToMany(mappedBy = "customer")
     private List<Order> orders = new ArrayList<>();*/
 
@@ -36,11 +37,12 @@ public class Customer {
 
     public Customer() {}
 
-    public Customer(String name, String surname, String mobile, String email) {
+    public Customer(String name, String surname, String mobile, String email, String address) {
         this.name = name;
         this.surname = surname;
         this.mobile = mobile;
         this.email = email;
+        this.address = address;
     }
 
     public Long getId() {
@@ -83,7 +85,16 @@ public class Customer {
         this.email = email;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public List<Order> getOrders() {
+
         return orders == null ? orders = ApplicationContextFactory
                 .getApplicationContext()
                 .getBean(CustomerService.class)

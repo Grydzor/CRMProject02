@@ -1,6 +1,6 @@
-package web.service;
+package service;
 
-import web.entity.CustomerAccount;
+import entity.CustomerAccount;
 
 public interface CustomerAccountService extends Service<CustomerAccount> {
     String findPass(String email);

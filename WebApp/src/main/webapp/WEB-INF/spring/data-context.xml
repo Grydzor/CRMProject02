@@ -36,13 +36,13 @@
 
         <property name="annotatedClasses">
             <list>
-                <value>web.entity.Customer</value>
-                <value>web.entity.CustomerAccount</value>
-                <value>web.entity.Employee</value>
-                <value>web.entity.Item</value>
-                <value>web.entity.Order</value>
-                <value>web.entity.Product</value>
-                <value>web.entity.User</value>
+                <value>entity.Customer</value>
+                <value>entity.CustomerAccount</value>
+                <value>entity.Employee</value>
+                <value>entity.Item</value>
+                <value>entity.Order</value>
+                <value>entity.Product</value>
+                <value>entity.User</value>
             </list>
         </property>
     </bean>

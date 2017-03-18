@@ -1,10 +1,10 @@
-package web.dao;
+package dao;
 
+import entity.CustomerAccount;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import web.entity.Customer;
-import web.entity.CustomerAccount;
+import entity.Customer;
 
 @Repository("customerAccountDAO")
 public class CustomerAccountDAOImpl extends DAOImpl<CustomerAccount> implements CustomerAccountDAO {

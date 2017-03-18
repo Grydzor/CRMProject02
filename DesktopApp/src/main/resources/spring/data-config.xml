@@ -47,6 +47,7 @@
                 <value>entity.Order</value>
                 <value>entity.UserSession</value>
                 <value>entity.Storage</value>
+                <value>entity.CustomerAccount</value>
             </list>
         </property>
     </bean>

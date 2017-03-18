@@ -1,12 +1,13 @@
 package service;
 
 import dao.CustomerDAO;
-import entity.Customer;
-import entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import entity.Customer;
+import entity.Order;
+import service.CustomerService;
 
 import java.util.List;
 
@@ -23,5 +24,11 @@ public class CustomerServiceImpl extends ServiceImpl<Customer> implements Custom
     @Transactional
     public List<Order> findOrders(Customer customer) {
         return customerDAO.findOrders(customer);
+    }
+
+    @Override
+    @Transactional
+    public Customer find(String email) {
+        return customerDAO.find(email);
     }
 }
