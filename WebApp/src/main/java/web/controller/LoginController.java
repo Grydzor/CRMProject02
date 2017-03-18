@@ -3,13 +3,13 @@ package web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import web.entity.Customer;
-import web.entity.CustomerAccount;
+import service.CustomerService;
+import entity.Customer;
+import entity.CustomerAccount;
 
 import org.springframework.stereotype.Controller;
 import web.form.LoginData;
-import web.service.CustomerAccountService;
-import web.service.CustomerService;
+import service.CustomerAccountService;
 import org.springframework.web.bind.support.SessionStatus;
 
 @Controller

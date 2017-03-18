@@ -8,7 +8,7 @@
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#">About</a></li>
-            <li><a href="#">Basket</a></li>
+            <li><a href="#">Cart</a></li>
             <li id="menu" class="dropdown">
                 <c:if test="${customer != null}">
                     <%@include file="user-form.jsp"%>

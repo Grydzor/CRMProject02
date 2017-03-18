@@ -1,11 +1,11 @@
-package web.service;
+package service;
 
+import dao.CustomerAccountDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import web.dao.CustomerAccountDAO;
-import web.entity.CustomerAccount;
+import entity.CustomerAccount;
 
 @Service("customerAccountService")
 public class CustomerAccountServiceImpl extends ServiceImpl<CustomerAccount> implements CustomerAccountService {

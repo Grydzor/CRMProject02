@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../../css/logged-in.css" />
 
-<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navLogin">Logged in as <span style="color: blue">${customer.name}</span></a>
+<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="userMenu">Logged in as <span style="text-decoration: underline">${customer.name}</span></a>
 <div class="dropdown-menu pull-right" id="userForm">
     <fieldset class="user-form" style="text-align: center">
         <div>
@@ -12,4 +12,14 @@
     </fieldset>
 </div>
 
-
+<script>
+    $('#userMenu').hover(
+        function () {
+            if ($('.dropdown.open').length == 0) {
+                $('.dropdown .dropdown-toggle').dropdown("toggle");
+                document.getElementById("inputEmail").focus();
+            }
+        },
+        function () {}
+    );
+</script>

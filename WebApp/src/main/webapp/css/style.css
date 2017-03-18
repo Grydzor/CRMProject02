@@ -1,6 +1,6 @@
 body {
     font-family: 'Roboto', sans-serif;
-    padding-top: 40px;
+    padding-top: 60px;
     padding-bottom: 40px;
     background-color: #cdf7cf/*#bde3bf*/;
     background-image: url("/img/checkered-pattern.png");
@@ -12,3 +12,20 @@ body {
     background-color: rgba(0,0,0,0.8);
 }
 
+.product {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px dashed rgba(0,0,255,0.5);
+    margin: 5px 5px 5px 5px;
+    min-height: 200px;
+}
+
+.price {
+    background-color: #2aabd2;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding: 4px;
+    font-size: 16px;
+}

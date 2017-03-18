@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../../css/sign-in.css" />
 
-<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="navLogin">Login</a>
+<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="userMenu">Login</a>
 <div class="dropdown-menu pull-right" id="loginForm">
     <fieldset class="form-signin" name="loginform">
         <div class="input-group">
@@ -24,3 +24,15 @@
         <a name="signup" href="/register">Sign up</a>
     </div>
 </div>
+
+<script>
+    $('#userMenu').hover(
+        function () {
+            if ($('.dropdown.open').length == 0) {
+                $('.dropdown .dropdown-toggle').dropdown("toggle");
+                document.getElementById("inputEmail").focus();
+            }
+        },
+        function () {}
+    );
+</script>

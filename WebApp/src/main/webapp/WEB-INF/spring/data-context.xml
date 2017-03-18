@@ -37,7 +37,7 @@
         <property name="annotatedClasses">
             <list>
                 <value>web.entity.Customer</value>
-                <value>web.entity.CustomerAccount</value>
+                <value>entity.CustomerAccount</value>
                 <value>web.entity.Employee</value>
                 <value>web.entity.Item</value>
                 <value>web.entity.Order</value>
