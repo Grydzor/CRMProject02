@@ -1,7 +1,10 @@
 package web.controller;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -13,10 +16,12 @@ import entity.Customer;
 import entity.CustomerAccount;
 import service.CustomerAccountService;
 import service.CustomerService;
+import service.ProductService;
 import web.form.LoginData;
 import web.form.RegisterData;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -98,5 +103,16 @@ public class JsonController {
             jsonObject.addProperty("answer", false);
             return jsonObject.toString();
         }
+    }
+
+    @RequestMapping(value = "/jsonproduct", method = RequestMethod.GET)
+    @ResponseBody
+    public String jsonproduct() {
+        ProductService productService = context.getBean(ProductService.class);
+        List<Product> listproducts = productService.findAll();
+
+        Gson gson = new GsonBuilder().create();
+        String productsJson = gson.toJson(listproducts);
+        return productsJson;
     }
 }
