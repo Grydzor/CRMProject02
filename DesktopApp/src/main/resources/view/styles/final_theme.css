@@ -110,7 +110,7 @@
     -fx-font-family: 'Roboto', serif;
     -fx-background-color: white;
     -fx-border-radius: 2;
-    -fx-border-color: lightgrey;
+    -fx-border-color: #ebebeb;
     -fx-border-width: 1px;
 }
 
@@ -127,6 +127,12 @@
 }
 .text-area .content {
     -fx-background-color: white;
+}
+
+#imagePane {
+    -fx-border-radius: 3px;
+    -fx-border-color: rgba(0,0,255,0.2);
+    -fx-border-style: dashed;
 }
 
 .login-pass-field {
@@ -149,9 +155,9 @@
 .table-view {
     -fx-base: white;
     -fx-background-color: white;
-    -fx-border-color: lightgrey;
-    -fx-table-cell-border-color: lightgrey;
-    -fx-table-header-border-color: lightgrey;
+    -fx-border-color: #ebebeb;
+    -fx-table-cell-border-color: #ebebeb;
+    -fx-table-header-border-color: #ebebeb;
     -fx-font-family: 'Roboto', bold;
 }
 
@@ -170,7 +176,7 @@
 .table-cell {
     -fx-padding: 0.166667em; /* 2px, plus border adds 1px */
     -fx-background-color: null;
-    -fx-border-color: transparent lightgrey lightgrey transparent;
+    -fx-border-color: transparent #ebebeb #ebebeb transparent;
     -fx-cell-size: 2.0em; /* 24 */
     -fx-text-fill: -fx-text-background-color;
 }
@@ -192,13 +198,15 @@
 }
 
 .table-row-cell:focused {
-    -fx-focus-color: #00b7f4;
-    -fx-background-color: -fx-focus-color;
+    -fx-border-width: 0 0 0 0;
+    -fx-focus-color: #f2fcfe;
+    -fx-background-color: transparent, transparent, -fx-background; /* here bug (of focused row) is eliminated! */
+    /*-fx-table-cell-border-color: derive(ebebeb, 20%);*/
 }
 
 .table-row-cell:selected {
-    -fx-background: #00b7f4;
-    -fx-table-cell-border-color: derive(ebebeb, 20%);
+    -fx-background: #f2fcfe;
+    -fx-table-cell-border-color: white/*derive(ebebeb, 20%)*/;
 }
 
 .table-view .table-column {

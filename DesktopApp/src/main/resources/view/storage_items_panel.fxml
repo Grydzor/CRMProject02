@@ -20,7 +20,7 @@
 
 <VBox alignment="CENTER" prefHeight="540.0" prefWidth="960.0" spacing="10.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StorageItemsController">
    <children>
-      <StackPane>
+      <StackPane minHeight="30.0">
          <children>
             <Label styleClass="label-header-title" text="Storage">
                <VBox.margin>
@@ -48,10 +48,26 @@
             </TableView>
             <VBox alignment="TOP_CENTER" maxWidth="400.0" minWidth="400.0" prefWidth="400.0" spacing="5.0">
                <children>
-                  <HBox alignment="BOTTOM_LEFT">
+                  <HBox fx:id="imageBox" spacing="5.0">
                      <children>
-                        <ImageView fx:id="productImage" fitHeight="190.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: grey; -fx-border-radius: 5px;" />
-                        <Button fx:id="pictureChooser" mnemonicParsing="false" onAction="#choosePicture" style="-fx-font-size: 14px;" text="Choose picture..." visible="false" />
+                        <Label maxWidth="75.0" minWidth="75.0" prefWidth="75.0" style="-fx-font-size: 14px;" text="Image:">
+                           <HBox.margin>
+                              <Insets top="7.0" />
+                           </HBox.margin>
+                        </Label>
+                        <StackPane>
+                           <children>
+                              <ImageView fx:id="productImage" fitHeight="200" fitWidth="300" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: grey; -fx-border-radius: 5px;" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="pictureChooser" alignment="CENTER" mnemonicParsing="false" onAction="#choosePicture" style="-fx-font-size: 14px;" visible="false" StackPane.alignment="TOP_LEFT">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="22.0" fitWidth="22.0" style="-fx-image: url('/view/imgs/edituser.png')" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </StackPane>
                      </children>
                   </HBox>
                   <HBox fx:id="descriptionBox" maxHeight="120.0" minHeight="100.0" prefHeight="120.0" spacing="5.0">
@@ -60,11 +76,14 @@
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
+                           <HBox.margin>
+                              <Insets top="6.0" />
+                           </HBox.margin>
                         </Label>
-                        <TextArea fx:id="descriptionArea" editable="false" style="-fx-font-size: 14;" HBox.hgrow="ALWAYS" />
+                        <TextArea fx:id="descriptionArea" editable="false" style="-fx-font-size: 14;" wrapText="true" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <HBox fx:id="nameBox" alignment="CENTER_LEFT" spacing="5.0" visible="false">
+                  <HBox fx:id="nameBox" alignment="CENTER_LEFT" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" spacing="5.0" visible="false">
                      <children>
                         <Label fx:id="nameLabel" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" style="-fx-font-size: 14px;" text="Product:" />
                         <TextField fx:id="nameTextField" promptText="name" style="-fx-font-size: 14px;" HBox.hgrow="ALWAYS">
@@ -74,7 +93,7 @@
                         </TextField>
                      </children>
                   </HBox>
-                  <HBox fx:id="quantityBox" alignment="CENTER_LEFT" spacing="5.0" visible="false">
+                  <HBox fx:id="quantityBox" alignment="CENTER_LEFT" maxHeight="30.0" minHeight="30.0" minWidth="0.0" prefHeight="30.0" spacing="5.0" visible="false">
                      <children>
                         <Label fx:id="quantityLabel" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" style="-fx-font-size: 14px;" text="Quantity:" />
                         <TextField fx:id="quantityTextField" promptText="quantity" style="-fx-font-size: 14px;" HBox.hgrow="ALWAYS">
@@ -84,7 +103,7 @@
                         </TextField>
                      </children>
                   </HBox>
-                  <HBox fx:id="priceBox" alignment="CENTER_LEFT" spacing="5.0" visible="false">
+                  <HBox fx:id="priceBox" alignment="CENTER_LEFT" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" spacing="5.0" visible="false">
                      <children>
                         <Label fx:id="priceLabel" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" style="-fx-font-size: 14px;" text="Price:" />
                         <TextField fx:id="priceTextField" promptText="price" style="-fx-font-size: 14px;" HBox.hgrow="ALWAYS">
@@ -99,7 +118,7 @@
             </VBox>
          </children>
       </HBox>
-      <StackPane alignment="CENTER_RIGHT">
+      <StackPane alignment="CENTER_RIGHT" maxHeight="30.0" minHeight="30.0" prefHeight="30.0">
          <children>
             <HBox fx:id="newEditDelete" alignment="CENTER_RIGHT" spacing="10.0">
                <children>

@@ -12,10 +12,10 @@
             <input type="password" class="form-control" id="inputPassword" placeholder="Password">
         </div>
         <div class="inline-block">
-            <label class="remember-me">
+            <label class="inline">
                 <input type="checkbox"> Remember me
             </label>
-            <a href="recover" class="recover-pass">Lost your password?</a>
+            <a href="recover" class="inline">Lost your password?</a>
         </div>
         <button name="signin" class="btn btn-lg btn-primary btn-block" onclick="logIn()">Sign in</button>
     </fieldset>

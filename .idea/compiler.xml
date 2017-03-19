@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- DON'T TOUCH !!!! -->
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
@@ -11,7 +10,6 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="CRMProject02" target="1.8" />
       <module name="DesktopApp" target="1.8" />
       <module name="WebApp" target="1.8" />
     </bytecodeTargetLevel>

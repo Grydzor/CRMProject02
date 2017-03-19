@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 public class InputDataChecker {
     private static final String STYLE_OK = "-fx-border-color: inherit;";
     private static final String STYLE_BAD = "-fx-border-color: red;" +
-                                            "-fx-border-radius: inherit";
+                                            "-fx-border-radius: inherit;";
 
     private static DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
@@ -93,6 +93,8 @@ public class InputDataChecker {
 
         BigDecimal num;
         try {
+            System.out.println(text);
+            System.out.println(decimalFormat.parse(text));
             num = new BigDecimal(decimalFormat.parse(text).doubleValue());
         } catch (NumberFormatException | ParseException e) {
             textField.setStyle(STYLE_BAD);

@@ -1,11 +1,14 @@
 package web.controller;
 
+import entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import entity.Product;
+import org.springframework.web.servlet.ModelAndView;
+import service.CustomerService;
 import service.ProductService;
 
 import java.util.List;
@@ -16,7 +19,13 @@ public class IndexController {
     private ApplicationContext context;
 
     @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.HEAD})
-    public String index() {
+    public String index(Model model) {
+        int productsPerPage = 12;
+        ProductService service = context.getBean(ProductService.class);
+        List<Product> products = service.findInRange(0, productsPerPage, "id", true);
+        model.addAttribute("products", products);
+        model.addAttribute("page", 1);
+        model.addAttribute("filter", "newest");
         return "index";
     }
 
@@ -30,21 +39,5 @@ public class IndexController {
         return "recover";
     }
 
-    @RequestMapping(value = "/backoffice", method = RequestMethod.GET)
-    public String backoffice() {
-        return "backoffice";
-    }
 
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String search() {
-        return "search";
-    }
-
-    @RequestMapping(value = "/products", method = RequestMethod.GET)
-    public String loadProducts(@RequestParam("page") Integer page, Model model) {
-        ProductService service = context.getBean(ProductService.class);
-        List<Product> products = service.findInRange((page - 1) * 15, 15);
-        model.addAttribute("products", products);
-        return "loadProducts";
-    }
 }
