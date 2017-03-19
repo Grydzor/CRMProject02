@@ -159,9 +159,11 @@
         </dependency>
 
         <dependency>
-            <groupId>CRMProject02</groupId>
+            <groupId>DesktopApp</groupId>
             <artifactId>DesktopApp</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
     </dependencies>
+
 </project>

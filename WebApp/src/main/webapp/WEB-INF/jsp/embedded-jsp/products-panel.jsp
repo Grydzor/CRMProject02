@@ -1,13 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Title</title>
-    <%@include file="../../html/load-libraries.html"%>
-</head>
-<body>
-<%@include file="../jsp/embedded-jsp/navigation-bar.jsp"%>
+<%@include file="filter-products-panel.jsp"%>
 <div class="row row-centered">
     <c:forEach items="${products}" var="product">
     <%--<img src="${product.img}"/>--%>
@@ -26,11 +17,16 @@
         <div class="row row-centered">
             <div class="inline-block">
                 <div class="inline">
-                    <span class="price">€${product.price}</span>
+                    <span class="price">
+                        <i class="fa fa-eur" aria-hidden="true"></i>${product.price}
+                    </span>
                 </div>
-                <button class="btn btn-primary">
-                    <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
-                </button>
+                <div class="inline">
+                    <button class="btn btn-primary">
+                        <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+                    </button>
+                </div>
+
             </div>
         </div>
     </div>
@@ -46,4 +42,3 @@
         </a>
     </div>
 </div>
-</html>

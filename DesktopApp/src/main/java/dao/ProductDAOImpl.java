@@ -20,16 +20,25 @@ public class ProductDAOImpl extends DAOImpl<Product> implements ProductDAO {
     @Override
     public List<Product> findInRange(Integer from, Integer limit, String by, Boolean asc) {
         if (!by.equals("id") && !by.equals("name") && !by.equals("price")) {
-            System.out.println(by.equals("id"));
-            System.out.println(by.equals("name"));
-            System.out.println(by.equals("price"));
-
             return new ArrayList<>();
         }
 
-        System.out.println("here");
         return factory.getCurrentSession()
                 .createQuery("FROM Product p ORDER BY p." + by + (asc ? " ASC" : " DESC"), Product.class)
+                .setFirstResult(from)
+                .setMaxResults(limit)
+                .list();
+    }
+
+    @Override
+    public List<Product> searchInRange(String query, Integer from, Integer limit, String by, Boolean asc) {
+        if (!by.equals("id") && !by.equals("name") && !by.equals("price")) {
+            return new ArrayList<>();
+        }
+
+        return factory.getCurrentSession()
+                .createQuery("FROM Product p WHERE p.name LIKE :query" + " ORDER BY p." + by + (asc ? " ASC " : " DESC "), Product.class)
+                .setParameter("query", "%" + query + "%")
                 .setFirstResult(from)
                 .setMaxResults(limit)
                 .list();

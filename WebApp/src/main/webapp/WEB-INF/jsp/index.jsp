@@ -19,6 +19,6 @@
         So choose it!
     </h4>
 </div>
-<%@include file="loadProducts.jsp"%>
+<%@include file="embedded-jsp/products-panel.jsp"%>
 </body>
 </html>

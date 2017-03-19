@@ -35,7 +35,7 @@ body {
     -moz-border-radius: 3px;
     border-radius: 3px;
     padding: 4px;
-    font-size: 150%;
+    font-size: 160%;
 }
 
 /* centered columns styles */
@@ -65,4 +65,21 @@ body {
 hr {
     margin-bottom: 7px;
     margin-top: 7px;
+}
+
+.acc-details {
+    margin: 0 auto;
+    width: 400px;
+    padding: 30px 20px 10px 20px;
+}
+
+.acc-details .form-control {
+    background-color: rgba(240, 240, 240, 0.7);
+}
+.acc-details .input-group {
+    margin-top: 10px;
+}
+
+.inline {
+    display: inline-block;
 }
