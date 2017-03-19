@@ -129,8 +129,7 @@ public class AdminController2 implements MainController {
                 accountSettingsBox.setVisible(false);
                 applyButton.setVisible(false);
                 cancelButton.setVisible(false);
-                loginField.setEditable(true);
-                passwordField.setEditable(true);
+                loginAndPasswordBox.setVisible(false);
                 clearFields();
                 activateButtonBarButtons();
                 refreshTable();
@@ -153,6 +152,7 @@ public class AdminController2 implements MainController {
                 refreshTable();
                 break;
             case "update":
+                employeeService.update(currentEmployee);
                 tableView.setVisible(true);
                 accountSettingsBox.setVisible(false);
                 applyButton.setVisible(false);
@@ -214,6 +214,7 @@ public class AdminController2 implements MainController {
             currentEmployee.getUser().setLogin(LoginHelper.generate(currentEmployee.getName(), currentEmployee.getSurname()));
             currentEmployee.getUser().setPassword(LoginHelper.generatePassword());
             userService.update(currentEmployee.getUser());
+            currentEmployee.getUser().setEmployee(currentEmployee);
             loginField.setText(currentEmployee.getUser().getLogin());
             passwordField.setText(currentEmployee.getUser().getPassword());
             loginField.setEditable(false);

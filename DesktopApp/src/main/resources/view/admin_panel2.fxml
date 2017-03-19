@@ -102,7 +102,7 @@
                      <children>
                         <ImageView fitHeight="32.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@/view/imgs/refresh.png" />
+                              <Image url="@imgs/refresh.png" />
                            </image>
                         </ImageView>
                         <Label text="REFRESH" />
@@ -303,13 +303,13 @@
                               <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label styleClass="grey-label" text="Name:" />
-                                    <TextField fx:id="nameField" />
+                                    <TextField fx:id="nameField" prefHeight="27.0" />
                                  </children>
                               </VBox>
                               <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label styleClass="grey-label" text="Surname:" />
-                                    <TextField fx:id="surnameField" />
+                                    <TextField fx:id="surnameField" prefHeight="27.0" />
                                  </children>
                               </VBox>
                            </children>
@@ -319,7 +319,7 @@
                               <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label styleClass="grey-label" text="Email:" />
-                                    <TextField fx:id="emailField" prefWidth="312.0" />
+                                    <TextField fx:id="emailField" prefHeight="27.0" prefWidth="312.0" />
                                  </children>
                               </VBox>
                            </children>
@@ -329,7 +329,7 @@
                               <VBox prefWidth="449.0" spacing="5.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label styleClass="grey-label" text="Age:" />
-                                    <TextField fx:id="ageField">
+                                    <TextField fx:id="ageField" prefHeight="27.0">
                                        <VBox.margin>
                                           <Insets top="1.0" />
                                        </VBox.margin></TextField>

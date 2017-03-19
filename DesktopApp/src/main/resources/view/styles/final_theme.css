@@ -19,12 +19,12 @@
 
 .button-bar {
     -fx-background-color: #ffffff;
-    -fx-border-color: #ebebeb;
+    -fx-border-color: lightgrey;
 }
 
 .back-bar {
     -fx-background-color: #ffffff;
-    -fx-border-color: #ebebeb;
+    -fx-border-color: lightgrey;
     -fx-background-radius: 3;
     -fx-border-radius: 3;
 }
@@ -47,7 +47,7 @@
 
 .big-box-button {
     -fx-border-radius: 2;
-    -fx-border-color: #ebebeb;
+    -fx-border-color: lightgrey;
 }
 
 .big-box-button:focused {
@@ -61,7 +61,7 @@
 }
 
 .button:hover {
-    -fx-background-color: #f2f2f2;
+    -fx-background-color: lightgrey;
 }
 
 .round-button:hover {
@@ -110,7 +110,7 @@
     -fx-font-family: 'Roboto', serif;
     -fx-background-color: white;
     -fx-border-radius: 2;
-    -fx-border-color: #ebebeb;
+    -fx-border-color: lightgrey;
     -fx-border-width: 1px;
 }
 
@@ -122,7 +122,7 @@
     -fx-font-family: 'Roboto', serif;
     -fx-background-color: white;
     -fx-border-radius: 2;
-    -fx-border-color: #ebebeb;
+    -fx-border-color: lightgrey;
     -fx-border-width: 1px;
 }
 .text-area .content {
@@ -131,7 +131,7 @@
 
 .login-pass-field {
     -fx-alignment: center;
-    -fx-border-color: transparent transparent #ebebeb transparent;
+    -fx-border-color: transparent transparent lightgrey transparent;
 }
 
 .login-pass-field:focused {
@@ -142,16 +142,16 @@
     -fx-font-family: 'Roboto', serif;
     -fx-background-color: white;
     -fx-border-radius: 2;
-    -fx-border-color: #ebebeb;
+    -fx-border-color: lightgrey;
     -fx-border-width: 1px;
 }
 
 .table-view {
     -fx-base: white;
     -fx-background-color: white;
-    -fx-border-color: #ebebeb;
-    -fx-table-cell-border-color: #ebebeb;
-    -fx-table-header-border-color: #ebebeb;
+    -fx-border-color: lightgrey;
+    -fx-table-cell-border-color: lightgrey;
+    -fx-table-header-border-color: lightgrey;
     -fx-font-family: 'Roboto', bold;
 }
 
@@ -170,7 +170,7 @@
 .table-cell {
     -fx-padding: 0.166667em; /* 2px, plus border adds 1px */
     -fx-background-color: null;
-    -fx-border-color: transparent #ebebeb #ebebeb transparent;
+    -fx-border-color: transparent lightgrey lightgrey transparent;
     -fx-cell-size: 2.0em; /* 24 */
     -fx-text-fill: -fx-text-background-color;
 }
@@ -192,12 +192,12 @@
 }
 
 .table-row-cell:focused {
-    -fx-focus-color: #f2fcfe;
+    -fx-focus-color: #00b7f4;
     -fx-background-color: -fx-focus-color;
 }
 
 .table-row-cell:selected {
-    -fx-background: #f2fcfe;
+    -fx-background: #00b7f4;
     -fx-table-cell-border-color: derive(ebebeb, 20%);
 }
 

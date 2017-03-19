@@ -141,6 +141,11 @@ public class CashierController implements MainController {
     }
 
     @FXML
+    public void changePasswordButtonOnAction() {
+        StageFactory.loadModal("/view/modal/change_password.fxml", "Change password", session);
+    }
+
+    @FXML
     public void logOutButtonOnAction() {
         StageFactory.backToLogInWindow();
     }

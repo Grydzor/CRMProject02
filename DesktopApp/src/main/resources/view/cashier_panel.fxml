@@ -27,7 +27,7 @@
           <Menu mnemonicParsing="false" text="Settings">
             <items>
               <MenuItem mnemonicParsing="false" text="Change theme" />
-                  <MenuItem mnemonicParsing="false" text="Change password" />
+                  <MenuItem mnemonicParsing="false" onAction="#changePasswordButtonOnAction" text="Change password" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
