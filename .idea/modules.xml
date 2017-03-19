@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CRMProject02.iml" filepath="$PROJECT_DIR$/CRMProject02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CRM.iml" filepath="$PROJECT_DIR$/CRM.iml" />
       <module fileurl="file://$PROJECT_DIR$/DesktopApp/DesktopApp.iml" filepath="$PROJECT_DIR$/DesktopApp/DesktopApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/WebApp/WebApp.iml" filepath="$PROJECT_DIR$/WebApp/WebApp.iml" />
     </modules>

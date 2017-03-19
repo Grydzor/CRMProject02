@@ -36,7 +36,7 @@
     font-size:0;
     line-height:0;
 }
-.recover-pass, .remember-me {
+.inline {
     display: inline-block;
 }
 

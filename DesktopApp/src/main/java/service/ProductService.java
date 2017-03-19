@@ -5,5 +5,5 @@ import entity.Product;
 import java.util.List;
 
 public interface ProductService extends Service<Product> {
-    List<Product> findInRange(Integer from, Integer limit);
+    List<Product> findInRange(Integer from, Integer limit, String by, Boolean asc);
 }

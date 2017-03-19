@@ -16,7 +16,12 @@ public class IndexController {
     private ApplicationContext context;
 
     @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.HEAD})
-    public String index() {
+    public String index(Model model) {
+        int productsPerPage = 12;
+        ProductService service = context.getBean(ProductService.class);
+        List<Product> products = service.findInRange(0, productsPerPage, "id", true);
+        model.addAttribute("products", products);
+        model.addAttribute("page", 1);
         return "index";
     }
 
@@ -42,9 +47,11 @@ public class IndexController {
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     public String loadProducts(@RequestParam("page") Integer page, Model model) {
+        int productsPerPage = 12;
         ProductService service = context.getBean(ProductService.class);
-        List<Product> products = service.findInRange((page - 1) * 15, 15);
+        List<Product> products = service.findInRange((page - 1) * productsPerPage, productsPerPage, "id", true);
         model.addAttribute("products", products);
+        model.addAttribute("page", page);
         return "loadProducts";
     }
 }

@@ -8,20 +8,42 @@
 </head>
 <body>
 <%@include file="../jsp/embedded-jsp/navigation-bar.jsp"%>
-<div class="container">
-    <div class="row">
-        <c:forEach items="${products}" var="product">
-        <%--<img src="${product.img}"/>--%>
-        <div class="col-md-3 product">
-            <a href="/">${product.name}</a>
-            <div class="row">
-                <div class="col-sm-6">
-                    <span class="price">${product.price} UAH</span>
+<div class="row row-centered">
+    <c:forEach items="${products}" var="product">
+    <%--<img src="${product.img}"/>--%>
+    <div class="col-md-3 product col-centered">
+        <div class="row row-centered">
+            <img src="../../img/product_images/${product.filename}.jpg" height="300px"/>
+        </div>
+        <div class="row row-centered">
+            <a href="#" class="name">${product.name}</a>
+        </div>
+        <hr>
+        <div class="row description">
+            <b>Description:</b> <span>${product.description}</span>
+        </div>
+        <hr>
+        <div class="row row-centered">
+            <div class="inline-block">
+                <div class="inline">
+                    <span class="price">€${product.price}</span>
                 </div>
-                <button class="btn btn-primary"></button>
+                <button class="btn btn-primary">
+                    <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+                </button>
             </div>
         </div>
-        </c:forEach>
+    </div>
+    </c:forEach>
+    <div>
+        <c:if test="${page > 1}">
+            <a href="/products?page=${page - 1}" class="btn btn-default">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i> TO ${page - 1} page
+            </a>
+        </c:if>
+        <a href="/products?page=${page + 1}" class="btn btn-default">
+            TO ${page + 1} page <i class="fa fa-arrow-right" aria-hidden="true"></i>
+        </a>
     </div>
 </div>
 </html>

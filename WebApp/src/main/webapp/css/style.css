@@ -18,15 +18,51 @@ body {
     border-radius: 5px;
     background-color: rgba(255,255,255,0.9);
     border: 1px dashed rgba(0,0,255,0.5);
-    margin: 5px 5px 5px 5px;
-    min-height: 200px;
+    margin: 7px;
+    width: 420px;
+
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+}
+.product:hover {
+    box-shadow: 10px 10px 5px #888888;
 }
 
 .price {
-    background-color: #2aabd2;
+    background-color: rgba(0,150,200,0.4);
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
     padding: 4px;
-    font-size: 16px;
+    font-size: 150%;
+}
+
+/* centered columns styles */
+.row-centered {
+    text-align:center;
+    padding: 0px 10px 0px 10px;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    /*margin-right:-4px;*/
+}
+
+.name {
+    font-size: 125%;
+}
+
+.description {
+    font-size: 100%;
+    padding: 5px 5px 5px 5px;
+    height: 130px;
+}
+
+hr {
+    margin-bottom: 7px;
+    margin-top: 7px;
 }

@@ -19,7 +19,7 @@ public class ProductServiceImpl extends ServiceImpl<Product> implements ProductS
 
     @Override
     @Transactional
-    public List<Product> findInRange(Integer from, Integer limit) {
-        return productDAO.findInRange(from, limit);
+    public List<Product> findInRange(Integer from, Integer limit, String by, Boolean asc) {
+        return productDAO.findInRange(from, limit, by, asc);
     }
 }

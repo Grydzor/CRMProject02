@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import org.springframework.context.ApplicationContext;
 import service.ProductService;
@@ -43,6 +44,7 @@ public class StorageItemsController {
     @FXML Button pictureChooser;
     private File chosenPicture;
     @FXML ImageView productImage;
+    @FXML HBox imageBox;
 
     @FXML Button newButton;
     @FXML Button editButton;
@@ -249,6 +251,8 @@ public class StorageItemsController {
                 productService.create(product);
                 Storage storage = new Storage(product, quantity);
                 storageService.create(storage);
+
+                productTableView.getSelectionModel().select(currentStorage);
                 return true;
             }
             return false;

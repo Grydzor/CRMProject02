@@ -23,7 +23,7 @@ public class Product implements Serializable {
     @Column
     private String filename;
 
-    @Column
+    @Column(length = 511)
     private String description;
 
     public Product() {}
