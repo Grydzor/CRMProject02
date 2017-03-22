@@ -25,8 +25,20 @@ body {
     -moz-transition: all 0.2s;
     -ms-transition: all 0.2s;
 }
+
 .product:hover {
     box-shadow: 10px 10px 5px #888888;
+}
+
+.product-small {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: rgba(255,255,255,0.9);
+    border: 1px dashed rgba(0,0,255,0.5);
+    margin: 7px;
+    width: 320px;
+
 }
 
 .price {
@@ -36,6 +48,10 @@ body {
     border-radius: 3px;
     padding: 4px;
     font-size: 160%;
+}
+
+.small-price {
+    font-size: 130%;
 }
 
 /* centered columns styles */
@@ -82,4 +98,17 @@ hr {
 
 .inline {
     display: inline-block;
+}
+
+.cart-details {
+    margin: 0 auto;
+    width: 350px;
+    padding: 30px 20px 10px 20px;
+}
+
+.cart-details .form-control {
+    background-color: rgba(240, 240, 240, 0.7);
+}
+.cart-details .input-group {
+    margin-top: 10px;
 }

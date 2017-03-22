@@ -118,11 +118,11 @@ public class AdminController2 implements MainController {
                     currentEmployee.setUser(currentUser);
                 }
                 employeeService.create(currentEmployee);
-                if (userWillBeCreated()) {
+//                if (userWillBeCreated()) {
                     currentEmployee.getUser().setEmployee(currentEmployee);
                     userService.update(currentEmployee.getUser());
+//                }
                     EmailSender.newUser(currentUser);
-                }
                 currentUser = null;
                 currentEmployee = null;
                 tableView.setVisible(true);

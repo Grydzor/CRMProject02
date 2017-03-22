@@ -1,8 +1,8 @@
 package web.form;
 
 public class LoginData {
-    String email;
-    String password;
+    private String email;
+    private String password;
 
     public String getEmail() {
         return email;

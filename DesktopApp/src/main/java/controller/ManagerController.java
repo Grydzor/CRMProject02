@@ -594,6 +594,8 @@ public class ManagerController implements MainController {
             customerBox.setStyle("-fx-border-color: transparent");
             deadlinePicker.setDisable(bool);
             deadlinePicker.setStyle("-fx-border-color: transparent");
+            statusBox.setDisable(bool);
+            statusBox.setStyle("-fx-border-color: transparent");
 
             if (bool) fillInfoWith(currentOrder);
             else fillInfoWith(null);

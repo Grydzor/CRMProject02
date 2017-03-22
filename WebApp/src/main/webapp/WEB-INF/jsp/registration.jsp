@@ -133,11 +133,9 @@
                        "surname":$regSurname.val(),
                        "phone":$regPhone.val(),
                        "address":$regAddress.val()};
-            alert(JSON.stringify(obj));
             xhttp.send(JSON.stringify(obj));
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    alert(JSON.stringify(obj));
                     $("#reg-form").hide();
                     document.getElementById("regStatus").innerHTML = this.responseText;
                 }

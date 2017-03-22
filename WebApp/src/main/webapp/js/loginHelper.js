@@ -41,3 +41,16 @@ function logIn() {
         };
     }
 }
+
+function addToCart(id, qty) {
+    var xhttp2 = new XMLHttpRequest();
+    xhttp2.open("POST", "http://" + window.location.host + "/addtocart");
+    xhttp2.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+
+    var obj2 = {"id":id, "qty":qty};
+    xhttp2.send(JSON.stringify(obj2));
+    xhttp2.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        }
+    };
+}

@@ -10,8 +10,7 @@
             <li><a href="/products">All products</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">About</a></li>
-            <li><a href="#">Cart</a></li>
+            <li><a href="/cart">Cart</a></li>
             <li id="menu" class="dropdown">
                 <c:if test="${customer != null}">
                     <%@include file="user-form.jsp"%>
@@ -24,7 +23,7 @@
         <form class="navbar-form navbar-right" role="search" action="/search" method="get">
             <div class="input-group">
                 <c:if test="${query != null}">
-                    <input class="form-control col-lg-1" id="inputSearch" name="q" placeholder="${query}" maxlength="50" type="text">
+                    <input class="form-control col-lg-1" id="inputSearch" name="q" placeholder="search: ${query}" maxlength="50" type="text">
                 </c:if>
                 <c:if test="${query == null}">
                     <input class="form-control col-lg-1" id="inputSearch" name="q" placeholder="Product search" maxlength="50" type="text">
