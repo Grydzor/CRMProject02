@@ -25,7 +25,7 @@ public class Delivery {
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
-    @Column(name = "Description")
+    @Column(name = "Description", length = 1000)
     private String description;
 
     public Delivery() {

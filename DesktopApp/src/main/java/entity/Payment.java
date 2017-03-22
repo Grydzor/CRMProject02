@@ -28,7 +28,7 @@ public class Payment {
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
-    @Column(name = "Description")
+    @Column(name = "Description", length = 1000)
     private String description;
 
     public Payment() {

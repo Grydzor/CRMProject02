@@ -60,7 +60,7 @@ public class Order {
     @Column
     private Integer amount;
 
-    @Column(name = "DESCRIPTION")
+    @Column(name = "DESCRIPTION", length = 1000)
     private String description;
 
 

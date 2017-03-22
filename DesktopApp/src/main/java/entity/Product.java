@@ -26,7 +26,7 @@ public class Product implements Serializable {
     @Column
     private String filename;
 
-    @Column(length = 511)
+    @Column(length = 1000)
     private String description;
 
     private transient DecimalFormat decimalFormat = new DecimalFormat("#0.00");
