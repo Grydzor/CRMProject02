@@ -3,7 +3,7 @@
     <Appenders>
         <File name="LogFile" fileName="logs/app.log">
             <PatternLayout>
-                <Pattern>"%d{HH:mm:ss.SSS} [%t] %-5level %logger{1} - %msg%n"</Pattern>
+                <Pattern>"%d{yyyy-dd-mm hh:mm:ss.sss} [%t] %-5level %logger{1} - %msg%n"</Pattern>
             </PatternLayout>
         </File>
     </Appenders>

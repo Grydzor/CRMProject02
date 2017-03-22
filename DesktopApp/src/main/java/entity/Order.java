@@ -23,19 +23,27 @@ public class Order {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "MANAGER_ID", nullable = false)
+    @JoinColumn(name = "MANAGER_ID")
     private Employee manager;
 
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID", nullable = false)
     private Customer customer;
 
+    @OneToMany
+    @JoinColumn(name = "PAYMENT_ID")
+    private List<Payment> paymentList;
+
+    @OneToMany
+    @JoinColumn(name = "DELIVERY_ID")
+    private List<Delivery> deliveryList;
+
 //    @Temporal(TemporalType.DATE)
     @Column(name = "DATE", nullable = false)
     private Date date;
 
 //    @Temporal(TemporalType.DATE)
-    @Column(name = "DEADLINE", nullable = false)
+    @Column(name = "DEADLINE")
     private Date deadline;
 
     /*@OneToMany(mappedBy = "order")
@@ -111,6 +119,22 @@ public class Order {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
+    }
+
+    public List<Payment> getPaymentList() {
+        return paymentList;
+    }
+
+    public void setPaymentList(List<Payment> paymentList) {
+        this.paymentList = paymentList;
+    }
+
+    public List<Delivery> getDeliveryList() {
+        return deliveryList;
+    }
+
+    public void setDeliveryList(List<Delivery> deliveryList) {
+        this.deliveryList = deliveryList;
     }
 
     public List<Item> getItems() {

@@ -48,6 +48,8 @@
                 <value>entity.UserSession</value>
                 <value>entity.Storage</value>
                 <value>entity.CustomerAccount</value>
+                <value>entity.Delivery</value>
+                <value>entity.Payment</value>
             </list>
         </property>
     </bean>

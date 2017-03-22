@@ -11,5 +11,7 @@
     <bean id="user" class="entity.User" scope="prototype"/>
     <bean id="storage" class="entity.Storage" scope="prototype"/>
     <bean id="userSession" class="entity.UserSession" scope="prototype"/>
+    <bean id="payment" class="entity.Payment" scope="prototype"/>
+    <bean id="delivery" class="entity.Delivery" scope="prototype"/>
     <bean id="customer_account" class="entity.CustomerAccount" scope="prototype"/>
 </beans>

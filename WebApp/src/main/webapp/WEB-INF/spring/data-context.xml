@@ -43,6 +43,8 @@
                 <value>entity.Order</value>
                 <value>entity.Product</value>
                 <value>entity.User</value>
+                <value>entity.Delivery</value>
+                <value>entity.Payment</value>
             </list>
         </property>
     </bean>
