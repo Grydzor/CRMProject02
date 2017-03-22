@@ -60,6 +60,10 @@ public class Order {
     @Column
     private Integer amount;
 
+    @Column(name = "DESCRIPTION")
+    private String description;
+
+
     private transient DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
     public Order() {
@@ -135,6 +139,14 @@ public class Order {
 
     public void setDeliveryList(List<Delivery> deliveryList) {
         this.deliveryList = deliveryList;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<Item> getItems() {
