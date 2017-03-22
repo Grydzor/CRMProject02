@@ -34,7 +34,7 @@ public class RegisterController {
 
         if (customer.getId() != null) {
             return "<h2>" +
-                    "You are successfully registered! Please check your email." +
+                    "You are successfully registered! Please log in to your account" +
                     "</h2>";
         } else {
             return "<h2>" +

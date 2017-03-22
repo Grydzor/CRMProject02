@@ -78,6 +78,11 @@ public class Item {
     public BigDecimal getPriceVAT() {
         return price.multiply(BigDecimal.valueOf(1.2));
     }
+
+    public String getPriceVATFormat() {
+        return priceVATProperty().get();
+    }
+
     public BigDecimal getSumNoVAT() {
         return price.multiply(BigDecimal.valueOf(amount));
     }

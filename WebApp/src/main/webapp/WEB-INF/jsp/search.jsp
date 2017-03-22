@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Search results</title>
     <%@include file="../../html/load-libraries.html"%>
 </head>

@@ -1,9 +1,12 @@
 package entity;
 
 
+import javafx.beans.property.SimpleStringProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 @Entity
 @Table(name = "PRODUCTS")
@@ -25,6 +28,9 @@ public class Product implements Serializable {
 
     @Column(length = 511)
     private String description;
+
+    private transient DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+
 
     public Product() {}
 
@@ -69,6 +75,18 @@ public class Product implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public BigDecimal getPriceVAT() {
+        return price.multiply(BigDecimal.valueOf(1.2));
+    }
+
+    public String getPriceVATFormat() {
+        return priceVATProperty().get();
+    }
+
+    public SimpleStringProperty priceVATProperty() {
+        return new SimpleStringProperty(decimalFormat.format(getPriceVAT()));
     }
 
     @Override

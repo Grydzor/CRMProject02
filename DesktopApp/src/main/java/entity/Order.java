@@ -27,7 +27,7 @@ public class Order {
     private Employee manager;
 
     @ManyToOne
-    @JoinColumn(name = "CUSTOMER_ID", nullable = false)
+    @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
 
     @OneToMany
@@ -67,6 +67,7 @@ public class Order {
     private transient DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
     public Order() {
+        this.date = Date.valueOf(LocalDate.now());
     }
 
     public Order(Employee manager, Customer customer, Date deadline) {
@@ -165,6 +166,10 @@ public class Order {
 
         updateSummaryAndAmount();
         return summary;
+    }
+
+    public String getSummaryFormat() {
+        return decimalFormat.format(getSummary());
     }
 
     public void setSummary(BigDecimal summary) {
