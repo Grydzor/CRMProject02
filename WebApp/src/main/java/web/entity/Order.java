@@ -56,6 +56,7 @@ public class Order {
 //    transient private List<Item> items;
 
     @Column(name = "STATUS")
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
     @Column(name = "SUMMARY")

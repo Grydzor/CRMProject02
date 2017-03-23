@@ -2,6 +2,8 @@ package web.entity;
 
 
 import javafx.beans.property.SimpleStringProperty;
+import web.enum_types.IPhoneCapacity;
+import web.enum_types.IPhoneColor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,6 +26,14 @@ public class Product implements Serializable {
 
     @Column
     private String filename;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private IPhoneCapacity iPhoneCapacity;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private IPhoneColor iPhoneColor;
 
     @Column(length = 1000)
     private String description;
@@ -66,6 +76,22 @@ public class Product implements Serializable {
 
     public void setFilename(String filename) {
         this.filename = filename;
+    }
+
+    public IPhoneCapacity getiPhoneCapacity() {
+        return iPhoneCapacity;
+    }
+
+    public void setiPhoneCapacity(IPhoneCapacity iPhoneCapacity) {
+        this.iPhoneCapacity = iPhoneCapacity;
+    }
+
+    public IPhoneColor getiPhoneColor() {
+        return iPhoneColor;
+    }
+
+    public void setiPhoneColor(IPhoneColor iPhoneColor) {
+        this.iPhoneColor = iPhoneColor;
     }
 
     public String getDescription() {

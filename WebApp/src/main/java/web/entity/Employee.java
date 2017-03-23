@@ -23,11 +23,11 @@ public class Employee {
     private Integer age;
 
     @Column
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Sex sex;
 
     @Column
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Position position;
 
     @Column

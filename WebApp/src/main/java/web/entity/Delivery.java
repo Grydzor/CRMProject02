@@ -16,7 +16,7 @@ public class Delivery {
     private String adress;
 
     @Column
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private DeliveryType deliveryType;
 
     @Column
