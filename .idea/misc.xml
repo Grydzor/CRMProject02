@@ -46,7 +46,6 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/WebApp/pom.xml" />
-        <option value="$PROJECT_DIR$/DesktopApp/pom.xml" />
       </list>
     </option>
   </component>

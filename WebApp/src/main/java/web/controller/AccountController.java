@@ -1,22 +1,21 @@
 package web.controller;
 
-import entity.Item;
-import entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import service.*;
-import entity.Customer;
-import entity.CustomerAccount;
 
 import org.springframework.stereotype.Controller;
+import web.entity.Customer;
+import web.entity.CustomerAccount;
+import web.entity.Item;
+import web.entity.Order;
 import web.form.ItemData;
 import web.form.LoginData;
 import org.springframework.web.bind.support.SessionStatus;
+import web.service.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @SessionAttributes(types = {Customer.class, Order.class})

@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import service.CustomerService;
-import entity.Customer;
-import entity.CustomerAccount;
+import web.entity.Customer;
+import web.entity.CustomerAccount;
 import web.form.RegisterData;
-import service.CustomerAccountService;
+import web.service.CustomerAccountService;
+import web.service.CustomerService;
 
 @Controller
 public class RegisterController {
