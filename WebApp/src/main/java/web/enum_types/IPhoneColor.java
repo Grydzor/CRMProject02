@@ -1,7 +1,7 @@
 package web.enum_types;
 
 public enum IPhoneColor {
-    JET_BLACK("Jet Black"), BLACK("Black"), SPACE_GRAY("Space Gray"), SILVER("Silver"), GOLD("Gold"), ROSE_GOLD("Rose Gold"), RED("Red");
+    JET_BLACK("Jet Black"), BLACK("Black"), SPACE_GRAY("Space Gray"), SILVER("Silver"), GOLD("Gold"), ROSE_GOLD("Rose Gold");
 
     private String label;
 

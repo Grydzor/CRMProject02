@@ -42,6 +42,7 @@
                 <value>web.entity.Item</value>
                 <value>web.entity.Order</value>
                 <value>web.entity.Product</value>
+                <value>web.entity.Storage</value>
                 <value>web.entity.User</value>
                 <value>web.entity.Delivery</value>
                 <value>web.entity.Payment</value>

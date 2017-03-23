@@ -12,4 +12,5 @@
     <bean id="customer_account" class="web.entity.CustomerAccount" scope="prototype"/>
     <bean id="payment" class="web.entity.Payment" scope="prototype"/>
     <bean id="delivery" class="web.entity.Delivery" scope="prototype"/>
+    <bean id="storage" class="web.entity.Storage" scope="prototype"/>
 </beans>
