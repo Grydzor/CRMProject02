@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "ORDERS")
 public class Order {
     @Id
     @Column(name = "ORDER_ID")

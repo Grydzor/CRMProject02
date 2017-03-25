@@ -6,15 +6,15 @@
          version="3.0">
     <display-name>WebApp</display-name>
 
-    <error-page>
+    <!--<error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/jsp/page404.jsp</location>
     </error-page>
-
-    <error-page>
+-->
+    <!--<error-page>
         <error-code>400</error-code>
         <location>/WEB-INF/jsp/page400.jsp</location>
-    </error-page>
+    </error-page>-->
 
     <context-param>
         <param-name>contextConfigLocation</param-name>

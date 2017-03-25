@@ -16,25 +16,27 @@ public class IndexController {
     private ApplicationContext context;
 
     @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.HEAD})
-    public String index(Model model) {
-        int productsPerPage = 12;
-        ProductService service = context.getBean(ProductService.class);
-        List<Product> products = service.findInRange(0, productsPerPage, "id", true);
-        model.addAttribute("products", products);
-        model.addAttribute("page", 1);
-        model.addAttribute("filter", "newest");
+    public String index() {
         return "index";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String register() {
-        return "registration";
+    @RequestMapping(value = "/cart", method = {RequestMethod.GET, RequestMethod.HEAD})
+    public String cart() {
+        return "cart";
     }
 
-    @RequestMapping(value = "/recover")
-    public String recover() {
-        return "recover";
+    @RequestMapping(value = "/checkout", method = {RequestMethod.GET, RequestMethod.HEAD})
+    public String checkout() {
+        return "checkout";
     }
 
+    @RequestMapping(value = "/shop", method = {RequestMethod.GET, RequestMethod.HEAD})
+    public String shop() {
+        return "shop";
+    }
 
+    @RequestMapping(value = "/single_product", method = {RequestMethod.GET, RequestMethod.HEAD})
+    public String singleProduct() {
+        return "single-product";
+    }
 }

@@ -1,0 +1,114 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    padding-top: 60px;
+    padding-bottom: 40px;
+    background-color: rgba(0,0,0,0);/*#bde3bf*/;
+    background-image: url("/img/checkered-pattern.png");
+}
+
+.navbar {
+    border: none;
+    border-radius: 0;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.product {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: rgba(255,255,255,0.9);
+    border: 1px dashed rgba(0,0,255,0.5);
+    margin: 7px;
+    width: 420px;
+
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+}
+
+.product:hover {
+    box-shadow: 10px 10px 5px #888888;
+}
+
+.product-small {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: rgba(255,255,255,0.9);
+    border: 1px dashed rgba(0,0,255,0.5);
+    margin: 7px;
+    width: 320px;
+
+}
+
+.price {
+    background-color: rgba(0,150,200,0.4);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding: 4px;
+    font-size: 160%;
+}
+
+.small-price {
+    font-size: 130%;
+}
+
+/* centered columns styles */
+.row-centered {
+    text-align:center;
+    padding: 0px 10px 0px 10px;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    /*margin-right:-4px;*/
+}
+
+.name {
+    font-size: 125%;
+}
+
+.description {
+    font-size: 100%;
+    padding: 5px 5px 5px 5px;
+    height: 130px;
+}
+
+hr {
+    margin-bottom: 7px;
+    margin-top: 7px;
+}
+
+.acc-details {
+    margin: 0 auto;
+    width: 400px;
+    padding: 30px 20px 10px 20px;
+}
+
+.acc-details .form-control {
+    background-color: rgba(240, 240, 240, 0.7);
+}
+.acc-details .input-group {
+    margin-top: 10px;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.cart-details {
+    margin: 0 auto;
+    width: 350px;
+    padding: 30px 20px 10px 20px;
+}
+
+.cart-details .form-control {
+    background-color: rgba(240, 240, 240, 0.7);
+}
+.cart-details .input-group {
+    margin-top: 10px;
+}

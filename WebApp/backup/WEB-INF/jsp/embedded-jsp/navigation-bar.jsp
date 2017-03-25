@@ -39,4 +39,4 @@
 </nav>
 <%-- END NAVIGATION BAR --%>
 
-<script src="../../js/loginHelper.js"></script>
+<script src="../../../js/loginHelper.js"></script>

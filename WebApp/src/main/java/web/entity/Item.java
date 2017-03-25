@@ -81,6 +81,10 @@ public class Item {
         return getPriceVAT().multiply(BigDecimal.valueOf(amount));
     }
 
+    public String getPriceVATFormat() {
+        return decimalFormat.format(getPriceVAT());
+    }
+
     @Override
     public String toString() {
         return "Item{" +

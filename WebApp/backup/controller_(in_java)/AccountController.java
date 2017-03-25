@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 
 import org.springframework.stereotype.Controller;
 import web.entity.Customer;
-import web.entity.CustomerAccount;
 import web.entity.Item;
 import web.entity.Order;
 import web.form.ItemData;
@@ -29,10 +28,8 @@ public class AccountController {
     @Autowired
     private ProductService productService;
 
-    private Order order;
-
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    private String login(@RequestBody LoginData data, Model model) {
+    public String login(@RequestBody LoginData data, Model model) {
         String pass = customerAccountService.findPass(data.getEmail());
 
         if (data.getPassword().equals(pass)) {
@@ -60,10 +57,11 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/addtocart", method = RequestMethod.POST)
-    private String addtocart(@RequestBody ItemData data,
-                                          Model model) {
-        if (order == null) {
-            model.addAttribute(order = new Order());
+    public String addtocart(@RequestBody ItemData data,
+                                         Model model,
+                                         Order order) {
+        if (!model.containsAttribute("order")) {
+            model.addAttribute("order", new Order());
             order.setItems(new ArrayList<>());
         }
 
@@ -73,18 +71,20 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/cart", method = RequestMethod.GET)
-    private String cart() {
+    public String cart() {
         return "cart";
     }
 
     @RequestMapping(value = "/checkout", method = RequestMethod.POST)
-    private String checkout(@RequestParam(required = false) String mobile,
-                            @RequestParam(required = false) String name,
-                            Customer customer) {
+    public String checkout(@RequestParam(required = false) String mobile,
+                           @RequestParam(required = false) String name,
+                           Model model,
+                           Customer customer,
+                           Order order) {
         OrderService service = context.getBean(OrderService.class);
         ItemService itemService = context.getBean(ItemService.class);
         CustomerService customerService = context.getBean(CustomerService.class);
-        if (customer == null) {
+        if (!model.containsAttribute("customer")) {
             customer = new Customer();
             customer.setMobile(mobile);
             customer.setName(name);
