@@ -15,7 +15,7 @@ public class IndexController {
     @Autowired
     private ApplicationContext context;
 
-    @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.HEAD})
+    @RequestMapping(value = {"/", "/index"}, method = {RequestMethod.GET, RequestMethod.HEAD})
     public String index() {
         return "index";
     }
@@ -35,7 +35,7 @@ public class IndexController {
         return "shop";
     }
 
-    @RequestMapping(value = "/single_product", method = {RequestMethod.GET, RequestMethod.HEAD})
+    @RequestMapping(value = "/single-product", method = {RequestMethod.GET, RequestMethod.HEAD})
     public String singleProduct() {
         return "single-product";
     }

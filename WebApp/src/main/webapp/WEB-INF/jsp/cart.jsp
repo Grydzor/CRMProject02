@@ -40,8 +40,8 @@
                         <ul>
                             <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
                             <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                            <li><a href="cart.jsp"><i class="fa fa-user"></i> My Cart</a></li>
-                            <li><a href="checkout.jsp"><i class="fa fa-user"></i> Checkout</a></li>
+                            <li><a href="cart"><i class="fa fa-user"></i> My Cart</a></li>
+                            <li><a href="checkout"><i class="fa fa-user"></i> Checkout</a></li>
                             <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
                         </ul>
                     </div>
@@ -79,13 +79,13 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="logo">
-                        <h1><a href="index.jsp">e<span>Electronics</span></a></h1>
+                        <h1><a href="index">e<span>Electronics</span></a></h1>
                     </div>
                 </div>
                 
                 <div class="col-sm-6">
                     <div class="shopping-item">
-                        <a href="cart.jsp">Cart - <span class="cart-amunt">$800</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
+                        <a href="cart">Cart - <span class="cart-amunt">$800</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
                     </div>
                 </div>
             </div>
@@ -105,11 +105,11 @@
                 </div> 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="index.jsp">Home</a></li>
-                        <li><a href="shop.jsp">Shop page</a></li>
-                        <li><a href="single-product.jsp">Single product</a></li>
-                        <li class="active"><a href="cart.jsp">Cart</a></li>
-                        <li><a href="checkout.jsp">Checkout</a></li>
+                        <li><a href="index">Home</a></li>
+                        <li><a href="shop">Shop page</a></li>
+                        <li><a href="single-product">Single product</a></li>
+                        <li class="active"><a href="cart">Cart</a></li>
+                        <li><a href="checkout">Checkout</a></li>
                         <li><a href="#">Category</a></li>
                         <li><a href="#">Others</a></li>
                         <li><a href="#">Contact</a></li>
@@ -149,28 +149,28 @@
                         <h2 class="sidebar-title">Products</h2>
                         <div class="thubmnail-recent">
                             <img src="../../img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                            <h2><a href="single-product.jsp">Sony Smart TV - 2015</a></h2>
+                            <h2><a href="single-product">Sony Smart TV - 2015</a></h2>
                             <div class="product-sidebar-price">
                                 <ins>$700.00</ins> <del>$800.00</del>
                             </div>                             
                         </div>
                         <div class="thubmnail-recent">
                             <img src="../../img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                            <h2><a href="single-product.jsp">Sony Smart TV - 2015</a></h2>
+                            <h2><a href="single-product">Sony Smart TV - 2015</a></h2>
                             <div class="product-sidebar-price">
                                 <ins>$700.00</ins> <del>$800.00</del>
                             </div>                             
                         </div>
                         <div class="thubmnail-recent">
                             <img src="../../img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                            <h2><a href="single-product.jsp">Sony Smart TV - 2015</a></h2>
+                            <h2><a href="single-product">Sony Smart TV - 2015</a></h2>
                             <div class="product-sidebar-price">
                                 <ins>$700.00</ins> <del>$800.00</del>
                             </div>                             
                         </div>
                         <div class="thubmnail-recent">
                             <img src="../../img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                            <h2><a href="single-product.jsp">Sony Smart TV - 2015</a></h2>
+                            <h2><a href="single-product">Sony Smart TV - 2015</a></h2>
                             <div class="product-sidebar-price">
                                 <ins>$700.00</ins> <del>$800.00</del>
                             </div>                             
@@ -211,11 +211,11 @@
                                             </td>
 
                                             <td class="product-thumbnail">
-                                                <a href="single-product.jsp"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="img/product-thumb-2.jpg"></a>
+                                                <a href="single-product"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="img/product-thumb-2.jpg"></a>
                                             </td>
 
                                             <td class="product-name">
-                                                <a href="single-product.jsp">Ship Your Idea</a>
+                                                <a href="single-product">Ship Your Idea</a>
                                             </td>
 
                                             <td class="product-price">
@@ -256,23 +256,23 @@
                                 <h2>You may be interested in...</h2>
                                 <ul class="products">
                                     <li class="product">
-                                        <a href="single-product.jsp">
-                                            <img width="325" height="325" alt="T_4_front" class="attachment-shop_catalog wp-post-image" src="img/product-2.jpg">
+                                        <a href="single-product">
+                                            <img width="325" height="325" alt="T_4_front" class="attachment-shop_catalog wp-post-image" src="../../img/product-2.jpg">
                                             <h3>Ship Your Idea</h3>
                                             <span class="price"><span class="amount">£20.00</span></span>
                                         </a>
 
-                                        <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="22" rel="nofollow" href="single-product.jsp">Select options</a>
+                                        <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="22" rel="nofollow" href="single-product">Select options</a>
                                     </li>
 
                                     <li class="product">
-                                        <a href="single-product.jsp">
-                                            <img width="325" height="325" alt="T_4_front" class="attachment-shop_catalog wp-post-image" src="img/product-4.jpg">
+                                        <a href="single-product">
+                                            <img width="325" height="325" alt="T_4_front" class="attachment-shop_catalog wp-post-image" src="../../img/product-4.jpg">
                                             <h3>Ship Your Idea</h3>
                                             <span class="price"><span class="amount">£20.00</span></span>
                                         </a>
 
-                                        <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="22" rel="nofollow" href="single-product.jsp">Select options</a>
+                                        <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="22" rel="nofollow" href="single-product">Select options</a>
                                     </li>
                                 </ul>
                             </div>

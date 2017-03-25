@@ -40,8 +40,8 @@
                         <ul>
                             <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
                             <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                            <li><a href="cart.jsp"><i class="fa fa-user"></i> My Cart</a></li>
-                            <li><a href="checkout.jsp"><i class="fa fa-user"></i> Checkout</a></li>
+                            <li><a href="cart"><i class="fa fa-user"></i> My Cart</a></li>
+                            <li><a href="checkout"><i class="fa fa-user"></i> Checkout</a></li>
                             <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
                         </ul>
                     </div>
@@ -79,13 +79,13 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="logo">
-                        <h1><a href="index.jsp">e<span>Electronics</span></a></h1>
+                        <h1><a href="index">e<span>Electronics</span></a></h1>
                     </div>
                 </div>
                 
                 <div class="col-sm-6">
                     <div class="shopping-item">
-                        <a href="cart.jsp">Cart - <span class="cart-amunt">$800</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
+                        <a href="cart">Cart - <span class="cart-amunt">$800</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
                     </div>
                 </div>
             </div>
@@ -105,11 +105,11 @@
                 </div> 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="index.jsp">Home</a></li>
-                        <li><a href="shop.jsp">Shop page</a></li>
-                        <li><a href="single-product.jsp">Single product</a></li>
-                        <li><a href="cart.jsp">Cart</a></li>
-                        <li class="active"><a href="checkout.jsp">Checkout</a></li>
+                        <li><a href="index">Home</a></li>
+                        <li><a href="shop">Shop page</a></li>
+                        <li><a href="single-product">Single product</a></li>
+                        <li><a href="cart">Cart</a></li>
+                        <li class="active"><a href="checkout">Checkout</a></li>
                         <li><a href="#">Category</a></li>
                         <li><a href="#">Others</a></li>
                         <li><a href="#">Contact</a></li>
@@ -149,28 +149,28 @@
                         <h2 class="sidebar-title">Products</h2>
                         <div class="thubmnail-recent">
                             <img src="../../img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                            <h2><a href="single-product.jsp">Sony Smart TV - 2015</a></h2>
+                            <h2><a href="single-product">Sony Smart TV - 2015</a></h2>
                             <div class="product-sidebar-price">
                                 <ins>$700.00</ins> <del>$800.00</del>
                             </div>                             
                         </div>
                         <div class="thubmnail-recent">
                             <img src="../../img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                            <h2><a href="single-product.jsp">Sony Smart TV - 2015</a></h2>
+                            <h2><a href="single-product">Sony Smart TV - 2015</a></h2>
                             <div class="product-sidebar-price">
                                 <ins>$700.00</ins> <del>$800.00</del>
                             </div>                             
                         </div>
                         <div class="thubmnail-recent">
                             <img src="../../img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                            <h2><a href="single-product.jsp">Sony Smart TV - 2015</a></h2>
+                            <h2><a href="single-product">Sony Smart TV - 2015</a></h2>
                             <div class="product-sidebar-price">
                                 <ins>$700.00</ins> <del>$800.00</del>
                             </div>                             
                         </div>
                         <div class="thubmnail-recent">
                             <img src="../../img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                            <h2><a href="single-product.jsp">Sony Smart TV - 2015</a></h2>
+                            <h2><a href="single-product">Sony Smart TV - 2015</a></h2>
                             <div class="product-sidebar-price">
                                 <ins>$700.00</ins> <del>$800.00</del>
                             </div>                             
@@ -180,11 +180,11 @@
                     <div class="single-sidebar">
                         <h2 class="sidebar-title">Recent Posts</h2>
                         <ul>
-                            <li><a href="single-product.jsp">Sony Smart TV - 2015</a></li>
-                            <li><a href="single-product.jsp">Sony Smart TV - 2015</a></li>
-                            <li><a href="single-product.jsp">Sony Smart TV - 2015</a></li>
-                            <li><a href="single-product.jsp">Sony Smart TV - 2015</a></li>
-                            <li><a href="single-product.jsp">Sony Smart TV - 2015</a></li>
+                            <li><a href="single-product">Sony Smart TV - 2015</a></li>
+                            <li><a href="single-product">Sony Smart TV - 2015</a></li>
+                            <li><a href="single-product">Sony Smart TV - 2015</a></li>
+                            <li><a href="single-product">Sony Smart TV - 2015</a></li>
+                            <li><a href="single-product">Sony Smart TV - 2015</a></li>
                         </ul>
                     </div>
                 </div>
