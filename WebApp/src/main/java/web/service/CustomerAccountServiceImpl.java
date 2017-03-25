@@ -5,10 +5,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.dao.CustomerAccountDAO;
+import web.entity.Customer;
 import web.entity.CustomerAccount;
 
 @Service("customerAccountService")
-public class CustomerAccountServiceImpl extends ServiceImpl<CustomerAccount> implements CustomerAccountService {
+public class CustomerAccountServiceImpl extends ServiceImpl<CustomerAccount, String> implements CustomerAccountService {
     @Autowired
     @Qualifier("customerAccountDAO")
     private CustomerAccountDAO customerAccountDAO;

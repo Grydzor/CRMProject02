@@ -7,7 +7,7 @@ import web.entity.Customer;
 import web.entity.CustomerAccount;
 
 @Repository("customerAccountDAO")
-public class CustomerAccountDAOImpl extends DAOImpl<CustomerAccount> implements CustomerAccountDAO {
+public class CustomerAccountDAOImpl extends DAOImpl<CustomerAccount, String> implements CustomerAccountDAO {
     @Autowired
     private CustomerDAO customerDAO;
 
@@ -19,7 +19,6 @@ public class CustomerAccountDAOImpl extends DAOImpl<CustomerAccount> implements 
 
     @Override
     public String findPass(String email) {
-        Customer customer = customerDAO.find(email);
-        return this.read(customer.getId()).getPassword();
+        return this.read(email).getPassword();
     }
 }

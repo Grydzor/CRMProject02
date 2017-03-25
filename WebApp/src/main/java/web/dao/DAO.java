@@ -1,11 +1,12 @@
 package web.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
-public interface DAO<T> {
-    Long create(T entity);
+public interface DAO<T, PK extends Serializable> {
+    PK create(T entity);
 
-    T read(Long id);
+    T read(PK id);
 
     void update(T entity);
 

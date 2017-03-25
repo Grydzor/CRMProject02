@@ -1,5 +1,6 @@
 package web.dao;
 
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,7 +10,7 @@ import web.entity.Order;
 import java.util.List;
 
 @Repository("customerDAO")
-public class CustomerDAOImpl extends DAOImpl<Customer> implements CustomerDAO {
+public class CustomerDAOImpl extends DAOImpl<Customer, Long> implements CustomerDAO {
     @Autowired
     private SessionFactory factory;
 
@@ -27,7 +28,7 @@ public class CustomerDAOImpl extends DAOImpl<Customer> implements CustomerDAO {
     @Override
     public Customer find(String email) {
         List<Customer> result = factory.getCurrentSession()
-                .createQuery("FROM Customer c WHERE c.email = :email", Customer.class)
+                .createQuery("FROM Customer c WHERE c.account.email = :email", Customer.class)
                 .setParameter("email", email)
                 .list();
         if (result.size() > 0) {

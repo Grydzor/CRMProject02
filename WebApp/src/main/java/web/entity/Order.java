@@ -1,12 +1,6 @@
 package web.entity;
 
-import javafx.beans.property.SimpleStringProperty;
-import org.springframework.beans.factory.annotation.Autowire;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.context.ApplicationContext;
 import web.enum_types.OrderStatus;
-import web.service.OrderService;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -16,11 +10,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Configurable(autowire = Autowire.BY_TYPE)
 @Entity
-@Table(name = "ORDERS")
 public class Order {
-
     @Id
     @Column(name = "ORDER_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,41 +26,33 @@ public class Order {
     private Customer customer;
 
     @OneToMany
-    @JoinColumn(name = "PAYMENT_ID")
+    @JoinColumn(name = "ORDER_ID")
     private List<Payment> paymentList;
 
     @OneToMany
-    @JoinColumn(name = "DELIVERY_ID")
+    @JoinColumn(name = "ORDER_ID")
     private List<Delivery> deliveryList;
 
-//    @Temporal(TemporalType.DATE)
-    @Column(name = "DATE", nullable = false)
+    @Column(nullable = false)
     private Date date;
 
-//    @Temporal(TemporalType.DATE)
-    @Column(name = "DEADLINE")
     private Date deadline;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany
+    @JoinColumn(name = "ORDER_ID")
     private List<Item> items = new ArrayList<>();
 
-//    transient private List<Item> items;
-
-    @Column(name = "STATUS")
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    @Column(name = "SUMMARY")
     private BigDecimal summary;
 
-    @Column
     private Integer amount;
 
-    @Column(name = "DESCRIPTION", length = 1000)
+    @Column(length = 1000)
     private String description;
 
-
-    private transient DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+    private transient DecimalFormat format = new DecimalFormat("#0.00");
 
     public Order() {
         this.date = Date.valueOf(LocalDate.now());
@@ -171,7 +154,7 @@ public class Order {
     }
 
     public String getSummaryFormat() {
-        return decimalFormat.format(getSummary());
+        return format.format(getSummary());
     }
 
     public void setSummary(BigDecimal summary) {
@@ -180,7 +163,7 @@ public class Order {
 
     // updates summary based on items collection
     // @return summary
-    public void updateSummaryAndAmount() {
+    private void updateSummaryAndAmount() {
         BigDecimal summary = BigDecimal.ZERO;
         Integer amount = 0;
         if (items == null) items = getItems();
@@ -198,8 +181,6 @@ public class Order {
     }
 
     public Integer getAmount() {
-        /*if (amount != null) return amount;*/
-
         updateSummaryAndAmount();
         return amount;
     }

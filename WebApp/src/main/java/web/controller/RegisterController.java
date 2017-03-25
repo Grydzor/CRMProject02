@@ -14,23 +14,25 @@ import web.service.CustomerService;
 public class RegisterController {
     @Autowired
     private ApplicationContext context;
+    @Autowired
+    private CustomerAccountService customerAccountService;
+    @Autowired
+    private CustomerService customerService;
 
     @RequestMapping(value = "/finishReg", method = RequestMethod.POST)
     private @ResponseBody String finishReg(@RequestBody RegisterData data) {
+        CustomerAccount customerAccount = context.getBean(CustomerAccount.class);
+        customerAccount.setEmail(data.getEmail());
+        customerAccount.setPassword(data.getPassword());
+        customerAccountService.create(customerAccount);
+
         Customer customer = context.getBean(Customer.class);
-        customer.setEmail(data.getEmail());
         customer.setName(data.getName());
         customer.setSurname(data.getSurname());
         customer.setMobile(data.getPhone());
         customer.setAddress(data.getAddress());
-        CustomerService customerService = context.getBean(CustomerService.class);
+        customer.setAccount(customerAccount);
         customerService.create(customer);
-
-        CustomerAccount customerAccount = context.getBean(CustomerAccount.class);
-        customerAccount.setCustomerId(customer.getId());
-        customerAccount.setPassword(data.getPassword());
-        CustomerAccountService customerAccountService = context.getBean(CustomerAccountService.class);
-        customerAccountService.create(customerAccount);
 
         if (customer.getId() != null) {
             return "<h2>" +

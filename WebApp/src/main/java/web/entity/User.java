@@ -3,37 +3,18 @@ package web.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "USERS")
 public class User {
     @Id
-    @Column(name = "USER_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column
     private String login;
 
-    @Column
+    // todo: hash
     private String password;
-
-    @OneToOne
-    @JoinColumn(name = "EMPLOYEE_ID")
-    private Employee employee;
 
     public User() {}
 
-    public User(String login, String password, Employee employee) {
+    public User(String login, String password) {
         this.login = login;
         this.password = password;
-        this.employee = employee;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getLogin() {
@@ -50,14 +31,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
     }
 
     @Override
@@ -77,6 +50,5 @@ public class User {
 
         return login.equals(user.login);
     }
-
 
 }

@@ -2,17 +2,12 @@ package web.entity;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.context.ApplicationContext;
-import web.service.StorageService;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 @Entity
-@Table(name = "ITEMS")
 public class Item {
     @Id
     @Column(name = "ITEM_ID")
@@ -79,32 +74,11 @@ public class Item {
     public BigDecimal getPriceVAT() {
         return price.multiply(BigDecimal.valueOf(1.2));
     }
-
-    public String getPriceVATFormat() {
-        return priceVATProperty().get();
-    }
-
     public BigDecimal getSumNoVAT() {
         return price.multiply(BigDecimal.valueOf(amount));
     }
     public BigDecimal getSumVAT() {
         return getPriceVAT().multiply(BigDecimal.valueOf(amount));
-    }
-
-    public SimpleStringProperty productNameProperty() {
-        return new SimpleStringProperty(product.getName());
-    }
-    public SimpleStringProperty priceProperty() {
-        return new SimpleStringProperty(decimalFormat.format(price));
-    }
-    public SimpleStringProperty priceVATProperty() {
-        return new SimpleStringProperty(decimalFormat.format(getPriceVAT()));
-    }
-    public SimpleStringProperty sumProperty() {
-        return new SimpleStringProperty(decimalFormat.format(getSumNoVAT()));
-    }
-    public SimpleStringProperty sumVATProperty() {
-        return new SimpleStringProperty(decimalFormat.format(getSumVAT()));
     }
 
     @Override

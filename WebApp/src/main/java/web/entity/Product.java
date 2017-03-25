@@ -1,9 +1,8 @@
 package web.entity;
 
-
 import javafx.beans.property.SimpleStringProperty;
-import web.enum_types.IPhoneCapacity;
-import web.enum_types.IPhoneColor;
+import web.enum_types.Capacity;
+import web.enum_types.Color;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,7 +10,6 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 @Entity
-@Table(name = "PRODUCTS")
 public class Product implements Serializable {
     @Id
     @Column(name = "PRODUCT_ID")
@@ -24,22 +22,18 @@ public class Product implements Serializable {
     @Column(nullable = false)
     private BigDecimal price;
 
-    @Column
     private String filename;
 
-    @Column
     @Enumerated(EnumType.STRING)
-    private IPhoneCapacity iPhoneCapacity;
+    private Capacity capacity;
 
-    @Column
     @Enumerated(EnumType.STRING)
-    private IPhoneColor iPhoneColor;
+    private Color color;
 
     @Column(length = 1000)
     private String description;
 
-    private transient DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-
+    private transient DecimalFormat format = new DecimalFormat("#0.00");
 
     public Product() {}
 
@@ -78,20 +72,20 @@ public class Product implements Serializable {
         this.filename = filename;
     }
 
-    public IPhoneCapacity getiPhoneCapacity() {
-        return iPhoneCapacity;
+    public Capacity getCapacity() {
+        return capacity;
     }
 
-    public void setiPhoneCapacity(IPhoneCapacity iPhoneCapacity) {
-        this.iPhoneCapacity = iPhoneCapacity;
+    public void setCapacity(Capacity capacity) {
+        this.capacity = capacity;
     }
 
-    public IPhoneColor getiPhoneColor() {
-        return iPhoneColor;
+    public Color getColor() {
+        return color;
     }
 
-    public void setiPhoneColor(IPhoneColor iPhoneColor) {
-        this.iPhoneColor = iPhoneColor;
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public String getDescription() {
@@ -106,12 +100,12 @@ public class Product implements Serializable {
         return price.multiply(BigDecimal.valueOf(1.2));
     }
 
-    public String getPriceVATFormat() {
-        return priceVATProperty().get();
+    public String getPriceFormat() {
+        return format.format(getPrice());
     }
 
-    public SimpleStringProperty priceVATProperty() {
-        return new SimpleStringProperty(decimalFormat.format(getPriceVAT()));
+    public String getPriceVATFormat() {
+        return format.format(getPriceVAT());
     }
 
     @Override

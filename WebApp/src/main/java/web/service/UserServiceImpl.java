@@ -8,7 +8,7 @@ import web.dao.UserDAO;
 import web.entity.User;
 
 @Service("userService")
-public class UserServiceImpl extends ServiceImpl<User> implements UserService {
+public class UserServiceImpl extends ServiceImpl<User, Long> implements UserService {
     @Autowired
     @Qualifier("userDAO")
     private UserDAO userDAO;

@@ -9,7 +9,7 @@ import web.entity.Product;
 import web.entity.Storage;
 
 @Service("storageService")
-public class StorageServiceImpl extends ServiceImpl<Storage> implements StorageService {
+public class StorageServiceImpl extends ServiceImpl<Storage, Product> implements StorageService {
     @Autowired
     @Qualifier("storageDAO")
     private StorageDAO storageDAO;

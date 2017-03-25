@@ -6,7 +6,7 @@ import web.entity.Order;
 
 import java.util.List;
 
-public interface OrderService extends Service<Order> {
+public interface OrderService extends Service<Order, Long> {
     List<Order> findAllFor(Employee manager);
-    List<Item> findItems(Order order);
+    Order readWithItems(Long id);
 }

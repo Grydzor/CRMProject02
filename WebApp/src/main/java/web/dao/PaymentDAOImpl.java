@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import web.entity.Payment;
 
 @Repository("paymentDAO")
-public class PaymentDAOImpl extends DAOImpl<Payment> implements PaymentDAO {
+public class PaymentDAOImpl extends DAOImpl<Payment, Long> implements PaymentDAO {
     @Autowired
     private SessionFactory factory;
 

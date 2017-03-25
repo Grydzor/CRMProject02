@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import web.entity.Delivery;
 
 @Repository("deliveryDAO")
-public class DeliveryDAOImpl extends DAOImpl<Delivery> implements DeliveryDAO {
+public class DeliveryDAOImpl extends DAOImpl<Delivery, Long> implements DeliveryDAO {
     @Autowired
     private SessionFactory factory;
 

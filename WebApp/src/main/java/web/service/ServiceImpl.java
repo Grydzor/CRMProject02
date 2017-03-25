@@ -4,23 +4,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import web.dao.DAO;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ServiceImpl<T> implements Service<T> {
+public class ServiceImpl<T, PK extends Serializable> implements Service<T, PK> {
     @Autowired
-    private DAO<T> dao;
+    private DAO<T, PK> dao;
 
     public ServiceImpl() {}
 
     @Override
     @Transactional
-    public Long create(T entity) {
+    public PK create(T entity) {
         return dao.create(entity);
     }
 
     @Override
     @Transactional
-    public T read(Long id) {
+    public T read(PK id) {
         return dao.read(id);
     }
 

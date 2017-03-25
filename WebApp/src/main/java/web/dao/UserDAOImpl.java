@@ -8,7 +8,7 @@ import web.entity.User;
 import java.util.List;
 
 @Repository("userDAO")
-public class UserDAOImpl extends DAOImpl<User> implements UserDAO {
+public class UserDAOImpl extends DAOImpl<User, Long> implements UserDAO {
     @Autowired
     private SessionFactory factory;
 

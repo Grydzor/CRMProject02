@@ -2,5 +2,5 @@ package web.dao;
 
 import web.entity.Payment;
 
-public interface PaymentDAO extends DAO<Payment> {
+public interface PaymentDAO extends DAO<Payment, Long> {
 }

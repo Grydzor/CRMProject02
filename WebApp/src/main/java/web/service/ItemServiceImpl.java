@@ -7,7 +7,7 @@ import web.dao.ItemDAO;
 import web.entity.Item;
 
 @Service("itemService")
-public class ItemServiceImpl extends ServiceImpl<Item> implements ItemService {
+public class ItemServiceImpl extends ServiceImpl<Item, Long> implements ItemService {
     @Autowired
     @Qualifier("itemDAO")
     private ItemDAO itemDAO;

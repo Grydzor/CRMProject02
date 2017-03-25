@@ -4,12 +4,13 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
 @Repository
-public abstract class DAOImpl<T> implements DAO<T> {
+public abstract class DAOImpl<T, PK extends Serializable> implements DAO<T, PK> {
     @Autowired
     private SessionFactory factory;
 
@@ -23,12 +24,12 @@ public abstract class DAOImpl<T> implements DAO<T> {
     }
 
     @Override
-    public Long create(T entity) {
-       return (Long) factory.getCurrentSession().save(entity);
+    public PK create(T entity) {
+       return (PK) factory.getCurrentSession().save(entity);
     }
 
     @Override
-    public T read(Long id) {
+    public T read(PK id) {
         return factory.getCurrentSession().get(entityClass, id);
     }
 

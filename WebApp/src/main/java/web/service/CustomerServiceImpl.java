@@ -1,5 +1,6 @@
 package web.service;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import web.entity.Order;
 import java.util.List;
 
 @Service("customerService")
-public class CustomerServiceImpl extends ServiceImpl<Customer> implements CustomerService {
+public class CustomerServiceImpl extends ServiceImpl<Customer, Long> implements CustomerService {
     @Autowired
     @Qualifier("customerDAO")
     private CustomerDAO customerDAO;
@@ -30,4 +31,24 @@ public class CustomerServiceImpl extends ServiceImpl<Customer> implements Custom
     public Customer find(String email) {
         return customerDAO.find(email);
     }
+
+    @Override
+    @Transactional
+    public Customer readWithAccount(Long id) {
+        Customer customer = customerDAO.read(id);
+        if (customer != null) {
+            Hibernate.initialize(customer.getAccount());
+        }
+        return customer;
+    }
+
+    @Override
+    public Customer readWithOrders(Long id) {
+        Customer customer = customerDAO.read(id);
+        if (customer != null) {
+            Hibernate.initialize(customer.getOrders());
+        }
+        return customer;
+    }
+
 }

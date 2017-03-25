@@ -1,19 +1,12 @@
 package web.entity;
 
-import org.springframework.beans.factory.annotation.Autowire;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.context.ApplicationContext;
-import web.service.CustomerService;
-
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "CUSTOMERS")
-public class Customer {
-
+public class Customer implements Serializable {
     @Id
     @Column(name = "CUSTOMER_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,29 +15,29 @@ public class Customer {
     @Column(nullable = false)
     private String name;
 
-    @Column
     private String surname;
 
-    @Column
+    @Column(unique = true)
     private String mobile;
 
-    @Column
-    private String email;
-
-    @Column
     private String address;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany
+    @JoinColumn(name = "CUSTOMER_ID")
     private List<Order> orders = new ArrayList<>();
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "email", unique = true)
+    private CustomerAccount account;
 
     public Customer() {}
 
-    public Customer(String name, String surname, String mobile, String email, String address) {
+    public Customer(String name, String surname, String mobile, String address, CustomerAccount account) {
         this.name = name;
         this.surname = surname;
         this.mobile = mobile;
-        this.email = email;
         this.address = address;
+        this.account = account;
     }
 
     public Long getId() {
@@ -79,14 +72,6 @@ public class Customer {
         this.mobile = mobile;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -101,6 +86,14 @@ public class Customer {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public CustomerAccount getAccount() {
+        return account;
+    }
+
+    public void setAccount(CustomerAccount account) {
+        this.account = account;
     }
 
     @Override

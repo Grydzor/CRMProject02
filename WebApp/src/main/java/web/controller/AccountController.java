@@ -21,28 +21,26 @@ import java.util.ArrayList;
 @SessionAttributes(types = {Customer.class, Order.class})
 public class AccountController {
     @Autowired
-    ApplicationContext context;
+    private ApplicationContext context;
     @Autowired
-    CustomerAccountService customerAccountService;
+    private CustomerAccountService customerAccountService;
     @Autowired
-    CustomerService customerService;
+    private CustomerService customerService;
     @Autowired
-    ProductService productService;
+    private ProductService productService;
 
     private Order order;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     private String login(@RequestBody LoginData data, Model model) {
-        Customer customer = customerService.find(data.getEmail());
-        CustomerAccount customerAccount = customerAccountService.read(customer.getId());
+        String pass = customerAccountService.findPass(data.getEmail());
 
-        if (customerAccount != null && data.getPassword().equals(customerAccount.getPassword())) {
-            model.addAttribute(customer);
+        if (data.getPassword().equals(pass)) {
+            model.addAttribute(customerService.find(data.getEmail()));
             return "embedded-jsp/user-form";
         }
         return "";
     }
-
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public String logout(SessionStatus sessionStatus) {

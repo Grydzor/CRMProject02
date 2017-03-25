@@ -12,14 +12,12 @@ public class Delivery {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ADRESS")
-    private String adress;
+    private String address;
 
     @Column
     @Enumerated(EnumType.STRING)
     private DeliveryType deliveryType;
 
-    @Column
     private Date date;
 
     @ManyToOne
@@ -32,8 +30,8 @@ public class Delivery {
     public Delivery() {
     }
 
-    public Delivery(String adress, DeliveryType deliveryType, Date date, Order order) {
-        this.adress = adress;
+    public Delivery(String address, DeliveryType deliveryType, Date date, Order order) {
+        this.address = address;
         this.deliveryType = deliveryType;
         this.date = date;
         this.order = order;
@@ -47,12 +45,12 @@ public class Delivery {
         this.id = id;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Date getDate() {

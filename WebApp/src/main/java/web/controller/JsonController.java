@@ -52,11 +52,11 @@ public class JsonController {
 
         Customer customer = customerService.find(data.getEmail());
 
-        if (customer == null){
+        if (customer == null) {
             jsonObject.addProperty("answer", false);
             return jsonObject.toString();
         }
-        CustomerAccount customerAccount = customerAccountService.read(customer.getId());
+        CustomerAccount customerAccount = customer.getAccount();
 
         if (customerAccount != null && data.getPassword().equals(customerAccount.getPassword())) {
             jsonObject.addProperty("answer", true);
@@ -75,12 +75,18 @@ public class JsonController {
 
         JsonObject jsonObject = new JsonObject();
 
+        CustomerAccount customerAccount = context.getBean(CustomerAccount.class);
+        customerAccount.setEmail(data.getEmail());
+        customerAccount.setPassword(data.getPassword());
+        CustomerAccountService customerAccountService = context.getBean(CustomerAccountService.class);
+        customerAccountService.create(customerAccount);
+
         Customer customer = context.getBean(Customer.class);
-        customer.setEmail(data.getEmail());
         customer.setName(data.getName());
         customer.setSurname(data.getSurname());
         customer.setMobile(data.getPhone());
         customer.setAddress(data.getAddress());
+        customer.setAccount(customerAccount);
         CustomerService customerService = context.getBean(CustomerService.class);
         customerService.create(customer);
 
@@ -88,12 +94,6 @@ public class JsonController {
             jsonObject.addProperty("answer", false);
             return jsonObject.toString();
         }
-
-        CustomerAccount customerAccount = context.getBean(CustomerAccount.class);
-        customerAccount.setCustomerId(customer.getId());
-        customerAccount.setPassword(data.getPassword());
-        CustomerAccountService customerAccountService = context.getBean(CustomerAccountService.class);
-        customerAccountService.create(customerAccount);
 
         if (customer.getId() != null) {
             jsonObject.addProperty("answer", true);

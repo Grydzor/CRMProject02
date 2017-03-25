@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository("productDAO")
-public class ProductDAOImpl extends DAOImpl<Product> implements ProductDAO {
+public class ProductDAOImpl extends DAOImpl<Product, Long> implements ProductDAO {
     @Autowired
     private SessionFactory factory;
 

@@ -10,7 +10,7 @@ import web.entity.Product;
 import java.util.List;
 
 @Service("productService")
-public class ProductServiceImpl extends ServiceImpl<Product> implements ProductService {
+public class ProductServiceImpl extends ServiceImpl<Product, Long> implements ProductService {
     @Autowired
     @Qualifier("productDAO")
     private ProductDAO productDAO;

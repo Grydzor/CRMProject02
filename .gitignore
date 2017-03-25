@@ -6,6 +6,5 @@
 .idea/
 target/
 
-#*.iml
-hibernate.cfg.xml
+*.iml
 *.properties

@@ -9,7 +9,7 @@ import web.entity.Employee;
 import web.entity.User;
 
 @Service("employeeService")
-public class EmployeeServiceImpl extends ServiceImpl<Employee> implements EmployeeService {
+public class EmployeeServiceImpl extends ServiceImpl<Employee, Long> implements EmployeeService {
     @Autowired
     @Qualifier("employeeDAO")
     private EmployeeDAO employeeDAO;

@@ -14,14 +14,11 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private PaymentType paymentType;
 
-    @Column
     private BigDecimal amount;
 
-    @Column
     private Date date;
 
     @ManyToOne

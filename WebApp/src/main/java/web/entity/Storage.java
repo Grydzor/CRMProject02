@@ -14,10 +14,7 @@ public class Storage implements Serializable {
     @JoinColumn(name = "PRODUCT_ID")
     private Product product;
 
-    @Column
     private Integer amount;
-
-    private transient DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
     public Storage() {}
 
@@ -48,10 +45,6 @@ public class Storage implements Serializable {
 
     public BigDecimal getPrice() {
         return product.getPrice();
-    }
-
-    public SimpleStringProperty priceProperty() {
-        return new SimpleStringProperty(decimalFormat.format(product.getPrice()));
     }
 
     @Override

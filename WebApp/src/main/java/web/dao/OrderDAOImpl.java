@@ -10,7 +10,7 @@ import web.entity.Order;
 import java.util.List;
 
 @Repository("orderDAO")
-public class OrderDAOImpl extends DAOImpl<Order> implements OrderDAO {
+public class OrderDAOImpl extends DAOImpl<Order, Long> implements OrderDAO {
     @Autowired
     private SessionFactory factory;
 

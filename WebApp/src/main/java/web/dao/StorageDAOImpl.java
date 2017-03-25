@@ -10,17 +10,11 @@ import web.entity.Storage;
 import java.util.List;
 
 @Repository("storageDAO")
-public class StorageDAOImpl extends DAOImpl<Storage> implements StorageDAO {
+public class StorageDAOImpl extends DAOImpl<Storage, Product> implements StorageDAO {
     @Autowired
     private SessionFactory factory;
 
     protected StorageDAOImpl() {}
-
-    @Override
-    public Long create(Storage entity) {
-        factory.getCurrentSession().save(entity);
-        return entity.getProduct().getId();
-    }
 
     @Override
     public Integer getAmount(Product product) {

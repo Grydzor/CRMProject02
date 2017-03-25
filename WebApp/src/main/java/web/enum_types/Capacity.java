@@ -1,10 +1,10 @@
 package web.enum_types;
 
-public enum IPhoneCapacity {
+public enum Capacity {
     GB_32("32GB"), GB_128("128GB"), GB_256("256GB");
     private String label;
 
-    IPhoneCapacity(String label) {
+    Capacity(String label) {
         this.label = label;
     }
 

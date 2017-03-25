@@ -7,7 +7,7 @@ import web.dao.PaymentDAO;
 import web.entity.Payment;
 
 @Service("paymentService")
-public class PaymentServiceImpl extends ServiceImpl<Payment> implements PaymentService{
+public class PaymentServiceImpl extends ServiceImpl<Payment, Long> implements PaymentService {
     @Autowired
     @Qualifier("paymentDAO")
     private PaymentDAO paymentDAO;

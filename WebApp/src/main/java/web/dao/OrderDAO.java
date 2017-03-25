@@ -6,7 +6,7 @@ import web.entity.Order;
 
 import java.util.List;
 
-public interface OrderDAO extends DAO<Order> {
+public interface OrderDAO extends DAO<Order, Long> {
     List<Order> findOrdersFor(Employee manager);
     List<Item> findItems(Order order);
 }

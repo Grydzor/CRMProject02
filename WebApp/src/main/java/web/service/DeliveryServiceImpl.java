@@ -8,7 +8,7 @@ import web.dao.DeliveryDAO;
 import web.entity.Delivery;
 
 @Service("deliveryService")
-public class DeliveryServiceImpl extends ServiceImpl<Delivery> implements DeliveryService{
+public class DeliveryServiceImpl extends ServiceImpl<Delivery, Long> implements DeliveryService{
     @Autowired
     @Qualifier("deliveryDAO")
     private DeliveryDAO deliveryDAO;

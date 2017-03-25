@@ -1,5 +1,6 @@
 package web.service;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import web.entity.Order;
 import java.util.List;
 
 @Service("orderService")
-public class OrderServiceImpl extends ServiceImpl<Order> implements OrderService {
+public class OrderServiceImpl extends ServiceImpl<Order, Long> implements OrderService {
     @Autowired
     @Qualifier("orderDAO")
     private OrderDAO orderDAO;
@@ -27,7 +28,11 @@ public class OrderServiceImpl extends ServiceImpl<Order> implements OrderService
 
     @Override
     @Transactional
-    public List<Item> findItems(Order order) {
-        return orderDAO.findItems(order);
+    public Order readWithItems(Long id) {
+        Order order = orderDAO.read(id);
+        if (order != null) {
+            Hibernate.initialize(order.getItems());
+        }
+        return order;
     }
 }

@@ -1,32 +1,29 @@
 package web.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "CUSTOMER_ACCOUNTS")
 public class CustomerAccount {
     @Id
-    private Long customerId;
+    private String email;
 
-    @Column
+    // todo: hash
     private String password;
 
     public CustomerAccount() {}
 
-    public CustomerAccount(Long customerId, String password) {
-        this.customerId = customerId;
+    public CustomerAccount(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 
-    public Long getCustomerId() {
-        return customerId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

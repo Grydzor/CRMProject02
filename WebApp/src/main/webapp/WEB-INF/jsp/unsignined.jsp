@@ -8,7 +8,7 @@
 <body>
 <%@include file="embedded-jsp/navigation-bar.jsp"%>
 <h2 style="text-align: center; margin-top: 50px">
-    Log in firsty.
+    Log in firstly.
 </h2>
 <h3 style="text-align: center">
     Back to <a href="/">main page</a>.

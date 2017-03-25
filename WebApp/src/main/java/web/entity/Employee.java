@@ -6,35 +6,29 @@ import web.enum_types.Sex;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "EMPLOYEES")
 public class Employee {
     @Id
     @Column(name = "EMPLOYEE_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
     private String name;
 
-    @Column
     private String surname;
 
-    @Column
     private Integer age;
 
-    @Column
     @Enumerated(EnumType.STRING)
     private Sex sex;
 
-    @Column
     @Enumerated(EnumType.STRING)
     private Position position;
 
-    @Column
+    @Column(unique = true)
     private String email;
 
-    @OneToOne
-    @JoinColumn(name = "USER_ID")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "login")
     private User user;
 
     public Employee() {}
@@ -134,19 +128,4 @@ public class Employee {
     public String shortInfo() {
         return name + " " + surname;
     }
-
-    /*@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Employee employee = (Employee) o;
-
-        if (!name.equals(employee.name)) return false;
-        if (!surname.equals(employee.surname)) return false;
-        if (age != null ? !age.equals(employee.age) : employee.age != null) return false;
-
-        return sex == employee.sex
-                && position == employee.position;
-    }*/
 }
