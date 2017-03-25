@@ -38,11 +38,8 @@
                 <div class="col-md-8">
                     <div class="user-menu">
                         <ul>
-                            <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
-                            <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                            <li><a href="cart"><i class="fa fa-user"></i> My Cart</a></li>
-                            <li><a href="checkout"><i class="fa fa-user"></i> Checkout</a></li>
-                            <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
+                            <li><a href="#"><i class="fa fa-user"></i>My Account</a></li>
+                            <li><a href="cart"><i class="fa fa-shopping-cart"></i>Cart</a></li>
                         </ul>
                     </div>
                 </div>
@@ -51,11 +48,10 @@
                     <div class="header-right">
                         <ul class="list-unstyled list-inline">
                             <li class="dropdown dropdown-small">
-                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">currency :</span><span class="value">USD </span><b class="caret"></b></a>
+                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">currency :</span><span class="value">UAH</span><b class="caret"></b></a>
                                 <ul class="dropdown-menu">
+                                    <li><a href="#">UAH</a></li>
                                     <li><a href="#">USD</a></li>
-                                    <li><a href="#">INR</a></li>
-                                    <li><a href="#">GBP</a></li>
                                 </ul>
                             </li>
 
@@ -63,8 +59,7 @@
                                 <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">language :</span><span class="value">English </span><b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">English</a></li>
-                                    <li><a href="#">French</a></li>
-                                    <li><a href="#">German</a></li>
+                                    <li><a href="#">Russian</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -79,13 +74,13 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="logo">
-                        <h1><a href="index">e<span>Electronics</span></a></h1>
+                        <h1><a href="index">i<span>Shop</span></a></h1>
                     </div>
                 </div>
                 
                 <div class="col-sm-6">
                     <div class="shopping-item">
-                        <a href="cart">Cart - <span class="cart-amunt">$800</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
+                        <a href="cart">Cart - <span class="cart-amunt">$0</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">0</span></a>
                     </div>
                 </div>
             </div>
@@ -106,13 +101,8 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="index">Home</a></li>
-                        <li><a href="shop">Shop page</a></li>
-                        <li><a href="single-product">Single product</a></li>
-                        <li class="active"><a href="cart">Cart</a></li>
-                        <li><a href="checkout">Checkout</a></li>
-                        <li><a href="#">Category</a></li>
-                        <li><a href="#">Others</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="shop">iPhone</a></li>
+                        <li><a href="#">Accessories</a></li>
                     </ul>
                 </div>  
             </div>
@@ -136,60 +126,7 @@
         <div class="zigzag-bottom"></div>
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <div class="single-sidebar">
-                        <h2 class="sidebar-title">Search Products</h2>
-                        <form action="#">
-                            <input type="text" placeholder="Search products...">
-                            <input type="submit" value="Search">
-                        </form>
-                    </div>
-                    
-                    <div class="single-sidebar">
-                        <h2 class="sidebar-title">Products</h2>
-                        <div class="thubmnail-recent">
-                            <img src="../../img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                            <h2><a href="single-product">Sony Smart TV - 2015</a></h2>
-                            <div class="product-sidebar-price">
-                                <ins>$700.00</ins> <del>$800.00</del>
-                            </div>                             
-                        </div>
-                        <div class="thubmnail-recent">
-                            <img src="../../img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                            <h2><a href="single-product">Sony Smart TV - 2015</a></h2>
-                            <div class="product-sidebar-price">
-                                <ins>$700.00</ins> <del>$800.00</del>
-                            </div>                             
-                        </div>
-                        <div class="thubmnail-recent">
-                            <img src="../../img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                            <h2><a href="single-product">Sony Smart TV - 2015</a></h2>
-                            <div class="product-sidebar-price">
-                                <ins>$700.00</ins> <del>$800.00</del>
-                            </div>                             
-                        </div>
-                        <div class="thubmnail-recent">
-                            <img src="../../img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                            <h2><a href="single-product">Sony Smart TV - 2015</a></h2>
-                            <div class="product-sidebar-price">
-                                <ins>$700.00</ins> <del>$800.00</del>
-                            </div>                             
-                        </div>
-                    </div>
-                    
-                    <div class="single-sidebar">
-                        <h2 class="sidebar-title">Recent Posts</h2>
-                        <ul>
-                            <li><a href="#">Sony Smart TV - 2015</a></li>
-                            <li><a href="#">Sony Smart TV - 2015</a></li>
-                            <li><a href="#">Sony Smart TV - 2015</a></li>
-                            <li><a href="#">Sony Smart TV - 2015</a></li>
-                            <li><a href="#">Sony Smart TV - 2015</a></li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="product-content-right">
                         <div class="woocommerce">
                             <form method="post" action="#">
@@ -248,327 +185,6 @@
                                     </tbody>
                                 </table>
                             </form>
-
-                            <div class="cart-collaterals">
-
-
-                            <div class="cross-sells">
-                                <h2>You may be interested in...</h2>
-                                <ul class="products">
-                                    <li class="product">
-                                        <a href="single-product">
-                                            <img width="325" height="325" alt="T_4_front" class="attachment-shop_catalog wp-post-image" src="../../img/product-2.jpg">
-                                            <h3>Ship Your Idea</h3>
-                                            <span class="price"><span class="amount">£20.00</span></span>
-                                        </a>
-
-                                        <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="22" rel="nofollow" href="single-product">Select options</a>
-                                    </li>
-
-                                    <li class="product">
-                                        <a href="single-product">
-                                            <img width="325" height="325" alt="T_4_front" class="attachment-shop_catalog wp-post-image" src="../../img/product-4.jpg">
-                                            <h3>Ship Your Idea</h3>
-                                            <span class="price"><span class="amount">£20.00</span></span>
-                                        </a>
-
-                                        <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="22" rel="nofollow" href="single-product">Select options</a>
-                                    </li>
-                                </ul>
-                            </div>
-
-
-                            <div class="cart_totals ">
-                                <h2>Cart Totals</h2>
-
-                                <table cellspacing="0">
-                                    <tbody>
-                                        <tr class="cart-subtotal">
-                                            <th>Cart Subtotal</th>
-                                            <td><span class="amount">£15.00</span></td>
-                                        </tr>
-
-                                        <tr class="shipping">
-                                            <th>Shipping and Handling</th>
-                                            <td>Free Shipping</td>
-                                        </tr>
-
-                                        <tr class="order-total">
-                                            <th>Order Total</th>
-                                            <td><strong><span class="amount">£15.00</span></strong> </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-
-                            <form method="post" action="#" class="shipping_calculator">
-                                <h2><a class="shipping-calculator-button" data-toggle="collapse" href="#calcalute-shipping-wrap" aria-expanded="false" aria-controls="calcalute-shipping-wrap">Calculate Shipping</a></h2>
-
-                                <section id="calcalute-shipping-wrap" class="shipping-calculator-form collapse">
-
-                                <p class="form-row form-row-wide">
-                                <select rel="calc_shipping_state" class="country_to_state" id="calc_shipping_country" name="calc_shipping_country">
-                                    <option value="">Select a country…</option>
-                                    <option value="AX">Åland Islands</option>
-                                    <option value="AF">Afghanistan</option>
-                                    <option value="AL">Albania</option>
-                                    <option value="DZ">Algeria</option>
-                                    <option value="AD">Andorra</option>
-                                    <option value="AO">Angola</option>
-                                    <option value="AI">Anguilla</option>
-                                    <option value="AQ">Antarctica</option>
-                                    <option value="AG">Antigua and Barbuda</option>
-                                    <option value="AR">Argentina</option>
-                                    <option value="AM">Armenia</option>
-                                    <option value="AW">Aruba</option>
-                                    <option value="AU">Australia</option>
-                                    <option value="AT">Austria</option>
-                                    <option value="AZ">Azerbaijan</option>
-                                    <option value="BS">Bahamas</option>
-                                    <option value="BH">Bahrain</option>
-                                    <option value="BD">Bangladesh</option>
-                                    <option value="BB">Barbados</option>
-                                    <option value="BY">Belarus</option>
-                                    <option value="PW">Belau</option>
-                                    <option value="BE">Belgium</option>
-                                    <option value="BZ">Belize</option>
-                                    <option value="BJ">Benin</option>
-                                    <option value="BM">Bermuda</option>
-                                    <option value="BT">Bhutan</option>
-                                    <option value="BO">Bolivia</option>
-                                    <option value="BQ">Bonaire, Saint Eustatius and Saba</option>
-                                    <option value="BA">Bosnia and Herzegovina</option>
-                                    <option value="BW">Botswana</option>
-                                    <option value="BV">Bouvet Island</option>
-                                    <option value="BR">Brazil</option>
-                                    <option value="IO">British Indian Ocean Territory</option>
-                                    <option value="VG">British Virgin Islands</option>
-                                    <option value="BN">Brunei</option>
-                                    <option value="BG">Bulgaria</option>
-                                    <option value="BF">Burkina Faso</option>
-                                    <option value="BI">Burundi</option>
-                                    <option value="KH">Cambodia</option>
-                                    <option value="CM">Cameroon</option>
-                                    <option value="CA">Canada</option>
-                                    <option value="CV">Cape Verde</option>
-                                    <option value="KY">Cayman Islands</option>
-                                    <option value="CF">Central African Republic</option>
-                                    <option value="TD">Chad</option>
-                                    <option value="CL">Chile</option>
-                                    <option value="CN">China</option>
-                                    <option value="CX">Christmas Island</option>
-                                    <option value="CC">Cocos (Keeling) Islands</option>
-                                    <option value="CO">Colombia</option>
-                                    <option value="KM">Comoros</option>
-                                    <option value="CG">Congo (Brazzaville)</option>
-                                    <option value="CD">Congo (Kinshasa)</option>
-                                    <option value="CK">Cook Islands</option>
-                                    <option value="CR">Costa Rica</option>
-                                    <option value="HR">Croatia</option>
-                                    <option value="CU">Cuba</option>
-                                    <option value="CW">CuraÇao</option>
-                                    <option value="CY">Cyprus</option>
-                                    <option value="CZ">Czech Republic</option>
-                                    <option value="DK">Denmark</option>
-                                    <option value="DJ">Djibouti</option>
-                                    <option value="DM">Dominica</option>
-                                    <option value="DO">Dominican Republic</option>
-                                    <option value="EC">Ecuador</option>
-                                    <option value="EG">Egypt</option>
-                                    <option value="SV">El Salvador</option>
-                                    <option value="GQ">Equatorial Guinea</option>
-                                    <option value="ER">Eritrea</option>
-                                    <option value="EE">Estonia</option>
-                                    <option value="ET">Ethiopia</option>
-                                    <option value="FK">Falkland Islands</option>
-                                    <option value="FO">Faroe Islands</option>
-                                    <option value="FJ">Fiji</option>
-                                    <option value="FI">Finland</option>
-                                    <option value="FR">France</option>
-                                    <option value="GF">French Guiana</option>
-                                    <option value="PF">French Polynesia</option>
-                                    <option value="TF">French Southern Territories</option>
-                                    <option value="GA">Gabon</option>
-                                    <option value="GM">Gambia</option>
-                                    <option value="GE">Georgia</option>
-                                    <option value="DE">Germany</option>
-                                    <option value="GH">Ghana</option>
-                                    <option value="GI">Gibraltar</option>
-                                    <option value="GR">Greece</option>
-                                    <option value="GL">Greenland</option>
-                                    <option value="GD">Grenada</option>
-                                    <option value="GP">Guadeloupe</option>
-                                    <option value="GT">Guatemala</option>
-                                    <option value="GG">Guernsey</option>
-                                    <option value="GN">Guinea</option>
-                                    <option value="GW">Guinea-Bissau</option>
-                                    <option value="GY">Guyana</option>
-                                    <option value="HT">Haiti</option>
-                                    <option value="HM">Heard Island and McDonald Islands</option>
-                                    <option value="HN">Honduras</option>
-                                    <option value="HK">Hong Kong</option>
-                                    <option value="HU">Hungary</option>
-                                    <option value="IS">Iceland</option>
-                                    <option value="IN">India</option>
-                                    <option value="ID">Indonesia</option>
-                                    <option value="IR">Iran</option>
-                                    <option value="IQ">Iraq</option>
-                                    <option value="IM">Isle of Man</option>
-                                    <option value="IL">Israel</option>
-                                    <option value="IT">Italy</option>
-                                    <option value="CI">Ivory Coast</option>
-                                    <option value="JM">Jamaica</option>
-                                    <option value="JP">Japan</option>
-                                    <option value="JE">Jersey</option>
-                                    <option value="JO">Jordan</option>
-                                    <option value="KZ">Kazakhstan</option>
-                                    <option value="KE">Kenya</option>
-                                    <option value="KI">Kiribati</option>
-                                    <option value="KW">Kuwait</option>
-                                    <option value="KG">Kyrgyzstan</option>
-                                    <option value="LA">Laos</option>
-                                    <option value="LV">Latvia</option>
-                                    <option value="LB">Lebanon</option>
-                                    <option value="LS">Lesotho</option>
-                                    <option value="LR">Liberia</option>
-                                    <option value="LY">Libya</option>
-                                    <option value="LI">Liechtenstein</option>
-                                    <option value="LT">Lithuania</option>
-                                    <option value="LU">Luxembourg</option>
-                                    <option value="MO">Macao S.A.R., China</option>
-                                    <option value="MK">Macedonia</option>
-                                    <option value="MG">Madagascar</option>
-                                    <option value="MW">Malawi</option>
-                                    <option value="MY">Malaysia</option>
-                                    <option value="MV">Maldives</option>
-                                    <option value="ML">Mali</option>
-                                    <option value="MT">Malta</option>
-                                    <option value="MH">Marshall Islands</option>
-                                    <option value="MQ">Martinique</option>
-                                    <option value="MR">Mauritania</option>
-                                    <option value="MU">Mauritius</option>
-                                    <option value="YT">Mayotte</option>
-                                    <option value="MX">Mexico</option>
-                                    <option value="FM">Micronesia</option>
-                                    <option value="MD">Moldova</option>
-                                    <option value="MC">Monaco</option>
-                                    <option value="MN">Mongolia</option>
-                                    <option value="ME">Montenegro</option>
-                                    <option value="MS">Montserrat</option>
-                                    <option value="MA">Morocco</option>
-                                    <option value="MZ">Mozambique</option>
-                                    <option value="MM">Myanmar</option>
-                                    <option value="NA">Namibia</option>
-                                    <option value="NR">Nauru</option>
-                                    <option value="NP">Nepal</option>
-                                    <option value="NL">Netherlands</option>
-                                    <option value="AN">Netherlands Antilles</option>
-                                    <option value="NC">New Caledonia</option>
-                                    <option value="NZ">New Zealand</option>
-                                    <option value="NI">Nicaragua</option>
-                                    <option value="NE">Niger</option>
-                                    <option value="NG">Nigeria</option>
-                                    <option value="NU">Niue</option>
-                                    <option value="NF">Norfolk Island</option>
-                                    <option value="KP">North Korea</option>
-                                    <option value="NO">Norway</option>
-                                    <option value="OM">Oman</option>
-                                    <option value="PK">Pakistan</option>
-                                    <option value="PS">Palestinian Territory</option>
-                                    <option value="PA">Panama</option>
-                                    <option value="PG">Papua New Guinea</option>
-                                    <option value="PY">Paraguay</option>
-                                    <option value="PE">Peru</option>
-                                    <option value="PH">Philippines</option>
-                                    <option value="PN">Pitcairn</option>
-                                    <option value="PL">Poland</option>
-                                    <option value="PT">Portugal</option>
-                                    <option value="QA">Qatar</option>
-                                    <option value="IE">Republic of Ireland</option>
-                                    <option value="RE">Reunion</option>
-                                    <option value="RO">Romania</option>
-                                    <option value="RU">Russia</option>
-                                    <option value="RW">Rwanda</option>
-                                    <option value="ST">São Tomé and Príncipe</option>
-                                    <option value="BL">Saint Barthélemy</option>
-                                    <option value="SH">Saint Helena</option>
-                                    <option value="KN">Saint Kitts and Nevis</option>
-                                    <option value="LC">Saint Lucia</option>
-                                    <option value="SX">Saint Martin (Dutch part)</option>
-                                    <option value="MF">Saint Martin (French part)</option>
-                                    <option value="PM">Saint Pierre and Miquelon</option>
-                                    <option value="VC">Saint Vincent and the Grenadines</option>
-                                    <option value="SM">San Marino</option>
-                                    <option value="SA">Saudi Arabia</option>
-                                    <option value="SN">Senegal</option>
-                                    <option value="RS">Serbia</option>
-                                    <option value="SC">Seychelles</option>
-                                    <option value="SL">Sierra Leone</option>
-                                    <option value="SG">Singapore</option>
-                                    <option value="SK">Slovakia</option>
-                                    <option value="SI">Slovenia</option>
-                                    <option value="SB">Solomon Islands</option>
-                                    <option value="SO">Somalia</option>
-                                    <option value="ZA">South Africa</option>
-                                    <option value="GS">South Georgia/Sandwich Islands</option>
-                                    <option value="KR">South Korea</option>
-                                    <option value="SS">South Sudan</option>
-                                    <option value="ES">Spain</option>
-                                    <option value="LK">Sri Lanka</option>
-                                    <option value="SD">Sudan</option>
-                                    <option value="SR">Suriname</option>
-                                    <option value="SJ">Svalbard and Jan Mayen</option>
-                                    <option value="SZ">Swaziland</option>
-                                    <option value="SE">Sweden</option>
-                                    <option value="CH">Switzerland</option>
-                                    <option value="SY">Syria</option>
-                                    <option value="TW">Taiwan</option>
-                                    <option value="TJ">Tajikistan</option>
-                                    <option value="TZ">Tanzania</option>
-                                    <option value="TH">Thailand</option>
-                                    <option value="TL">Timor-Leste</option>
-                                    <option value="TG">Togo</option>
-                                    <option value="TK">Tokelau</option>
-                                    <option value="TO">Tonga</option>
-                                    <option value="TT">Trinidad and Tobago</option>
-                                    <option value="TN">Tunisia</option>
-                                    <option value="TR">Turkey</option>
-                                    <option value="TM">Turkmenistan</option>
-                                    <option value="TC">Turks and Caicos Islands</option>
-                                    <option value="TV">Tuvalu</option>
-                                    <option value="UG">Uganda</option>
-                                    <option value="UA">Ukraine</option>
-                                    <option value="AE">United Arab Emirates</option>
-                                    <option selected="selected" value="GB">United Kingdom (UK)</option>
-                                    <option value="US">United States (US)</option>
-                                    <option value="UY">Uruguay</option>
-                                    <option value="UZ">Uzbekistan</option>
-                                    <option value="VU">Vanuatu</option>
-                                    <option value="VA">Vatican</option>
-                                    <option value="VE">Venezuela</option>
-                                    <option value="VN">Vietnam</option>
-                                    <option value="WF">Wallis and Futuna</option>
-                                    <option value="EH">Western Sahara</option>
-                                    <option value="WS">Western Samoa</option>
-                                    <option value="YE">Yemen</option>
-                                    <option value="ZM">Zambia</option>
-                                    <option value="ZW">Zimbabwe</option>
-                                </select>
-                                </p>
-
-                                <p class="form-row form-row-wide"><input type="text" id="calc_shipping_state" name="calc_shipping_state" placeholder="State / county" value="" class="input-text"> </p>
-
-                                <p class="form-row form-row-wide"><input type="text" id="calc_shipping_postcode" name="calc_shipping_postcode" placeholder="Postcode / Zip" value="" class="input-text"></p>
-
-
-                                <p><button class="button" value="1" name="calc_shipping" type="submit">Update Totals</button></p>
-
-                                </section>
-                            </form>
-
-
-                            </div>
                         </div>                        
                     </div>                    
                 </div>
@@ -583,45 +199,31 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6">
                     <div class="footer-about-us">
-                        <h2>e<span>Electronics</span></h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis sunt id doloribus vero quam laborum quas alias dolores blanditiis iusto consequatur, modi aliquid eveniet eligendi iure eaque ipsam iste, pariatur omnis sint! Suscipit, debitis, quisquam. Laborum commodi veritatis magni at?</p>
+                        <h2>i<span>Shop</span></h2>
+                        <p>Many of us prefer online stores, because this is the best way to save time and money. If you are interested in buying electronics or just look for an accessory for your mobile device or a useful gadget. Great online store "iShop" just offers you this opportunity.</p>
                         <div class="footer-social">
                             <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
-                            <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="#" target="_blank"><i class="fa fa-vk"></i></a>
                             <a href="#" target="_blank"><i class="fa fa-youtube"></i></a>
-                            <a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>
-                            <a href="#" target="_blank"><i class="fa fa-pinterest"></i></a>
                         </div>
                     </div>
                 </div>
                 
                 <div class="col-md-3 col-sm-6">
                     <div class="footer-menu">
-                        <h2 class="footer-wid-title">User Navigation </h2>
+                        <h2 class="footer-wid-title">User Navigation</h2>
                         <ul>
                             <li><a href="#">My account</a></li>
-                            <li><a href="#">Order history</a></li>
-                            <li><a href="#">Wishlist</a></li>
-                            <li><a href="#">Vendor contact</a></li>
-                            <li><a href="#">Front page</a></li>
-                        </ul>                        
+                            <li><a href="#">Cart</a></li>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">iPhone</a></li>
+                            <li><a href="#">Accessories</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
                     </div>
                 </div>
-                
-                <div class="col-md-3 col-sm-6">
-                    <div class="footer-menu">
-                        <h2 class="footer-wid-title">Categories</h2>
-                        <ul>
-                            <li><a href="#">Mobile Phone</a></li>
-                            <li><a href="#">Home accesseries</a></li>
-                            <li><a href="#">LED TV</a></li>
-                            <li><a href="#">Computer</a></li>
-                            <li><a href="#">Gadets</a></li>
-                        </ul>                        
-                    </div>
-                </div>
-                
-                <div class="col-md-3 col-sm-6">
+
+                <div class="col-md-6 col-sm-6">
                     <div class="footer-newsletter">
                         <h2 class="footer-wid-title">Newsletter</h2>
                         <p>Sign up to our newsletter and get exclusive deals you wont find anywhere else straight to your inbox!</p>
@@ -642,15 +244,13 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="copyright">
-                        <p>&copy; 2015 eElectronics. All Rights Reserved. Coded with <i class="fa fa-heart"></i> by <a href="http://wpexpand.com" target="_blank">WP Expand</a></p>
+                        <p>All Rights Reserved. Coded by itCentre Team&trade; 2017 &copy;</p>
                     </div>
                 </div>
                 
                 <div class="col-md-4">
                     <div class="footer-card-icon">
-                        <i class="fa fa-cc-discover"></i>
                         <i class="fa fa-cc-mastercard"></i>
-                        <i class="fa fa-cc-paypal"></i>
                         <i class="fa fa-cc-visa"></i>
                     </div>
                 </div>
