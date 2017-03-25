@@ -3,12 +3,13 @@ package web.entity;
 import web.enum_types.PaymentType;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 
 @Entity
-public class Payment {
+public class Payment implements Serializable {
     @Id
     @Column(name = "PAYMENT_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

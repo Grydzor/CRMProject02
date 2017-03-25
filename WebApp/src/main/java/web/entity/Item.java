@@ -4,11 +4,12 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 @Entity
-public class Item {
+public class Item implements Serializable {
     @Id
     @Column(name = "ITEM_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,10 +3,11 @@ package web.entity;
 import web.enum_types.DeliveryType;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
-public class Delivery {
+public class Delivery implements Serializable {
     @Id
     @Column(name = "DELIVERY_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
