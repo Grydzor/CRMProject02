@@ -3,6 +3,7 @@ package web.entity;
 import web.enum_types.OrderStatus;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.DecimalFormat;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "ORDERS")
-public class Order {
+public class Order implements Serializable {
     @Id
     @Column(name = "ORDER_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

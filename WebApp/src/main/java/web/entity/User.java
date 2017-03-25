@@ -1,9 +1,10 @@
 package web.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class User {
+public class User implements Serializable {
     @Id
     private String login;
 

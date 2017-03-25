@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class CustomerAccount {
+public class CustomerAccount implements Serializable {
     @Id
     private String email;
 
