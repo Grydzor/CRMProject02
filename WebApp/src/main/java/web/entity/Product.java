@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.List;
 
 @Entity
 public class Product implements Serializable {
@@ -23,6 +24,10 @@ public class Product implements Serializable {
     private BigDecimal price;
 
     private String filename;
+
+    @OneToMany
+    @JoinColumn(name = "PRODUCT_ID")
+    private List<Picture> pictureList;
 
     @Enumerated(EnumType.STRING)
     private Capacity capacity;
@@ -106,6 +111,14 @@ public class Product implements Serializable {
 
     public String getPriceVATFormat() {
         return format.format(getPriceVAT());
+    }
+
+    public List<Picture> getPictureList() {
+        return pictureList;
+    }
+
+    public void setPictureList(List<Picture> pictureList) {
+        this.pictureList = pictureList;
     }
 
     @Override
