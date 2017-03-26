@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="header-area">
     <div class="container">
         <div class="row">
@@ -13,7 +14,7 @@
                                 <%@include file="login-form.jsp"%>
                             </c:if>
                         </li>
-                        <li><a href="cart"><i class="fa fa-shopping-cart"></i>Cart</a></li>
+                        <li><a href="cart"><i class="fa fa-shopping-cart"></i>Корзина</a></li>
                     </ul>
                 </div>
             </div>
@@ -22,7 +23,7 @@
                 <div class="header-right">
                     <ul class="list-unstyled list-inline">
                         <li class="dropdown dropdown-small">
-                            <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">currency :</span><span class="value">UAH</span><b class="caret"></b></a>
+                            <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">Валюта :</span><span class="value">UAH</span><b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">UAH</a></li>
                                 <li><a href="#">USD</a></li>
@@ -30,10 +31,10 @@
                         </li>
 
                         <li class="dropdown dropdown-small">
-                            <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">language :</span><span class="value">English </span><b class="caret"></b></a>
+                            <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">Язык :</span><span class="value">Русский </span><b class="caret"></b></a>
                             <ul class="dropdown-menu">
+                                <li><a href="#">Русский</a></li>
                                 <li><a href="#">English</a></li>
-                                <li><a href="#">Russian</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -54,7 +55,7 @@
 
             <div class="col-sm-6">
                 <div class="shopping-item">
-                    <a href="cart">Cart - <span class="cart-amunt">$0</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">0</span></a>
+                    <a href="cart">Корзина - <span class="cart-amunt">$0</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">0</span></a>
                 </div>
             </div>
         </div>
@@ -74,9 +75,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/">Home</a></li>
+                    <li><a href="/">Главная</a></li>
                     <li><a href="shop">iPhone</a></li>
-                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">Аксессуары</a></li>
                 </ul>
             </div>
         </div>
