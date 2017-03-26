@@ -42,10 +42,10 @@
                                     <div class="row">
                                         <div class="col-md-6 col-md-offset-6">
                                             <div class="slide-content">
-                                                <h2>We are awesome</h2>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, dolorem, excepturi. Dolore aliquam quibusdam ut quae iure vero exercitationem ratione!</p>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi ab molestiae minus reiciendis! Pariatur ab rerum, sapiente ex nostrum laudantium.</p>
-                                                <a href="" class="readmore">Learn more</a>
+                                                <h2>Самые последние модели</h2>
+                                                <p>Любые характеристики и любой цветовое сочетание.</p>
+                                                <p>В нашем магазине всегда только самые актульные модели, которые поступают в продажу раньше всех!</p>
+                                                <a href="" class="readmore">Подробнее</a>
                                             </div>
                                         </div>
                                     </div>
@@ -63,9 +63,9 @@
                                     <div class="row">
                                         <div class="col-md-6 col-md-offset-6">
                                             <div class="slide-content">
-                                                <h2>We are great</h2>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe aspernatur, dolorum harum molestias tempora deserunt voluptas possimus quos eveniet, vitae voluptatem accusantium atque deleniti inventore. Enim quam placeat expedita! Quibusdam!</p>
-                                                <a href="" class="readmore">Learn more</a>
+                                                <h2>Ваш уникальный стиль</h2>
+                                                <p>Только у нас огромный выбор аксессуаров по самым доступным ценам. Выделяйтесь!</p>
+                                                <a href="" class="readmore">Подробнее</a>
                                             </div>
                                         </div>
                                     </div>
@@ -83,10 +83,10 @@
                                     <div class="row">
                                         <div class="col-md-6 col-md-offset-6">
                                             <div class="slide-content">
-                                                <h2>We are superb</h2>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, eius?</p>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti voluptates necessitatibus dicta recusandae quae amet nobis sapiente explicabo voluptatibus rerum nihil quas saepe, tempore error odio quam obcaecati suscipit sequi.</p>
-                                                <a href="" class="readmore">Learn more</a>
+                                                <h2>Техническая поддержка</h2>
+                                                <p>Наши высококлассные специалисты помогут вам в детальной настройке вашего нового iPhone.</p>
+                                                <p>Установка самых последних обновлений и приложений. Кастомизация интерфейса и оптимизации производительности. </p>
+                                                <a href="" class="readmore">Подробнее</a>
                                             </div>
                                         </div>
                                     </div>
@@ -107,25 +107,25 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="single-promo">
                         <i class="fa fa-refresh"></i>
-                        <p>30 Days return</p>
+                        <p>Гарантия возврата</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="single-promo">
                         <i class="fa fa-truck"></i>
-                        <p>Free shipping</p>
+                        <p>Бесплатно доставим</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="single-promo">
                         <i class="fa fa-lock"></i>
-                        <p>Secure payments</p>
+                        <p>Безопасная оплата</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="single-promo">
                         <i class="fa fa-gift"></i>
-                        <p>New products</p>
+                        <p>Только новинки</p>
                     </div>
                 </div>
             </div>
@@ -138,7 +138,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="latest-product">
-                        <h2 class="section-title">Latest Products</h2>
+                        <h2 class="section-title">Последние поступления</h2>
                         <div class="product-carousel">
                             <div class="single-product">
                                 <div class="product-f-image">
@@ -242,7 +242,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="brand-wrapper">
-                        <h2 class="section-title">Brands</h2>
+                        <h2 class="section-title">Партнеры</h2>
                         <div class="brand-list">
                             <img src="../../img/services_logo__1.jpg" alt="">
                             <img src="../../img/services_logo__2.jpg" alt="">
