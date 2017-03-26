@@ -998,7 +998,9 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
     margin-top: 15px;
 }
 
-.single-shop-product {margin-bottom: 50px}
+.single-shop-product {
+    margin-bottom: 50px;
+}
 
 .pagination > li > a, .pagination > li > span {
   color: #1abc9c;

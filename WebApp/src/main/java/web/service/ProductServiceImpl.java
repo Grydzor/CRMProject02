@@ -35,9 +35,16 @@ public class ProductServiceImpl extends ServiceImpl<Product, Long> implements Pr
     }
 
     @Override
+    @Transactional
     public Product readWithPictures(Long id) {
         Product product = productDAO.read(id);
         Hibernate.initialize(product.getPictureList());
         return product;
+    }
+
+    @Override
+    @Transactional
+    public Long getNumberOfRows() {
+        return productDAO.getNumberOfRows();
     }
 }

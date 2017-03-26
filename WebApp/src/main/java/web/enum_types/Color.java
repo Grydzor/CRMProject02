@@ -13,4 +13,9 @@ public enum Color {
     public String toString() {
         return label;
     }
+
+    // for JSTL
+    public String getString() {
+        return toString();
+    }
 }

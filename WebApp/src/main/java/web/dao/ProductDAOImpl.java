@@ -42,4 +42,10 @@ public class ProductDAOImpl extends DAOImpl<Product, Long> implements ProductDAO
                 .setMaxResults(limit)
                 .list();
     }
+
+    @Override
+    public Long getNumberOfRows() {
+        return (Long) factory.getCurrentSession()
+                .createQuery("SELECT COUNT(*) FROM Product").uniqueResult();
+    }
 }

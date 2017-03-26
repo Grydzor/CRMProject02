@@ -26,14 +26,19 @@ public class ProductsLoaderController {
         if (order == null) order = "id";
         if (asc == null) asc = "yes";
 
-        System.out.println("here");
         int productsPerPage = 12;
+
         ProductService service = context.getBean(ProductService.class);
+
+        Long numberOfPages = (long)Math.ceil(service.getNumberOfRows() / (double)productsPerPage);
+
+        if (page < 1 || page > numberOfPages) return "page404";
+
         List<Product> products = service.findInRange((page - 1) * productsPerPage, productsPerPage, order, "yes".equals(asc));
         model.addAttribute("products", products);
         model.addAttribute("page", page);
+        model.addAttribute("numberOfPages", numberOfPages);
 
-        System.out.println("here");
         String filter = "";
         if ("id".equals(order) && "yes".equals(asc)) {
             filter = "newest";
@@ -52,7 +57,6 @@ public class ProductsLoaderController {
         }
         model.addAttribute("filter", filter);
 
-        System.out.println("here");
         return "shop";
     }
 
