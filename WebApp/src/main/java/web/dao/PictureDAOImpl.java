@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import web.entity.Picture;
 
 @Repository("pictureDAO")
-public class PictureDAOImpl extends DAOImpl<Picture, Long> implements PictureDAO{
+public class PictureDAOImpl extends DAOImpl<Picture, Long> implements PictureDAO {
     @Autowired
     private SessionFactory factory;
 

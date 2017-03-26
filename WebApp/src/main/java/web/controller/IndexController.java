@@ -30,11 +30,6 @@ public class IndexController {
         return "checkout";
     }
 
-    @RequestMapping(value = "/shop", method = {RequestMethod.GET, RequestMethod.HEAD})
-    public String shop() {
-        return "shop";
-    }
-
     @RequestMapping(value = "/single-product", method = {RequestMethod.GET, RequestMethod.HEAD})
     public String singleProduct() {
         return "single-product";

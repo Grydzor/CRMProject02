@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,14 +29,15 @@
         <div class="zigzag-bottom"></div>
         <div class="container">
             <div class="row">
+                <c:forEach items="${products}" var="product">
                 <div class="col-md-3 col-sm-6">
                     <div class="single-shop-product">
                         <div class="product-upper">
-                            <img src="../../img/product-2.jpg" alt="">
+                            <img src="../..${product.pictureList[0].imageLink}" alt="">
                         </div>
-                        <h2><a href="">Apple new mac book 2015 March :P</a></h2>
+                        <h2><a href="">${product.name}</a></h2>
                         <div class="product-carousel-price">
-                            <ins>$899.00</ins> <del>$999.00</del>
+                            ${product.price}
                         </div>  
                         
                         <div class="product-option-shop">
@@ -43,6 +45,7 @@
                         </div>                       
                     </div>
                 </div>
+                </c:forEach>
             </div>
             
             <div class="row">
