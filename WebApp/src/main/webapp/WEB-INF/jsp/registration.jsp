@@ -108,7 +108,8 @@
         }
     });
     $regName.blur(function () {isEmpty(this)});
-    $regSurname.blur(function () {isEmpty(this)});
+    $regSurname.blur(function () {
+        isEmpty(this)});
     $regAddress.blur(function () {isEmpty(this)});
 
     function checkFields() {
