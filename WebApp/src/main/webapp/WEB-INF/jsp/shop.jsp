@@ -35,9 +35,9 @@
                         <div class="product-upper">
                             <img src="../..${product.pictureList[0].imageLink}" alt="">
                         </div>
-                        <h2><a href="">${product.name}</a></h2>
+                        <h2><a href="">${product.name} ${product.capacityString} ${product.colorString}</a></h2>
                         <div class="product-carousel-price">
-                            ${product.price}
+                            ${product.price} грн.
                         </div>  
                         
                         <div class="product-option-shop">

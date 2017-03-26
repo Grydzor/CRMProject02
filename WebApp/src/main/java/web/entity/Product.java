@@ -81,12 +81,20 @@ public class Product implements Serializable {
         return capacity;
     }
 
+    public String getCapacityString() {
+        return capacity.toString();
+    }
+
     public void setCapacity(Capacity capacity) {
         this.capacity = capacity;
     }
 
     public Color getColor() {
         return color;
+    }
+
+    public String getColorString() {
+        return color.toString();
     }
 
     public void setColor(Color color) {
