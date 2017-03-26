@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Bad request</title>
-    <%@include file="embedded/load-css.jsp"%>
+    <%@include file="embedded/load-footer-libraries.jsp"%>
 </head>
 <body>
 <%@include file="embedded/menu.jsp"%>

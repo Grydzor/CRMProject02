@@ -50,14 +50,9 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="copyright">
-                    <p>Все права защищены. Написано командой ITCentre&trade; 2017 &copy;</p>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="footer-card-icon">
-                    <i class="fa fa-cc-mastercard"></i>
-                    <i class="fa fa-cc-visa"></i>
+                    <p>Все права защищены. Написано командой ITCentre<sup><i class="fa fa-trademark"></i></sup>
+                        2017 <i class="fa fa-copyright"></i>
+                    </p>
                 </div>
             </div>
         </div>

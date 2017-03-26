@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration | iShop</title>
-    <%@include file="embedded/load-css.jsp"%>
+    <%@include file="embedded/load-footer-libraries.jsp"%>
     <link rel="stylesheet" href="../../css/sign-up.css">
 </head>
 <body>
@@ -12,42 +12,42 @@
 
 <fieldset class="form-horizontal" id="reg-form">
     <div class="input-group">
-        Please fill in the fields to complete the registration:
+        Пожалуйста, заполните поля для успешной регистрации:
     </div>
     <div>
         <div class="input-group">
             <span class="input-group-addon"><i style="width: 18px" class="fa fa-envelope"></i></span>
-            <input type="text" name="email" id="regEmail" placeholder="Email" autofocus>
+            <input type="text" name="email" id="regEmail" placeholder="Электронная почта" autofocus>
         </div>
     </div>
 
     <div class="input-group">
         <span class="input-group-addon"><i style="width: 18px" class="fa fa-lock"></i></span>
-        <input type="password" name="password" id="regPassword" placeholder="Password">
+        <input type="password" name="password" id="regPassword" placeholder="Пароль">
     </div>
     <span style="color: rgba(0,0,0,0.5)">
         <i style="margin: 0 28px 0 20px;" class="fa fa-info" aria-hidden="true"></i>
-        at least 6 characters
+        минимум 6 символов
     </span>
     <div class="input-group">
         <span class="input-group-addon"><i style="width: 18px" class="fa fa-lock"></i></span>
-        <input type="password" name="confirmPassword" id="confirmRegPassword" placeholder="Confirm password">
+        <input type="password" name="confirmPassword" id="confirmRegPassword" placeholder="Подтвердите пароль">
     </div>
     <span id="passwordMismatch" style="color: rgba(255,0,0,0.5); display: none">
         <i style="margin: 0 23px 0 15px;" class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-        password mismatch
+        пароли не совпадают
     </span>
     <div class="input-group">
         <span class="input-group-addon"><i style="width: 18px" class="fa fa-address-book"></i></span>
-        <input type="text" name="name" id="regName" placeholder="Name">
+        <input type="text" name="name" id="regName" placeholder="Имя">
     </div>
     <div class="input-group">
         <span class="input-group-addon"><i style="width: 18px" class="fa fa-address-book"></i></span>
-        <input type="text" name="surname" id="regSurname" placeholder="Surname">
+        <input type="text" name="surname" id="regSurname" placeholder="Фамилия">
     </div>
     <div class="input-group">
         <span class="input-group-addon"><i style="width: 18px" class="fa fa-phone"></i></span>
-        <input type="text" name="phone" id="regPhone" placeholder="Phone number">
+        <input type="text" name="phone" id="regPhone" placeholder="Номер телефона">
     </div>
     <span style="color: rgba(0,0,0,0.5)">
         <i style="margin: 0 25px 0 15px" class="fa fa-question-circle-o" aria-hidden="true"></i>
@@ -55,15 +55,15 @@
     </span>
     <div class="input-group">
         <span class="input-group-addon"><i style="width: 18px" class="fa fa-map-marker"></i></span>
-        <input type="text" name="address" id="regAddress" placeholder="Address">
+        <input type="text" name="address" id="regAddress" placeholder="Адрес">
     </div>
     <span style="color: rgba(0,0,0,0.5)">
         <i style="margin: 0 25px 0 15px" class="fa fa-question-circle-o" aria-hidden="true"></i>
-        Vasylkivska St, 7, Kyiv, 02000
+        ул. Васильковская, 7, Киев, 02000
     </span>
 
     <div class="form-group">
-        <button class="btn btn-md btn-primary" onclick="checkFields()">Register</button>
+        <button onclick="checkFields()">Зарегистрироваться</button>
     </div>
 </fieldset>
 <div style="margin-top: 50px; text-align: center" id="regStatus"></div>
@@ -135,6 +135,7 @@
             xhttp.send(JSON.stringify(obj));
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
+                    alert("success");
                     $("#reg-form").hide();
                     document.getElementById("regStatus").innerHTML = this.responseText;
                 }

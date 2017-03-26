@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Checkout | iShop</title>
 
-      <%@include file="embedded/load-css.jsp"%>
+      <%@include file="embedded/load-footer-libraries.jsp"%>
   </head>
   <body>
 

@@ -12,3 +12,14 @@
 #reg-form input {
     width: 100%;
 }
+
+button {
+    background: none repeat scroll 0 0 #1abc9c;
+    border: medium none;
+    color: #fff;
+    padding: 11px 20px;
+}
+div .input-group-addon {
+    border: 1px solid #ddd;
+    border-radius: 0;
+}
