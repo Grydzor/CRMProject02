@@ -1,0 +1,34 @@
+.dropdown .dropdown-menu {
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+
+    max-height: 0;
+    display: block;
+    overflow: hidden;
+    opacity: 0;
+    padding: 0;
+
+    min-width: 200px;
+}
+
+.dropdown.open .dropdown-menu {
+    max-height: 350px;
+    opacity: 1;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.input-group {
+    margin-bottom: 5px;
+}
+
+.lost-pass, .have-acc {
+    text-align: right;
+}
+
+.btn-login {
+    text-align: center;
+}

@@ -39,4 +39,14 @@ public class IndexController {
     public String singleProduct() {
         return "single-product";
     }
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register() {
+        return "registration";
+    }
+
+    @RequestMapping(value = "/recover", method = RequestMethod.GET)
+    public String recover() {
+        return "recover";
+    }
 }

@@ -84,7 +84,7 @@ z-index: 999;}
 
 .logo h1 {
     font-size: 40px;
-    margin: 40px 0;font-weight: 400;
+    margin: 20px 0;font-weight: 400;
 }
 .logo h1 a {
     color: #999;
@@ -97,7 +97,7 @@ z-index: 999;}
     border: 1px solid #ddd;
     float: right;
     font-size: 18px;
-    margin-top: 40px;
+    margin-top: 20px;
     padding: 10px;
     position: relative;
 }

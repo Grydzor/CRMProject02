@@ -1,0 +1,14 @@
+.form-horizontal {
+    margin: 0 auto;
+    width: 350px;
+    padding: 30px 10px 10px 10px;
+}
+
+.form-horizontal .form-group, .form-horizontal .input-group {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#reg-form input {
+    width: 100%;
+}
