@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="footer-top-area">
     <div class="zigzag-bottom"></div>
     <div class="container">
@@ -5,7 +6,7 @@
             <div class="col-md-3 col-sm-6">
                 <div class="footer-about-us">
                     <h2>i<span>Shop</span></h2>
-                    <p>Many of us prefer online stores, because this is the best way to save time and money. If you are interested in buying electronics or just look for an accessory for your mobile device or a useful gadget. Great online store "iShop" just offers you this opportunity.</p>
+                    <p>Многие из нас предпочитают онлайн магазины, так как это лучший способ сохранить время и деньги. Если Вы заинтересованы электроникой или просто ищите аксессуар к Вашему мобильному телефону или другому гаджету. Наш онлайн магазин "iShop" предлагает Вам эту прекрасную возможность.</p>
                     <div class="footer-social">
                         <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
                         <a href="#" target="_blank"><i class="fa fa-vk"></i></a>
@@ -16,26 +17,26 @@
 
             <div class="col-md-3 col-sm-6">
                 <div class="footer-menu">
-                    <h2 class="footer-wid-title">User Navigation</h2>
+                    <h2 class="footer-wid-title">Навигация по сайту</h2>
                     <ul>
-                        <li><a href="#">My account</a></li>
-                        <li><a href="#">Cart</a></li>
-                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Мой аккаунт</a></li>
+                        <li><a href="#">Корзина</a></li>
+                        <li><a href="#">Главная страница</a></li>
                         <li><a href="#">iPhone</a></li>
-                        <li><a href="#">Accessories</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Аксессуары</a></li>
+                        <li><a href="#">Контакты</a></li>
                     </ul>
                 </div>
             </div>
 
             <div class="col-md-6 col-sm-6">
                 <div class="footer-newsletter">
-                    <h2 class="footer-wid-title">Newsletter</h2>
-                    <p>Sign up to our newsletter and get exclusive deals you wont find anywhere else straight to your inbox!</p>
+                    <h2 class="footer-wid-title">Рассылка</h2>
+                    <p>Подпишитесь на нашу рассылку и Вы получите специальные предложения на почтовый ящик!</p>
                     <div class="newsletter-form">
                         <form action="#">
-                            <input type="email" placeholder="Type your email">
-                            <input type="submit" value="Subscribe">
+                            <input type="email" placeholder="Введите ваш email">
+                            <input type="submit" value="Подписаться">
                         </form>
                     </div>
                 </div>
@@ -49,7 +50,7 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="copyright">
-                    <p>All Rights Reserved. Coded by itCentre Team&trade; 2017 &copy;</p>
+                    <p>Все права защищены. Написано командой ITCentre&trade; 2017 &copy;</p>
                 </div>
             </div>
 
