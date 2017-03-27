@@ -37,11 +37,11 @@
                         </div>
                         <h2 style="height: 50px"><a href="">${product.name} ${product.capacity.string} ${product.color.string}</a></h2>
                         <div class="product-carousel-price">
-                            ${product.price} грн.
+                            ${product.priceVATFormat} грн.
                         </div>
                         <div class="product-option-shop" id="addToCart${product.id}">
-                            <button class="add_to_cart_button" onclick="addToCart(${product.id})"><img src="../../img/cart.png"></button>
-                        </div>                       
+                            <%@include file="embedded/elements/buttonCart.jsp"%>
+                        </div>
                     </div>
                 </div>
                 </c:forEach>

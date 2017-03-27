@@ -104,7 +104,7 @@ z-index: 999;}
 .shopping-item a {
     color: #666;
 }
-.cart-amunt {
+.cart-amount {
     color: #1abc9c;
     font-weight: 700;
 }
@@ -134,7 +134,7 @@ z-index: 999;}
 .shopping-item:hover a {
     color: #fff;text-decoration: none
 }
-.shopping-item:hover .cart-amunt {
+.shopping-item:hover .cart-amount {
     color: #fff;
 }
 .shopping-item:hover .product-count {

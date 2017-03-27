@@ -43,17 +43,37 @@ function logIn() {
 }
 
 function addToCart(id) {
-    var xhttp2 = new XMLHttpRequest();
-    xhttp2.open("POST", "http://" + window.location.host + "/addtocart");
-    xhttp2.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-
-    var obj2 = {"id":id, "qty":1};
-    xhttp2.send(JSON.stringify(obj2));
-    xhttp2.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("addToCart" + id).innerHTML = this.responseText;
+    var data = {"id":id, "qty":1};
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        url: "http://" + window.location.host + "/addtocart",
+        data: JSON.stringify(data),
+        timeout: 100000,
+        success: function(data) {
+            document.getElementById("addToCart" + id).innerHTML = data;
+            updateSummary();
+        },
+        error: function() {
+            console.log("error during adding product to cart");
         }
-    };
+    });
+}
+
+function updateSummary() {
+    $.ajax({
+        type: "POST",
+        url: "http://" + window.location.host + "/updateorderdata",
+        timeout: 100000,
+        success: function(data) {
+            var json = JSON.parse(data);
+            document.getElementById("summary").innerHTML = json.summary + " грн.";
+            document.getElementById("amount").innerHTML = json.amount;
+        },
+        error: function() {
+            console.log("error during receiving summary");
+        }
+    });
 }
 
 $('li.dropdown a').on('click', function (event) {

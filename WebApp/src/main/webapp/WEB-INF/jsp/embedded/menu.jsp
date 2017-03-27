@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="header-area">
     <div class="container">
@@ -55,7 +56,7 @@
 
             <div class="col-sm-6">
                 <div class="shopping-item">
-                    <a href="cart">Корзина - <span class="cart-amunt">$0</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">0</span></a>
+                    <a href="cart">Корзина - <span id="summary" class="cart-amount">${order != null ? order.updatedSummary : 0} грн.</span> <i class="fa fa-shopping-cart"></i> <span class="product-count" id="amount">${fn:length(order.items)}</span></a>
                 </div>
             </div>
         </div>

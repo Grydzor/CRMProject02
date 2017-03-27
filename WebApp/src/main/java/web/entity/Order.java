@@ -155,6 +155,11 @@ public class Order implements Serializable {
         return summary;
     }
 
+    public String getUpdatedSummary() {
+        updateSummaryAndAmount();
+        return format.format(summary);
+    }
+
     public String getSummaryFormat() {
         return format.format(getSummary());
     }
