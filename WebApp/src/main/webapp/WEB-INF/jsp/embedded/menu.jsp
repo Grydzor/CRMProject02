@@ -7,7 +7,7 @@
             <div class="col-md-8">
                 <div class="user-menu">
                     <ul>
-                        <li class="dropdown">
+                        <li id="uMenu" class="dropdown">
                             <c:if test="${customer != null}">
                                 <%@include file="user-form.jsp"%>
                             </c:if>

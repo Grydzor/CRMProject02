@@ -10,7 +10,6 @@
     <%@include file="embedded/load-footer-libraries.jsp"%>
   </head>
   <body>
-
     <%@include file="embedded/menu.jsp"%>
     
     <div class="product-big-title-area">

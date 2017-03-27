@@ -1,13 +1,13 @@
 // opens menu when hover on it
-// $('#userMenu').hover(
-//     function () {
-//         if ($('.dropdown.open').length == 0) {
-//             $('.dropdown .dropdown-toggle').dropdown("toggle");
-//             document.getElementById("inputEmail").focus();
-//         }
-//     },
-//     function () {}
-// );
+$('#userMenu').hover(
+    function () {
+        if ($('.dropdown.open').length == 0) {
+            $('.dropdown .dropdown-toggle').dropdown("toggle");
+            document.getElementById("inputEmail").focus();
+        }
+    },
+    function () {}
+);
 
 function logOut() {
     var xhttp = new XMLHttpRequest();
@@ -15,7 +15,8 @@ function logOut() {
     xhttp.send();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("menu").innerHTML = this.responseText;
+            alert("here");
+            document.getElementById("uMenu").innerHTML = this.responseText;
         }
     }
 }
@@ -36,7 +37,8 @@ function logIn() {
         xhttp.send(JSON.stringify(obj));
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("menu").innerHTML = this.responseText;
+                alert("here");
+                document.getElementById("uMenu").innerHTML = this.responseText;
             }
         };
     }

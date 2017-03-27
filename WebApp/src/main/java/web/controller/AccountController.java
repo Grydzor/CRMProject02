@@ -29,6 +29,10 @@ public class AccountController {
     @Autowired
     private CustomerService customerService;
     @Autowired
+    private OrderService orderService;
+    @Autowired
+    private ItemService itemService;
+    @Autowired
     private ProductService productService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -51,8 +55,7 @@ public class AccountController {
     @RequestMapping(value = "/backoffice", method = RequestMethod.GET)
     public String backoffice(Model model, Customer customer) {
         if (customer != null) {
-            CustomerService service = context.getBean(CustomerService.class);
-            model.addAttribute("orders", service.findOrders(customer));
+            model.addAttribute("orders", customerService.findOrders(customer));
             return "backoffice";
         } else {
             return "unsignined";
@@ -93,9 +96,6 @@ public class AccountController {
                            Model model,
                            Customer customer,
                            Order order) {
-        OrderService service = context.getBean(OrderService.class);
-        ItemService itemService = context.getBean(ItemService.class);
-        CustomerService customerService = context.getBean(CustomerService.class);
         if (!model.containsAttribute("customer")) {
             customer = new Customer();
             customer.setMobile(mobile);
@@ -103,7 +103,7 @@ public class AccountController {
         }
         customerService.create(customer);
         order.setCustomer(customer);
-        service.create(order);
+        orderService.create(order);
         for (Item item : order.getItems()) {
             itemService.create(item);
         }

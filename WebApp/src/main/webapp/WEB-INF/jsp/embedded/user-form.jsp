@@ -1,4 +1,5 @@
-<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="userMenu">Hello, <span style="text-decoration: underline">${customer.name}</span></a>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<a class="dropdown-toggle" href="#" id="userMenu">Hello, <span style="text-decoration: underline">${customer.name}</span></a>
 <div class="dropdown-menu pull-right" id="userForm">
     <fieldset class="user-form" style="text-align: center">
         <div>

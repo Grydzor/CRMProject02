@@ -20,13 +20,13 @@ public class RegisterController {
     private CustomerService customerService;
 
     @RequestMapping(value = "/finishReg", method = RequestMethod.POST)
-    private @ResponseBody String finishReg(@RequestBody RegisterData data) {
-        CustomerAccount customerAccount = context.getBean(CustomerAccount.class);
+    private String finishReg(@RequestBody RegisterData data) {
+        CustomerAccount customerAccount = new CustomerAccount();
         customerAccount.setEmail(data.getEmail());
         customerAccount.setPassword(data.getPassword());
         customerAccountService.create(customerAccount);
 
-        Customer customer = context.getBean(Customer.class);
+        Customer customer = new Customer();
         customer.setName(data.getName());
         customer.setSurname(data.getSurname());
         customer.setMobile(data.getPhone());
@@ -35,13 +35,9 @@ public class RegisterController {
         customerService.create(customer);
 
         if (customer.getId() != null) {
-            return "<h2>" +
-                    "You are successfully registered! Please log in to your account" +
-                    "</h2>";
+            return "embedded/elements/success_reg";
         } else {
-            return "<h2>" +
-                    "Error during registration." +
-                    "</h2>";
+            return "embedded/elements/error_reg";
         }
     }
 }

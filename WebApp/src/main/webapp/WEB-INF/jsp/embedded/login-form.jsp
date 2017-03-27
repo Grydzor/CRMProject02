@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="../../css/sign-in.css">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link rel="stylesheet" href="../../../css/sign-in.css">
 <a class="dropdown-toggle" href="#"><i class="fa fa-user"></i>Аккаунт</a>
 <div class="dropdown-menu" id="loginForm">
     <fieldset class="form-signin form-group">

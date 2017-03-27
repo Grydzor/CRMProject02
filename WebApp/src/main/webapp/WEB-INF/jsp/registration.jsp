@@ -135,7 +135,6 @@
             xhttp.send(JSON.stringify(obj));
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    alert("success");
                     $("#reg-form").hide();
                     document.getElementById("regStatus").innerHTML = this.responseText;
                 }
