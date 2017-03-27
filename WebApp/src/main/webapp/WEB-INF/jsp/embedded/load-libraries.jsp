@@ -14,4 +14,4 @@
 <!-- Main Script -->
 <script src="../../js/main.js"></script>
 
-<script src="../../js/loginHelper.js"></script>
+<script src="../../js/helper.js"></script>

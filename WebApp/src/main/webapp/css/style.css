@@ -695,9 +695,21 @@ input[type="submit"]:hover, button[type=submit]:hover {background-color: #222}
     background: none repeat scroll 0 0 #1abc9c;
     border: medium none;
     color: #fff;
-    padding: 6px 25px;display: inline-block
+    padding: 3px;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
 }
-.add_to_cart_button:hover {background-color: #222;color: #fff;text-decoration: none}
+.add_to_cart_button:hover {
+    background-color: #16a387;
+    color: #fff;
+    text-decoration: none;
+}
+.added_to_cart {
+    width: 40px;
+    height: 40px;
+    padding: 3px;
+}
 form.cart {
     margin-bottom: 25px;
 }

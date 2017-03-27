@@ -67,7 +67,7 @@ public class AccountController {
 
         Item item = new Item(productService.read(Long.parseLong(data.getId())), Integer.parseInt(data.getQty()), order);
         order.getItems().add(item);
-        return "index";
+        return "embedded/elements/inCart";
     }
 
     @RequestMapping(value = "/checkout", method = RequestMethod.POST)
