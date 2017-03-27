@@ -61,19 +61,27 @@
                                 </li>
                                 </c:if>
                                     <%-- Before the previous --%>
-                                    <li><a href="shop?page=${page - 2}">${page - 2}</a></li>
+                                    <c:if test="${page > 2}">
+                                        <li><a href="shop?page=${page - 2}">${page - 2}</a></li>
+                                    </c:if>
                                     <%-- Previous --%>
-                                    <li><a href="shop?page=${page - 1}">${page - 1}</a></li>
+                                    <c:if test="${page > 1}">
+                                        <li><a href="shop?page=${page - 1}">${page - 1}</a></li>
+                                    </c:if>
                                     <%-- Current --%>
-                                    <li><span>${page}</span></li>
+                                    <li><span style="background-color: lightgrey; color: black;">${page}</span></li>
                                     <%-- Next --%>
-                                    <li><a href="shop?page=${page + 1}">${page + 1}</a></li>
-                                    <%-- After the next --%>
-                                    <li><a href="shop?page=${page + 2}">${page + 2}</a></li>
                                     <c:if test="${page < numberOfPages}">
+                                        <li><a href="shop?page=${page + 1}">${page + 1}</a></li>
+                                    </c:if>
+                                    <%-- After the next --%>
+                                    <c:if test="${page + 1 < numberOfPages}">
+                                        <li><a href="shop?page=${page + 2}">${page + 2}</a></li>
+                                    </c:if>
+                                    <c:if test="${page < numberOfPages && (numberOfPages - page != 1 && numberOfPages - page != 2)}">
                                     <li>
                                       <a href="shop?page=${numberOfPages}" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
+                                          <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                                       </a>
                                     </li>
                                 </c:if>
