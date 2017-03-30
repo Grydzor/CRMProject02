@@ -6,6 +6,7 @@ import web.enum_types.Sex;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Table(name = "employees")
 @Entity
 public class Employee implements Serializable {
     @Id

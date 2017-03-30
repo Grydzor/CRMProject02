@@ -4,10 +4,10 @@
 <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
 
 <!-- Bootstrap -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="../../css/bootstrap.min.css">
 
 <!-- Font Awesome -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../../css/font-awesome-4.7.0/css/font-awesome.min.css">
 
 <!-- Custom CSS -->
 <link rel="stylesheet" href="../../css/owl.carousel.css">
@@ -22,4 +22,3 @@
 
 <!-- jQuery -->
 <script src="../../js/jquery.min.js"></script>
-<![endif]-->

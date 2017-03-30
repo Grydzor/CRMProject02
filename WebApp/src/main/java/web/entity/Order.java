@@ -1,8 +1,12 @@
 package web.entity;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 import web.enum_types.OrderStatus;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -11,8 +15,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Table(name = "orders")
 @Entity
-@Table(name = "ORDERS")
 public class Order implements Serializable {
     @Id
     @Column(name = "ORDER_ID")
@@ -27,29 +31,29 @@ public class Order implements Serializable {
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
 
-    @OneToMany
+    @OneToOne
     @JoinColumn(name = "ORDER_ID")
-    private List<Payment> paymentList;
+    private Payment payment;
 
-    @OneToMany
+    @OneToOne
     @JoinColumn(name = "ORDER_ID")
-    private List<Delivery> deliveryList;
+    private Delivery delivery;
 
-    @Column(nullable = false)
     private Date date;
 
     private Date deadline;
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true)
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
     @JoinColumn(name = "ORDER_ID")
     private List<Item> items = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    private BigDecimal summary;
+    private BigDecimal summary = BigDecimal.ZERO;
 
-    private Integer amount;
+    private Integer amount = 0;
 
     @Column(length = 1000)
     private String description;
@@ -57,7 +61,7 @@ public class Order implements Serializable {
     private transient DecimalFormat format = new DecimalFormat("#0.00");
 
     public Order() {
-        this.date = Date.valueOf(LocalDate.now());
+        System.out.println("creating order");
     }
 
     public Order(Employee manager, Customer customer, Date deadline) {
@@ -116,20 +120,20 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public List<Payment> getPaymentList() {
-        return paymentList;
+    public Payment getPayment() {
+        return payment;
     }
 
-    public void setPaymentList(List<Payment> paymentList) {
-        this.paymentList = paymentList;
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
-    public List<Delivery> getDeliveryList() {
-        return deliveryList;
+    public Delivery getDelivery() {
+        return delivery;
     }
 
-    public void setDeliveryList(List<Delivery> deliveryList) {
-        this.deliveryList = deliveryList;
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
     }
 
     public String getDescription() {
@@ -149,14 +153,10 @@ public class Order implements Serializable {
     }
 
     public BigDecimal getSummary() {
-        if (summary != null) return summary;
-
-        updateSummaryAndAmount();
         return summary;
     }
 
     public String getUpdatedSummary() {
-        updateSummaryAndAmount();
         return format.format(summary);
     }
 
@@ -168,27 +168,7 @@ public class Order implements Serializable {
         this.summary = summary;
     }
 
-    // updates summary based on items collection
-    // @return summary
-    private void updateSummaryAndAmount() {
-        BigDecimal summary = BigDecimal.ZERO;
-        Integer amount = 0;
-        if (items == null) items = getItems();
-        for (Item item : items) {
-            summary = summary.add(item.getSumVAT());
-            amount = amount + item.getAmount();
-        }
-        if (!amount.equals(this.amount)) {
-            this.amount = amount;
-        }
-        summary = summary.setScale(2, BigDecimal.ROUND_HALF_UP);
-        if (!summary.equals(this.summary)) {
-            this.summary = summary;
-        }
-    }
-
     public Integer getAmount() {
-        updateSummaryAndAmount();
         return amount;
     }
 
@@ -197,13 +177,19 @@ public class Order implements Serializable {
     }
 
     @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        System.out.println("destroyed!");
+    }
+
+    /*@Override
     public String toString() {
         return "Order{" +
                 "manager='" + manager.shortInfo() + "'" +
                 ", customer='" + customer + "'" +
                 ", date='" + date + "'" +
                 ", status='" + status + "'" +
-                /*", summary='" + summary + "'" +*/
+                ", summary='" + summary + "'" +
                 '}';
-    }
+    }*/
 }

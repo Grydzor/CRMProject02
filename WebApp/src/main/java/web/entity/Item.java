@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
+@Table(name = "items")
 @Entity
 public class Item implements Serializable {
     @Id
@@ -37,10 +38,9 @@ public class Item implements Serializable {
     public Item() {}
 
     public Item(Product product, Integer amount, Order order) {
-        this.product = product;
-        this.price = product.getPrice();
+        setProduct(product);
         this.amount = amount;
-        this.order = order;
+        setOrder(order);
     }
 
     public Long getId() {
@@ -52,24 +52,52 @@ public class Item implements Serializable {
     public Product getProduct() {
         return product;
     }
-    public void setProduct(Product product) {this.product = product;}
+    public void setProduct(Product product) {
+        this.product = product;
+        setPrice(product.getPrice());
+    }
     public BigDecimal getPrice() {
         return price;
     }
     public void setPrice(BigDecimal price) {
-        this.price = price;
+        if (order != null && price != null && amount != null) {
+            order.setSummary(order.getSummary()
+                                .add((price.subtract(this.price))
+                                .multiply(BigDecimal.valueOf(amount))
+                                .multiply(BigDecimal.valueOf(1.2))));
+        }
+        if (price != null) {
+            this.price = price;
+        }
     }
     public Integer getAmount() {
         return amount;
     }
     public void setAmount(Integer amount) {
-        this.amount = amount;
+        if (order != null && price != null && amount != null) {
+            order.setSummary(order.getSummary()
+                                .add(price.multiply(BigDecimal.valueOf(amount - this.amount))
+                                .multiply(BigDecimal.valueOf(1.2))));
+            order.setAmount(order.getAmount() + (amount - this.amount));
+            if (amount == 0) {
+                order.getItems().remove(this);
+            }
+        }
+        if (amount != null) {
+            this.amount = amount;
+        }
     }
     public Order getOrder() {
         return order;
     }
     public void setOrder(Order order) {
         this.order = order;
+        if (order != null && price != null && amount != null) {
+            order.setSummary(order.getSummary()
+                    .add(price.multiply(BigDecimal.valueOf(amount))
+                              .multiply(BigDecimal.valueOf(1.2))));
+            order.setAmount(order.getAmount() + amount);
+        }
     }
 
     public BigDecimal getPriceVAT() {
@@ -82,8 +110,12 @@ public class Item implements Serializable {
         return getPriceVAT().multiply(BigDecimal.valueOf(amount));
     }
 
+    // for jsp displaying
     public String getPriceVATFormat() {
         return decimalFormat.format(getPriceVAT());
+    }
+    public String getSumVATFormat() {
+        return decimalFormat.format(getSumVAT());
     }
 
     @Override

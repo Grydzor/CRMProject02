@@ -1,24 +1,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="../../../css/sign-in.css">
 <a class="dropdown-toggle" href="#"><i class="fa fa-user"></i>Аккаунт</a>
-<div class="dropdown-menu" id="loginForm">
-    <fieldset class="form-signin form-group">
-        <div class="input-group">
-            <input type="email" id="inputEmail" placeholder="Email">
-        </div>
-        <div class="input-group">
-            <input type="password" id="inputPassword" placeholder="Password">
-        </div>
-        <div class="lost-pass">
-            <a href="/recover">Lost your password?</a>
-        </div>
-        <div class="btn-login">
+<div class="dropdown-menu">
+    <div>
+        <p>
+            <input class="input-data" type="email" id="inputEmail" placeholder="Email">
+        </p>
+        <p>
+            <input class="input-data" type="password" id="inputPassword" placeholder="Password">
+        </p>
+        <p class="lost-pass">
+            <a class="login-a" href="/recover">Lost your password?</a>
+        </p>
+        <p class="btn-login">
             <button class="btn-block" type="submit" onclick="logIn()">Sign in</button>
-        </div>
-    </fieldset>
-    <div class="have-acc" style="margin-top: 10px">
-        Don't have an account?
-        <a name="signup" href="/register">Sign up</a>
+        </p>
+    </div>
+    <div class="have-acc">
+        Don't have an account? <a class="login-a" href="/register">Sign up</a>
     </div>
 </div>
 

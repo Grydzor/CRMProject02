@@ -488,12 +488,12 @@ padding: 35px 0 180px;}
 }
 .newsletter-form input[type="submit"] {
     background: none repeat scroll 0 0 #1abc9c;
-    border: medium none;
     color: #fff;
     display: inline-block;
     font-size: 18px;
     padding: 7px 20px;
-    text-transform: uppercase;border: 1px solid #1abc9c;
+    text-transform: uppercase;
+    border: 1px solid #1abc9c;
 }
 .newsletter-form input[type="submit"]:hover {background: #222;border-color: #666}
 .newsletter-form {
@@ -562,12 +562,18 @@ width: 10px;
 
 .product-big-title-area {background: url(../img/crossword.png) repeat scroll 0 0 #1ABC9C}
 
-.product-bit-title h2 {
+.product-big-title h2 {
   font-family: raleway;
   font-size: 50px;
   font-weight: 200;
   margin: 0;
-  padding: 50px 0;color: #fff;
+  padding: 25px 0;color: #fff;
+}
+
+.cart-no-items {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 150%;
 }
 
 .single-product-area .zigzag-bottom {background-color: #333333}
@@ -796,7 +802,7 @@ table.shop_table {
 table.shop_table th, table.shop_table td {
     border-left: 1px solid #ddd;
     border-top: 1px solid #ddd;
-    padding: 15px;
+    padding: 7px;
     text-align: center;
 }
 table.shop_table th {
@@ -806,7 +812,7 @@ table.shop_table th {
 }
 td.product-thumbnail img {
     height: auto;
-    width: 70px;
+    width: 60px;
 }
 td.product-name {
     font-size: 18px;
@@ -898,16 +904,13 @@ div.cart-collaterals ul.products li.product .price ins {
     text-decoration: none;
 }
 
-
-
-.woocommerce-info {
+.acc-info {
     background: none repeat scroll 0 0 #f4f4f4;
     font-size: 18px;
     margin-bottom: 20px;
     padding: 15px;
 }
 .col2-set {
-    margin-left: -30px;
     overflow: hidden;
 }
 .col-1, .col-2 {
@@ -934,6 +937,11 @@ div.cart-collaterals ul.products li.product .price ins {
     padding: 15px;
 }
 #order_review_heading {
+    color: #1abc9c;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+#payment_details {
     color: #1abc9c;
     font-size: 20px;
     text-transform: uppercase;
@@ -983,25 +991,22 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
 }
 
 
-#login-form-wrap, #coupon-collapse-wrap {
+#login-form-wrap, #signup-form-wrap {
     background: none repeat scroll 0 0 #f4f4f4;
-    margin-bottom: 30px;
-    padding: 25px;
+    padding: 0;
+    font-size: 14px;
+}
+.inner-form {
+    padding-top: 20px;
+    max-width: 350px;
+}
+.inner-form input {
+    width: 350px;
 }
 #login-form-wrap label {
     display: block;
     margin-bottom: 5px;
 }
-#login-form-wrap input[type="text"], #login-form-wrap input[type="password"] {
-    margin-bottom: 10px;
-    width: 250px;
-}
-#login-form-wrap input[type="submit"] {
-    margin-bottom: 15px;
-}
-
-
-
 .single-shop-product h2 {
     font-size: 20px;
     margin: 10px 0;

@@ -19,11 +19,11 @@ public class ProductsLoaderController {
 
     @RequestMapping(value = "/shop", method = RequestMethod.GET)
     public String loadProducts(@RequestParam(value = "page", required = false) Integer page,
-                               @RequestParam(value = "by", required = false) String order,
+                               @RequestParam(value = "by", required = false) String by,
                                @RequestParam(value = "asc", required = false) String asc,
                                Model model) {
         if (page == null) page = 1;
-        if (order == null) order = "id";
+        if (by == null) by = "id";
         if (asc == null) asc = "yes";
 
         int productsPerPage = 12;
@@ -34,25 +34,25 @@ public class ProductsLoaderController {
 
         if (page < 1 || page > numberOfPages) return "page404";
 
-        List<Product> products = service.findInRange((page - 1) * productsPerPage, productsPerPage, order, "yes".equals(asc));
+        List<Product> products = service.findInRange((page - 1) * productsPerPage, productsPerPage, by, "yes".equals(asc));
         model.addAttribute("products", products);
         model.addAttribute("page", page);
         model.addAttribute("numberOfPages", numberOfPages);
 
         String filter = "";
-        if ("id".equals(order) && "yes".equals(asc)) {
+        if ("id".equals(by) && "yes".equals(asc)) {
             filter = "newest";
         }
-        if ("price".equals(order) && "yes".equals(asc)) {
+        if ("price".equals(by) && "yes".equals(asc)) {
             filter = "cheap first";
         }
-        if ("price".equals(order) && "no".equals(asc)) {
+        if ("price".equals(by) && "no".equals(asc)) {
             filter = "expensive first";
         }
-        if ("name".equals(order) && "yes".equals(asc)) {
+        if ("name".equals(by) && "yes".equals(asc)) {
             filter = "alphabet";
         }
-        if ("name".equals(order) && "no".equals(asc)) {
+        if ("name".equals(by) && "no".equals(asc)) {
             filter = "alphabet desc";
         }
         model.addAttribute("filter", filter);

@@ -1,6 +1,5 @@
 package web.entity;
 
-import javafx.beans.property.SimpleStringProperty;
 import web.enum_types.Capacity;
 import web.enum_types.Color;
 
@@ -10,6 +9,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.List;
 
+@Table(name = "products")
 @Entity
 public class Product implements Serializable {
     @Id

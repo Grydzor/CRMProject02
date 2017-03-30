@@ -7,12 +7,16 @@
     <display-name>WebApp</display-name>
 
     <error-page>
+        <error-code>400</error-code>
+        <location>/WEB-INF/jsp/page400.jsp</location>
+    </error-page>
+    <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/jsp/page404.jsp</location>
     </error-page>
     <error-page>
-        <error-code>400</error-code>
-        <location>/WEB-INF/jsp/page400.jsp</location>
+        <error-code>405</error-code>
+        <location>/WEB-INF/jsp/page405.jsp</location>
     </error-page>
 
     <context-param>
@@ -21,22 +25,19 @@
             /WEB-INF/spring/context-web.xml
         </param-value>
     </context-param>
+
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
     <servlet>
-        <servlet-name>mvc-dispatcher</servlet-name>
+        <servlet-name>spring/mvc-dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <init-param>
-            <param-name>contextConfigLocation</param-name>
-            <param-value>/WEB-INF/spring/context-web.xml</param-value>
-        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>mvc-dispatcher</servlet-name>
+        <servlet-name>spring/mvc-dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 </web-app>

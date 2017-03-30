@@ -4,7 +4,6 @@ import web.enum_types.PaymentType;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -18,8 +17,6 @@ public class Payment implements Serializable {
     @Enumerated(EnumType.STRING)
     private PaymentType paymentType;
 
-    private BigDecimal amount;
-
     private Date date;
 
     @ManyToOne
@@ -29,12 +26,10 @@ public class Payment implements Serializable {
     @Column(length = 1000)
     private String description;
 
-    public Payment() {
-    }
+    public Payment() {}
 
-    public Payment(PaymentType paymentType, BigDecimal amount, Order order) {
+    public Payment(PaymentType paymentType, Order order) {
         this.paymentType = paymentType;
-        this.amount = amount;
         this.date = Date.valueOf(LocalDate.now());
         this.order = order;
     }
@@ -53,14 +48,6 @@ public class Payment implements Serializable {
 
     public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
     }
 
     public Date getDate() {

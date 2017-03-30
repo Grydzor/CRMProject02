@@ -90,3 +90,66 @@ $('body').on('click', function (e) {
         $('li.dropdown').removeClass('open');
     }
 });
+
+$(document).ready(function() {
+    $(".number").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+            // Allow: Ctrl/cmd+A
+            (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+            // Allow: Ctrl/cmd+C
+            (e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+            // Allow: Ctrl/cmd+X
+            (e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+            // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+            // let it happen, don't do anything
+            return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });
+});
+
+function checkout() {
+    document.location.href = "checkout";
+}
+
+function submitOrder() {
+    var $name = $("#deliveryName");
+    var $phone = $("#deliveryPhone");
+    var $city = $("#deliveryCity");
+    var $street = $("#deliveryStreet");
+    var $houseNumber = $("#deliveryHouseNumber");
+    var $email = $("#regEmail");
+    var $password = $("#regPassword");
+    var $confirmPassword = $("#regConfirmPassword");
+
+    if ($name.val() != "" && $phone.val() != "") {
+        var data = {
+            "name":$name.val(),
+            "phone":$phone.val(),
+            "city":$city.val(),
+            "street":$street.val(),
+            "houseNumber":$houseNumber.val(),
+            "email":$email.val(),
+            "password":$password.val(),
+            "confirmPassword":$confirmPassword.val()
+        };
+        $.ajax({
+            type: "POST",
+            url: "http://" + window.location.host + "/submitorder",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(data),
+            timeout: 100000,
+            success: function(data) {
+                document.getElementById("order-form").innerHTML = data;
+            },
+            error: function() {
+                alert("error")
+            }
+        });
+    }
+}

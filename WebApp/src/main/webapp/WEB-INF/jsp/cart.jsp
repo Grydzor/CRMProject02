@@ -12,88 +12,103 @@
   <body>
 
     <%@include file="embedded/menu.jsp"%>
-    
     <div class="product-big-title-area">
-        <div class="container">
+        <%--<div class="container">--%>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="product-bit-title text-center">
+                    <div class="product-big-title text-center">
                         <h2>Корзина</h2>
                     </div>
                 </div>
-            </div>
+            <%--</div>--%>
         </div>
     </div> <!-- End Page title area -->
 
+    <c:choose>
+    <c:when test="${order != null && fn:length(order.items) > 0}">
     <div class="single-product-area">
         <div class="zigzag-bottom"></div>
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="product-content-right">
-                        <div class="woocommerce">
-                            <form method="post" action="#">
-                                <table cellspacing="0" class="shop_table cart">
-                                    <thead>
-                                        <tr>
-                                            <th class="product-remove">&nbsp;</th>
-                                            <th class="product-thumbnail">&nbsp;</th>
-                                            <th class="product-name">Товар</th>
-                                            <th class="product-price">Цена</th>
-                                            <th class="product-quantity">Количество</th>
-                                            <th class="product-subtotal">Итого</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="cart_item">
-                                            <td class="product-remove">
-                                                <a title="Remove this item" class="remove" href="#">×</a> 
-                                            </td>
+                                    <fieldset>
+                                        <table cellspacing="0" class="shop_table cart">
+                                            <thead>
+                                                <tr>
+                                                    <th class="product-remove">&nbsp;</th>
+                                                    <th class="product-thumbnail">&nbsp;</th>
+                                                    <th class="product-name">Товар</th>
+                                                    <th class="product-price">Цена</th>
+                                                    <th class="product-quantity">Количество</th>
+                                                    <th class="product-subtotal">Итого</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <%-- Start cart item --%>
+                                                <c:forEach items="${order.items}" var="item">
+                                                    <tr class="cart_item">
+                                                        <td class="product-remove">
+                                                            <a title="Remove this item" class="remove" href="#">×</a>
+                                                        </td>
 
-                                            <td class="product-thumbnail">
-                                                <a href="single-product"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="img/product-thumb-2.jpg"></a>
-                                            </td>
+                                                        <td class="product-thumbnail">
+                                                            <a href="single-product"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="../..${item.product.pictureList[0].imageLink}"></a>
+                                                        </td>
 
-                                            <td class="product-name">
-                                                <a href="single-product">Пробный товар</a>
-                                            </td>
+                                                        <td class="product-name">
+                                                            <a href="single-product">${item.product.name} ${item.product.capacity.string} ${item.product.color.string}</a>
+                                                        </td>
 
-                                            <td class="product-price">
-                                                <span class="amount">£15.00</span> 
-                                            </td>
+                                                        <td class="product-price">
+                                                            <span class="amount">${item.product.priceVATFormat} грн.</span>
+                                                        </td>
 
-                                            <td class="product-quantity">
-                                                <div class="quantity buttons_added">
-                                                    <input type="button" class="minus" value="-">
-                                                    <input type="number" size="4" class="input-text qty text" title="Qty" value="1" min="0" step="1">
-                                                    <input type="button" class="plus" value="+">
-                                                </div>
-                                            </td>
+                                                        <td class="product-quantity">
+                                                            <div class="quantity buttons_added">
+                                                                <input id="minus" type="button" class="minus" value="-">
+                                                                <input type="text" class="number" size="2" title="Qty" value="1" style="text-align: center">
+                                                                <input id="plus" type="button" class="plus" value="+">
+                                                            </div>
+                                                        </td>
 
-                                            <td class="product-subtotal">
-                                                <span class="amount">£15.00</span> 
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="actions" colspan="6">
-                                                <div class="coupon">
-                                                    <label for="coupon_code">Скидка:</label>
-                                                    <input type="text" placeholder="Скидка" value="" id="coupon_code" class="input-text" name="coupon_code">
-                                                    <input type="submit" value="Применить скидку" name="apply_coupon" class="button">
-                                                </div>
-                                                <input type="submit" value="Обновить" name="update_cart" class="button">
-                                                <input type="submit" value="К доставке" name="proceed" class="checkout-button button alt wc-forward">
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </form>
-                        </div>                        
+                                                        <td class="product-subtotal">
+                                                            <span class="amount">${item.sumVATFormat} грн.</span>
+                                                        </td>
+                                                    </tr>
+                                                </c:forEach>
+                                                <%-- End cart item --%>
+                                                <tr>
+                                                    <td colspan="4" style="text-align: right">
+                                                        Всего:
+                                                    </td>
+                                                    <td>
+                                                        <b>${order.amount}</b>
+                                                    </td>
+                                                    <td>
+                                                        <b>${order.summary} грн.</b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="6">
+                                                        <button type="submit" onclick="checkout()">Оформить</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </fieldset>
                     </div>                    
                 </div>
             </div>
         </div>
     </div>
+    </c:when>
+        <c:otherwise>
+            <div class="cart-no-items">
+                В корзине нет товаров.
+            </div>
+        </c:otherwise>
+    </c:choose>
 
     <%@include file="embedded/footer.jsp"%>
     <%@include file="embedded/load-libraries.jsp"%>

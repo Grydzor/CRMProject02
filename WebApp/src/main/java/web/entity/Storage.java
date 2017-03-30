@@ -1,12 +1,11 @@
 package web.entity;
 
-import javafx.beans.property.SimpleStringProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 
+@Table(name = "storage")
 @Entity
 public class Storage implements Serializable {
     @Id

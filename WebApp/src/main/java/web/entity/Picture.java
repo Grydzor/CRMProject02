@@ -3,6 +3,7 @@ package web.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Table(name = "pictures")
 @Entity
 public class Picture implements Serializable {
 
@@ -18,8 +19,7 @@ public class Picture implements Serializable {
     @Column(name = "IMAGE")
     private String imageLink;
 
-    public Picture() {
-    }
+    public Picture() {}
 
     public Picture(Product product, String imageLink) {
         this.product = product;

@@ -33,10 +33,19 @@
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
-
-        <property name="packagesToScan">
+        <property name="annotatedClasses">
             <list>
-                <value>web.entity</value>
+                <value>web.entity.Customer</value>
+                <value>web.entity.CustomerAccount</value>
+                <value>web.entity.Delivery</value>
+                <value>web.entity.Employee</value>
+                <value>web.entity.Item</value>
+                <value>web.entity.Order</value>
+                <value>web.entity.Payment</value>
+                <value>web.entity.Picture</value>
+                <value>web.entity.Product</value>
+                <value>web.entity.Storage</value>
+                <value>web.entity.User</value>
             </list>
         </property>
     </bean>

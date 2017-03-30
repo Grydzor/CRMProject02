@@ -3,6 +3,7 @@ package web.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Table(name = "customer_accounts")
 @Entity
 public class CustomerAccount implements Serializable {
     @Id

@@ -11,7 +11,12 @@
     opacity: 0;
     padding: 0;
 
-    min-width: 200px;
+    min-width: 300px;
+}
+.login-a {
+    display: inline !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
 }
 
 .dropdown.open .dropdown-menu {
@@ -31,4 +36,8 @@
 
 .btn-login {
     text-align: center;
+}
+
+.input-data {
+    width: 100%;
 }

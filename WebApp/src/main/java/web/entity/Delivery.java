@@ -28,8 +28,7 @@ public class Delivery implements Serializable {
     @Column(length = 1000)
     private String description;
 
-    public Delivery() {
-    }
+    public Delivery() {}
 
     public Delivery(String address, DeliveryType deliveryType, Date date, Order order) {
         this.address = address;

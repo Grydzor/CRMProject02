@@ -56,7 +56,7 @@
 
             <div class="col-sm-6">
                 <div class="shopping-item">
-                    <a href="cart">Корзина - <span id="summary" class="cart-amount">${order != null ? order.updatedSummary : 0} грн.</span> <i class="fa fa-shopping-cart"></i> <span class="product-count" id="amount">${fn:length(order.items)}</span></a>
+                    <a href="cart">Корзина - <span id="summary" class="cart-amount">${order != null ? order.summaryFormat : 0} грн.</span> <i class="fa fa-shopping-cart"></i> <span class="product-count" id="amount">${order.amount}</span></a>
                 </div>
             </div>
         </div>

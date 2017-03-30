@@ -5,10 +5,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import web.entity.Product;
-import web.service.ProductService;
-
-import java.util.List;
 
 @Controller
 public class IndexController {
@@ -16,7 +12,8 @@ public class IndexController {
     private ApplicationContext context;
 
     @RequestMapping(value = {"/", "/index"}, method = {RequestMethod.GET, RequestMethod.HEAD})
-    public String index() {
+    public String index(Model model) {
+        System.out.println(model.asMap());
         return "index";
     }
 
